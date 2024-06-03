@@ -17,7 +17,9 @@ const SingleProductList = ({
     openQuickView,
 }) => {
     // console.log(product);
-
+    let today = new Date();
+    const [deliveryDate, setDeliveryDate] = useState(today);
+    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
     const handleCart = (product) => {
         addToCart(product);
         toast.success("Add to Cart !",{
@@ -159,7 +161,7 @@ const SingleProductList = ({
                             <a
                                 aria-label="Add To Cart"
                                 className="action-btn hover-up"
-                                onClick={(e) => handleCart(product)}
+                                onClick={(e) => handleCart({...product, deliveryDate, returnByDate})}
                             >
                                 <i className="fi-rs-shopping-bag-add"></i>
                                 Add to Cart

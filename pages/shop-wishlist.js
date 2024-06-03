@@ -180,7 +180,7 @@ const Wishlist = ({
                                                     </Link>
                                                 </h5>
                                                 <p className="font-xs">
-                                                    <span>Size:</span> {item.size}
+                                                    <span className="text-capitalize">Size:</span> {item.size || item.sizes}
                                                 </p>
                                                 <p className="font-xs">
                                                     <span>SKU:</span> KLJLKJKKL
