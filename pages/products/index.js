@@ -8,6 +8,7 @@ import PriceRangeSlider from "../../components/ecommerce/PriceRangeSlider";
 import QuickView from "../../components/ecommerce/QuickView";
 import ShowSelect from "../../components/ecommerce/ShowSelect";
 import SingleProduct from "../../components/ecommerce/SingleProduct";
+import SingleProductList from "../../components/ecommerce/SingleProductList";
 import SizeFilter from "../../components/ecommerce/SizeFilter";
 import SortSelect from "../../components/ecommerce/SortSelect";
 import WishlistModal from "../../components/ecommerce/WishlistModal";
@@ -20,9 +21,9 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
     let Router = useRouter(),
         searchTerm = Router.query.search,
-        showLimit = 12,
+        showLimit = 20,
         showPagination = 4;
-
+    const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
@@ -68,6 +69,9 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setCurrentPage(1);
         setPages(Math.ceil(products.items.length / Number(e.target.value)));
     };
+    const handleLayout = () => {
+        setListLayout(!listLayout);
+    }
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Products">
@@ -219,14 +223,17 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         </p>
                                     </div>
                                     <div className="sort-by-product-area">
-                                        <div className="sort-by-cover mr-10">
-                                            <ShowSelect
-                                                selectChange={selectChange}
-                                                showLimit={showLimit}
-                                            />
-                                        </div>
                                         <div className="sort-by-cover">
                                             <SortSelect />
+                                        </div>
+                                        <div className="sort-by-cover flex">
+                                            <div className="sort-by-product-wrap">
+                                                <div className="sort-by" onClick={handleLayout}>
+                                                    <span>
+                                                        {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -235,15 +242,21 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         <h3>No Products Found </h3>
                                     )}
 
-                                    {getPaginatedProducts.map((item, i) => (
-                                        <div
-                                            className="col-lg-4 col-md-4 col-12 col-sm-6"
+                                    {getPaginatedProducts.map((item, i) => {
+                                        if(listLayout){
+                                            return<div className=""
                                             key={i}
                                         >
+                                            <SingleProductList product={item}/>
+                                        </div>                                        
+                                        }else{
+                                            return <div className="col-lg-4 col-md-4 col-12 col-sm-6"
+                                            key={i}
+                                            >
                                             <SingleProduct product={item} />
-                                            {/* <SingleProductList product={item}/> */}
                                         </div>
-                                    ))}
+                                        }
+                                    })}
                                 </div>
 
                                 <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">

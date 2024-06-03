@@ -32,11 +32,11 @@ const ProductTab = () => {
                                     ? "nav-link active"
                                     : "nav-link"
                             }
-                            id="Additional-info-tab"
+                            id="Features-tab"
                             data-bs-toggle="tab"
                             onClick={() => handleOnClick(2)}
                         >
-                            Additional info
+                            Features
                         </a>
                     </li>
                     <li className="nav-item">
@@ -46,11 +46,11 @@ const ProductTab = () => {
                                     ? "nav-link active"
                                     : "nav-link"
                             }
-                            id="Reviews-tab"
+                            id="Terms-n-conditions-tab"
                             data-bs-toggle="tab"
                             onClick={() => handleOnClick(3)}
                         >
-                            Reviews (3)
+                            Terms & Conditions
                         </a>
                     </li>
                 </ul>
@@ -144,7 +144,7 @@ const ProductTab = () => {
                                 ? "tab-pane fade show active"
                                 : "tab-pane fade"
                         }
-                        id="Additional-info"
+                        id="Features"
                     >
                         <table className="font-md">
                             <tbody>
@@ -244,9 +244,48 @@ const ProductTab = () => {
                                 ? "tab-pane fade show active"
                                 : "tab-pane fade"
                         }
-                        id="Reviews"
+                        id="Terms-n-conditions"
                     >
-                        <div className="comments-area">
+                        <div className="">
+                            <hr className="wp-block-separator is-style-dots" />
+                            <p>
+                                Laconic overheard dear woodchuck wow this
+                                outrageously taut beaver hey hello far
+                                meadowlark imitatively egregiously hugged that
+                                yikes minimally unanimous pouted flirtatiously
+                                as beaver beheld above forward energetic across
+                                this jeepers beneficently cockily less a the
+                                raucously that magic upheld far so the this
+                                where crud then below after jeez enchanting
+                                drunkenly more much wow callously irrespective
+                                limpet.
+                            </p>
+                            <h4 className="mt-30">Terms & Conditions</h4>
+                            <hr className="wp-block-separator is-style-wide" />
+                            <p>
+                                Less lion goodness that euphemistically robin
+                                expeditiously bluebird smugly scratched far
+                                while thus cackled sheepishly rigid after due
+                                one assenting regarding censorious while
+                                occasional or this more crane went more as this
+                                less much amid overhung anathematic because much
+                                held one exuberantly sheep goodness so where rat
+                                wry well concomitantly.
+                            </p>
+                            <p>
+                                Scallop or far crud plain remarkably far by thus
+                                far iguana lewd precociously and and less
+                                rattlesnake contrary caustic wow this near alas
+                                and next and pled the yikes articulate about as
+                                less cackled dalmatian in much less well jeering
+                                for the thanks blindly sentimental whimpered
+                                less across objectively fanciful grimaced wildly
+                                some wow and rose jeepers outgrew lugubrious
+                                luridly irrationally attractively dachshund.
+                            </p>
+                        </div>
+                        {/* Comment section backup */}
+                        {/* <div className="comments-area">
                             <div className="row">
                                 <div className="col-lg-8">
                                     <h4 className="mb-30">
@@ -564,7 +603,7 @@ const ProductTab = () => {
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

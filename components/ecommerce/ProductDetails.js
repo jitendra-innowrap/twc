@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import {
     addToCart,
     decreaseQuantity,
@@ -12,6 +12,11 @@ import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { setRequestMeta } from "next/dist/server/request-meta";
+import ReactImageMagnify from "react-image-magnify";
+
 
 const ProductDetails = ({
     product,
@@ -23,23 +28,74 @@ const ProductDetails = ({
     decreaseQuantity,
     quickView,
 }) => {
+    let productSizes = ['M', 'L', 'XL', 'XXL'];
     const [quantity, setQuantity] = useState(1);
-
+    const [deliveryDate, setDeliveryDate] = useState(new Date());
+    const [returnByDate, setReturnByDate] = useState(new Date());
+    const [color, setColor] = useState(product.variations[0]);
+    const [size, setSize] = useState("M");
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+      <button className="custom-date-input" onClick={onClick} ref={ref}>
+        {value}
+      </button>
+    ));
+    const handleDeliveryDateChange = (date) => {
+        setDeliveryDate(date);
+        setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
+      };
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !");
+        toast.success("Add to Cart !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     const handleCompare = (product) => {
         addToCompare(product);
-        toast.success("Add to Compare !");
+        toast.success("Add to Compare !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !");
+        toast.success("Add to Wishlist !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
+    const handleQuantity = (type)=> {
+        if (type === "add") {
+            setQuantity(quantity + 1);
+          } else if (type === "remove" && quantity > 1) {
+            setQuantity(quantity - 1);
+          }
+    }
+    
     const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
 
     console.log(inCart);
@@ -54,9 +110,6 @@ const ProductDetails = ({
                                 <div className="row mb-50">
                                     <div className="col-md-6 col-sm-12 col-xs-12">
                                         <div className="detail-gallery">
-                                            <span className="zoom-icon">
-                                                <i className="fi-rs-search"></i>
-                                            </span>
 
                                             <div className="product-image-slider">
                                                 <ThumbSlider
@@ -80,10 +133,10 @@ const ProductDetails = ({
                                                         />
                                                     </a>
                                                 </li>
-                                                <li className="social-twitter">
+                                                <li className="social-x">
                                                     <a href="#">
                                                         <img
-                                                            src="/assets/imgs/theme/icons/icon-twitter.svg"
+                                                            src="/assets/imgs/theme/icons/icon-x.svg"
                                                             alt=""
                                                         />
                                                     </a>
@@ -96,71 +149,51 @@ const ProductDetails = ({
                                                         />
                                                     </a>
                                                 </li>
-                                                <li className="social-linkedin">
-                                                    <a href="#">
-                                                        <img
-                                                            src="/assets/imgs/theme/icons/icon-pinterest.svg"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className="col-md-6 col-sm-12 col-xs-12">
+                                    {
+                                        product?.type ==="purchase"?
+                                        <div className="col-md-6 col-sm-12 col-xs-12">
                                         <div className="detail-info">
                                             <h2 className="title-detail">
-                                                {product.title}
+                                                {product?.title}
                                             </h2>
                                             <div className="product-detail-rating">
                                                 <div className="pro-details-brand">
                                                     <span>
-                                                        Brands:
+                                                        Category: &nbsp;
                                                         <Link href="/products">
                                                             <a>
-                                                                {product.brand}
+                                                                {product?.category}
                                                             </a>
                                                         </Link>
-                                                    </span>
-                                                </div>
-                                                <div className="product-rate-cover text-end">
-                                                    <div className="product-rate d-inline-block">
-                                                        <div
-                                                            className="product-rating"
-                                                            style={{
-                                                                width: "90%",
-                                                            }}
-                                                        ></div>
-                                                    </div>
-                                                    <span className="font-small ml-5 text-muted">
-                                                        (25 reviews)
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
-                                                    <ins>
+                                                    {product?.price && 
+                                                    <ins>Price: &nbsp;
                                                         <span className="text-brand">
-                                                            ${product.price}
+                                                            ₹{product.price}
                                                         </span>
                                                     </ins>
-                                                    <ins>
+                                                    }
+                                                    {product?.oldPrice &&<ins>
                                                         <span className="old-price font-md ml-15">
-                                                            ${product.oldPrice}
+                                                         ₹{product.oldPrice}
                                                         </span>
                                                     </ins>
-                                                    <span className="save-price  font-md color3 ml-15">
-                                                        {
-                                                            product.discount
-                                                                .percentage
-                                                        }
-                                                        % Off
+                                                    }
+                                                    <span className="save-price  font-md color3 ml-5">
+                                                        MRP
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className="bt-1 border-color-1 mt-15 mb-15"></div>
                                             <div className="short-desc mb-30">
-                                                <p>{product.desc}</p>
+                                                <p>{product?.desc}</p>
                                             </div>
                                             <div className="product_sort_info font-xs mb-30">
                                                 <ul>
@@ -188,9 +221,13 @@ const ProductDetails = ({
                                                     {product.variations.map(
                                                         (clr, i) => (
                                                             <li key={i}>
-                                                                <a href="#">
+                                                                <a href="#" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setColor(clr);
+                                                                }}>
                                                                     <span
                                                                         className={`product-color-${clr}`}
+                                                                        style={{border:`${color===clr? '2px solid #088178':'1px solid gray'}`}}
                                                                     ></span>
                                                                 </a>
                                                             </li>
@@ -198,74 +235,47 @@ const ProductDetails = ({
                                                     )}
                                                 </ul>
                                             </div>
-                                            <div className="attr-detail attr-size">
+                                            <div className="attr-detail attr-size mb-15">
                                                 <strong className="mr-10">
                                                     Size
                                                 </strong>
                                                 <ul className="list-filter size-filter font-small">
-                                                    {/* {product.sizes.map(
-                                                        (size, i) => (
-                                                            <li>
-                                                                <a href="#">
-                                                                    {size}
+                                                    {productSizes.map(
+                                                        (s, i) => (
+                                                            <li className={s===size?'active':''}>
+                                                                <a href="#" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setSize(s);
+                                                                }}>
+                                                                    {s}
                                                                 </a>
                                                             </li>
                                                         )
-                                                    )} */}
-
-                                                    <li className="active">
-                                                        <a>M</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>L</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>XL</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>XXL</a>
-                                                    </li>
+                                                    )}
                                                 </ul>
+                                            </div>
+                                            <div className="attr-detail attr-date">
+                                                <strong className="">
+                                                    Event Date 
+                                                </strong>
+                                                <ReactDatePicker
+                                                    selected={deliveryDate}
+                                                    onChange={(date) => handleDeliveryDateChange(date)}
+                                                    customInput={<ExampleCustomInput />}
+                                                    minDate={new Date()}
+                                                />
                                             </div>
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                                             <div className="detail-extralink">
                                                 <div className="detail-qty border radius">
-                                                    <a
-                                                        onClick={(e) =>
-                                                            !inCart
-                                                                ? setQuantity(
-                                                                      quantity >
-                                                                          1
-                                                                          ? quantity -
-                                                                                1
-                                                                          : 1
-                                                                  )
-                                                                : decreaseQuantity(
-                                                                      product?.id
-                                                                  )
-                                                        }
-                                                        className="qty-down"
-                                                    >
-                                                        <i className="fi-rs-angle-small-down"></i>
+                                                    <a onClick={()=>{handleQuantity("remove")}} className="qty-down" >
+                                                        <i className="fi-rs-minus-small"></i>
                                                     </a>
                                                     <span className="qty-val">
-                                                        {inCart?.quantity ||
-                                                            quantity}
+                                                        {quantity}
                                                     </span>
-                                                    <a
-                                                        onClick={() =>
-                                                            !inCart
-                                                                ? setQuantity(
-                                                                      quantity +
-                                                                          1
-                                                                  )
-                                                                : increaseQuantity(
-                                                                      product.id
-                                                                  )
-                                                        }
-                                                        className="qty-up"
-                                                    >
-                                                        <i className="fi-rs-angle-small-up"></i>
+                                                    <a onClick={()=>{handleQuantity("add")}} className="qty-up" >
+                                                        <i className="fi-rs-plus-small"></i>
                                                     </a>
                                                 </div>
                                                 <div className="product-extra-link2">
@@ -273,9 +283,11 @@ const ProductDetails = ({
                                                         onClick={(e) =>
                                                             handleCart({
                                                                 ...product,
-                                                                quantity:
-                                                                    quantity ||
-                                                                    1,
+                                                                quantity:quantity ||1,
+                                                                color,
+                                                                size:size,
+                                                                deliveryDate: deliveryDate,
+                                                                returnByDate: returnByDate,
                                                             })
                                                         }
                                                         className="button button-add-to-cart"
@@ -287,13 +299,20 @@ const ProductDetails = ({
                                                         className="action-btn hover-up"
                                                         onClick={(e) =>
                                                             handleWishlist(
-                                                                product
+                                                                {
+                                                                    ...product,
+                                                                    quantity:quantity || 1,
+                                                                    color: color,
+                                                                    size:size,
+                                                                    deliveryDate: deliveryDate,
+                                                                    returnByDate: returnByDate,
+                                                                }
                                                             )
                                                         }
                                                     >
                                                         <i className="fi-rs-heart"></i>
                                                     </a>
-                                                    <a
+                                                    {/* <a
                                                         aria-label="Compare"
                                                         className="action-btn hover-up"
                                                         onClick={(e) =>
@@ -303,7 +322,7 @@ const ProductDetails = ({
                                                         }
                                                     >
                                                         <i className="fi-rs-shuffle"></i>
-                                                    </a>
+                                                    </a> */}
                                                 </div>
                                             </div>
                                             <ul className="product-meta font-xs color-grey mt-50">
@@ -321,16 +340,216 @@ const ProductDetails = ({
                                                         Cloth,
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    Availability:
-                                                    <span className="in-stock text-success ml-5">
-                                                        {product.stock} Items In
-                                                        Stock
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="col-md-6 col-sm-12 col-xs-12">
+                                        <div className="detail-info">
+                                            <h2 className="title-detail">
+                                                {product?.title}
+                                            </h2>
+                                            <div className="product-detail-rating">
+                                                <div className="pro-details-brand">
+                                                    <span>
+                                                        Category: &nbsp;
+                                                        <Link href="/products">
+                                                            <a>
+                                                                {product?.category}
+                                                            </a>
+                                                        </Link>
                                                     </span>
+                                                </div>
+                                            </div>
+                                            <div className="clearfix product-price-cover">
+                                            <div className="product-price primary-color float-left">
+                                                    {product?.price && 
+                                                    <ins>Rent: &nbsp;
+                                                        <span className="text-brand">
+                                                            ₹{product.price}
+                                                        </span>
+                                                    </ins>
+                                                    }
+                                                    {product?.oldPrice &&<ins>
+                                                        <span className="old-price font-md ml-15">
+                                                         ₹{product.oldPrice}
+                                                        </span>
+                                                    </ins>
+                                                    }
+                                                    {product?.discount?.percentage &&<span className="save-price  font-md color3 ml-5">
+                                                        MRP
+                                                    </span>}
+                                                </div>
+                                            </div>
+                                            <div className="clearfix product-price-cover">
+                                                <div className="product-price primary-color float-left">
+                                                    {product?.discount?.percentage &&<span className="save-price  font-md color3">
+                                                    Refundable Deposit: &nbsp; ₹{product.price}
+                                                    </span>}
+                                                </div>
+                                            </div>
+                                            <div className="bt-1 border-color-1 mt-15 mb-15"></div>
+                                            <div className="short-desc mb-30">
+                                                <p>{product?.desc}</p>
+                                            </div>
+                                            <div className="product_sort_info font-xs mb-30">
+                                                <ul>
+                                                    <li className="mb-10">
+                                                        <i className="fi-rs-crown mr-5"></i>
+                                                        1 Year AL Jazeera Brand
+                                                        Warranty
+                                                    </li>
+                                                    <li className="mb-10">
+                                                        <i className="fi-rs-refresh mr-5"></i>
+                                                        30 Day Return Policy
+                                                    </li>
+                                                    <li>
+                                                        <i className="fi-rs-credit-card mr-5"></i>
+                                                        Cash on Delivery
+                                                        available
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div className="attr-detail attr-color mb-15">
+                                                <strong className="mr-10">
+                                                    Color
+                                                </strong>
+                                                <ul className="list-filter color-filter">
+                                                    {product.variations.map(
+                                                        (clr, i) => (
+                                                            <li key={i}>
+                                                                <a href="#" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setColor(clr);
+                                                                }}>
+                                                                    <span
+                                                                        className={`product-color-${clr}`}
+                                                                        style={{border:`${color===clr? '2px solid #088178':'1px solid gray'}`}}
+                                                                    ></span>
+                                                                </a>
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            </div>
+                                            <div className="attr-detail attr-size mb-15">
+                                                <strong className="mr-10">
+                                                    Size
+                                                </strong>
+                                                <ul className="list-filter size-filter font-small">
+                                                    {productSizes.map(
+                                                        (s, i) => (
+                                                            <li className={s===size?'active':''}>
+                                                                <a href="#" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setSize(s);
+                                                                }}>
+                                                                    {s}
+                                                                </a>
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            </div>
+                                            <div className="attr-detail attr-date">
+                                                <strong className="">
+                                                    Delivery Date 
+                                                </strong>
+                                                <ReactDatePicker
+                                                    selected={deliveryDate}
+                                                    onChange={(date) => handleDeliveryDateChange(date)}
+                                                    customInput={<ExampleCustomInput />}
+                                                    minDate={new Date()}
+                                                />
+                                                <strong className="">
+                                                    Return By 
+                                                </strong>
+                                                <ReactDatePicker
+                                                    selected={returnByDate}
+                                                    onChange={(date) => setReturnByDate(date)}
+                                                    customInput={<ExampleCustomInput />}
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="bt-1 border-color-1 mt-30 mb-30"></div>
+                                            <div className="detail-extralink">
+                                                {/* <div className="detail-qty border radius">
+                                                    <a onClick={()=>{handleQuantity("remove")}} className="qty-down" >
+                                                        <i className="fi-rs-minus-small"></i>
+                                                    </a>
+                                                    <span className="qty-val">
+                                                        {quantity}
+                                                    </span>
+                                                    <a onClick={()=>{handleQuantity("add")}} className="qty-up" >
+                                                        <i className="fi-rs-plus-small"></i>
+                                                    </a>
+                                                </div> */}
+                                                <div className="product-extra-link2">
+                                                    <button
+                                                        onClick={(e) =>
+                                                            handleCart({
+                                                                ...product,
+                                                                quantity:quantity ||1,
+                                                                color,
+                                                                size:size,
+                                                                deliveryDate: deliveryDate,
+                                                                returnByDate: returnByDate,
+                                                            })
+                                                        }
+                                                        className="button button-add-to-cart"
+                                                    >
+                                                        Add to cart
+                                                    </button>
+                                                    <a
+                                                        aria-label="Add To Wishlist"
+                                                        className="action-btn hover-up"
+                                                        onClick={(e) =>
+                                                            handleWishlist(
+                                                                {
+                                                                    ...product,
+                                                                    quantity:quantity ||1,
+                                                                    color,
+                                                                    size:size,
+                                                                    deliveryDate: deliveryDate,
+                                                                    returnByDate: returnByDate,
+                                                                }
+                                                            )
+                                                        }
+                                                    >
+                                                        <i className="fi-rs-heart"></i>
+                                                    </a>
+                                                    {/* <a
+                                                        aria-label="Compare"
+                                                        className="action-btn hover-up"
+                                                        onClick={(e) =>
+                                                            handleCompare(
+                                                                product
+                                                            )
+                                                        }
+                                                    >
+                                                        <i className="fi-rs-shuffle"></i>
+                                                    </a> */}
+                                                </div>
+                                            </div>
+                                            <ul className="product-meta font-xs color-grey mt-50">
+                                                <li className="mb-5">
+                                                    SKU:
+                                                    <a href="#">FWM15VKT</a>
+                                                </li>
+                                                <li className="mb-5">
+                                                    Tags:
+                                                    <a
+                                                        href="#"
+                                                        rel="tag"
+                                                        className="me-1"
+                                                    >
+                                                        Cloth,
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
+                                    }
                                 </div>
 
                                 {quickView ? null : (

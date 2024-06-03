@@ -4474,18 +4474,22 @@ table .product-thumbnail img {
   background-color: #088178;
   border-color: #088178;
 }
-
+.detail-extralink{
+  display: flex;
+}
 .detail-qty {
   max-width: 80px;
-  padding: 9px 20px;
+  padding: 9px 10px;
   position: relative;
   width: 100%;
+  display: flex;
   border-radius: 4px;
+  justify-content: space-between;
 }
 
 .detail-qty > a {
   font-size: 16px;
-  position: absolute;
+  /* position: absolute; */
   right: 8px;
   color: #707070;
 }
@@ -4519,6 +4523,38 @@ table .product-thumbnail img {
 .attr-detail.attr-color table {
   margin-bottom: 15px;
 }
+.attr-detail.attr-date{
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.custom-date-input{
+  border: none;
+  background-color: #088178;
+  color: #fff;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+.react-datepicker__day--selected{
+  background-color: #088178 !important;
+}
+.react-datepicker__header {
+  background-color: #088178 !important;
+  color: #fff;
+}
+.react-datepicker__current-month,.react-datepicker__day-name{
+  color: #fff !important;
+}
+.react-datepicker__day--keyboard-selected{
+  background-color: transparent !important;
+}
+.react-datepicker__day--keyboard-selected:hover{
+  background-color: #f0f0f0 !important;
+}
+.react-datepicker__day--today{
+  font-weight: bold;
+}
 
 .detail-extralink > div {
   display: inline-block;
@@ -4526,8 +4562,10 @@ table .product-thumbnail img {
 }
 
 .detail-extralink .detail-qty {
-  margin: 0 6px 15px 0;
+  margin-right: 3px;
   background: #fff;
+  display: flex;
+  justify-content: space-between;
 }
 
 .detail-info .product-price-cover {
@@ -4550,7 +4588,7 @@ table .product-thumbnail img {
 }
 
 .button.button-add-to-cart {
-  padding: 8px 40px;
+  padding: 9px 40px;
 }
 
 .product-extra-link2 a {
@@ -4559,8 +4597,8 @@ table .product-thumbnail img {
   color: #333;
   border-radius: 4px;
   display: inline-block;
-  height: 40px;
-  line-height: 40px;
+  height: 44px;
+  line-height: 44px;
   position: relative;
   text-align: center;
   vertical-align: top;
@@ -10065,3 +10103,213 @@ span.fi-rs-apps {
   }
 }
 /*# sourceMappingURL=main.css.map */
+
+
+
+/* empty cart */
+.empty-cart {
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Maison Neue';
+  font-weight: 300;
+}
+.empty-cart h1{
+  font-size: 1.5rem;
+}
+.empty-cart svg {
+  width: 50%;
+ min-width: 100px;
+ max-width: 270px;
+ margin-block: 2rem;
+}
+
+#oval, #plus, #diamond, #bubble-rounded {
+  animation: plopp 4s ease-out infinite;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(1) {
+  animation-delay: -240ms;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(2) {
+  animation-delay: -240ms * 2;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(3) {
+  animation-delay: -240ms * 3;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(4) {
+  animation-delay: -240ms * 4;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(5) {
+  animation-delay: -240ms * 5;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(6) {
+  animation-delay: -240ms * 6;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(7) {
+  animation-delay: -240ms * 7;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(8) {
+  animation-delay: -240ms * 8;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(9) {
+  animation-delay: -240ms * 9;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(10) {
+  animation-delay: -240ms * 10;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(11) {
+  animation-delay: -240ms * 11;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(12) {
+  animation-delay: -240ms * 12;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(13) {
+  animation-delay: -240ms * 13;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(14) {
+  animation-delay: -240ms * 14;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(15) {
+  animation-delay: -240ms * 15;
+}
+
+#oval, #plus, #diamond, #bubble-rounded:nth-child(16) {
+  animation-delay: -240ms * 16;
+}
+
+#bg-line {
+  &:nth-child(2) {
+    fill-opacity: 0.3;
+  }
+  &:nth-child(3) {
+    fill-opacity: 0.4;
+  }
+}
+
+@keyframes plopp {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, -10px);
+    opacity: 0;
+  }
+}
+
+
+.cart-item{
+  border: 1px solid #e2e9e1;
+  border-radius: 8px;
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+  justify-content: space-between;
+}
+.cart-item .left{
+  display: flex;
+  gap: 10px;
+}
+.cart-item .image img{
+  width: 150px;
+  height: auto;
+}
+.cart-item .pricing{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cart-item .pricing .product-price-cover .product-price .price{
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+.cart-item .pricing .product-price-cover .product-price .mrp-price{
+  text-decoration: line-through;
+}
+
+.cart-item .pricing .product-price-cover {
+  display: flex;
+      flex-direction: column;
+      align-items: end;
+}
+.cart-item .pricing .product-actions{
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+.cart-item .pricing .product-actions button{ 
+  display: flex;
+  border: 1px solid #046963;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  gap: 10px;
+}
+.cart-item .pricing .product-actions button.remove{ 
+  background-color: transparent;
+  color: #046963;
+}
+.cart-item .pricing .product-actions button.move-to-wishlist{ 
+  background-color: #046963;
+  color: #fff;
+  font-weight: 100;
+}
+
+@media (max-width: 1080px) {
+  .cart-item .image img{
+    width: 70px;
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+  .cart-item .left{
+    flex-direction: row-reverse;
+  }
+  .cart-item{
+    flex-direction: column;
+  }
+  .cart-item .pricing{
+    gap: 10px;
+  }
+  .cart-item .pricing .product-price-cover{
+    align-items: start;
+  }
+  .cart-item .pricing .product-actions{
+    justify-content: start;
+  }
+}
+
+.popup-content{
+  width: fit-content !important;
+  padding: 0 !important;
+  border: none !important;
+}
+/* 
+.popup-content .player{
+  width: 100% !important;
+  height: auto !important;
+} */
+
+.shop-product-fillter .sort-by-product-area .sort-by-product-wrap .sort-by i{
+  margin-right: 0;
+}
+.shop-product-fillter .sort-by-product-area{
+  gap: 15px;
+}
+.product-cart-wrap .product-action-1.show {
+  bottom: 15px;
+}

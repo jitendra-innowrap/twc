@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
 import { addToCompare } from "../../redux/action/compareAction";
 import { openQuickView } from "../../redux/action/quickViewAction";
@@ -27,17 +27,47 @@ const SingleProduct = ({
 
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !");
+        toast.success("Add to Cart !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     const handleCompare = (product) => {
         addToCompare(product);
-        toast.success("Add to Compare !");
+        toast.success("Add to Compare !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !");
+        toast.success("Add to Wishlist !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
     return (
         <>
@@ -65,7 +95,7 @@ const SingleProduct = ({
                             </a>
                         </Link>
                     </div>
-                    <div className="product-action-1">
+                    {/* <div className="product-action-1">
                         <a
                             aria-label="Quick view"
                             className="action-btn hover-up"
@@ -88,7 +118,7 @@ const SingleProduct = ({
                         >
                             <i className="fi-rs-shuffle"></i>
                         </a>
-                    </div>
+                    </div> */}
 
                     <div className="product-badges product-badges-position product-badges-mrg">
                         {product.trending ? <span className="hot">Hot</span>:null }
@@ -114,14 +144,14 @@ const SingleProduct = ({
                             <a>{product.title}</a>
                             </Link>
                     </h2>
-                    <div className="rating-result" title="90%">
+                    {/* <div className="rating-result" title="90%">
                         <span>
                             <span>{product.ratingScore}%</span>
                         </span>
-                    </div>
+                    </div> */}
                     <div className="product-price">
-                        <span>${product.price} </span>
-                        <span className="old-price">{product.oldPrice ? `$ ${product.oldPrice}`:null}</span>
+                        <span>₹{product.price} </span>
+                        <span className="old-price">{product.oldPrice ? `₹ ${product.oldPrice}`:null}</span>
                     </div>
                     <div className="product-action-1 show">
                         <a

@@ -6,7 +6,16 @@ class storage {
     }
 
     static get(key) {
-        return JSON.parse(localStorage.getItem(key))
+        const data = localStorage.getItem(key);
+        if (data && data !== 'null') {
+            try {
+                return JSON.parse(data);
+            } catch (error) {
+                console.error(`Error parsing data from localStorage for key "${key}":`, error);
+                return null;
+            }
+        }
+        return null;
     }
 }
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 // import { useToasts } from "react-toast-notifications";
 import { addToCart } from "../../redux/action/cart";
 import { addToCompare } from "../../redux/action/compareAction";
@@ -20,17 +20,47 @@ const SingleProductList = ({
 
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !");
+        toast.success("Add to Cart !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     const handleCompare = (product) => {
         addToCompare(product);
-        toast.success("Add to Compare !");
+        toast.success("Add to Compare !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !");
+        toast.success("Add to Wishlist !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
     return (
         <>

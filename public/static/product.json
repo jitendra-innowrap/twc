@@ -6,6 +6,7 @@
         "id": "1",
         "price": 238.85,
         "oldPrice": 245.8,
+        "type": "purchase",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -18,13 +19,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-1-1.jpg"
+                "thumb": "/assets/imgs/shop/product-1-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-1-1.jpg"
+                "thumb": "/assets/imgs/shop/product-1-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-1-1.jpg"
+                "thumb": "/assets/imgs/shop/product-1-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -62,7 +66,9 @@
         "moreLove": true,
         "id": "2",
         "price": 78,
+        "oldPrice": 245.8,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-2-1.jpg"
@@ -74,13 +80,17 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-2-1.jpg"
+                "thumb": "https://i.ytimg.com/vi/5QEeEQoEFGU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBKiYm1QnV4K-6Kh2yhPcvziOM30w",
+                "url": "https://www.youtube.com/watch?v=5QEeEQoEFGU&pp=ygUNZ29vZ2xlIGV2ZW50cw%3D%3D",
+                "type": "video"
             },
             {
-                "thumb": "/assets/imgs/shop/product-2-2.jpg"
+                "thumb": "/assets/imgs/shop/product-2-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-2-1.jpg"
+                "thumb": "/assets/imgs/shop/product-2-2.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -118,6 +128,7 @@
         "id": "3",
         "price": 35,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-3-1.jpg"
@@ -129,13 +140,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-3-1.jpg"
+                "thumb": "/assets/imgs/shop/product-3-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-3-2.jpg"
+                "thumb": "/assets/imgs/shop/product-3-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-3-1.jpg"
+                "thumb": "/assets/imgs/shop/product-3-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -173,6 +187,7 @@
         "id": "4",
         "price": 55,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-4-1.jpg"
@@ -184,13 +199,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg"
+                "thumb": "/assets/imgs/shop/product-4-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-4-2.jpg"
+                "thumb": "/assets/imgs/shop/product-4-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg"
+                "thumb": "/assets/imgs/shop/product-4-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "used",
@@ -228,6 +246,7 @@
         "id": "5",
         "price": 110,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-5-1.jpg"
@@ -239,13 +258,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-5-1.jpg"
+                "thumb": "/assets/imgs/shop/product-5-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-5-2.jpg"
+                "thumb": "/assets/imgs/shop/product-5-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-5-1.jpg"
+                "thumb": "/assets/imgs/shop/product-5-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -283,6 +305,7 @@
         "id": "6",
         "price": 150,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-6-1.jpg"
@@ -294,13 +317,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-6-2.jpg"
+                "thumb": "/assets/imgs/shop/product-6-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-6-1.jpg"
+                "thumb": "/assets/imgs/shop/product-6-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-6-2.jpg"
+                "thumb": "/assets/imgs/shop/product-6-2.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -337,6 +363,7 @@
         "id": "7",
         "price": 98,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-7-1.jpg"
@@ -348,13 +375,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-7-1.jpg"
+                "thumb": "/assets/imgs/shop/product-7-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-7-2.jpg"
+                "thumb": "/assets/imgs/shop/product-7-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-7-1.jpg"
+                "thumb": "/assets/imgs/shop/product-7-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -392,6 +422,7 @@
         "id": "8",
         "price": 24,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-8-1.jpg"
@@ -403,13 +434,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-8-1.jpg"
+                "thumb": "/assets/imgs/shop/product-8-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-8-2.jpg"
+                "thumb": "/assets/imgs/shop/product-8-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-8-1.jpg"
+                "thumb": "/assets/imgs/shop/product-8-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -447,6 +481,7 @@
         "id": "9",
         "price": 146,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-9-1.jpg"
@@ -458,13 +493,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-9-1.jpg"
+                "thumb": "/assets/imgs/shop/product-9-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-9-2.jpg"
+                "thumb": "/assets/imgs/shop/product-9-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-9-1.jpg"
+                "thumb": "/assets/imgs/shop/product-9-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -502,6 +540,7 @@
         "id": "10",
         "price": 67,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-10-1.jpg"
@@ -513,13 +552,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-10-1.jpg"
+                "thumb": "/assets/imgs/shop/product-10-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-10-2.jpg"
+                "thumb": "/assets/imgs/shop/product-10-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-10-1.jpg"
+                "thumb": "/assets/imgs/shop/product-10-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "used",
@@ -557,6 +599,7 @@
         "id": "11",
         "price": 116,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-11-1.jpg"
@@ -568,13 +611,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-11-1.jpg"
+                "thumb": "/assets/imgs/shop/product-11-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-11-2.jpg"
+                "thumb": "/assets/imgs/shop/product-11-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-11-1.jpg"
+                "thumb": "/assets/imgs/shop/product-11-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -612,6 +658,7 @@
         "id": "12",
         "price": 73,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-12-1.jpg"
@@ -623,13 +670,16 @@
         "totalSell": 1227,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-12-1.jpg"
+                "thumb": "/assets/imgs/shop/product-12-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-12-2.jpg"
+                "thumb": "/assets/imgs/shop/product-12-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-12-1.jpg"
+                "thumb": "/assets/imgs/shop/product-12-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -667,6 +717,7 @@
         "id": "13",
         "price": 238.85,
         "oldPrice": 245.8,
+        "type": "purchase",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -679,13 +730,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-13-1.jpg"
+                "thumb": "/assets/imgs/shop/product-13-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-13-2.jpg"
+                "thumb": "/assets/imgs/shop/product-13-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-13-1.jpg"
+                "thumb": "/assets/imgs/shop/product-13-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -724,6 +778,7 @@
         "id": "14",
         "price": 238.85,
         "oldPrice": 245.8,
+        "type": "purchase",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -736,13 +791,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-14-1.jpg"
+                "thumb": "/assets/imgs/shop/product-14-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-14-2.jpg"
+                "thumb": "/assets/imgs/shop/product-14-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-14-1.jpg"
+                "thumb": "/assets/imgs/shop/product-14-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -781,6 +839,7 @@
         "id": "15",
         "price": 238.85,
         "oldPrice": 245.8,
+        "type": "purchase",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -793,13 +852,16 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-15-1.jpg"
+                "thumb": "/assets/imgs/shop/product-15-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-15-2.jpg"
+                "thumb": "/assets/imgs/shop/product-15-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-15-1.jpg"
+                "thumb": "/assets/imgs/shop/product-15-1.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",
@@ -838,6 +900,7 @@
         "id": "16",
         "price": 238.85,
         "oldPrice": 245.8,
+        "type": "purchase",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -850,25 +913,32 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-16-1.jpg"
+                "thumb": "/assets/imgs/shop/product-16-1.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-16-2.jpg"
+                "thumb": "/assets/imgs/shop/product-16-2.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-16-3.jpg"
+                "thumb": "/assets/imgs/shop/product-16-3.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-16-4.jpg"
+                "thumb": "/assets/imgs/shop/product-16-4.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-16-5.jpg"
+                "thumb": "/assets/imgs/shop/product-16-5.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-16-6.jpg"
+                "thumb": "/assets/imgs/shop/product-16-6.jpg",
+                "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-16-7.jpg"
+                "thumb": "/assets/imgs/shop/product-16-7.jpg",
+                "type": "image"
             }
         ],
         "condition": "new",

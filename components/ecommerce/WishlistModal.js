@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Modal } from "react-responsive-modal";
 import { addToCart } from "../../redux/action/cart";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import {
     clearWishlist,
     closeWishlistModal,
@@ -18,7 +18,17 @@ const WishlistModal = ({
 
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !");
+        toast.success("Add to Cart !",{
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     };
 
     return (

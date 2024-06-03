@@ -1,6 +1,10 @@
 // Delete Product from List By Id
-export const deleteProduct = (list, id) => {
-    const filter = list.filter((item) => item.id !== id);
+export const deleteProduct = (list, product) => {
+  console.log(product)
+  const filter = list.filter(item => {
+    return !(item.id == product.id && item.color == product.color && item.size == product.size)
+});
+console.log('updated list', filter)
     return filter;
   };
   
@@ -14,3 +18,16 @@ export const deleteProduct = (list, id) => {
     return index;
   };
   
+  export const findProductIndexByVariant = (cart, product) => {
+    return cart.findIndex(cartItem => 
+        cartItem.id === product.id &&
+        cartItem.size === product.size && 
+        cartItem.color === product.color
+    );
+  };
+  export const deleteProductByVariant = (cart, product) => {
+    const newCart = cart.filter(cartItem => {
+        return !(cartItem.id == product.id && cartItem.color == product.color && cartItem.size == product.size)
+    });
+    return newCart
+}

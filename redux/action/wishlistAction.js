@@ -22,10 +22,10 @@ export const addToWishlist = product => dispatch => {
 }
 
 
-export const deleteFromWishlist = productId => dispatch => {
+export const deleteFromWishlist = product => dispatch => {
     dispatch({
         type: Types.DELETE_FROM_WISHLIST,
-        payload: { productId }
+        payload: { product }
     })
 }
 
