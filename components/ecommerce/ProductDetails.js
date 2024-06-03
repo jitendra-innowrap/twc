@@ -28,10 +28,11 @@ const ProductDetails = ({
     decreaseQuantity,
     quickView,
 }) => {
-    let productSizes = ['M', 'L', 'XL', 'XXL'];
+    let today = new Date();
+    const [deliveryDate, setDeliveryDate] = useState(today);
+    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
+    let productSizes = ['S', 'M', 'L', 'XL', 'XXL'];
     const [quantity, setQuantity] = useState(1);
-    const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [returnByDate, setReturnByDate] = useState(new Date());
     const [color, setColor] = useState(product.variations[0]);
     const [size, setSize] = useState("M");
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
