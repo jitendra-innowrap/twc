@@ -88,7 +88,7 @@ const SingleProductList = ({
                                 </Link>
                             </div>
                         </div>
-                        <div className="product-action-1">
+                        {/* <div className="product-action-1">
                             <a
                                 aria-label="Quick view"
                                 className="action-btn hover-up"
@@ -112,7 +112,7 @@ const SingleProductList = ({
                             >
                                 <i className="fi-rs-shuffle"></i>
                             </a>
-                        </div>
+                        </div> */}
 
                         <div className="product-badges product-badges-position product-badges-mrg">
                             {product.trending ? (
@@ -137,7 +137,7 @@ const SingleProductList = ({
                     <div className="product-content-wrap">
                         <div className="product-category">
                             <Link href="/products">
-                                <a>{product.brand}</a>
+                                <a>{product.category}</a>
                             </Link>
                         </div>
                         <h2>
@@ -149,10 +149,8 @@ const SingleProductList = ({
                             </Link>
                         </h2>
                         <div className="product-price">
-                            <span>${product.price} </span>
-                            <span className="old-price">
-                                ${product.oldPrice}
-                            </span>
+                        <span>₹{product.price} </span>
+                        <span className="old-price">{product.oldPrice ? `₹ ${product.oldPrice}`:null}</span>
                         </div>
 
                         <p className="mt-15">{product.desc}</p>
@@ -166,11 +164,6 @@ const SingleProductList = ({
                                 <i className="fi-rs-shopping-bag-add"></i>
                                 Add to Cart
                             </a>
-                            <div className="rating-result" title="90%">
-                                <span>
-                                    <span>{product.ratingScore}%</span>
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>

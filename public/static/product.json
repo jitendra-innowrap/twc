@@ -80,17 +80,17 @@
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "https://i.ytimg.com/vi/5QEeEQoEFGU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBKiYm1QnV4K-6Kh2yhPcvziOM30w",
-                "url": "https://www.youtube.com/watch?v=5QEeEQoEFGU&pp=ygUNZ29vZ2xlIGV2ZW50cw%3D%3D",
-                "type": "video"
-            },
-            {
                 "thumb": "/assets/imgs/shop/product-2-1.jpg",
                 "type": "image"
             },
             {
                 "thumb": "/assets/imgs/shop/product-2-2.jpg",
                 "type": "image"
+            },
+            {
+                "thumb": "https://i.ytimg.com/vi/5QEeEQoEFGU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBKiYm1QnV4K-6Kh2yhPcvziOM30w",
+                "url": "https://www.youtube.com/watch?v=5QEeEQoEFGU&pp=ygUNZ29vZ2xlIGV2ZW50cw%3D%3D",
+                "type": "video"
             }
         ],
         "condition": "refurbished",
