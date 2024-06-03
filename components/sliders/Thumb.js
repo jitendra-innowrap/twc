@@ -14,7 +14,7 @@ const ThumbSlider = ({ product }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     return (
-        <div>
+        <div className="product-detail-gallary">
             <Swiper
                 style={{
                     "--swiper-navigation-color": "#fff",
@@ -49,14 +49,17 @@ const ThumbSlider = ({ product }) => {
                         /> */}
                         {
                             item.type=="image"?
-                            <Zoom
-                            zoomPosition="original"
-                            img={item.thumb}
-                            zoomScale={2.5}
-                            width={400}
-                            height={400}
-                            ransitionTime={0.5}
-                        />:
+                            <div className="magnify-image">
+                                <Zoom
+                                    zoomPosition="original"
+                                    img={item.thumb}
+                                    zoomScale={2.5}
+                                    width={400}
+                                    height={400}
+                                    ransitionTime={0.5}
+                                />
+                            </div>
+                        :
                         <Popup trigger={<img src={item.thumb} alt="evara"/>} modal position="right center">
                             <ReactPlayer className="player" url={item.url} />
                         </Popup>

@@ -98,7 +98,7 @@ const ProductDetails = ({
     
     const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
 
-    console.log(inCart);
+    console.log(product);
 
     return (
         <>
@@ -108,7 +108,7 @@ const ProductDetails = ({
                         <div className="col-lg-12">
                             <div className="product-detail accordion-detail">
                                 <div className="row mb-50">
-                                    <div className="col-md-6 col-sm-12 col-xs-12">
+                                    <div className="col-md-6 col-sm-12 col-xs-12 detail-left">
                                         <div className="detail-gallery">
 
                                             <div className="product-image-slider">
@@ -154,7 +154,7 @@ const ProductDetails = ({
                                     </div>
                                     {
                                         product?.type ==="purchase"?
-                                        <div className="col-md-6 col-sm-12 col-xs-12">
+                                        <div className="col-md-6 col-sm-12 col-xs-12 detail-right">
                                         <div className="detail-info">
                                             <h2 className="title-detail">
                                                 {product?.title}
