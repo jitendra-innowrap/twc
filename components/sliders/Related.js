@@ -25,6 +25,20 @@ const RelatedSlider = () => {
                 slidesPerView={4}
                 spaceBetween={30}
                 //loop={false}
+                breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                    },
+                    420: {
+                      slidesPerView: 2,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
                 navigation={{
                     prevEl: ".custom_prev_n",
                     nextEl: ".custom_next_n",

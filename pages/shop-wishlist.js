@@ -281,7 +281,7 @@ const Wishlist = ({
                                                     {wishlist.items.length > 0 && (
                                                         <a onClick={clearWishlist} className="text-muted">
                                                             <i className="fi-rs-cross-small"></i>
-                                                            Clear Cart
+                                                            Clear Wishist
                                                         </a>
                                                     )}
                                                 </div>

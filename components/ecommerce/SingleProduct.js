@@ -132,7 +132,7 @@ const SingleProduct = ({
                     <div className="product-category">
                     <Link href="/products">
                                                             <a>
-                                                                {product.brand}
+                                                                {product.category}
                                                             </a>
                                                         </Link>
                     </div>
