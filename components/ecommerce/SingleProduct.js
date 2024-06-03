@@ -16,8 +16,10 @@ const SingleProduct = ({
     addToWishlist,
     openQuickView,
 }) => {
+    let today = new Date();
     const [loading, setLoading] = useState(false);
-
+    const [deliveryDate, setDeliveryDate] = useState(today);
+    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
@@ -132,7 +134,7 @@ const SingleProduct = ({
                     <div className="product-category">
                     <Link href="/products">
                                                             <a>
-                                                                {product.brand}
+                                                                {product.category}
                                                             </a>
                                                         </Link>
                     </div>
@@ -157,7 +159,7 @@ const SingleProduct = ({
                         <a
                             aria-label="Add To Cart"
                             className="action-btn hover-up"
-                            onClick={(e) => handleCart(product)}
+                            onClick={(e) => handleCart({...product, deliveryDate, returnByDate})}
                         >
                             <i className="fi-rs-shopping-bag-add"></i>
                         </a>

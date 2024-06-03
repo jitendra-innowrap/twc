@@ -17,7 +17,9 @@ const SingleProductList = ({
     openQuickView,
 }) => {
     // console.log(product);
-
+    let today = new Date();
+    const [deliveryDate, setDeliveryDate] = useState(today);
+    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
     const handleCart = (product) => {
         addToCart(product);
         toast.success("Add to Cart !",{
@@ -88,7 +90,7 @@ const SingleProductList = ({
                                 </Link>
                             </div>
                         </div>
-                        <div className="product-action-1">
+                        {/* <div className="product-action-1">
                             <a
                                 aria-label="Quick view"
                                 className="action-btn hover-up"
@@ -112,7 +114,7 @@ const SingleProductList = ({
                             >
                                 <i className="fi-rs-shuffle"></i>
                             </a>
-                        </div>
+                        </div> */}
 
                         <div className="product-badges product-badges-position product-badges-mrg">
                             {product.trending ? (
@@ -137,7 +139,7 @@ const SingleProductList = ({
                     <div className="product-content-wrap">
                         <div className="product-category">
                             <Link href="/products">
-                                <a>{product.brand}</a>
+                                <a>{product.category}</a>
                             </Link>
                         </div>
                         <h2>
@@ -149,10 +151,8 @@ const SingleProductList = ({
                             </Link>
                         </h2>
                         <div className="product-price">
-                            <span>${product.price} </span>
-                            <span className="old-price">
-                                ${product.oldPrice}
-                            </span>
+                        <span>₹{product.price} </span>
+                        <span className="old-price">{product.oldPrice ? `₹ ${product.oldPrice}`:null}</span>
                         </div>
 
                         <p className="mt-15">{product.desc}</p>
@@ -161,16 +161,11 @@ const SingleProductList = ({
                             <a
                                 aria-label="Add To Cart"
                                 className="action-btn hover-up"
-                                onClick={(e) => handleCart(product)}
+                                onClick={(e) => handleCart({...product, deliveryDate, returnByDate})}
                             >
                                 <i className="fi-rs-shopping-bag-add"></i>
                                 Add to Cart
                             </a>
-                            <div className="rating-result" title="90%">
-                                <span>
-                                    <span>{product.ratingScore}%</span>
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>

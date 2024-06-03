@@ -180,7 +180,7 @@ const Wishlist = ({
                                                     </Link>
                                                 </h5>
                                                 <p className="font-xs">
-                                                    <span>Size:</span> {item.size}
+                                                    <span className="text-capitalize">Size:</span> {item.size || item.sizes}
                                                 </p>
                                                 <p className="font-xs">
                                                     <span>SKU:</span> KLJLKJKKL
@@ -281,7 +281,7 @@ const Wishlist = ({
                                                     {wishlist.items.length > 0 && (
                                                         <a onClick={clearWishlist} className="text-muted">
                                                             <i className="fi-rs-cross-small"></i>
-                                                            Clear Cart
+                                                            Clear Wishist
                                                         </a>
                                                     )}
                                                 </div>

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import ReactImageMagnify from 'react-image-magnify';
-import Zoom from "react-img-zoom";
 import SwiperCore, { Navigation, Thumbs } from "swiper";
 import "swiper/css/thumbs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 import ReactPlayer from "react-player";
+import 'reactjs-popup/dist/index.css';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+import InnerImageZoom from 'react-inner-image-zoom';
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -28,36 +28,10 @@ const ThumbSlider = ({ product }) => {
             >
                 {product.gallery.map((item,i) => (
                     <SwiperSlide key={i}>
-                        {/* <ReactImageMagnify
-                        smallImage={{
-                            src: item.thumb,
-                            width: 300,
-                            height: 300,
-                        }}
-                        largeImage={{
-                            src: 'https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/images/wristwatch_1200.jpg?raw=true',
-                            width: 1200,
-                            height: 1200,
-                        }}
-                        enlargedImagePosition="over"
-                        enlargedImageWidth={1200}
-                        enlargedImageHeight={1800}
-                        enlargedImageContainerDimensions={{
-                            width: '100%',
-                            height: '100%',
-                        }}
-                        /> */}
                         {
                             item.type=="image"?
                             <div className="magnify-image">
-                                <Zoom
-                                    zoomPosition="original"
-                                    img={item.thumb}
-                                    zoomScale={2.5}
-                                    width={400}
-                                    height={400}
-                                    ransitionTime={0.5}
-                                />
+                                <InnerImageZoom src={item.thumb} zoomSrc={item.thumb} />
                             </div>
                         :
                         <Popup trigger={<img src={item.thumb} alt="evara"/>} modal position="right center">
