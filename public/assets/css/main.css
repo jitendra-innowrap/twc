@@ -10313,3 +10313,13 @@ span.fi-rs-apps {
 .product-cart-wrap .product-action-1.show {
   bottom: 15px;
 }
+.product-detail .detail-left{
+  width: 600px !important;
+}
+.magnify-image *{
+  width: 600px !important;
+  height: 600px !important;
+}
+.product-detail-gallary .mySwiper{
+  margin-top: 20px;
+}
