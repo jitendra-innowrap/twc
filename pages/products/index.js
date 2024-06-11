@@ -226,14 +226,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         <div className="sort-by-cover">
                                             <SortSelect />
                                         </div>
-                                        <div className="sort-by-cover flex">
-                                            <div className="sort-by-product-wrap">
-                                                <div className="sort-by" onClick={handleLayout}>
-                                                    <span>
-                                                        {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
-                                                    </span>
-                                                </div>
-                                            </div>
+                                        <div className="change-List-layout" onClick={handleLayout}>
+                                            <span>
+                                                {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

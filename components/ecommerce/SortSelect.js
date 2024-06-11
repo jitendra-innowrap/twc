@@ -6,9 +6,16 @@ import { updateProductFilters } from "../../redux/action/productFiltersAction";
 const SortSelect = ({ updateProductFilters }) => {
     const Router = useRouter();
     const searchTerm = Router.query.search;
-
-    const [featured, setFeatured] = useState("");
-
+    const [featured, setFeatured] = useState("Price: High to Low");
+    const [selectedOption, setSelectedOption] = useState("Price: High to Low");
+    const [showOptions, setShowOptions] = useState(false)
+    const options = [
+        { value: "Price: High to Low", text: "Price: High to Low" },
+        { value: "Price: Low to High", text: "Price: Low to High" },
+        { value: "What's New", text: "What's New" },
+        { value: "Trending", text: "Trending" },
+        { value: "Best Seller", text: "Best Seller" },
+    ];
     useEffect(() => {
         const filters = {
             featured,
@@ -17,28 +24,39 @@ const SortSelect = ({ updateProductFilters }) => {
         updateProductFilters(filters);
     }, [searchTerm, featured]);
 
-    const seleceOption = (e) => {
+    const handleChange = (e) => {
         setFeatured(e.target.value);
+        setShowOptions(false)
     };
 
     return (
         <>
             <div className="sort-by-product-wrap">
-                <div className="sort-by">
-                    <span>
-                        <i className="fi-rs-apps-sort"></i>
+                <div className="sort-by d-flex justify-content-between w-100" onMouseEnter={()=>{setShowOptions(true)}}>
+                    <div>
+                        <i className="fi-rs-apps-sort mr-10"></i>
                         Sort by:
-                    </span>
+                        <span className="ml-15 fw-bold">{featured}</span>
+                    </div>
+                    <span className="chev"><i className="fi-rs-angle-down"></i></span>
                 </div>
-                <div className="sort-by-dropdown-wrap custom-select">
-                    <select onChange={(e) => seleceOption(e)}>
-                        <option value="">Defaults</option>
-                        <option value="featured">Featured</option>
-                        <option value="trending">Trending</option>
-                        <option value="lowToHigh">Low To High</option>
-                        <option value="highToLow">High To Low</option>
-                    </select>
-                </div>
+                {showOptions && <div className="sort-by-dropdown-wrap custom-select">
+                    <ul>
+                    {options.map((option) => (
+                            <li
+                                key={option.value}
+                                onChange={handleChange}
+                                value={option.value}
+                                className={selectedOption === option.value ? "selected" : ""}
+                            >
+                                {option.text}
+                                <span>
+                                    {selectedOption === option.value && <i className="fi-rs-check ml-0"></i>}
+                                </span>
+                            </li>
+                    ))}    
+                    </ul>
+                </div>}
             </div>
         </>
     );
