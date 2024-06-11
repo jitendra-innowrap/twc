@@ -25,7 +25,7 @@ const Search = () => {
     return (
         <>
             <form>
-                <select className="select-active">
+                {/* <select className="select-active">
                     <option>All Categories</option>
                     <option>Women's</option>
                     <option>Men's</option>
@@ -37,13 +37,13 @@ const Search = () => {
                     <option>Luggage</option>
                     <option>Shoes</option>
                     <option>Mother & Kids</option>
-                </select>
+                </select> */}
                 <input
                     value={searchTerm}
                     onKeyDown={handleInput}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search for products, events or more"
                 />
             </form>
 

@@ -64,6 +64,23 @@ const ProductTab = () => {
                         id="Description"
                     >
                         <div className="">
+                            
+                        <ul className="product-meta font-xs color-grey ">
+                            <li className="mb-5">
+                                SKU:
+                                <a href="#">FWM15VKT</a>
+                            </li>
+                            <li className="mb-5">
+                                Tags:
+                                <a
+                                    href="#"
+                                    rel="tag"
+                                    className="me-1"
+                                >
+                                    Cloth,
+                                </a>
+                            </li>
+                        </ul>
                             <p>
                                 Uninhibited carnally hired played in whimpered
                                 dear gorilla koala depending and much yikes off

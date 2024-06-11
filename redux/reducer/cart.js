@@ -34,8 +34,8 @@ export default (state = [], action) => {
         case Types.INCREASE_QUANTITY:
             index = findProductIndexByVariant(state, action.payload.productId);
             if (index === -1) return state;
-
-            state[index].quantity += 1;
+            var quantity = state[index].quantity;
+            if (quantity < 5) state[index].quantity += 1;
             storage.set("dokani_cart", [...state]);
 
             return [...state];
@@ -44,7 +44,7 @@ export default (state = [], action) => {
             index = findProductIndexByVariant(state, action.payload.productId);
             if (index === -1) return state;
 
-            const quantity = state[index].quantity;
+            var quantity = state[index].quantity;
             if (quantity > 1) state[index].quantity -= 1;
             storage.set("dokani_cart", [...state]);
 
