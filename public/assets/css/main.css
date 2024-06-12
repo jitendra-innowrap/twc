@@ -10696,9 +10696,13 @@ span.fi-rs-apps {
 }
 
 .header-wrap .header-right .search-style-2 form input {
-  width: 400px;
+  width: 320px;
 }
-
+@media (max-width:1200px){
+  .header-wrap .header-right .search-style-2{
+    display: none;
+  }
+}
 .header-action-2 {
   gap: 20px;
 }
@@ -10819,7 +10823,7 @@ span.fi-rs-apps {
   display: block;
 }
 
-.detail-info .custom-date-input {
+.custom-date-input {
   color: #555;
   border: 1px solid #888;
   border-radius: 0;
@@ -11004,6 +11008,8 @@ span.fi-rs-apps {
   transition: all 1000 ease-in;
   min-width: 100%;
   top: 100%;
+  z-index: 10;
+  background: #fff;
   left: 0;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
@@ -11031,3 +11037,349 @@ span.fi-rs-apps {
   left: 5px;
   font-size: 10px;
 }
+
+/* Filters */
+.sidebar-widget  .date-filter .react-datepicker-wrapper, .sidebar-widget  .date-filter .react-datepicker-wrapper button{
+  width: 100%;
+}
+.sidebar-widget  .date-filter .react-datepicker-wrapper .custom-date-input{
+  text-align: center;
+}
+
+
+
+/***************************************** Login / register ****************************************/
+.login_container{
+  margin: auto;
+  height: calc( 100vh - 118px);
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  background: rgb(216,244,226);
+  background: linear-gradient(313deg, rgba(216,244,226,1) 43%, rgba(57,180,172,1) 100%);
+  }
+  @media only screen and (min-width: 0px) and (max-width: 480px){
+  .login_container{
+    height: calc( 100vh - 73.46px);
+  }
+}
+@media only screen and (min-width: 480px) and (max-width: 667px){
+  .login_container{
+    height: calc( 100vh - 66.46px);
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .login_container{
+    height: calc( 100vh - 74.79px);
+  }
+}
+
+  .login_container .login_wrap{
+    position: relative;
+    max-width: 400px;
+    background: #fff;
+    margin-block: 30px;
+    height: fit-content;
+    background: #fff;
+}
+.login_page :not(input):not(textarea):not(button){
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    user-drag: none;
+    -webkit-user-drag: none;
+}
+.welcome_header{
+  font-family: "Lato";
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+.welcome_header_small{
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.mobileInputContainer {
+  position: relative;
+}
+.mobileInputContainer .form-group {
+  margin-bottom: 24px;
+  position: relative;
+}
+.mobileInputContainer .form-group .mobileNumberInput {
+  border: 1px solid #d4d5d9;
+    font-size: 14px;
+    padding: 11px 12px;
+    line-height: 16px;
+    height: auto;
+    color: #282c3f;
+  padding-left: 62px;
+  border-radius: 0;
+  caret-color: #088178;
+}
+.mobileInputContainer .form-group .mobileNumberInput:focus{
+  border: 1px solid #2b2b2b;
+  }
+.mobileInputContainer .form-group .mobileNumberInput:focus + .placeholderAlternative{
+  color: #2b2b2b;
+
+}
+
+.mobileInputContainer .form-group .mobileNumberInput:focus + .placeholderAlternative .mobileNumberPlacholder{
+  opacity: 0;
+  transition: all 1s ease;
+  display: none;
+}
+.mobileInputContainer .form-group .placeholderAlternative {
+  color: #94969f;
+  top: 10px;
+  left: 12px;
+  font-size: 14px;
+  position: absolute;
+  pointer-events: none;
+}
+.mobileInputContainer .form-group .bar {
+  display: none;
+  position: relative;
+    border-bottom: 1px solid #088178;
+}
+.mobileInputContainer .midLinks {
+  margin: 0 0 21px;
+  color: rgba(40, 44, 63, .8);
+}
+.mobileInputContainer .midLinks a {
+  cursor: pointer;
+  color: #088178;
+  font-weight: 700;
+}
+.mobileInputContainer .submitBottomOption {
+  cursor: pointer;
+  background-color: #088178;
+  text-align: center;
+  padding: 12px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+.get-help {
+  margin: 30px 0;
+}
+
+
+.verificationContainer {
+  width: 100%;
+  padding: 60px;
+  color: #282c3f;
+}
+
+.otpTopImage .image {
+  width: 90px;
+  height: 90px;
+}
+.verificationContainer .mobContainer {
+  margin-top: 20px;
+}
+.verificationContainer .mobContainer h3 {
+  font-weight: 700;
+  font-size: 16px !important;
+  padding: 0;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.verificationContainer .mobContainer h4 {
+  font-weight: 400;
+  font-size: 12px;
+  opacity: .7;
+  padding: 0;
+}
+.otpContainer {
+  margin-top: 40px;
+}
+.otpContainer input {
+  padding: 9px 0;
+  border: 1px solid #d4d5d9;
+  font-size: 14px;
+  text-align: center;
+  margin: 0 16px 0 0;
+  width: 30px;
+  border-radius: 2px;
+  caret-color: #046963;
+}
+.resendContainer {
+  padding: 0;
+  border: none;
+  color: #046963;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: #fff;
+  margin-top: 30px;
+  cursor: pointer;
+}
+.bottomeLink {
+  cursor: pointer;
+  margin-top: 30px;
+  font-size: 12px;
+}
+.bottomeLink a, .bottomeLink span {
+  font-weight: 600;
+  color: #046963;
+}
+.login_wrap .backButton{
+  height: 16px;
+  font-weight: 1000;
+  font-size: 22px;
+  line-height: 16px;
+  text-align: center;
+  position: absolute;
+  left: 15px;
+  top: 25px;
+  color: #088178;
+  cursor: pointer;
+}
+.skipButton {
+  cursor: pointer;
+  height: 16px;
+  font-weight: 1000;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  position: absolute;
+  right: 3%;
+  top: 40px;
+  color: #088178;
+}
+.greenBox {
+  gap: 8px;
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  left: 0;
+  top: 70px;
+  background: #e5f6f2;
+}
+.greenBox .svgIcon{
+  background-color: #046963;
+  border-radius: 50%;
+  top: 13px;
+  left: 21px;
+  position: absolute;
+}
+.welcomeText {
+  position: relative;
+  height: 26px;
+  margin-top: 2%;
+  font-size: 20px;
+  line-height: 26px;
+  margin-left: 15%;
+  font-weight: 400;
+  color: #282c3f;
+}
+.accountCreated {
+  height: 18px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #686b77;
+  margin-left: 15%;
+  font-weight: 400;
+}
+.nameText {
+  margin-top: 45%;
+  height: 24px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 0;
+  color: #282c3f;
+}
+
+.nameInputContainer {
+  position: relative;
+}
+.nameInputContainer .form-group {
+  margin-bottom: 24px;
+  position: relative;
+}
+.nameInputContainer .form-group .mobileNumberInput {
+  border: 1px solid #d4d5d9;
+    font-size: 14px;
+    padding: 11px 12px;
+    line-height: 16px;
+    height: auto;
+    color: #282c3f;
+  border-radius: 0;
+  caret-color: #088178;
+}
+.nameInputContainer .form-group .mobileNumberInput:focus{
+  border: 1px solid #2b2b2b;
+  }
+.nameInputContainer .form-group .mobileNumberInput:focus + .placeholderAlternative{
+  color: #2b2b2b;
+  top: -12px;
+
+}
+
+.nameInputContainer .form-group .mobileNumberInput:focus + .placeholderAlternative .mobileNumberPlacholder{
+  transition: all 500 ease;
+  background: #fff;
+  color: #2b2b2b;
+  padding-inline: 5px;
+}
+.nameInputContainer .form-group .placeholderAlternative.focus{
+  color: #2b2b2b;
+  top: -12px;
+}
+.nameInputContainer .form-group .placeholderAlternative.focus .mobileNumberPlacholder{
+  background: #fff;
+  color: #2b2b2b;
+  padding-inline: 5px;
+}
+
+.nameInputContainer .form-group .placeholderAlternative {
+  color: #94969f;
+  top: 10px;
+  left: 12px;
+  font-size: 14px;
+  position: absolute;
+  pointer-events: none;
+}
+.nameInputContainer .form-group .bar {
+  display: none;
+  position: relative;
+    border-bottom: 1px solid #088178;
+}
+.nameInputContainer .midLinks {
+  margin: 0 0 21px;
+  color: rgba(40, 44, 63, .8);
+}
+.nameInputContainer .midLinks a {
+  cursor: pointer;
+  color: #088178;
+  font-weight: 700;
+}
+.nameInputContainer .submitBottomOption {
+  cursor: pointer;
+  background-color: #088178;
+  text-align: center;
+  padding: 12px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+.form-group .errorContainer, .mobContainer .errorContainer {
+  margin-top: 4px;
+  font-size: 10px;
+  color: #ff5722;
+}
+.mobContainer h4{
+  display: inline;
+}
+.login_wrap .change_mobile{
+ cursor: pointer;
+ color: #088178;
+ margin-left: 10px;
+}
+
