@@ -6,7 +6,7 @@
         "id": "1",
         "price": 238.85,
         "oldPrice": 245.8,
-        "type": "purchase",
+        "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -61,36 +61,43 @@
         "created": ""
     },
     {
-        "title": "Cartoon Astronaut T-Shirts",
-        "slug": "cartoon_astronaut_t-Shirts",
+        "title": "Haldi Mahendi Decor",
+        "slug": "haldi-mahendi-decor",
         "moreLove": true,
         "id": "2",
-        "price": 78,
-        "oldPrice": 245.8,
+        "price": 40000,
+        "oldPrice": 45000,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "rent",
+        "type": "purchase",
         "images": [
             {
-                "img": "/assets/imgs/shop/product-2-1.jpg"
+                "img": "/assets/imgs/shop/haldi mehandi decor-1.jpg"
             },
             {
-                "img": "/assets/imgs/shop/product-2-2.jpg"
+                "img": "/assets/imgs/shop/haldi mehandi decor-2.jpg"
             }
         ],
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-2-1.jpg",
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-1.jpg",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-2-2.jpg",
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-2.jpg",
                 "type": "image"
             },
             {
-                "thumb": "https://i.ytimg.com/vi/5QEeEQoEFGU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBKiYm1QnV4K-6Kh2yhPcvziOM30w",
-                "url": "https://www.youtube.com/watch?v=5QEeEQoEFGU&pp=ygUNZ29vZ2xlIGV2ZW50cw%3D%3D",
-                "type": "video"
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-4.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-5.jpg",
+                "type": "image"
             }
         ],
         "condition": "refurbished",
@@ -122,13 +129,277 @@
         "created": "2021-02-03T06:48:07"
     },
     {
+        "title": "Birthday Party Decor",
+        "slug": "Birthday-party-decor",
+        "moreLove": true,
+        "id": "3",
+        "price": 20000,
+        "oldPrice": 24990,
+        "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
+        "images": [
+            {
+                "img": "/assets/imgs/shop/birthday decor-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/birthday decor-2.jpg"
+            }
+        ],
+        "totalSell": 27,
+        "gallery": [
+            {
+                "thumb": "/assets/imgs/shop/birthday decor-1.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/birthday decor-2.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/birthday decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/birthday decor-4.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/birthday decor-5.jpg",
+                "type": "image"
+            }
+        ],
+        "condition": "refurbished",
+        "color": "blue",
+        "brand": "TWC",
+        "category": "Decor",
+        "featured": true,
+        "trending": false,
+        "discount": {
+            "percentage": 4,
+            "expireDate": null,
+            "isActive": false
+        },
+        "variations": [
+            "red",
+            "yellow",
+            "white",
+            "orange",
+            "cyan",
+            "green",
+            "purple"
+        ],
+        "weight": 150,
+        "tags": "women",
+        "sizes": "S",
+        "review": 10,
+        "rating": 4,
+        "ratingScore": 90,
+        "created": "2021-02-03T06:48:07"
+    },
+    {
+        "title": "Wedding StageDecor",
+        "slug": "wedding-stage-decor",
+        "moreLove": true,
+        "id": "3",
+        "price": 30000,
+        "oldPrice": 34990,
+        "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
+        "images": [
+            {
+                "img": "/assets/imgs/shop/wedding stage decor-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/wedding stage decor-2.jpg"
+            }
+        ],
+        "totalSell": 27,
+        "gallery": [
+            {
+                "thumb": "/assets/imgs/shop/wedding stage decor-1.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/wedding stage decor-2.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/wedding stage decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/wedding stage decor-4.jpg",
+                "type": "image"
+            }
+        ],
+        "condition": "refurbished",
+        "color": "blue",
+        "brand": "TWC",
+        "category": "Decor",
+        "featured": true,
+        "trending": false,
+        "discount": {
+            "percentage": 4,
+            "expireDate": null,
+            "isActive": false
+        },
+        "variations": [
+            "red",
+            "yellow",
+            "white",
+            "orange",
+            "cyan",
+            "green",
+            "purple"
+        ],
+        "weight": 150,
+        "tags": "women",
+        "sizes": "S",
+        "review": 10,
+        "rating": 4,
+        "ratingScore": 90,
+        "created": "2021-02-03T06:48:07"
+    },
+    {
+        "title": "Anivarsary Party Decor",
+        "slug": "Anivarsary-party-decor",
+        "moreLove": true,
+        "id": "3",
+        "price": 35000,
+        "oldPrice": 39990,
+        "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "purchase",
+        "images": [
+            {
+                "img": "/assets/imgs/shop/anivarsary decor-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/anivarsary decor-2.jpg"
+            }
+        ],
+        "totalSell": 27,
+        "gallery": [
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-1.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-2.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-4.jpg",
+                "type": "image"
+            }
+        ],
+        "condition": "refurbished",
+        "color": "blue",
+        "brand": "TWC",
+        "category": "Decor",
+        "featured": true,
+        "trending": false,
+        "discount": {
+            "percentage": 4,
+            "expireDate": null,
+            "isActive": false
+        },
+        "variations": [
+            "red",
+            "yellow",
+            "white",
+            "orange",
+            "cyan",
+            "green",
+            "purple"
+        ],
+        "weight": 150,
+        "tags": "women",
+        "sizes": "S",
+        "review": 10,
+        "rating": 4,
+        "ratingScore": 90,
+        "created": "2021-02-03T06:48:07"
+    },
+    {
+        "title": "Cartoon Astronaut T-Shirts",
+        "slug": "cartoon_astronaut_t-Shirts",
+        "moreLove": true,
+        "id": "2",
+        "price": 78,
+        "oldPrice": 245.8,
+        "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
+        "type": "rent",
+        "images": [
+            {
+                "img": "/assets/imgs/shop/product-2-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/product-2-2.jpg"
+            }
+        ],
+        "totalSell": 27,
+        "gallery": [
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-1.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-2.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-4.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/haldi mehandi decor-5.jpg",
+                "type": "image"
+            }
+        ],
+        "condition": "refurbished",
+        "color": "blue",
+        "brand": "TWC",
+        "category": "Decor",
+        "featured": true,
+        "trending": false,
+        "discount": {
+            "percentage": 4,
+            "expireDate": null,
+            "isActive": false
+        },
+        "variations": [
+            "red",
+            "yellow",
+            "white",
+            "orange",
+            "cyan",
+            "green",
+            "purple"
+        ],
+        "weight": 150,
+        "tags": "women",
+        "sizes": "S",
+        "review": 10,
+        "rating": 4,
+        "ratingScore": 90,
+        "created": "2021-02-03T06:48:07"
+    },
+    {
         "title": "Plain Striola Shirts",
         "slug": "plain_striola_shirts",
         "moreLove": true,
         "id": "3",
         "price": 35,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-3-1.jpg"
@@ -187,7 +458,7 @@
         "id": "4",
         "price": 55,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-4-1.jpg"
@@ -246,7 +517,7 @@
         "id": "5",
         "price": 110,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-5-1.jpg"
@@ -305,7 +576,7 @@
         "id": "6",
         "price": 150,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-6-1.jpg"
@@ -363,7 +634,7 @@
         "id": "7",
         "price": 98,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-7-1.jpg"
@@ -422,7 +693,7 @@
         "id": "8",
         "price": 24,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-8-1.jpg"
@@ -481,7 +752,7 @@
         "id": "9",
         "price": 146,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-9-1.jpg"
@@ -540,7 +811,7 @@
         "id": "10",
         "price": 67,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-10-1.jpg"
@@ -599,7 +870,7 @@
         "id": "11",
         "price": 116,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-11-1.jpg"
@@ -658,7 +929,7 @@
         "id": "12",
         "price": 73,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/product-12-1.jpg"
@@ -717,7 +988,7 @@
         "id": "13",
         "price": 238.85,
         "oldPrice": 245.8,
-        "type": "purchase",
+        "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -778,7 +1049,7 @@
         "id": "14",
         "price": 238.85,
         "oldPrice": 245.8,
-        "type": "purchase",
+        "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -839,7 +1110,7 @@
         "id": "15",
         "price": 238.85,
         "oldPrice": 245.8,
-        "type": "purchase",
+        "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
@@ -900,7 +1171,7 @@
         "id": "16",
         "price": 238.85,
         "oldPrice": 245.8,
-        "type": "purchase",
+        "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {

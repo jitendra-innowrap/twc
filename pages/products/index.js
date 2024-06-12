@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import BrandFilter from "../../components/ecommerce/BrandFilter";
 import CategoryProduct from "../../components/ecommerce/CategoryProduct";
@@ -15,10 +15,21 @@ import WishlistModal from "../../components/ecommerce/WishlistModal";
 import Layout from "../../components/layout/Layout";
 import { fetchProduct } from "../../redux/action/product";
 import Link from "next/link";
+import ReactDatePicker from "react-datepicker";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
-    console.log(products);
-
+    const [deliveryDate, setDeliveryDate] = useState();
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
+        if(value)
+        return(<button className="custom-date-input" onClick={onClick} ref={ref}>
+            {value}
+        </button>)
+        else{
+        return<div onClick={onClick} className="custom-date-input">
+            <span>Select Date</span> <i></i>
+        </div>
+        }
+    });
     let Router = useRouter(),
         searchTerm = Router.query.search,
         showLimit = 20,
@@ -103,18 +114,29 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                     </div>
 
                                     <div className="list-group">
-                                        <div className="list-group-item mb-10 mt-10">
-                                            <label className="fw-900">
+                                        <div className="list-group-item mb-10">
+                                            {/* <label className="fw-900">
                                                 Color
                                             </label>
-                                            <BrandFilter />
-                                            <label className="fw-900 mt-15">
+                                            <BrandFilter /> */}
+                                            <label className="fw-900 mt-20 mb-15">
                                                 Item Condition
                                             </label>
                                             <SizeFilter />
+                                            <label className="fw-900 mt-35 mb-15">
+                                                Available On
+                                            </label>
+                                            <div className="date-filter">
+                                                <ReactDatePicker
+                                                    selected={deliveryDate}
+                                                    dateFormat="dd/MM/yyyy"
+                                                    onChange={(date) => setDeliveryDate(date)}
+                                                    customInput={<ExampleCustomInput />}
+                                                    minDate={new Date()}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <br />
                                 </div>
 
                                 <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
@@ -226,14 +248,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         <div className="sort-by-cover">
                                             <SortSelect />
                                         </div>
-                                        <div className="sort-by-cover flex">
-                                            <div className="sort-by-product-wrap">
-                                                <div className="sort-by" onClick={handleLayout}>
-                                                    <span>
-                                                        {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
-                                                    </span>
-                                                </div>
-                                            </div>
+                                        <div className="change-List-layout" onClick={handleLayout}>
+                                            <span>
+                                                {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

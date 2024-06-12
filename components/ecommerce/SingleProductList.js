@@ -160,12 +160,12 @@ const SingleProductList = ({
 
                         <div className="product-action-1 show">
                             <a
-                                aria-label="Add To Cart"
+                                aria-label="View Details"
                                 className="action-btn hover-up"
                                 onClick={(e) => handleCart({...product, deliveryDate, returnByDate})}
                             >
-                                <i className="fi-rs-shopping-bag-add"></i>
-                                Add to Cart
+                                View details
+                                <i className="fi-rs-angle-right"></i>
                             </a>
                         </div>
                     </div>

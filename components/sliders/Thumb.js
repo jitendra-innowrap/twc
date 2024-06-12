@@ -12,7 +12,15 @@ SwiperCore.use([Navigation, Thumbs]);
 
 const ThumbSlider = ({ product }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+    const handleNavigation = (direction) => {
+        if (thumbsSwiper) {
+            if (direction === 'up') {
+                thumbsSwiper.slideNext();
+            } else if (direction === 'down') {
+                thumbsSwiper.slidePrev();
+            }
+        }
+    };
     return (
         <div className="product-detail-gallary">
             <Swiper
@@ -31,7 +39,7 @@ const ThumbSlider = ({ product }) => {
                         {
                             item.type=="image"?
                             <div className="magnify-image">
-                                <InnerImageZoom src={item.thumb} zoomSrc={item.thumb} />
+                                <InnerImageZoom zoomType="hover" hideHint={true} src={item.thumb} zoomSrc={item.thumb} />
                             </div>
                         :
                         <Popup trigger={<img src={item.thumb} alt="evara"/>} modal position="right center">
@@ -41,21 +49,28 @@ const ThumbSlider = ({ product }) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <Swiper
-                onSwiper={setThumbsSwiper}
-                // loop={false}
-                spaceBetween={10}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesProgress={true}
-                className="mySwiper"
-            >
-                {product.gallery.map((item, i) => (
-                    <SwiperSlide key={i}>
-                        <img src={item.thumb} alt="evara" />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+            <div className="small-gallary">
+                <Swiper
+                    onSwiper={setThumbsSwiper}
+                    // loop={false}
+                    spaceBetween={10}
+                    direction="vertical"
+                    slidesPerView={3}
+                    freeMode={true}
+                    watchSlidesProgress={true}
+                    className="mySwiper"
+                >
+                    {product.gallery.map((item, i) => (
+                        <SwiperSlide key={i}>
+                            <img src={item.thumb} alt="evara" />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+                <div className="navigation">
+                    <button onClick={() => handleNavigation('down')}><i className="fi-rs-angle-up"></i></button>
+                    <button onClick={() => handleNavigation('up')}><i className="fi-rs-angle-down"></i></button>
+                </div>
+            </div>
         </div>
     );
 };

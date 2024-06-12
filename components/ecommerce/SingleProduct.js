@@ -146,23 +146,9 @@ const SingleProduct = ({
                             <a>{product.title}</a>
                             </Link>
                     </h2>
-                    {/* <div className="rating-result" title="90%">
-                        <span>
-                            <span>{product.ratingScore}%</span>
-                        </span>
-                    </div> */}
                     <div className="product-price">
                         <span>₹{product.price} </span>
                         <span className="old-price">{product.oldPrice ? `₹ ${product.oldPrice}`:null}</span>
-                    </div>
-                    <div className="product-action-1 show">
-                        <a
-                            aria-label="Add To Cart"
-                            className="action-btn hover-up"
-                            onClick={(e) => handleCart({...product, deliveryDate, returnByDate})}
-                        >
-                            <i className="fi-rs-shopping-bag-add"></i>
-                        </a>
                     </div>
                 </div>
             </div>
