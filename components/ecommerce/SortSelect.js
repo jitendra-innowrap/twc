@@ -6,7 +6,7 @@ import { updateProductFilters } from "../../redux/action/productFiltersAction";
 const SortSelect = ({ updateProductFilters }) => {
     const Router = useRouter();
     const searchTerm = Router.query.search;
-    const [featured, setFeatured] = useState("Price: High to Low");
+    const [featured, setFeatured] = useState("default");
     const [selectedOption, setSelectedOption] = useState("Price: High to Low");
     const [showOptions, setShowOptions] = useState(false)
     const options = [
@@ -21,7 +21,7 @@ const SortSelect = ({ updateProductFilters }) => {
             featured,
         };
 
-        updateProductFilters(filters);
+        // updateProductFilters(filters);
     }, [searchTerm, featured]);
 
     const handleChange = (e) => {
