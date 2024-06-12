@@ -21,22 +21,7 @@ const Header = ({
                 setScroll(scrollCheck);
             }
         });
-    });
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //       const currentScrollPos = window.scrollY;
-    //       const scrolledUp = prevScrollPos > currentScrollPos;
-    
-    //       setScroll(scrolledUp);
-    //       setPrevScrollPos(currentScrollPos);
-    //     };
-    
-    //     window.addEventListener('scroll', handleScroll);
-    
-    //     return () => {
-    //       window.removeEventListener('scroll', handleScroll);
-    //     };
-    //   }, [prevScrollPos]);                                                                              
+    });                                                                             
     
     const handleToggle = () => setToggled(!isToggled);
 
@@ -47,7 +32,7 @@ const Header = ({
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-xl-3 col-lg-4">
-                                <div className="header-info">
+                                {/* <div className="header-info">
                                     <ul>
                                         <li>
                                             <i className="fi-rs-smartphone"></i>
@@ -62,7 +47,7 @@ const Header = ({
                                             </Link>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="col-xl-6 col-lg-4">
                                 <div className="text-center">
@@ -1341,7 +1326,7 @@ const Header = ({
                                 <div className="search-style-2">
                                     <Search />
                                 </div>
-                                <div className="header-action-right">
+                                <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
                                             <Link href="/shop-wishlist">
@@ -1388,20 +1373,7 @@ const Header = ({
                                 </div>
                             </div>
                             <div className="header-action-right d-block d-lg-none">
-                                <div className="header-action-2">
-                                    <div className="header-action-icon-2">
-                                        <Link href="/shop-wishlist">
-                                            <a>
-                                                <img
-                                                    alt="Evara"
-                                                    src="/assets/imgs/theme/icons/icon-compare.svg"
-                                                />
-                                                <span className="pro-count white">
-                                                    {totalCompareItems}
-                                                </span>
-                                            </a>
-                                        </Link>
-                                    </div>
+                                <div className="header-action-2 gap-1">
                                     <div className="header-action-icon-2">
                                         <Link href="/shop-wishlist">
                                             <a>
@@ -1514,6 +1486,16 @@ const Header = ({
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className="header-action-icon-2">
+                                        <Link href="/shop-wishlist" className="mr-0">
+                                            <a className="mr-0">
+                                                <img
+                                                    alt="Evara"
+                                                    src="/assets/imgs/theme/icons/icon-profile.svg"
+                                                />
+                                            </a>
+                                        </Link>
                                     </div>
                                     <div className="header-action-icon-2 d-block d-lg-none">
                                         <div

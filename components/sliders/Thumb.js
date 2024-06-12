@@ -67,8 +67,8 @@ const ThumbSlider = ({ product }) => {
                     ))}
                 </Swiper>
                 <div className="navigation">
-                    <button onClick={() => handleNavigation('up')}><i className="fi-rs-angle-up"></i></button>
-                    <button onClick={() => handleNavigation('down')}><i className="fi-rs-angle-down"></i></button>
+                    <button onClick={() => handleNavigation('down')}><i className="fi-rs-angle-up"></i></button>
+                    <button onClick={() => handleNavigation('up')}><i className="fi-rs-angle-down"></i></button>
                 </div>
             </div>
         </div>
