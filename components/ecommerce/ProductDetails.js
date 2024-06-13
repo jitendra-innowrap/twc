@@ -14,8 +14,6 @@ import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { setRequestMeta } from "next/dist/server/request-meta";
-import ReactImageMagnify from "react-image-magnify";
 
 
 const ProductDetails = ({

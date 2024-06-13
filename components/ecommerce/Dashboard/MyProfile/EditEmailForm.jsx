@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-export default function LoginRegister() {
-    const [Mobile, setMobile] = useState("");
+import { MdClose } from 'react-icons/md';
+export default function EditEmailForm({close, setTempUser}) {
+    const [Email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [error, setError] = useState({mobile:false, otp:false})
+    const [error, setError] = useState({email:false, otp:false})
     const inputRefs = useRef([]);
     const router = useRouter()
     let referrer = "/"
@@ -15,19 +16,21 @@ export default function LoginRegister() {
 
     }, [])
 
-    const handleMobile = () => {
-        if (Mobile.length === 10) {
-            setStep(2);
+    const handleEmail = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(Email)) {
+          setStep(2);
         } else {
-            setError(prev => ({...prev, mobile: true}));
+          setError((prev) => ({ ...prev, email: true }));
         }
-    }
+      };
+
     const handleSubmit = () =>{
         router.push(referrer)
     }
     const handleBack = () => {
         setStep(prev => prev - 1);
-        setError({mobile:false, otp:false})
+        setError({email:false, otp:false})
     }
 
     const handleOtpChange = (index, value) => {
@@ -45,6 +48,9 @@ export default function LoginRegister() {
                 // OTP is correct, redirect
                 console.log('OTP submitted:', newOtp.join(''));
                 // Add your redirect logic 
+                setTempUser(prev => ({ ...prev, email: Email, isEmailVerified: true }));
+
+
                 setStep(3) 
               } else {
                 // OTP is incorrect, set error
@@ -59,31 +65,30 @@ export default function LoginRegister() {
         }
     };
     return (
-        <>
+        <div className='popUpContainer'>
+          <button onClick={close} className='close_popUp'><MdClose fontSize={22}/></button>
             {step === 1 ?
                 <div className="login_wrap w-100">
-                    <img src="/assets/imgs/banner/Login_banner.webp" alt="Login Banner" />
                     <div className="padding_eight_all bg-white  p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
-                                Login <span className="welcome_header_small">or</span> Signup
+                                Update Email
                             </h3>
                         </div>
                         <div class="mobileInputContainer">
                             <div class="form-group ">
-                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" class="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
                                 <span class="placeholderAlternative mobileNumber">
-                                    +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
-                                    {!Mobile &&<span class="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                    {!Email &&<span class="mobileNumberPlacholder">Email Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
                                 </span><i class="bar"></i>
-                                {error.mobile && <div className="errorContainer">Please enter a valid mobile number (10 digits)</div>}
+                                {error.email && <div className="errorContainer">Please enter a valid email.</div>}
                             </div>
                             <div class="midLinks">
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div class="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
+                            <div class="submitBottomOption" onClick={handleEmail}>CONTINUE</div>
                         </div>
                         <div class="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
@@ -91,7 +96,7 @@ export default function LoginRegister() {
                 :
                 step === 2 ? 
                     <div className="login_wrap">
-                        <div className="verificationContainer">
+                      <div className="verificationContainer">
                         <div className="otpTopImage">
                             <div className="image">
                                 <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
@@ -103,7 +108,7 @@ export default function LoginRegister() {
                             </div>
                         </div>
                         <div className="mobContainer">
-                            <h3>Verify with OTP</h3><h4>Sent to {Mobile}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
+                            <h3>Verify with OTP</h3><h4>Sent to {Email}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
                             <div className="otpContainer">
                                 {otp.map((digit, index) => (
                                     <input
@@ -129,10 +134,9 @@ export default function LoginRegister() {
                     </div>
                     </div>
                     :
-                    <div className="login_wrap w-100">
-                        <div className="backButton" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div>
-                        <div className="skipButton">SKIP</div>
-                        <div className="greenBox">
+                    <div className="login_wrap w-100 d-flex align-items-center">
+                        <div className="backButton mt-20" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div>
+                        <div className="greenBox mt-20">
                             <svg
                                 width="24"
                                 height="24"
@@ -149,23 +153,16 @@ export default function LoginRegister() {
                                     ></path>
                                 </g>
                             </svg>
-                            <div className="welcomeText">Welcome to TWC</div>
-                            <div className="accountCreated">Your account has been created</div>
+                            <div className="welcomeText">Successfull</div>
+                            <div className="accountCreated">Your Email Number is updated Successfully.</div>
                         </div>
-                        <div className="padding_eight_all bg-white  p-30">
-                            <div className="nameText">What should we call you?</div>
-                            <div class="nameInputContainer">
-                                <div class="form-group ">
-                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder="" maxlength="10" value={name} />
-                                    <span class={`placeholderAlternative mobileNumber ${name?'focus':''}`}>
-                                        <span class="mobileNumberPlacholder">Type your name (Optional)</span>
-                                    </span><i class="bar"></i>
-                                </div>
-                                <div class="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
+                        <div className="padding_eight_all bg-white w-100 p-30">
+                            <div class="nameInputContainer w-100">
+                                <div class="submitBottomOption" onClick={close}>CONTINUE</div>
                             </div>
                         </div>
                     </div>
             }
-        </>
+        </div>
     )
 }
