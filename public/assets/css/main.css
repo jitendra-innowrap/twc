@@ -11079,7 +11079,7 @@ span.fi-rs-apps {
     max-width: 400px;
     background: #fff;
     margin-block: 30px;
-    height: fit-content;
+    height: auto;
     background: #fff;
 }
 .login_page :not(input):not(textarea):not(button){
@@ -11174,6 +11174,7 @@ span.fi-rs-apps {
   width: 100%;
   padding: 60px;
   color: #282c3f;
+  background: #fff;
 }
 
 .otpTopImage .image {
@@ -11383,3 +11384,42 @@ span.fi-rs-apps {
  margin-left: 10px;
 }
 
+/* pop overlay */
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+.popUpContainer{
+  position: relative;
+  width: 400px;
+  padding-block: 30px;
+  /* background: #fff; */
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  /* align-items: center; */
+}
+.popUpContainer .login_wrap{
+  background: #fff;
+  width: 100%;
+}
+.close_popUp{
+  position: absolute;
+  background: none;
+  border: none;
+  top: 40px;
+  right: 10px;
+}
+.mobileInputContainer .form-group .mobileNumberInput.email{
+  padding-left: 12px;
+}
+
+/* My orders */
+
+.my-orders table td, .my-orders table th {
+  border: none;
+  border-bottom: 1px solid #e2e9e1;
+  border-bottom-color: #dee2e6 !important;
+}
+.table-hover>tbody>tr:hover {
+  --bs-table-accent-bg: #f7f8f9;
+}

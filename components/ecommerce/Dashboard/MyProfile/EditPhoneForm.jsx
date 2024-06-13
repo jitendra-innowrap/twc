@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-export default function LoginRegister() {
+import { MdClose } from 'react-icons/md';
+export default function EditPhoneForm({close, setTempUser}) {
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
@@ -45,7 +46,10 @@ export default function LoginRegister() {
                 // OTP is correct, redirect
                 console.log('OTP submitted:', newOtp.join(''));
                 // Add your redirect logic 
-                setStep(3) 
+                setStep(3);
+                setTempUser(prev => ({ ...prev, mobile: Mobile }));
+
+
               } else {
                 // OTP is incorrect, set error
                 setError({ ...error, otp: true });
@@ -59,14 +63,14 @@ export default function LoginRegister() {
         }
     };
     return (
-        <>
+        <div className='popUpContainer'>
+          <button onClick={close} className='close_popUp'><MdClose fontSize={22}/></button>
             {step === 1 ?
                 <div className="login_wrap w-100">
-                    <img src="/assets/imgs/banner/Login_banner.webp" alt="Login Banner" />
                     <div className="padding_eight_all bg-white  p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
-                                Login <span className="welcome_header_small">or</span> Signup
+                                Update Mobile
                             </h3>
                         </div>
                         <div class="mobileInputContainer">
@@ -91,7 +95,7 @@ export default function LoginRegister() {
                 :
                 step === 2 ? 
                     <div className="login_wrap">
-                        <div className="verificationContainer">
+                      <div className="verificationContainer">
                         <div className="otpTopImage">
                             <div className="image">
                                 <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
@@ -129,10 +133,9 @@ export default function LoginRegister() {
                     </div>
                     </div>
                     :
-                    <div className="login_wrap w-100">
-                        <div className="backButton" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div>
-                        <div className="skipButton">SKIP</div>
-                        <div className="greenBox">
+                    <div className="login_wrap w-100 d-flex align-items-center">
+                        <div className="backButton mt-20" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div>
+                        <div className="greenBox mt-20">
                             <svg
                                 width="24"
                                 height="24"
@@ -149,23 +152,16 @@ export default function LoginRegister() {
                                     ></path>
                                 </g>
                             </svg>
-                            <div className="welcomeText">Welcome to TWC</div>
-                            <div className="accountCreated">Your account has been created</div>
+                            <div className="welcomeText">Successfull</div>
+                            <div className="accountCreated">Your Mobile Number is updated Successfully.</div>
                         </div>
-                        <div className="padding_eight_all bg-white  p-30">
-                            <div className="nameText">What should we call you?</div>
-                            <div class="nameInputContainer">
-                                <div class="form-group ">
-                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder="" maxlength="10" value={name} />
-                                    <span class={`placeholderAlternative mobileNumber ${name?'focus':''}`}>
-                                        <span class="mobileNumberPlacholder">Type your name (Optional)</span>
-                                    </span><i class="bar"></i>
-                                </div>
-                                <div class="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
+                        <div className="padding_eight_all bg-white w-100 p-30">
+                            <div class="nameInputContainer w-100">
+                                <div class="submitBottomOption" onClick={close}>CONTINUE</div>
                             </div>
                         </div>
                     </div>
             }
-        </>
+        </div>
     )
 }
