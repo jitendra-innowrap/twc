@@ -32,7 +32,7 @@ const Header = ({
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-xl-3 col-lg-4">
-                                {/* <div className="header-info">
+                                <div className="header-info">
                                     <ul>
                                         <li>
                                             <i className="fi-rs-smartphone"></i>
@@ -40,14 +40,8 @@ const Header = ({
                                                 <a>(+01) - 2345 - 6789</a>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <i className="fi-rs-marker"></i>
-                                            <Link href="/page-contact">
-                                                <a>Our location</a>
-                                            </Link>
-                                        </li>
                                     </ul>
-                                </div> */}
+                                </div>
                             </div>
                             <div className="col-xl-6 col-lg-4">
                                 <div className="text-center">
@@ -69,50 +63,6 @@ const Header = ({
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
-                                        <li>
-                                            <Link href="/#">
-                                                <a className="language-dropdown-active">
-                                                    <i className="fi-rs-world"></i>
-                                                    English
-                                                    <i className="fi-rs-angle-small-down"></i>
-                                                </a>
-                                            </Link>
-                                            <ul className="language-dropdown">
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            <img
-                                                                src="/assets/imgs/theme/flag-fr.png"
-                                                                alt=""
-                                                            />
-                                                            Français
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            <img
-                                                                src="/assets/imgs/theme/flag-dt.png"
-                                                                alt=""
-                                                            />
-                                                            Deutsch
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            <img
-                                                                src="/assets/imgs/theme/flag-ru.png"
-                                                                alt=""
-                                                            />
-                                                            Pусский
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
                                         <li>
                                             <i className="fi-rs-user"></i>
                                             <Link href="/page-login-register">
@@ -1329,7 +1279,7 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href="/shop-wishlist">
+                                            <Link href="/my-profile">
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -1488,7 +1438,7 @@ const Header = ({
                                         </div>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href="/shop-wishlist" className="mr-0">
+                                        <Link href="/my-profile" className="mr-0">
                                             <a className="mr-0">
                                                 <img
                                                     alt="Evara"
