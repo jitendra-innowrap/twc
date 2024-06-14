@@ -11423,3 +11423,81 @@ span.fi-rs-apps {
 .table-hover>tbody>tr:hover {
   --bs-table-accent-bg: #f7f8f9;
 }
+
+
+
+/* My Address */
+.address_list{
+ 
+}
+.card-body.address{
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 32px;
+}
+.card-body.address.expanded{
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+}
+.card-body.address .card-head{
+  display: flex;
+    justify-content: space-between;
+}
+.card-body.address .card-head .name{
+  font-weight: 700;
+}
+.card-body.address .card-head span{
+  border: 1.5px solid #088178;
+  padding: 1px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #088178;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+}
+.card-body.address .card-head span.default_address_tag{
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 600;
+  background: #088178;
+  color: #fff;
+  padding: 2px 10px;
+}
+.card-body.address .card-actions{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.card-body.address .card-actions button{
+  background: none;
+  color: #088178;
+  border: 1.5px solid #088178;
+  border-color: transparent;
+}
+.card-body.address .card-actions button:focus{
+  border: 1.5px solid #088178;
+}
+
+.address-type-buttons button{
+  background: none;
+    border: 1.5px solid #a6aea4;
+    color: #a6aea4;
+    border-radius: 20px;
+    padding-inline: 10px;
+    margin-right: 10px;
+}
+.address-type-buttons button.selected{
+    border: 1.5px solid #088178;
+    color: #088178;
+}
+.add_address .checkbox{
+  width: 20px;
+}
+input[type="checkbox"]:checked {
+  accent-color: #088178;
+}
+
+.login_wrap.add_address{
+  height: 100%;
+  overflow-y: auto;
+}
