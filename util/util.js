@@ -31,3 +31,12 @@ console.log('updated list', filter)
     });
     return newCart
 }
+
+export function generateRandomId(length, numbersonly) {
+  let id = '';
+  const characters = numbersonly ? '0123456789' : '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for (let i = 0; i < length; i++) {
+    id += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return id;
+}

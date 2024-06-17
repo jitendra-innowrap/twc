@@ -1,7 +1,9 @@
 import React from 'react'
 import ShoppingBag from '../../../Svg/ShoppingBag'
+import { useRouter } from 'next/router'
 
 export default function EmptyCart() {
+    const router = useRouter()
     return (
         <div className="empty-cart">
             <h1>Your Cart is empty</h1>
