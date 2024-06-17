@@ -11501,3 +11501,285 @@ input[type="checkbox"]:checked {
   height: 100%;
   overflow-y: auto;
 }
+
+
+/* Cart Page */
+
+.itemBlock-base-leftBlock {
+  display: inline-block;
+  width: 64%;
+  padding-right: 20px;
+  border-right: 1px solid #eaeaec;
+  padding-top: 32px;
+}
+.addressStripV2-base-desktopContainer {
+  margin-bottom: 8px;
+  background-color: #e3f2f1;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #eaeaec;
+  cursor: pointer;
+}
+.addressStripV2-base-title {
+  font-size: 14px;
+  max-width: 75%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.addressStripV2-base-changeBtnDesktop {
+  font-size: 12px;
+  padding: 8px 16px;
+  border: 1px solid #046963;
+  color: #046963;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 0;
+}
+.addressStripV2-base-addressName {
+  width: 100%;
+  display: flex;
+  white-space: pre;
+}
+.addressStripV2-base-subText {
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+.addressStripV2-base-title span {
+  text-transform: capitalize;
+  max-width: 74%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.addressStripV2-base-highlight {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Cart item */
+.itemContainer-base-itemMargin {
+  margin-bottom: 8px;
+}.itemContainer-base-item {
+  background: #fff;
+  font-size: 14px;
+  border: 1px solid #eaeaec;
+  border-radius: 4px;
+  position: relative;
+  padding: 12px 12px 0;
+}.itemContainer-base-itemLeft {
+  position: absolute;
+}.itemContainer-base-itemRight {
+  padding-left: 12px;
+  position: relative;
+  min-height: 148px;
+  margin-left: 111px;
+  margin-bottom: 12px;
+}.itemContainer-base-details {
+  min-height: 97px;
+}.itemContainer-base-details, .itemContainer-base-itemLink {
+  text-decoration: none;
+  padding-bottom: 0;
+  margin-right: 6px;
+}.itemContainer-base-brand {
+  font-weight: 700;
+  margin-bottom: 4px;
+}.itemContainer-base-brand, .itemContainer-base-itemLink, .itemContainer-base-itemName {
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 16px;
+}.itemComponents-base-sellerContainer {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+}.itemComponents-base-sellerData {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 62%;
+  display: inline;
+  color: #94969f;
+}.itemContainer-base-sizeAndQtyContainer {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}.itemContainer-base-sizeAndQty {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 8px;
+}.itemComponents-base-size {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 2px 8px;
+  background: #f5f5f6;
+  color: #282c3f;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 12px;
+  border-radius: 2px;
+  line-height: 16px;
+}.itemContainer-base-price {
+  display: flex;
+}.itemComponents-base-price {
+  display: inline-block;
+  color: #282c3f;
+  font-weight: 700;
+}.itemContainer-base-discountBlock {
+  display: flex;
+}.itemComponents-base-strikedAmount {
+  display: inline-block;
+}.itemComponents-base-price.itemComponents-base-strike {
+  color: #94969f;
+  padding: 0 8px;
+  text-decoration: line-through;
+  display: inline-block;
+}.itemComponents-base-itemDiscount {
+  color: #f16565;
+}
+
+/* Cart billing details */
+.itemBlock-base-rightBlock {
+  vertical-align: top;
+  display: inline-block;
+  width: 35%;
+  padding: 24px 0 0 16px;
+}
+
+.coupons-base-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: #535766;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}.coupons-base-content {
+  padding-bottom: 0;
+  position: relative;
+  border-bottom: 1px solid #f5f5f6;
+}.coupons-base-label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 7px 0;
+}.coupons-base-couponIcon {
+  position: absolute;
+  left: 13px;
+  top: 16px;
+}.coupons-base-content input{
+  padding-left: 45px;
+}.coupons-base-content.valid input{
+  border: 1px solid #088178;
+    color: #088178;
+    font-weight: 600;
+    background: #e3f2f1;
+}.coupons-base-content.valid button{
+    background: none;
+    border: none;
+    color: gray;
+    font-size: 15px;
+}.coupons-base-content.invalid input{
+  border: 1px solid #ea6e6a;
+    color: #ea6e6a;
+    font-weight: 600;
+    background: #ffdfde;
+  }.coupons-base-content.invalid button{
+    background: none;
+    border: none;
+    color: gray;
+    font-size: 15px;
+  }.coupons-base-content.valid label{
+    color: #088178;
+    position: absolute;
+    bottom: -28px;
+  }.coupons-base-content.invalid label{
+    color: #ea6e6a;
+    position: absolute;
+    bottom: -28px;
+  }.css-15k6cs5 {
+  padding: 4px 25px;
+  font-size: 12px;
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  font-weight: 700;
+  border-radius: 2px;
+  background-color: #088178;
+  color: #fff;
+  border-color: #088178;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+}.priceBlock-base-container {
+  margin-bottom: 16px;
+}.priceBlock-base-priceHeader {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 29px 0 16px;
+  color: #535766;
+}.priceBreakUp-base-orderSummary {
+  font-size: 14px;
+}.priceDetail-base-redesignRow, .priceDetail-base-row {
+  margin-bottom: 12px;
+  line-height: 16px;
+}.priceDetail-base-value {
+  float: right;
+}.priceDetail-base-discount {
+  color: #03a685;
+}.priceDetail-base-knowMore {
+  margin-left: 8px;
+  color: #088178;
+  font-weight: 700;
+}.priceDetail-base-infoTextContainer {
+  display: inline-block;
+}.css-1pl9bms {
+  font-size: 14px;
+  margin-left: 8px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: transparent;
+  color: #088178;
+  padding: 0px;
+  cursor: pointer;
+}.css-xjhrni {
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  display: flex;
+}.priceDetail-base-convenienceCalloutText {
+  color: #686b79;
+  font-size: 12px;
+}.priceDetail-base-total {
+  font-weight: 700;
+  font-size: 15px;
+  padding-top: 16px;
+  border-top: 1px solid #eaeaec;
+  color: #3e4152;
+  line-height: 16px;
+}.priceDetail-base-value {
+  float: right;
+}.css-ibwr57 {
+  font-size: 14px;
+  padding: 10px 16px;
+  width: 100%;
+  letter-spacing: 1px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: #088178;
+  color: #fff;
+  cursor: pointer;
+}
