@@ -90,14 +90,13 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
         totalPrice:"",
         totalDiscount:"",
         totalDeposit:"",
-        SumTotal:""
     })
     
     const handleSelectAddress = (id) =>{
         setDeliveredTo(id)
     }
     const cartTotal = () => {
-        const priceDetails = { totalPrice: 0, totalDeposit: 0, totalDiscount: 0 };
+        const priceDetails = { totalPrice: 0, totalDeposit: 0, totalDiscount: 0, totalMrp: 0 };
         cartItems.forEach((item) => {
             if (item.type === "rent") {
                 priceDetails.totalMrp += item.oldPrice;
@@ -162,10 +161,14 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                             ))
                                             }
                                             <Popup
-                                                trigger={
-                                                    <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop">
+                                                trigger={<div>
+                                                    <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
                                                         CHANGE ADDRESS
-                                                    </div>} 
+                                                    </div>
+                                                    <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup mobile">
+                                                        CHANGE
+                                                    </div>
+                                                </div>} 
                                                 modal 
                                                 position="right center"
                                                 >
@@ -197,17 +200,24 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Total Deposit</span>
-                                                    <span className="priceDetail-base-value">
-                                                        <span />
-                                                        <span> <span className>₹</span>{priceDetails.totalDeposit}</span>
-                                                    </span>
-                                                </div>
-                                                <div className="priceDetail-base-row">
                                                     <span className>Discount on MRP</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
                                                         <span> <span className>₹</span>{priceDetails.totalDiscount}</span>
+                                                    </span>
+                                                </div>
+                                                <div className="priceDetail-base-row">
+                                                    <span className>Total Price</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{priceDetails.totalPrice}</span>
+                                                    </span>
+                                                </div>
+                                                <div className="priceDetail-base-row">
+                                                    <span className>Refundable Deposit</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{priceDetails.totalDeposit}</span>
                                                     </span>
                                                 </div>
                                                 {/* <div className="priceDetail-base-row">
@@ -235,7 +245,7 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                                     <span className>Total Amount</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span>{priceDetails.totalPrice}</span>
+                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span>{priceDetails.totalPrice + priceDetails.totalDeposit}</span>
                                                     </span>
                                                 </div>
                                             </div>

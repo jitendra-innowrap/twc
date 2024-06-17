@@ -11870,7 +11870,9 @@ input[type="checkbox"]:checked {
     border: none;
     cursor: pointer;
 }
-
+.addressStripV2-base-changeBtnDesktop.openPopup.mobile {
+  display: none;
+}
 @media(max-width:768px){
   .itemBlock-base-leftBlock{
     width: 100%;
@@ -11878,9 +11880,19 @@ input[type="checkbox"]:checked {
     border-right: none;
     padding-top: 0;
   }
-  .itemBlock-base-rightBlock{
+  .itemBlock-base-rightBlock,.itemComponents-base-sellerData{
     width: 100%;
+    max-width: 100%;
   }
+  .itemBlock-base-rightBlock {
+    padding: 16px;
+}
+.addressStripV2-base-changeBtnDesktop.openPopup {
+  display: none;
+}.addressStripV2-base-changeBtnDesktop.openPopup.mobile {
+  display: block;
+}
+
 }
 .order-sucess-container{
   max-width: 600px;
