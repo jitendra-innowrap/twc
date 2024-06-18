@@ -100,6 +100,7 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
           });
           setAddressList(updatedAddresses);
       }
+      close();
     }
     
   };
@@ -113,12 +114,12 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
       <div className="login_wrap w-100 add_address">
         <div className="padding_eight_all bg-white p-30">
           <div className="heading_s1">
-            <h3 className="mb-30 welcome_header">
+            <h3 className="welcome_header">
               Edit Address 
+            </h3>
               <button onClick={handleBack} className="close_popUp">
                 <MdClose fontSize={22} />
               </button>
-            </h3>
           </div>
           <div className="mobileInputContainer">
             <div className="form-group col-md-12">

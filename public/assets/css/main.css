@@ -11434,6 +11434,7 @@ span.fi-rs-apps {
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
   margin-bottom: 32px;
+  cursor: pointer;
 }
 .card-body.address.expanded{
   -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
@@ -11842,7 +11843,7 @@ input[type="checkbox"]:checked {
   margin-top: 40px;
 }
 .popup-content{
-  background: none;
+  background: none !important;
 }
 .returnPeriod-base-returnItem {
   display: inline-flex;
@@ -11870,7 +11871,9 @@ input[type="checkbox"]:checked {
     border: none;
     cursor: pointer;
 }
-
+.addressStripV2-base-changeBtnDesktop.openPopup.mobile {
+  display: none;
+}
 @media(max-width:768px){
   .itemBlock-base-leftBlock{
     width: 100%;
@@ -11878,9 +11881,19 @@ input[type="checkbox"]:checked {
     border-right: none;
     padding-top: 0;
   }
-  .itemBlock-base-rightBlock{
+  .itemBlock-base-rightBlock,.itemComponents-base-sellerData{
     width: 100%;
+    max-width: 100%;
   }
+  .itemBlock-base-rightBlock {
+    padding: 16px;
+}
+.addressStripV2-base-changeBtnDesktop.openPopup {
+  display: none;
+}.addressStripV2-base-changeBtnDesktop.openPopup.mobile {
+  display: block;
+}
+
 }
 .order-sucess-container{
   max-width: 600px;
