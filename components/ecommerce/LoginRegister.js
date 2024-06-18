@@ -131,7 +131,6 @@ export default function LoginRegister() {
                     :
                     <div className="login_wrap w-100">
                         <div className="backButton" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div>
-                        <div className="skipButton">SKIP</div>
                         <div className="greenBox">
                             <svg
                                 width="24"
@@ -158,7 +157,7 @@ export default function LoginRegister() {
                                 <div class="form-group ">
                                     <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder="" maxlength="10" value={name} />
                                     <span class={`placeholderAlternative mobileNumber ${name?'focus':''}`}>
-                                        <span class="mobileNumberPlacholder">Type your name (Optional)</span>
+                                        <span class="mobileNumberPlacholder">Type your name</span>
                                     </span><i class="bar"></i>
                                 </div>
                                 <div class="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
