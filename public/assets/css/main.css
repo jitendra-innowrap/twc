@@ -11434,6 +11434,7 @@ span.fi-rs-apps {
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
   margin-bottom: 32px;
+  cursor: pointer;
 }
 .card-body.address.expanded{
   -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
@@ -11842,7 +11843,7 @@ input[type="checkbox"]:checked {
   margin-top: 40px;
 }
 .popup-content{
-  background: none;
+  background: none !important;
 }
 .returnPeriod-base-returnItem {
   display: inline-flex;

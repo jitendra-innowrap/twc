@@ -32,14 +32,14 @@ export default function CartItem({item, deleteFromCart}) {
                                     item.type == "purchase" ?
                                         <>
                                             <p className="font-xs">
-                                                <span>Event Date:</span> {new Date(item.deliveryDate).toLocaleDateString()}
+                                                <span>Event Date:</span> {new Date(item.deliveryDate).toLocaleDateString('en-GB')}
                                             </p>
                                         </>
                                         :
                                         <>
                                             <p className="font-xs">
-                                                <span>From: </span> {new Date(item.deliveryDate).toLocaleDateString()}
-                                                <span> - To: </span>{new Date(item.returnByDate).toLocaleDateString()}
+                                                <span>From: </span> {new Date(item.deliveryDate).toLocaleDateString('en-GB')}
+                                                <span> - To: </span>{new Date(item.returnByDate).toLocaleDateString('en-GB')}
                                             </p>
                                             <p className="font-xs">
                                             </p>
