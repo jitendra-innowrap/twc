@@ -14,6 +14,9 @@ import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { SlSocialFacebook } from "react-icons/sl";
 
 
 const ProductDetails = ({
@@ -127,26 +130,22 @@ const ProductDetails = ({
                                                 </li>
                                                 <li className="social-facebook">
                                                     <a href="#">
-                                                        <img
-                                                            src="/assets/imgs/theme/icons/icon-facebook.svg"
-                                                            alt=""
-                                                        />
+                                                        <SlSocialFacebook size={18} color="#606060" />
                                                     </a>
                                                 </li>
                                                 <li className="social-x">
                                                     <a href="#">
-                                                        <img
-                                                            src="/assets/imgs/theme/icons/icon-x.svg"
-                                                            alt=""
-                                                        />
+                                                        <FaXTwitter size={18} color="#606060" />
                                                     </a>
                                                 </li>
                                                 <li className="social-instagram">
                                                     <a href="#">
-                                                        <img
-                                                            src="/assets/imgs/theme/icons/icon-instagram.svg"
-                                                            alt=""
-                                                        />
+                                                        <FaInstagram size={18} color="#606060"/>
+                                                    </a>
+                                                </li>
+                                                <li className="social-instagram">
+                                                    <a href="#">
+                                                        <FaWhatsapp size={18} color="#606060"/>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -178,9 +177,9 @@ const ProductDetails = ({
                                                 </div>
                                                 <div className="product-price font-md">
                                                     {product?.oldPrice && <ins className="mrp-price">
-                                                        MRP <span>
-                                                            {` ₹${product.oldPrice} `}
-                                                        </span>Inclusive of all taxes
+                                                        MRP &nbsp;₹<span>
+                                                            {`${product.oldPrice} `}
+                                                        </span>&nbsp;Inclusive of all taxes
 
                                                     </ins>
                                                     }

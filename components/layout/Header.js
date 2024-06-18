@@ -31,7 +31,7 @@ const Header = ({
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
-                            <div className="col-xl-3 col-lg-4">
+                            {/* <div className="col-xl-3 col-lg-4">
                                 <div className="header-info">
                                     <ul>
                                         <li>
@@ -39,6 +39,56 @@ const Header = ({
                                             <Link href="/#">
                                                 <a>(+01) - 2345 - 6789</a>
                                             </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> */}
+                            <div className="col-xl-3 col-lg-4">
+                                <div className="header-info header-info-left">
+                                    <ul>
+                                        <li>
+                                            <Link href="/#">
+                                                <a className="language-dropdown-active">
+                                                    <i className="fi-rs-marker"></i>
+                                                    English
+                                                    <i className="fi-rs-angle-small-down"></i>
+                                                </a>
+                                            </Link>
+                                            <ul className="language-dropdown">
+                                                <li>
+                                                    <Link href="/#">
+                                                        <a>
+                                                            {/* <img
+                                                                src="/assets/imgs/theme/flag-fr.png"
+                                                                alt=""
+                                                            /> */}
+                                                            Delhi
+                                                        </a>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/#">
+                                                        <a>
+                                                            {/* <img
+                                                                src="/assets/imgs/theme/flag-dt.png"
+                                                                alt=""
+                                                            /> */}
+                                                            Mumbai
+                                                        </a>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/#">
+                                                        <a>
+                                                            {/* <img
+                                                                src="/assets/imgs/theme/flag-ru.png"
+                                                                alt=""
+                                                            /> */}
+                                                            Pune
+                                                        </a>
+                                                    </Link>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
                                 </div>
