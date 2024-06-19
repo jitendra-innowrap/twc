@@ -1,20 +1,29 @@
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SingleProduct from "./../ecommerce/SingleProduct";
+import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
+import Popup from "reactjs-popup";
+import ReactPlayer from "react-player";
+import { BiPlayCircle } from "react-icons/bi";
 
 SwiperCore.use([Navigation]);
 
 const FeaturedSlider = ({ products }) => {
-    
+    const isTab = useMediaQuery({
+        query: '(max-width: 992px)'
+      })
+      const isPhone = useMediaQuery({
+          query: '(max-width: 768px)'
+        })
+        const isSmallPhone = useMediaQuery({
+            query: '(max-width: 575px)'
+          })
     return (
         <>
             <Swiper
-                slidesPerView={4}
+                slidesPerView={isSmallPhone?1.8:isPhone?2.5:isTab?3:4}
                 spaceBetween={30}
-                // grid={{
-                //     rows: 2,
-                // }}
-                //loop={false}
                 navigation={{
                     prevEl: ".custom_prev_f",
                     nextEl: ".custom_next_f",
@@ -23,7 +32,37 @@ const FeaturedSlider = ({ products }) => {
             >
                 {products.map((product, i) => (
                     <SwiperSlide key={i}>
-                        <SingleProduct product={product} />
+                        <div className="product-cart-wrap success-story-card">
+                            <div className="product-img-action-wrap">
+                                <div className="product-img">
+                                    <div className="play-btn">
+                                        <Popup
+                                                trigger={<div><BiPlayCircle/></div>} 
+                                                modal 
+                                                position="right center"
+                                                >
+                                                    {
+                                                        (close)=>(
+                                                            <ReactPlayer className="player" url={"https://www.youtube.com/watch?v=ldT_K1x9RHg"} />
+                                                        )
+                                                    }
+                                            </Popup>
+                                    </div>
+                                        <a>
+                                            <img
+                                                className="default-img"
+                                                src={product.images[0].img}
+                                                alt=""
+                                            />
+                                        </a>
+                                </div>
+                            </div>
+                            <div className="product-content-wrap">
+                                <h2>
+                                    <a>{product.title}</a>
+                                </h2>
+                            </div>
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>          

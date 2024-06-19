@@ -23,7 +23,7 @@ const SingleProductList = ({
     const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !",{
+        toast.success("Added to Cart !",{
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,
@@ -53,7 +53,7 @@ const SingleProductList = ({
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !",{
+        toast.success("Added to Wishlist !",{
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,

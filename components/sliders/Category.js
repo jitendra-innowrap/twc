@@ -2,6 +2,7 @@ import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
 
 SwiperCore.use([Navigation]);
 
@@ -9,49 +10,56 @@ const CategorySlider = () => {
     var data = [
         {
             id: 1,
-            title: "T-Shirt",
+            title: "Balloon Decor",
             img: "category-thumb-1.jpg",
         },
         {
             id: 2,
-            title: "Bags",
+            title: "Venues",
             img: "category-thumb-2.jpg",
         },
         {
             id: 3,
-            title: "Sandan",
+            title: "Kids Entertainment",
             img: "category-thumb-3.jpg",
         },
         {
             id: 4,
-            title: "Scarf Cap",
+            title: "Photography",
             img: "category-thumb-4.jpg",
         },
         {
             id: 5,
-            title: "Shoes",
+            title: "Catering",
             img: "category-thumb-5.jpg",
         },
         {
             id: 6,
-            title: "Pillowcase",
+            title: "Wedding Planning",
             img: "category-thumb-6.jpg",
         },
         {
             id: 7,
-            title: "Jumpsuits",
+            title: "DJ Services",
             img: "category-thumb-7.jpg",
         },
         {
             id: 8,
-            title: "Hats",
+            title: "Event Lighting",
             img: "category-thumb-8.jpg",
         },
     ];
+    const isTab = useMediaQuery({
+        query: '(max-width: 992px)'
+      })
+      const isPhone = useMediaQuery({
+          query: '(max-width: 575px)'
+        })
+    
     return (
         <>
             <Swiper
-                slidesPerView={6}
+                slidesPerView={isPhone?3:isTab?4:6}
                 spaceBetween={20}
                 // autoplay={{
                 //     delay: 2500,
@@ -87,7 +95,7 @@ const CategorySlider = () => {
                 ))}
             </Swiper>
 
-            <div
+            {/* <div
                 className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
                 id="carausel-6-columns-arrows"
             >
@@ -97,7 +105,7 @@ const CategorySlider = () => {
                 <span className="slider-btn slider-next slick-arrow custom_next_ct1">
                     <i className="fi-rs-angle-right"></i>
                 </span>
-            </div>
+            </div> */}
         </>
     );
 };

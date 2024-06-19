@@ -7,7 +7,7 @@ export default function LoginRegister() {
     const [step, setStep] = useState(1);
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [error, setError] = useState({mobile:false, otp:false})
+    const [error, setError] = useState({mobile:false, otp:false, name:false})
     const inputRefs = useRef([]);
     const router = useRouter()
     let referrer = "/"
@@ -23,7 +23,11 @@ export default function LoginRegister() {
         }
     }
     const handleSubmit = () =>{
-        router.push(referrer)
+        if(!name){
+            setError(prev => ({...prev, name: true}));
+        }else{
+            router.push(referrer)
+        }
     }
     const handleBack = () => {
         setStep(prev => prev - 1);
@@ -159,6 +163,7 @@ export default function LoginRegister() {
                                     <span class={`placeholderAlternative mobileNumber ${name?'focus':''}`}>
                                         <span class="mobileNumberPlacholder">Type your name</span>
                                     </span><i class="bar"></i>
+                                { error.name && <div className="errorContainer ">Name is required</div>}
                                 </div>
                                 <div class="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
                             </div>

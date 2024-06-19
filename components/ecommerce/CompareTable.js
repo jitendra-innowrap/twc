@@ -6,7 +6,7 @@ const CompareTable = ({ data, features, deleteFromCompare, addToCart }) => {
 
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !");
+        toast.success("Added to Cart !");
     };
     return (
         <table className="table text-center">

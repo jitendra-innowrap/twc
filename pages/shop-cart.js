@@ -86,10 +86,10 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
     const [addressList, setAddressList] = useState(dummyAddresses);
     const [deliveredTo, setDeliveredTo] = useState("1");
     const [priceDetails, setPriceDetails] = useState({
-        totalMrp:"",
-        totalPrice:"",
-        totalDiscount:"",
-        totalDeposit:"",
+        totalMrp:0,
+        totalPrice:0,
+        totalDiscount:0,
+        totalDeposit:0,
     })
     
     const handleSelectAddress = (id) =>{
@@ -99,23 +99,24 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
         const priceDetails = { totalPrice: 0, totalDeposit: 0, totalDiscount: 0, totalMrp: 0 };
         cartItems.forEach((item) => {
             if (item.type === "rent") {
-                priceDetails.totalMrp += item.oldPrice;
-                priceDetails.totalPrice += item.price;
-                priceDetails.totalDeposit += item.price;
-                priceDetails.totalDiscount += item.oldPrice - item.price;
+                priceDetails.totalMrp += item.oldPrice * item.quantity;
+                priceDetails.totalPrice += item.price * item.quantity;
+                priceDetails.totalDeposit += item.price * item.quantity;
+                priceDetails.totalDiscount += (item.oldPrice - item.price) * item.quantity;
             } else {
-                priceDetails.totalMrp += item.oldPrice;
-                priceDetails.totalPrice += item.price;
-                priceDetails.totalDiscount += item.oldPrice - item.price;
+                priceDetails.totalMrp += item.oldPrice * item.quantity;
+                priceDetails.totalPrice += item.price * item.quantity;
+                priceDetails.totalDiscount += (item.oldPrice - item.price) * item.quantity;
             }
         });
+        
         setPriceDetails(priceDetails);
     };
     const router = useRouter()
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !", {
+        toast.success("Added to Wishlist !", {
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,
@@ -196,28 +197,28 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                                     <span className>Total MRP</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{priceDetails.totalMrp}</span>
+                                                        <span> <span className>₹</span>{(priceDetails.totalMrp).toFixed(2)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Discount on MRP</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
-                                                        <span> <span className>₹</span>{priceDetails.totalDiscount}</span>
+                                                        <span> <span className>₹</span>{(priceDetails.totalDiscount).toFixed(2)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Total Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{priceDetails.totalPrice}</span>
+                                                        <span> <span className>₹</span>{(priceDetails.totalPrice).toFixed(2)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Refundable Deposit</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{priceDetails.totalDeposit}</span>
+                                                        <span> <span className>₹</span>{(priceDetails.totalDeposit).toFixed(2)}</span>
                                                     </span>
                                                 </div>
                                                 {/* <div className="priceDetail-base-row">
@@ -245,7 +246,7 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                                     <span className>Total Amount</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span>{priceDetails.totalPrice + priceDetails.totalDeposit}</span>
+                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(priceDetails.totalPrice + priceDetails.totalDeposit).toFixed(2)}</span>
                                                     </span>
                                                 </div>
                                             </div>
