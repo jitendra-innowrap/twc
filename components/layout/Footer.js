@@ -1,5 +1,8 @@
 import React from "react";
 import Link from "next/link"
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { SlSocialFacebook } from "react-icons/sl";
 
 const Footer = () => {
     return (
@@ -82,34 +85,16 @@ const Footer = () => {
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
                                         <a href="#">
-                                            <img
-                                                src="/assets/imgs/theme/icons/icon-facebook.svg"
-                                                alt=""
-                                            />
+                                            <SlSocialFacebook size={18} color="#606060" />
                                         </a>
                                         <a href="#">
-                                            <img
-                                                src="/assets/imgs/theme/icons/icon-twitter.svg"
-                                                alt=""
-                                            />
+                                            <FaXTwitter size={18} color="#606060" />
                                         </a>
                                         <a href="#">
-                                            <img
-                                                src="/assets/imgs/theme/icons/icon-instagram.svg"
-                                                alt=""
-                                            />
+                                            <FaInstagram size={18} color="#606060"/>
                                         </a>
                                         <a href="#">
-                                            <img
-                                                src="/assets/imgs/theme/icons/icon-pinterest.svg"
-                                                alt=""
-                                            />
-                                        </a>
-                                        <a href="#">
-                                            <img
-                                                src="/assets/imgs/theme/icons/icon-youtube.svg"
-                                                alt=""
-                                            />
+                                            <FaWhatsapp size={18} color="#606060"/>
                                         </a>
                                     </div>
                                 </div>

@@ -55,6 +55,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setPages(Math.ceil(products.items.length / limit));
     };
 
+    const handleClearFilters = () =>{
+        setDeliveryDate()
+    }
+
     const startIndex = currentPage * limit - limit;
     const endIndex = startIndex + limit;
     const getPaginatedProducts = products.items.slice(startIndex, endIndex);
@@ -115,10 +119,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
                                     <div className="list-group">
                                         <div className="list-group-item mb-10">
-                                            {/* <label className="fw-900">
-                                                Color
-                                            </label>
-                                            <BrandFilter /> */}
                                             <label className="fw-900 mt-20 mb-15">
                                                 Item Condition
                                             </label>
@@ -137,9 +137,11 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
-                                <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
+                                {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
                                             New products
@@ -212,7 +214,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                                     <img
                                         src="/assets/imgs/banner/banner-11.jpg"
@@ -248,11 +250,11 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         <div className="sort-by-cover">
                                             <SortSelect />
                                         </div>
-                                        <div className="change-List-layout" onClick={handleLayout}>
+                                        {/* <div className="change-List-layout" onClick={handleLayout}>
                                             <span>
                                                 {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
                                             </span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="row product-grid-3">

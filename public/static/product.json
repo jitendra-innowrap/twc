@@ -23,8 +23,9 @@
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-1-1.jpg",
-                "type": "image"
+                "thumb": "/assets/imgs/shop/product-4-1.jpg",
+                "type": "video",
+                "url":"https://www.youtube.com/watch?v=ldT_K1x9RHg"
             },
             {
                 "thumb": "/assets/imgs/shop/product-1-1.jpg",

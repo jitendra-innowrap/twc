@@ -6,6 +6,7 @@ const SizeFilter = ({ updateProductFilters }) => {
     // console.log(updateProductFilters);
 
     const sizes = [
+        {value: "All"},
         {value: "s"},
         {value: "m "},
         {value: "l"},
@@ -40,7 +41,8 @@ const SizeFilter = ({ updateProductFilters }) => {
                         key={i}
                     >
                         <a>
-                        {i == 0 ? "All" : `${tag.value}`}
+                        {/* {i == 0 ? "All" : `${tag.value}`} */}
+                        {tag.value}
                         </a>
                     </li>
                 ))}
