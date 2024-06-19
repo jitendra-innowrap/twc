@@ -19,9 +19,8 @@ function Account() {
     return (
         <>
             <Layout parent="Home" sub="Pages" subChild="Account">
-                <section className="pt-150 pb-150">
+                <section className="pt-70 pb-150">
                     <div className="container">
-                        {JSON.stringify(tab)}
                         <div className="row">
                             <div className="col-lg-10 m-auto">
                                 <div className="row">

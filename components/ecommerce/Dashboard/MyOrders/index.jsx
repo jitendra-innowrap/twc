@@ -4,7 +4,7 @@ export default function index() {
     return (
         <div className="card my-orders">
             <div className="card-header">
-                <h5 className="mb-0">Your Orders</h5>
+                <h5 className="mb-0">My Orders</h5>
             </div>
             <div className="card-body">
                 <div className="table-responsive">
@@ -21,35 +21,35 @@ export default function index() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>#1357</td>
-                                <td>March 45, 2020</td>
+                                <td>#4135</td>
+                                <td>18 Jun, 2024</td>
                                 <td>2</td>
-                                <td>$125.00</td>
+                                <td>₹1250.00</td>
                                 <td>Processing</td>
                                 <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
                             </tr>
                             <tr>
-                                <td>#2468</td>
-                                <td>June 29, 2020</td>
+                                <td>#4296</td>
+                                <td>08 Jun, 2024</td>
                                 <td>5</td>
-                                <td>$364.00</td>
-                                <td>Completed</td>
+                                <td>₹3640.00</td>
+                                <td>Pending</td>
                                 <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
                             </tr>
                             <tr>
-                                <td>#2366</td>
-                                <td>August 02, 2020</td>
+                                <td>#4239</td>
+                                <td>06 Jun, 2024</td>
                                 <td>3</td>
-                                <td>$280.00</td>
-                                <td>Completed</td>
+                                <td>₹2800.00</td>
+                                <td>Placed</td>
                                 <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
                             </tr>
                             <tr>
-                                <td>#2366</td>
-                                <td>August 02, 2020</td>
+                                <td>#4236</td>
+                                <td>20 May, 2024</td>
                                 <td>3</td>
-                                <td>$280.00</td>
-                                <td>Completed</td>
+                                <td>₹2800.00</td>
+                                <td>Delivered</td>
                                 <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
                             </tr>
                         </tbody>

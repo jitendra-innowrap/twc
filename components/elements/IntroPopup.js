@@ -40,20 +40,13 @@ const IntroPopup = () => {
                                     <h5>Limited quantities.</h5>
                                 </div>
                                 <div className="deal-content">
-                                    <h6 className="product-title">
-                                        <Link href="/products/shop-grid-right">
-                                            <a>
-                                                Summer Collection New Morden
-                                                Design
-                                            </a>
-                                        </Link>
-                                    </h6>
+                                    
                                     <div className="product-price">
                                         <span className="new-price">
-                                            $139.00
+                                            ₹539.00
                                         </span>
                                         <span className="old-price">
-                                            $160.99
+                                            ₹960.99
                                         </span>
                                     </div>
                                 </div>

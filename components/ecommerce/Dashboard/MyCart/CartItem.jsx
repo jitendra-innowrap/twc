@@ -23,7 +23,7 @@ export default function CartItem({item, deleteFromCart}) {
                             <div>
                                 <div className="itemContainer-base-brand">{item.category}</div>
                                 <a className="itemContainer-base-itemLink" href={`/products/${item.slug}`}>
-                                {`${item.title}`} {item.color? ` - ${item.color}`: ''}
+                                {`${item.title}`} {item.color? ` - ${item.color}`: ''} {item.size? ` , ${item.size}`: ''}
                                 </a>
                             </div>
                             <div className="itemComponents-base-sellerContainer">
@@ -49,9 +49,6 @@ export default function CartItem({item, deleteFromCart}) {
                             </div>
                             <div className="itemContainer-base-sizeAndQtyContainer">
                                 <div className="itemContainer-base-sizeAndQty">
-                                    <div className="itemComponents-base-size">
-                                        <span className>Size: {item.size}</span>
-                                    </div>
                                     <div className="itemComponents-base-size">
                                         <span className>Qty: {item.quantity}</span>
                                     </div>

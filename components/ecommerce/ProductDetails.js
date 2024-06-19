@@ -78,7 +78,7 @@ const ProductDetails = ({
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !", {
+        toast.success("Added to Wishlist !", {
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,
@@ -170,7 +170,7 @@ const ProductDetails = ({
                                                                 ₹{product.price}
                                                             </span>
                                                             <span className="text-brand ml-10">
-                                                                {product?.type=="purchase"?`30% off`:`for ${daysRent} days rental`}
+                                                                {product?.type=="purchase"?`30% off`:`For ${daysRent} Days Rental`}
                                                             </span>
                                                         </ins>
                                                     }
@@ -305,16 +305,16 @@ const ProductDetails = ({
                                             <div className="product-meta brand-assurity-icons mt-50 font-xs mb-30">
                                                 <ul>
                                                     <li className="mb-10">
-                                                        <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg" />
+                                                        <img alt="Evara" src="/assets/imgs/theme/icons/shield.png" />
                                                         <span>1 Year Warranty</span>
                                                     </li>
                                                     <li className="mb-10">
-                                                        <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg" />
+                                                        <img alt="Evara" src="/assets/imgs/theme/icons/return.png" />
                                                         <span>30 Day Return</span>
                                                     </li>
                                                     <li>
-                                                        <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg" />
-                                                        <span>COD available</span>
+                                                        <img alt="Evara" src="/assets/imgs/theme/icons/cash-on-delivery.png" />
+                                                        <span>COD Available</span>
                                                     </li>
                                                 </ul>
                                             </div>
