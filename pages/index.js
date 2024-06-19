@@ -239,52 +239,53 @@ export default function Home() {
                         </div>
                         <div className="usp-icons-grid position-relative wow fadeIn animated">
                             <div className="usp-card">
-                                <Image
+                                <img
                                         src={'/assets/imgs/usp/usp-1.svg'}
                                         width={160}
                                         height={120}
                                         className="image"
-                                        alt="rent-for-women"
+                                        alt="best price guanrantee"
                                     />
                                     <h5>best price guanrantee</h5>
                             </div>
                             <div className="usp-card">
-                                <Image
+                                <img
                                         src={'/assets/imgs/usp/usp-2.svg'}
                                         width={160}
                                         height={120}
                                         className="image"
-                                        alt="rent-for-women"
+                                        alt="Unlimited Supplies"
                                     />
                                     <h5>Unlimited Supplies</h5>
                             </div>
                             <div className="usp-card">
-                                <Image
+                                <img
                                         src={'/assets/imgs/usp/usp-3.svg'}
                                         width={160}
                                         height={120}
                                         className="image"
-                                        alt="rent-for-women"
+                                        alt="Trusted Quality partners"
                                     />
                                     <h5>Trusted Quality partners</h5>
                             </div>
                             <div className="usp-card">
-                                <Image
+                                <img
                                         src={'/assets/imgs/usp/usp-4.svg'}
                                         width={160}
                                         height={120}
                                         className="image"
-                                        alt="rent-for-women"
+                                        alt="Fast Customer Service"
                                     />
                                     <h5>Fast Customer Service</h5>
                             </div>
                             <div className="usp-card">
-                                <Image
+                                <img
                                         src={'/assets/imgs/usp/usp-5.svg'}
                                         width={160}
                                         height={120}
                                         className="image"
-                                        alt="rent-for-women"
+                                        quality={100}
+                                        alt="Quick Delivery"
                                     />
                                     <h5>Quick Delivery</h5>
                             </div>

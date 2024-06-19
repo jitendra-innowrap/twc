@@ -12141,11 +12141,14 @@ input[type="checkbox"]:checked {
 .rental-category-card .rental-category-card-img .image:hover {
   transform: scale(1.1); /* Use transform instead of scale */
 }
-.image-press{
+.usp-card .image{
+  width: 160px !important;
+  height: 120px !important;
+  margin-inline: 20px;
 }
 .image-press:hover{
-  transition: transform 0.6s ease-in-out; 
-  transform: scale(0.992);
+  transform: scale(.99);
+    transition: .5s ease-in-out;
 }
 
 @media (max-width:1280px){
