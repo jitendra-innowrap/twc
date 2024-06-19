@@ -217,7 +217,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                 </div> */}
                                 <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                                     <img
-                                        src="/assets/imgs/banner/banner-11.jpg"
+                                        src="/assets/imgs/banner/banner-offer.webp"
                                         alt=""
                                     />
                                     <div className="banner-text">

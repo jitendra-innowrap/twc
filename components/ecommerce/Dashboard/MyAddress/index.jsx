@@ -117,7 +117,7 @@ export default function index() {
                     <div className="address_list">
                     {addressList.map((address, id)=>(
                     <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> setExpanded(id)} key={id}>
-                        <div className="card-head"><div className="name">{address.name} {address.isDefault&&<span className='default_address_tag'>default</span>}</div><span>Home</span></div>
+                        <div className="card-head"><div className="name">{address.name} {address.isDefault&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
                         <address>
                             {address.addressLine1}<br />
                             {address.addressLine2 && <>{address.addressLine2}<br /></> }

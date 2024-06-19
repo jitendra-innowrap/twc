@@ -34,18 +34,6 @@ const Header = ({
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
-                            {/* <div className="col-xl-3 col-lg-4">
-                                <div className="header-info">
-                                    <ul>
-                                        <li>
-                                            <i className="fi-rs-smartphone"></i>
-                                            <Link href="/#">
-                                                <a>(+01) - 2345 - 6789</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> */}
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-left">
                                     <ul>
@@ -117,10 +105,10 @@ const Header = ({
                                 <div className="header-info header-info-right">
                                     <ul>
                                         <li>
-                                            <i className="fi-rs-user"></i>
-                                            <Link href="/page-login-register">
-                                                <a>Log In / Sign Up</a>
-                                            </Link>
+                                            {/* <i className="fi-rs-user"></i> */}
+                                            {/* <Link href="/page-login-register"> */}
+                                                <a>1800 1800 1624 1423</a>
+                                            {/* </Link> */}
                                         </li>
                                     </ul>
                                 </div>
@@ -142,7 +130,7 @@ const Header = ({
                                 <Link href="/">
                                     <a>
                                         <img
-                                            src="/assets/imgs/theme/logo.svg"
+                                            src="/assets/imgs/theme/party-house.png"
                                             alt="logo"
                                         />
                                     </a>
@@ -159,7 +147,7 @@ const Header = ({
                                                     </a>
                                                 <ul className="mega-menu">
                                                     <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                        <a className="text-black">
+                                                        <a className="menu-title">
                                                                 Women's Fashion
                                                         </a>
                                                         <ul>
@@ -312,50 +300,6 @@ const Header = ({
                                                                 </Link>
                                                             </li>
                                                         </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-34">
-                                                        <div className="menu-banner-wrap">
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    <img
-                                                                        src="/assets/imgs/banner/menu-banner.jpg"
-                                                                        alt="Evara"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                            <div className="menu-banner-content">
-                                                                <h4>
-                                                                    Hot deals
-                                                                </h4>
-                                                                <h3>
-                                                                    Don't miss
-                                                                    <br />
-                                                                    Trending
-                                                                </h3>
-                                                                <div className="menu-banner-price">
-                                                                    <span className="new-price text-success">
-                                                                        Save to
-                                                                        50%
-                                                                    </span>
-                                                                </div>
-                                                                <div className="menu-banner-btn">
-                                                                    <Link href="/products/">
-                                                                        <a>
-                                                                            Shop
-                                                                            now
-                                                                        </a>
-                                                                    </Link>
-                                                                </div>
-                                                            </div>
-                                                            <div className="menu-banner-discount">
-                                                                <h3>
-                                                                    <span>
-                                                                        35%
-                                                                    </span>
-                                                                    off
-                                                                </h3>
-                                                            </div>
-                                                        </div>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -520,50 +464,6 @@ const Header = ({
                                                             </li>
                                                         </ul>
                                                     </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-34">
-                                                        <div className="menu-banner-wrap">
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    <img
-                                                                        src="/assets/imgs/banner/menu-banner.jpg"
-                                                                        alt="Evara"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                            <div className="menu-banner-content">
-                                                                <h4>
-                                                                    Hot deals
-                                                                </h4>
-                                                                <h3>
-                                                                    Don't miss
-                                                                    <br />
-                                                                    Trending
-                                                                </h3>
-                                                                <div className="menu-banner-price">
-                                                                    <span className="new-price text-success">
-                                                                        Save to
-                                                                        50%
-                                                                    </span>
-                                                                </div>
-                                                                <div className="menu-banner-btn">
-                                                                    <Link href="/products/">
-                                                                        <a>
-                                                                            Shop
-                                                                            now
-                                                                        </a>
-                                                                    </Link>
-                                                                </div>
-                                                            </div>
-                                                            <div className="menu-banner-discount">
-                                                                <h3>
-                                                                    <span>
-                                                                        35%
-                                                                    </span>
-                                                                    off
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    </li>
                                                 </ul>
                                             </li>
                                             <li className="position-static">
@@ -727,50 +627,6 @@ const Header = ({
                                                             </li>
                                                         </ul>
                                                     </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-34">
-                                                        <div className="menu-banner-wrap">
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    <img
-                                                                        src="/assets/imgs/banner/menu-banner.jpg"
-                                                                        alt="Evara"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                            <div className="menu-banner-content">
-                                                                <h4>
-                                                                    Hot deals
-                                                                </h4>
-                                                                <h3>
-                                                                    Don't miss
-                                                                    <br />
-                                                                    Trending
-                                                                </h3>
-                                                                <div className="menu-banner-price">
-                                                                    <span className="new-price text-success">
-                                                                        Save to
-                                                                        50%
-                                                                    </span>
-                                                                </div>
-                                                                <div className="menu-banner-btn">
-                                                                    <Link href="/products/">
-                                                                        <a>
-                                                                            Shop
-                                                                            now
-                                                                        </a>
-                                                                    </Link>
-                                                                </div>
-                                                            </div>
-                                                            <div className="menu-banner-discount">
-                                                                <h3>
-                                                                    <span>
-                                                                        35%
-                                                                    </span>
-                                                                    off
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    </li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -796,7 +652,7 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href="/shop-wishlist">
+                                            <Link href="/page-login-register">
                                                 <a>
                                                     <img
                                                         className="svgInject"

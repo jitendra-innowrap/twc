@@ -10834,8 +10834,8 @@ span.fi-rs-apps {
 }
 
 .detail-info .brand-assurity-icons ul li img {
-  width: 25px;
-  height: 25px;
+  width: 45px;
+  height: 45px;
   margin-inline: auto;
 }
 
@@ -12141,6 +12141,12 @@ input[type="checkbox"]:checked {
 .rental-category-card .rental-category-card-img .image:hover {
   transform: scale(1.1); /* Use transform instead of scale */
 }
+.rental-category-card-full img{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: top center;
+}
 .usp-card .image{
   width: 160px !important;
   height: 120px !important;
@@ -12151,6 +12157,15 @@ input[type="checkbox"]:checked {
     transition: .5s ease-in-out;
 }
 
+.main-menu>nav>ul>li ul.mega-menu li.sub-mega-menu-width-22 {
+  width: 33.33%;
+}
+.main-menu>nav>ul>li ul.mega-menu{
+  width: 60vw;
+}
+.product-cart-wrap .product-img-action-wrap .product-img a img{
+  object-position: top;
+}
 @media (max-width:1280px){
   h3.section-title {
     font-size: 28px;
