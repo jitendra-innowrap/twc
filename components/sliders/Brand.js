@@ -1,7 +1,4 @@
-import SwiperCore, { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 
-SwiperCore.use([Navigation]);
 
 const BrandSlider = () => {
     var data = [
@@ -29,44 +26,43 @@ const BrandSlider = () => {
             id: 6,
             img: "brand-6.png",
         },
+        {
+            id: 7,
+            img: "brand-1.png",
+        },
+        {
+            id: 8,
+            img: "brand-2.png",
+        },
+        {
+            id: 9,
+            img: "brand-3.png",
+        },
+        {
+            id: 10,
+            img: "brand-4.png",
+        },
+        {
+            id: 11,
+            img: "brand-5.png",
+        },
+        {
+            id: 12,
+            img: "brand-6.png",
+        },
     ];
 
     return (
         <>
-            <Swiper
-                slidesPerView={6}
-                spaceBetween={20}
-                //loop={false}
-                navigation={{
-                    prevEl: ".custom_prev_br1",
-                    nextEl: ".custom_next_br1",
-                }}
-                className="carausel-6-columns text-center"
-            >
                 {data.map((item, i) => (
-                    <SwiperSlide key={i}>
-                        <div className="brand-logo">
+                        <div key={i} className="brand-logo">
                             <img
                                 className="img-grey-hover"
                                 src={`assets/imgs/banner/${item.img}`}
                                 alt=""
                             />
                         </div>
-                    </SwiperSlide>
                 ))}
-            </Swiper>
-
-            <div
-                className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
-                id="carausel-6-columns-3-arrows"
-            >
-                <span className="slider-btn slider-prev slick-arrow custom_prev_br1">
-                    <i className="fi-rs-angle-left"></i>
-                </span>
-                <span className="slider-btn slider-next slick-arrow custom_next_br1">
-                    <i className="fi-rs-angle-right"></i>
-                </span>
-            </div>
         </>
     );
 };

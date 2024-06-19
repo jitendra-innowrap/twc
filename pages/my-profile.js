@@ -1,12 +1,18 @@
 import Layout from "../components/layout/Layout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link"
 import MyProfile from "../components/ecommerce/Dashboard/MyProfile";
 import MyOrders from "../components/ecommerce/Dashboard/MyOrders";
 import MyAddress from "../components/ecommerce/Dashboard/MyAddress";
+import { useRouter } from "next/router";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
-
+    const router = useRouter();
+    const tab = router.query.tab;
+    useEffect(() => {
+        handleOnClick(tab ? parseInt(tab, 10) : 1);
+    }, [])
+    
     const handleOnClick = (index) => {
         setActiveIndex(index); // remove the curly braces
     };
@@ -15,6 +21,7 @@ function Account() {
             <Layout parent="Home" sub="Pages" subChild="Account">
                 <section className="pt-150 pb-150">
                     <div className="container">
+                        {JSON.stringify(tab)}
                         <div className="row">
                             <div className="col-lg-10 m-auto">
                                 <div className="row">
@@ -30,7 +37,7 @@ function Account() {
                                                         
                                                     >
                                                         <i className="fi-rs-user mr-10"></i>
-                                                        MY Profile
+                                                        My Profile
                                                     </a>
                                                 </li>
                                                 <li className="nav-item" onClick={() => handleOnClick(2)}>

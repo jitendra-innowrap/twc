@@ -29,7 +29,7 @@ const SingleProduct = ({
 
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !",{
+        toast.success("Added to Cart !",{
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,
@@ -59,7 +59,7 @@ const SingleProduct = ({
 
     const handleWishlist = (product) => {
         addToWishlist(product);
-        toast.success("Add to Wishlist !",{
+        toast.success("Added to Wishlist !",{
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,

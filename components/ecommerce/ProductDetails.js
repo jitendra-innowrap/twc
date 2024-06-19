@@ -48,7 +48,7 @@ const ProductDetails = ({
     };
     const handleCart = (product) => {
         addToCart(product);
-        toast.success("Add to Cart !", {
+        toast.success("Added to Cart !", {
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,
