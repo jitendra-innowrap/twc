@@ -12141,7 +12141,10 @@ input[type="checkbox"]:checked {
 .rental-category-card .rental-category-card-img .image:hover {
   transform: scale(1.1); /* Use transform instead of scale */
 }
-.image-press{
+.usp-card .image{
+  width: 160px !important;
+  height: 120px !important;
+  margin-inline: 20px;
 }
 .image-press:hover{
   transform: scale(.99);
