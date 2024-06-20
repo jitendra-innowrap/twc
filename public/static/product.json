@@ -138,7 +138,7 @@
         "price": 2000,
         "oldPrice": 2499,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
                 "img": "/assets/imgs/shop/rental-3-1.png"
@@ -280,7 +280,6 @@
                 "img": "/assets/imgs/shop/anivarsary decor-2.jpg"
             }
         ],
-        "totalSell": 27,
         "gallery": [
             {
                 "thumb": "/assets/imgs/shop/anivarsary decor-1.jpg",
@@ -299,6 +298,7 @@
                 "type": "image"
             }
         ],
+        "totalSell": 27,
         "condition": "refurbished",
         "color": "blue",
         "brand": "TWC",
@@ -460,36 +460,41 @@
         "created": ""
     },
     {
-        "title": "Landscape Painting Shirt",
-        "slug": "landscape_painting_shirt",
+        "title": "Anivarsary Party Decor",
+        "slug": "Anivarsary-party-decor",
         "moreLove": true,
         "id": "4",
-        "price": 550,
+        "price": 35000,
+        "oldPrice": 39990,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
             {
-                "img": "/assets/imgs/shop/product-4-1.jpg"
+                "img": "/assets/imgs/shop/anivarsary decor-1.jpg"
             },
             {
-                "img": "/assets/imgs/shop/product-4-2.jpg"
+                "img": "/assets/imgs/shop/anivarsary decor-2.jpg"
+            }
+        ],
+        "gallery": [
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-1.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-2.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-4.jpg",
+                "type": "image"
             }
         ],
         "totalSell": 27,
-        "gallery": [
-            {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg",
-                "type": "image"
-            },
-            {
-                "thumb": "/assets/imgs/shop/product-4-2.jpg",
-                "type": "image"
-            },
-            {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg",
-                "type": "image"
-            }
-        ],
         "condition": "used",
         "color": "blue",
         "brand": "armani",
