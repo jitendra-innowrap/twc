@@ -60,7 +60,7 @@ export default function CartItem({item, deleteFromCart}) {
                                         ₹{item.price}
                                     </div>
                                 </div>
-                                <div className="itemContainer-base-discountBlock">
+                                {item.oldPrice&&<div className="itemContainer-base-discountBlock">
                                     <span className="itemComponents-base-strikedAmount">
                                         <span className="itemComponents-base-price itemComponents-base-strike itemContainer-base-strikedAmount">
                                             ₹{item.oldPrice}
@@ -72,7 +72,7 @@ export default function CartItem({item, deleteFromCart}) {
                                         );
                                         })()}
                                     </span>
-                                </div>
+                                </div>}
                             </div>
                             {item.type=="rent"&&<div class="returnPeriod-base-returnItem">
                                 <div class="returnPeriod-base-returnIcon">

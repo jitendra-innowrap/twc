@@ -43,7 +43,7 @@ const FeaturedSlider = ({ products }) => {
                                                 >
                                                     {
                                                         (close)=>(
-                                                            <ReactPlayer className="player" url={"https://www.youtube.com/watch?v=ldT_K1x9RHg"} />
+                                                            <ReactPlayer className="player" url={"https://www.youtube.com/watch?v=XVwHLwZrIYk&pp=ygUWZXZlbnQgZGVjb3JhdGlvbiB2aWRlbw%3D%3D"} />
                                                         )
                                                     }
                                             </Popup>
