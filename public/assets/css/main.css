@@ -10861,7 +10861,7 @@ span.fi-rs-apps {
 
 .custom-date-input {
   color: #555;
-  border: 1px solid #888;
+  border: 1px solid rgba(0, 19, 37, .16);
   border-radius: 0;
   padding: 9px 40px;
   background-color: transparent;
