@@ -35,7 +35,7 @@ const ProductDetails = ({
     const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
     let productSizes = ['S', 'M', 'L', 'XL', 'XXL'];
     const [quantity, setQuantity] = useState(1);
-    const [color, setColor] = useState(product.variations[0]);
+    const [color, setColor] = useState(product?.variations?.[0]);
     const [size, setSize] = useState("M");
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <button className="custom-date-input" onClick={onClick} ref={ref}>
@@ -49,21 +49,6 @@ const ProductDetails = ({
     const handleCart = (product) => {
         addToCart(product);
         toast.success("Added to Cart !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
-    const handleCompare = (product) => {
-        addToCompare(product);
-        toast.success("Add to Compare !", {
             position: "bottom-center",
             autoClose: 1500,
             hideProgressBar: false,
@@ -154,10 +139,10 @@ const ProductDetails = ({
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-right">
                                         <div className="detail-info">
                                             <div className="category">
-                                                <span>Men's Wear</span>
+                                                <span>{product.category?product.category:"Decor"}</span>
                                             </div>
                                             <div className="sub-category">
-                                                <span>Jodhpuri Suits</span>
+                                                <span>{product.subCategory?product.subCategory:product.type=="purchase"?"Decor":"Casual"}</span>
                                             </div>
                                             <h2 className="title-detail">
                                                 {product?.title}
@@ -205,7 +190,7 @@ const ProductDetails = ({
                                                     Color
                                                 </strong>
                                                 <ul className="list-filter color-filter">
-                                                    {product.variations.map(
+                                                    {product?.variations?.map(
                                                         (clr, i) => (
                                                             <li key={i}>
                                                                 <a href="#" onClick={(e) => {

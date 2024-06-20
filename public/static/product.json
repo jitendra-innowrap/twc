@@ -36,6 +36,7 @@
         "color": "blue",
         "brand": "armani",
         "category": "clothing",
+        "subCategory": "Lehenga",
         "featured": false,
         "trending": true,
         "discount": {
@@ -172,7 +173,8 @@
         "condition": "refurbished",
         "color": "blue",
         "brand": "TWC",
-        "category": "Decor",
+        "category": "Clothing",
+        "subCategory": "Lehenga",
         "featured": true,
         "trending": false,
         "discount": {
@@ -368,7 +370,8 @@
         "condition": "refurbished",
         "color": "blue",
         "brand": "TWC",
-        "category": "Decor",
+        "category": "Clothing",
+        "subCategory": "Kurta",
         "featured": true,
         "trending": false,
         "discount": {
@@ -400,7 +403,7 @@
         "id": "3",
         "price": 35000,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "rent",
+        "type": "purchase",
         "images": [
             {
                 "img": "/assets/imgs/shop/anivarsary decor-1.jpg"

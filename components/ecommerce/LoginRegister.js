@@ -66,7 +66,7 @@ export default function LoginRegister() {
         <>
             {step === 1 ?
                 <div className="login_wrap w-100">
-                    <img src="/assets/imgs/banner/Login_banner.png" alt="Login Banner" />
+                    <img src="/assets/imgs/banner/login_banner.png" alt="Login Banner" />
                     <div className="padding_eight_all bg-white  p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">

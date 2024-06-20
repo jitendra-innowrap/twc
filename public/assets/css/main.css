@@ -9708,6 +9708,7 @@ span.fi-rs-apps {
   .download-app {
     margin-bottom: 0 !important;
   }
+  
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
@@ -9717,6 +9718,21 @@ span.fi-rs-apps {
 }
 
 @media only screen and (max-width: 992px) {
+  .header-wrap  .logo.logo-width-1 a img {
+    width: 100px;
+    min-width: -12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .header-wrap  .logo.logo-width-1 {
+    margin-right: 20px;
+    position: relative;
+    height: 46px;
+    width: 150px;
+}
+
 
   .cart-detail,
   .billing-detail {
@@ -11636,7 +11652,7 @@ input[type="checkbox"]:checked {
   width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   line-height: 16px;
 }.itemComponents-base-sellerContainer {
   margin-top: 2px;
@@ -12032,6 +12048,7 @@ input[type="checkbox"]:checked {
 .rental-category-card{
   position: relative;
   flex: 1;
+  cursor: pointer;
 }
 .rental-category-card h5{
   position: absolute;
@@ -12067,6 +12084,7 @@ input[type="checkbox"]:checked {
   border: 1px solid #cce7d0;
   border-radius: 25px;
   padding: 20px;
+  cursor: pointer;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
 }
 .events-collection-card:hover{
@@ -12134,6 +12152,7 @@ input[type="checkbox"]:checked {
 .order-sucess-container button a{
   color: inherit;
 }
+
 .rental-category-card .rental-category-card-img .image {
   transition: transform 3s ease-in-out; /* Apply transition to the base state */
 }
@@ -12151,6 +12170,9 @@ input[type="checkbox"]:checked {
   width: 160px !important;
   height: 120px !important;
   margin-inline: 20px;
+}
+.image-press{
+  cursor: pointer;
 }
 .image-press:hover{
   transform: scale(.99);
@@ -12263,4 +12285,18 @@ input[type="checkbox"]:checked {
   height: 300px;
 }
 
+}
+
+
+.header-wrap .logo.logo-width-1 a img {
+  width: 116px;
+  min-width: 91px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}.header-wrap .logo.logo-width-1 {
+  margin-right: 20px;
+  position: relative;
+  width: 150px;
 }
