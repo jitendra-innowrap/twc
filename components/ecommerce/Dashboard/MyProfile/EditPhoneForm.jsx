@@ -69,9 +69,12 @@ export default function EditPhoneForm({close, setTempUser}) {
                 <div className="login_wrap w-100">
                     <div className="padding_eight_all bg-white  p-30">
                         <div className="heading_s1">
-                            <h3 className="mb-30 welcome_header">
+                            <h3 className="welcome_header">
                                 Update Mobile
                             </h3>
+                            <button onClick={handleBack} className="close_popUp">
+                                <MdClose fontSize={22} />
+                            </button>
                         </div>
                         <div class="mobileInputContainer">
                             <div class="form-group ">
