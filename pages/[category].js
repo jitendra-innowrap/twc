@@ -13,11 +13,13 @@ import SizeFilter from "../components/ecommerce/SizeFilter";
 import SortSelect from "../components/ecommerce/SortSelect";
 import WishlistModal from "../components/ecommerce/WishlistModal";
 import Layout from "../components/layout/Layout";
-import { fetchProduct } from "../redux/action/product";
+// import { fetchProduct } from "../redux/action/product";
 import Link from "next/link";
 import ReactDatePicker from "react-datepicker";
+import { getAllCategoryProducts } from "../util/api";
 
-const Products = ({ products, productFilters, fetchProduct }) => {
+const Products = ({ productFilters }) => {
+    const [products, setProducts] = useState({items:['ok']});
     const [deliveryDate, setDeliveryDate] = useState();
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
@@ -37,22 +39,41 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
-    let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
+    let [pages, setPages] = useState(Math.ceil(products?.items?.length / limit));
     let [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetchProduct(searchTerm, "/static/product.json", productFilters);
+        // fetchProduct(searchTerm, "/static/product.json",  productFilters);
+        fetchProduct()
         cratePagination();
-    }, [productFilters, limit, pages, products.items.length]);
+    }, [productFilters, limit, pages, products?.items?.length,]);
+
+    const fetchProduct = async ()=>{
+        const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
+
+        // Create the request body
+        let body = { handle_category: category || "", handle_sub_category: sub_category || "", flag: [] };
+    try {
+            const response = await getAllCategoryProducts(body);
+            console.log('fetch products success: ', response)
+            if(response.code==0){
+                Router.push('/404')
+            }
+            setProducts({items:response?.result})
+          } catch (error) {
+            console.error('there is an error: ',error);
+            
+          }
+    }
 
     const cratePagination = () => {
         // set pagination
-        let arr = new Array(Math.ceil(products.items.length / limit))
+        let arr = new Array(Math.ceil(products?.items?.length / limit))
             .fill()
             .map((_, idx) => idx + 1);
 
         setPagination(arr);
-        setPages(Math.ceil(products.items.length / limit));
+        setPages(Math.ceil(products?.items?.length / limit));
     };
 
     const handleClearFilters = () =>{
@@ -61,11 +82,11 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
     const startIndex = currentPage * limit - limit;
     const endIndex = startIndex + limit;
-    const getPaginatedProducts = products.items.slice(startIndex, endIndex);
+    const getPaginatedProducts = products.items?.slice(startIndex, endIndex);
 
     let start = Math.floor((currentPage - 1) / showPagination) * showPagination;
     let end = start + showPagination;
-    const getPaginationGroup = pagination.slice(start, end);
+    const getPaginationGroup = pagination?.slice(start, end);
 
     const next = () => {
         setCurrentPage((page) => page + 1);
@@ -79,14 +100,23 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setCurrentPage(item);
     };
 
-    const selectChange = (e) => {
-        setLimit(Number(e.target.value));
-        setCurrentPage(1);
-        setPages(Math.ceil(products.items.length / Number(e.target.value)));
-    };
-    const handleLayout = () => {
-        setListLayout(!listLayout);
-    }
+    // const selectChange = (e) => {
+    //     setLimit(Number(e.target.value));
+    //     setCurrentPage(1);
+    //     setPages(Math.ceil(products.items.length / Number(e.target.value)));
+    // };
+    // const handleLayout = () => {
+    //     setListLayout(!listLayout);
+    // }
+    return(
+        <>
+            
+            {
+                JSON.stringify(products.items,)
+            }
+        </>
+    )
+    
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Products">
@@ -297,10 +327,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                         </div>
                     </div>
                 </section>
-                <WishlistModal />
+                {/* <WishlistModal /> */}
                 {/* <CompareModal /> */}
                 {/* <CartSidebar /> */}
-                <QuickView />                
+                {/* <QuickView />                 */}
             </Layout>
         </>
     );
@@ -313,7 +343,7 @@ const mapStateToProps = (state) => ({
 
 const mapDidpatchToProps = {
     // openCart,
-    fetchProduct,
+    // fetchProduct,
     // fetchMoreProduct,
 };
 

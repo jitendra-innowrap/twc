@@ -13,7 +13,6 @@ const Header = ({
 }) => {
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
-    const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [headerData, setheaderData] = useState([])
     useEffect(() => {
         fetchHeaderData()
