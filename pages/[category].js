@@ -1,29 +1,40 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import BrandFilter from "../../components/ecommerce/BrandFilter";
-import CategoryProduct from "../../components/ecommerce/CategoryProduct";
-import CompareModal from "../../components/ecommerce/CompareModal";
-import Pagination from "../../components/ecommerce/Pagination";
-import PriceRangeSlider from "../../components/ecommerce/PriceRangeSlider";
-import QuickView from "../../components/ecommerce/QuickView";
-import ShowSelect from "../../components/ecommerce/ShowSelect";
-import SingleProduct from "../../components/ecommerce/SingleProduct";
-import SizeFilter from "../../components/ecommerce/SizeFilter";
-import SortSelect from "../../components/ecommerce/SortSelect";
-import WishlistModal from "../../components/ecommerce/WishlistModal";
-import Layout from "../../components/layout/Layout";
-import { fetchProduct } from "../../redux/action/product";
-import Link from "next/link"
+import BrandFilter from "../components/ecommerce/BrandFilter";
+import CategoryProduct from "../components/ecommerce/CategoryProduct";
+import Pagination from "../components/ecommerce/Pagination";
+import PriceRangeSlider from "../components/ecommerce/PriceRangeSlider";
+import QuickView from "../components/ecommerce/QuickView";
+import ShowSelect from "../components/ecommerce/ShowSelect";
+import SingleProduct from "../components/ecommerce/SingleProduct";
+import SingleProductList from "../components/ecommerce/SingleProductList";
+import SizeFilter from "../components/ecommerce/SizeFilter";
+import SortSelect from "../components/ecommerce/SortSelect";
+import WishlistModal from "../components/ecommerce/WishlistModal";
+import Layout from "../components/layout/Layout";
+import { fetchProduct } from "../redux/action/product";
+import Link from "next/link";
+import ReactDatePicker from "react-datepicker";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
-    // console.log(products);
-
+    const [deliveryDate, setDeliveryDate] = useState();
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
+        if(value)
+        return(<button className="custom-date-input" onClick={onClick} ref={ref}>
+            {value}
+        </button>)
+        else{
+        return<div onClick={onClick} className="custom-date-input">
+            <span>Select Date</span> <i></i>
+        </div>
+        }
+    });
     let Router = useRouter(),
         searchTerm = Router.query.search,
-        showLimit = 12,
+        showLimit = 20,
         showPagination = 4;
-
+    const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
@@ -43,6 +54,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setPagination(arr);
         setPages(Math.ceil(products.items.length / limit));
     };
+
+    const handleClearFilters = () =>{
+        setDeliveryDate()
+    }
 
     const startIndex = currentPage * limit - limit;
     const endIndex = startIndex + limit;
@@ -69,13 +84,16 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setCurrentPage(1);
         setPages(Math.ceil(products.items.length / Number(e.target.value)));
     };
+    const handleLayout = () => {
+        setListLayout(!listLayout);
+    }
     return (
         <>
-            <Layout parent="Home" sub="Shop" subChild="Grid">
+            <Layout parent="Home" sub="Shop" subChild="Products">
                 <section className="mt-50 mb-50">
                     <div className="container">
-                        <div className="row flex-row-reverse">
-                        <div className="col-lg-3 primary-sidebar sticky-sidebar">
+                        <div className="row">
+                            <div className="col-lg-3 primary-sidebar sticky-sidebar">
                                 <div className="widget-category mb-30">
                                     <h5 className="section-title style-1 mb-30 wow fadeIn animated">
                                         Category
@@ -86,7 +104,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                 <div className="sidebar-widget price_range range mb-30">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
-                                            Filter
+                                            Fill by price
                                         </h5>
                                         <div className="bt-1 border-color-1"></div>
                                     </div>
@@ -100,19 +118,30 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                     </div>
 
                                     <div className="list-group">
-                                        <div className="list-group-item mb-10 mt-10">
-                                            <label className="fw-900">Color</label>
-                                            <BrandFilter />
-                                            <label className="fw-900 mt-15">
+                                        <div className="list-group-item mb-10">
+                                            <label className="fw-900 mt-20 mb-15">
                                                 Item Condition
                                             </label>
                                             <SizeFilter />
+                                            <label className="fw-900 mt-35 mb-15">
+                                                Available On
+                                            </label>
+                                            <div className="date-filter">
+                                                <ReactDatePicker
+                                                    selected={deliveryDate}
+                                                    dateFormat="dd/MM/yyyy"
+                                                    onChange={(date) => setDeliveryDate(date)}
+                                                    customInput={<ExampleCustomInput />}
+                                                    minDate={new Date()}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <br />
+
+                                    <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
-                                <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
+                                {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
                                             New products
@@ -128,9 +157,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         </div>
                                         <div className="content pt-10">
                                             <h5>
-                                                <a>
-                                                    Chen Cardigan
-                                                </a>
+                                                <a>Chen Cardigan</a>
                                             </h5>
                                             <p className="price mb-0 mt-5">
                                                 $99.50
@@ -152,9 +179,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         </div>
                                         <div className="content pt-10">
                                             <h6>
-                                                <a>
-                                                    Chen Sweater
-                                                </a>
+                                                <a>Chen Sweater</a>
                                             </h6>
                                             <p className="price mb-0 mt-5">
                                                 $89.50
@@ -176,9 +201,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         </div>
                                         <div className="content pt-10">
                                             <h6>
-                                                <a>
-                                                    Colorful Jacket
-                                                </a>
+                                                <a>Colorful Jacket</a>
                                             </h6>
                                             <p className="price mb-0 mt-5">
                                                 $25
@@ -191,10 +214,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                                     <img
-                                        src="/assets/imgs/banner/banner-11.jpg"
+                                        src="/assets/imgs/banner/banner-offer.webp"
                                         alt=""
                                     />
                                     <div className="banner-text">
@@ -216,7 +239,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                 <div className="shop-product-fillter">
                                     <div className="totall-product">
                                         <p>
-                                            
                                             We found
                                             <strong className="text-brand">
                                                 {products.items.length}
@@ -225,15 +247,14 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         </p>
                                     </div>
                                     <div className="sort-by-product-area">
-                                        <div className="sort-by-cover mr-10">
-                                            <ShowSelect
-                                                selectChange={selectChange}
-                                                showLimit={showLimit}
-                                            />
-                                        </div>
                                         <div className="sort-by-cover">
                                             <SortSelect />
                                         </div>
+                                        {/* <div className="change-List-layout" onClick={handleLayout}>
+                                            <span>
+                                                {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
+                                            </span>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="row product-grid-3">
@@ -241,14 +262,21 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                         <h3>No Products Found </h3>
                                     )}
 
-                                    {getPaginatedProducts.map((item, i) => (
-                                        <div
-                                            className="col-lg-4 col-md-4 col-12 col-sm-6"
+                                    {getPaginatedProducts.map((item, i) => {
+                                        if(listLayout){
+                                            return<div className=""
                                             key={i}
                                         >
+                                            <SingleProductList product={item}/>
+                                        </div>                                        
+                                        }else{
+                                            return <div className="col-lg-4 col-md-4 col-12 col-sm-6"
+                                            key={i}
+                                            >
                                             <SingleProduct product={item} />
                                         </div>
-                                    ))}
+                                        }
+                                    })}
                                 </div>
 
                                 <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
@@ -266,14 +294,13 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                     </nav>
                                 </div>
                             </div>
-
-                            
                         </div>
                     </div>
                 </section>
                 <WishlistModal />
                 {/* <CompareModal /> */}
-                <QuickView />
+                {/* <CartSidebar /> */}
+                <QuickView />                
             </Layout>
         </>
     );
@@ -285,7 +312,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDidpatchToProps = {
+    // openCart,
     fetchProduct,
+    // fetchMoreProduct,
 };
 
 export default connect(mapStateToProps, mapDidpatchToProps)(Products);

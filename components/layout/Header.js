@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Search from "../ecommerce/Search";
+import { getAllCollectionProducts } from "../../util/api";
 
 const Header = ({
     totalCartItems,
@@ -13,20 +14,34 @@ const Header = ({
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
-
+    const [headerData, setheaderData] = useState([])
     useEffect(() => {
+        fetchHeaderData()
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY >= 100;
             if (scrollCheck !== scroll) {
                 setScroll(scrollCheck);
             }
         });
-    });                                                                             
+    },[]);       
     
+    const fetchHeaderData =async ()=>{
+        try {
+            const response = await getAllCollectionProducts();
+            console.log('fetch success: ', response)
+            setheaderData(response.data)
+          } catch (error) {
+            console.error('there is an error: ',error);
+          }
+    }
+
     const handleNoUrlLink =(e)=>{
         e.preventDefault();
     }
     const handleToggle = () => setToggled(!isToggled);
+    const {announcement_notes, cart_count, result, user_wishlist_count} = headerData;
+    const title = announcement_notes?.[0]?.title;
+    const url = announcement_notes?.[0]?.redirect_url || "";
 
     return (
         <>
@@ -91,9 +106,9 @@ const Header = ({
                                         className="d-inline-block"
                                     >
                                         <ul>
-                                            <li>
-                                                Get great devices up to 50% off
-                                                <Link href="/products/">
+                                            <li onClick={()=> console.log(headerData)}>
+                                                {title} &nbsp;
+                                                <Link href={url}>
                                                     <a> View details</a>
                                                 </Link>
                                             </li>
@@ -140,495 +155,49 @@ const Header = ({
                                 <div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                                     <nav>
                                         <ul className="menu-links">
-                                            <li className="position-static">
-                                                    <a className="text-black">
-                                                        Rental For Men
-                                                        <i className="fi-rs-angle-down"></i>
-                                                    </a>
-                                                <ul className="mega-menu">
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                        <a className="menu-title">
-                                                                Women's Fashion
+                                            {
+                                                result?.map((menu, i)=>(
+                                                    <li className="position-static" key={i}>
+                                                        <a className="text-black">
+                                                            {menu?.name}
+                                                            <i className="fi-rs-angle-down"></i>
                                                         </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Blouses
-                                                                        & Shirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Hoodies
-                                                                        &
-                                                                        Sweatshirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Wedding
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Prom
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Cosplay
-                                                                        Costumes
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
+                                                        <ul className="mega-menu">
+                                                            {
+                                                                menu?.categories?.map((category, i)=>(
+                                                                    <li className="sub-mega-menu sub-mega-menu-width-22" key={i}>
+                                                                        <Link href={`/${category?.handle}`} key={i}>
+                                                                            <a className="menu-title">
+                                                                                {category?.name}
+                                                                            </a>
+                                                                        </Link>
+                                                                        <ul>
+                                                                            {
+                                                                                category?.sub_categories?.slice(0, 5)?.map((sub_categorie, i) => (
+                                                                                    <li>
+                                                                                        <Link href={`/${category?.handle}/${sub_categorie?.handle}`} key={i}>
+                                                                                            <a>
+                                                                                                {sub_categorie?.name}
+                                                                                            </a>
+                                                                                        </Link>
+                                                                                    </li>
+                                                                                ))
+                                                                            }
+                                                                            {category?.sub_categories?.length > 5 && (
+                                                                                <li>
+                                                                                    <Link href={`/${category?.handle}`}>
+                                                                                        <a>See more</a>
+                                                                                    </Link>
+                                                                                </li>
+                                                                            )}
+                                                                        </ul>
+                                                                    </li>
+                                                                ))
+                                                            }
                                                         </ul>
                                                     </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Men's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Jackets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Faux
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Genuine
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Sweatpants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Harem
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Technology
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Gaming
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Ultraslim
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Laptop
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablet
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="position-static">
-                                                    <a className="text-black">
-                                                        Rental For Women
-                                                        <i className="fi-rs-angle-down"></i>
-                                                    </a>
-                                                <ul className="mega-menu">
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Women's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Blouses
-                                                                        & Shirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Hoodies
-                                                                        &
-                                                                        Sweatshirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Wedding
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Prom
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Cosplay
-                                                                        Costumes
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Men's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Jackets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Faux
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Genuine
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Sweatpants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Harem
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Technology
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Gaming
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Ultraslim
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Laptop
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablet
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="position-static">
-                                                    <a className="text-black">
-                                                        Events
-                                                        <i className="fi-rs-angle-down"></i>
-                                                    </a>
-                                                <ul className="mega-menu">
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Women's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Blouses
-                                                                        & Shirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Hoodies
-                                                                        &
-                                                                        Sweatshirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Wedding
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Prom
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Cosplay
-                                                                        Costumes
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Men's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Jackets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Faux
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Genuine
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Sweatpants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Harem
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Technology
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Gaming
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Ultraslim
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Laptop
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablet
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                                ))
+                                            }
                                         </ul>
                                     </nav>
                                 </div>
@@ -833,5 +402,9 @@ const mapStateToProps = (state) => ({
     totalCompareItems: state.compare.items?.length,
     totalWishlistItems: state.wishlist.items?.length,
 });
+
+export const getServerSideProps = async () => {
+    
+  };
 
 export default connect(mapStateToProps, null)(Header);
