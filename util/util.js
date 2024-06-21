@@ -1,3 +1,6 @@
+
+
+
 // Delete Product from List By Id
 export const deleteProduct = (list, product) => {
   console.log(product)
