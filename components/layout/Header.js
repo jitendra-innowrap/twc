@@ -157,7 +157,7 @@ const Header = ({
                                         <ul className="menu-links">
                                             {
                                                 result?.map((menu, i)=>(
-                                                    <li className="position-static" key={i}>
+                                                    <li className="position-static" key={menu?.id}>
                                                         <a className="text-black">
                                                             {menu?.name}
                                                             <i className="fi-rs-angle-down"></i>
@@ -165,8 +165,8 @@ const Header = ({
                                                         <ul className="mega-menu">
                                                             {
                                                                 menu?.categories?.map((category, i)=>(
-                                                                    <li className="sub-mega-menu sub-mega-menu-width-22" key={i}>
-                                                                        <Link href={`/${category?.handle}`} key={i}>
+                                                                    <li className="sub-mega-menu sub-mega-menu-width-22" key={category?.id}>
+                                                                        <Link href={`/${category?.handle}`}>
                                                                             <a className="menu-title">
                                                                                 {category?.name}
                                                                             </a>
@@ -174,8 +174,8 @@ const Header = ({
                                                                         <ul>
                                                                             {
                                                                                 category?.sub_categories?.slice(0, 5)?.map((sub_categorie, i) => (
-                                                                                    <li>
-                                                                                        <Link href={`/${category?.handle}/${sub_categorie?.handle}`} key={i}>
+                                                                                    <li key={sub_categorie?.id}>
+                                                                                        <Link href={`/${category?.handle}/${sub_categorie?.handle}`}>
                                                                                             <a>
                                                                                                 {sub_categorie?.name}
                                                                                             </a>
