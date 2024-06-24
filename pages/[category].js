@@ -123,6 +123,7 @@ const Products = ({ products, productFilters }) => {
     };
 
 
+    
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Products">
