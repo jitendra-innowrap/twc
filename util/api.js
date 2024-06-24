@@ -22,13 +22,16 @@ export const getAllCategory = async () => {
   }
 };
 
-export const getAllCategoryProducts = async ({handle_sub_category, handle_category, flag}) => {
+export const getAllCategoryProducts = async ({handle_sub_category, handle_category, sort, page=1, from_price, to_price}) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
     formData.append('handle_sub_category', handle_sub_category);
     formData.append('handle_category', handle_category);
-    formData.append('flag', JSON.stringify(flag));
+    formData.append('page', page);
+    formData.append('from_price', from_price);
+    formData.append('to_price', to_price);
+    formData.append('flag', JSON.stringify([sort]) || JSON.stringify([]));
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts',
@@ -49,34 +52,28 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
 };
 
 
+export const getProductDetails = async ({handle}) => {
+  try {
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('handle', handle);
+
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Product/getProductDetails',
+      formData,
+      {
+        headers: {
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch data', error);
+    throw error;
+  }
+};
 
 
-// export const getAllCategoryProducts = async ({handle_sub_category, handle_category, flag}) => {
-//   try {
-//     const response = await axios.post('https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts', 
-//     {
-//       handle_sub_category,
-//       handle_category,
-//       flag
-//     },
-//     {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Basic ${auth}`
-//       }
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.error('Failed to fetch data', error);
-//     throw error;
-//   }
-
-//   axios.post('https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts', {handle_sub_category: 'value1',handle_category: 'value2',flag:[]
-//   }, {headers: {'Content-Type': 'application/json','Authorization': `Basic ${auth}`,
-//     },
-//   })
-//     .then(response => {console.log('Response:', response);
-//     })
-//     .catch(error => {console.error('Error:', error);
-//     });
-// };

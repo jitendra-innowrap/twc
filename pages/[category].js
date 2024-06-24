@@ -13,14 +13,38 @@ import SizeFilter from "../components/ecommerce/SizeFilter";
 import SortSelect from "../components/ecommerce/SortSelect";
 import WishlistModal from "../components/ecommerce/WishlistModal";
 import Layout from "../components/layout/Layout";
-// import { fetchProduct } from "../redux/action/product";
 import Link from "next/link";
 import ReactDatePicker from "react-datepicker";
 import { getAllCategoryProducts } from "../util/api";
+import { fetchMoreProduct, fetchProduct } from "../redux/action/product";
+import { openCart } from "../redux/action/cart";
 
-const Products = ({ productFilters }) => {
-    const [products, setProducts] = useState({items:['ok']});
+const Products = ({ products, productFilters }) => {
+    const [productList, setProductList] = useState([]);
+    const [sub_categories, setSub_categories] = useState([]);
     const [deliveryDate, setDeliveryDate] = useState();
+    let Router = useRouter(),
+        searchTerm = Router.query.search,
+        showLimit =20,
+        showPagination = 4;
+    const [filters, setFilters] = useState({
+        page: 1,
+        from_price: null,
+        to_price: null,
+        sort: null,
+    });
+
+  useEffect(() => {
+    // Initialize filters from query parameters
+    const { page, from_price, to_price, sort } = Router.query;
+    setFilters({
+      page: page ? parseInt(page) : 1,
+      from_price: from_price ? parseFloat(from_price) : null,
+      to_price: to_price ? parseFloat(to_price) : null,
+      sort: sort || null,
+    });
+  }, [Router.query]);
+
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
         return(<button className="custom-date-input" onClick={onClick} ref={ref}>
@@ -32,34 +56,32 @@ const Products = ({ productFilters }) => {
         </div>
         }
     });
-    let Router = useRouter(),
-        searchTerm = Router.query.search,
-        showLimit = 20,
-        showPagination = 4;
+    
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
-    let [pages, setPages] = useState(Math.ceil(products?.items?.length / limit));
+    let [pages, setPages] = useState(Math.ceil(44 / limit));
     let [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         // fetchProduct(searchTerm, "/static/product.json",  productFilters);
-        fetchProduct()
+        fetchProductList()
         cratePagination();
-    }, [productFilters, limit, pages, products?.items?.length,]);
+    }, [filters]);
 
-    const fetchProduct = async ()=>{
+    const fetchProductList = async ()=>{
         const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
 
         // Create the request body
-        let body = { handle_category: category || "", handle_sub_category: sub_category || "", flag: [] };
+        let body = { handle_category: category || "", handle_sub_category: sub_category || "", ...filters };
     try {
             const response = await getAllCategoryProducts(body);
             console.log('fetch products success: ', response)
             if(response.code==0){
                 Router.push('/404')
             }
-            setProducts({items:response?.result})
+            setProductList(response?.result);
+            setSub_categories(response?.sub_categories);
           } catch (error) {
             console.error('there is an error: ',error);
             
@@ -68,12 +90,12 @@ const Products = ({ productFilters }) => {
 
     const cratePagination = () => {
         // set pagination
-        let arr = new Array(Math.ceil(products?.items?.length / limit))
+        let arr = new Array(Math.ceil(44 / limit))
             .fill()
             .map((_, idx) => idx + 1);
 
         setPagination(arr);
-        setPages(Math.ceil(products?.items?.length / limit));
+        setPages(Math.ceil(44 / limit));
     };
 
     const handleClearFilters = () =>{
@@ -82,7 +104,7 @@ const Products = ({ productFilters }) => {
 
     const startIndex = currentPage * limit - limit;
     const endIndex = startIndex + limit;
-    const getPaginatedProducts = products.items?.slice(startIndex, endIndex);
+    const getPaginatedProducts = productList?.slice(startIndex, endIndex);
 
     let start = Math.floor((currentPage - 1) / showPagination) * showPagination;
     let end = start + showPagination;
@@ -100,23 +122,7 @@ const Products = ({ productFilters }) => {
         setCurrentPage(item);
     };
 
-    // const selectChange = (e) => {
-    //     setLimit(Number(e.target.value));
-    //     setCurrentPage(1);
-    //     setPages(Math.ceil(products.items.length / Number(e.target.value)));
-    // };
-    // const handleLayout = () => {
-    //     setListLayout(!listLayout);
-    // }
-    return(
-        <>
-            
-            {
-                JSON.stringify(products.items,)
-            }
-        </>
-    )
-    
+
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Products">
@@ -128,7 +134,7 @@ const Products = ({ productFilters }) => {
                                     <h5 className="section-title style-1 mb-30 wow fadeIn animated">
                                         Category
                                     </h5>
-                                    <CategoryProduct />
+                                    <CategoryProduct sub_categories={sub_categories} />
                                 </div>
 
                                 <div className="sidebar-widget price_range range mb-30">
@@ -171,80 +177,6 @@ const Products = ({ productFilters }) => {
                                     <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
-                                {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
-                                    <div className="widget-header position-relative mb-20 pb-10">
-                                        <h5 className="widget-title mb-10">
-                                            New products
-                                        </h5>
-                                        <div className="bt-1 border-color-1"></div>
-                                    </div>
-                                    <div className="single-post clearfix">
-                                        <div className="image">
-                                            <img
-                                                src="/assets/imgs/shop/thumbnail-3.jpg"
-                                                alt="#"
-                                            />
-                                        </div>
-                                        <div className="content pt-10">
-                                            <h5>
-                                                <a>Chen Cardigan</a>
-                                            </h5>
-                                            <p className="price mb-0 mt-5">
-                                                $99.50
-                                            </p>
-                                            <div className="product-rate">
-                                                <div
-                                                    className="product-rating"
-                                                    style={{ width: "90%" }}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="single-post clearfix">
-                                        <div className="image">
-                                            <img
-                                                src="/assets/imgs/shop/thumbnail-4.jpg"
-                                                alt="#"
-                                            />
-                                        </div>
-                                        <div className="content pt-10">
-                                            <h6>
-                                                <a>Chen Sweater</a>
-                                            </h6>
-                                            <p className="price mb-0 mt-5">
-                                                $89.50
-                                            </p>
-                                            <div className="product-rate">
-                                                <div
-                                                    className="product-rating"
-                                                    style={{ width: "80%" }}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="single-post clearfix">
-                                        <div className="image">
-                                            <img
-                                                src="/assets/imgs/shop/thumbnail-5.jpg"
-                                                alt="#"
-                                            />
-                                        </div>
-                                        <div className="content pt-10">
-                                            <h6>
-                                                <a>Colorful Jacket</a>
-                                            </h6>
-                                            <p className="price mb-0 mt-5">
-                                                $25
-                                            </p>
-                                            <div className="product-rate">
-                                                <div
-                                                    className="product-rating"
-                                                    style={{ width: "60%" }}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                                     <img
                                         src="/assets/imgs/banner/banner-offer.webp"
@@ -271,7 +203,7 @@ const Products = ({ productFilters }) => {
                                         <p>
                                             We found
                                             <strong className="text-brand">
-                                                {products.items.length}
+                                                {productList?.length}
                                             </strong>
                                             items for you!
                                         </p>
@@ -342,9 +274,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDidpatchToProps = {
-    // openCart,
-    // fetchProduct,
-    // fetchMoreProduct,
+    openCart,
+    fetchProduct,
+    fetchMoreProduct,
 };
 
 export default connect(mapStateToProps, mapDidpatchToProps)(Products);
