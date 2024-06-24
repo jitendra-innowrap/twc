@@ -81,74 +81,50 @@ const SingleProduct = ({
                     <div className="product-img product-img-zoom">
                         <Link
                             href="/products/[slug]"
-                            as={`/products/${product.slug}`}
+                            as={`/products/${product.handle}`}
                         >
                             <a>
                                 <img
                                     className="default-img"
-                                    src={product.images[0].img}
-                                    alt=""
+                                    src={product.product_images[0].file}
+                                    alt={product.name}
                                 />
                                 <img
                                     className="hover-img"
-                                    src={product.images[1].img}
-                                    alt=""
+                                    src={product.product_images[1].file}
+                                    alt={product.name}
                                 />
                             </a>
                         </Link>
                     </div>
-                    {/* <div className="product-action-1">
-                        <a
-                            aria-label="Quick view"
-                            className="action-btn hover-up"
-                            data-bs-toggle="modal"
-                            onClick={(e) => openQuickView(product)}
-                        >
-                            <i className="fi-rs-eye"></i>
-                        </a>
-                        <a
-                            aria-label="Add To Wishlist"
-                            className="action-btn hover-up"
-                            onClick={(e) => handleWishlist(product)}
-                        >
-                            <i className="fi-rs-heart"></i>
-                        </a>
-                        <a
-                            aria-label="Compare"
-                            className="action-btn hover-up"
-                            onClick={(e) => handleCompare(product)}
-                        >
-                            <i className="fi-rs-shuffle"></i>
-                        </a>
-                    </div> */}
 
                     <div className="product-badges product-badges-position product-badges-mrg">
-                        {product.trending ? <span className="hot">Hot</span>:null }
-                        {product.created ? <span className="new">New</span>:null }
-                        {product.totalSell > 100 ? <span className="best">Best Sell</span>:null }
-                        {product.discount.isActive ? <span className="sale">Sale</span>:null }
-                        {product.discount.percentage >= 5 ? <span className="hot">{product.discount.percentage}%</span>:null }
+                        {
+                            product.product_tags.map((tag,i)=>(
+                                <><span className="hot" style={{background:tag.color_code}}>{tag.name}</span></>
+                            ))
+                        }
                     </div>
                 </div>
                 <div className="product-content-wrap">
                     <div className="product-category">
                     <Link href="/products">
-                                                            <a>
-                                                                {product.category}
-                                                            </a>
-                                                        </Link>
+                        <a>
+                            {product.sub_category_name}
+                        </a>
+                    </Link>
                     </div>
                     <h2>
                     <Link
                             href="/products/[slug]"
-                            as={`/products/${product.slug}`}
+                            as={`/products/${product.handle}`}
                         >
-                            <a>{product.title}</a>
+                            <a>{product.name}</a>
                             </Link>
                     </h2>
                     <div className="product-price">
-                        <span>₹{product.price} </span>
-                        <span className="old-price">{product.oldPrice ? `₹ ${product.oldPrice}`:null}</span>
+                        <span>₹{product.selling_price} </span>
+                        <span className="old-price">{product.mrp ? `₹ ${product.mrp}`:null}</span>
                     </div>
                 </div>
             </div>

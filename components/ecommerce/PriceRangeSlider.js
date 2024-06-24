@@ -7,28 +7,29 @@ import 'rc-slider/assets/index.css';
 
 const PriceRangeSlider = ({ updateProductFilters }) => {
     
-    const Router = useRouter();
-    const searchTerm = Router.query.search;
+    const router = useRouter();
+    const searchTerm = router.query.search;
 
-    const [price, setPrice] = useState({ value: { min: 0, max: 25000 } });
+    const [price, setPrice] = useState({ value: { min: router.query.from_price || 0, max: router.query.to_price || 25000 } });
 
     useEffect(() => {
-        const filters = {
-            price: price.value,
-        };
-
-        updateProductFilters(filters);
+        
     }, [price, searchTerm]);
 
+    const handleChange =(value)=>{
+        router.replace({
+            query: { ...router.query, from_price: value[0], to_price: value[1] },
+            });
+    }
     return (
         <div className="evara_price_slider_amount">
             <Slider
                 range
                 allowCross={false}
-                defaultValue={[0, 100]}
+                defaultValue={[price.value.min, price.value.max]}
                 min={0}
                 max={25000}
-                // onChange={(value) => console.log(value[0], value[1])} 
+                onAfterChange={(value) => handleChange(value)} 
                 onChange={(value) => setPrice({ value: { min: value[0], max: value[1] } })}
             />
 

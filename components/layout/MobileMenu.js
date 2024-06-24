@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import useClickOutside from "../../util/outsideClick";
-import { getAllCollectionProducts } from "../../util/api";
+import { getAllCategory } from "../../util/api";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
     const [isActive, setIsActive] = useState({
@@ -16,7 +16,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
     },[]);  
     const fetchHeaderData =async ()=>{
         try {
-            const response = await getAllCollectionProducts();
+            const response = await getAllCategory();
             console.log('fetch success: ', response)
             setheaderData(response.data)
           } catch (error) {

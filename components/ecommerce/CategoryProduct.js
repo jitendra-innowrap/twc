@@ -2,20 +2,22 @@ import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { updateProductCategory } from "../../redux/action/productFiltersAction";
 
-const CategoryProduct = ({ updateProductCategory }) => {
+const CategoryProduct = ({ updateProductCategory, sub_categories }) => {
     const router = useRouter();
 
     const removeSearchTerm = () => {
-        router.push({
-            pathname: "/products",
-        });
+        // router.push({
+        //     pathname: "/products",
+        // });
     };
 
-    const selectCategory = (e, category) => {
+    const selectCategory = (e, sub_category) => {
         e.preventDefault();
         removeSearchTerm();
-        updateProductCategory(category);
-        // router.push('/')
+        // updateProductCategory(category);
+        const {category} = router.query;
+        console.log(router)
+        router.push(`/${category}/${sub_category}`)
     };
     return (
         <>
@@ -23,21 +25,13 @@ const CategoryProduct = ({ updateProductCategory }) => {
                 <li onClick={(e) => selectCategory(e, "")}>
                     <a>All</a>
                 </li>
-                <li onClick={(e) => selectCategory(e, "jeans")}>
-                    <a>Jeans</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "shoe")}>
-                    <a>Shoe</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "jacket")}>
-                    <a>Jacket</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "trousers")}>
-                    <a>Trousers</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "accessories")}>
-                    <a>Accessories</a>
-                </li>
+                {
+                    sub_categories.map((sub_category, i) => (
+                        <li onClick={(e) => selectCategory(e, `${sub_category.handle}`)}>
+                            <a>{sub_category.name}</a>
+                        </li>
+                    ))
+                }
             </ul>
         </>
     );

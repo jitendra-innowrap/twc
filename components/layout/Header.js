@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Search from "../ecommerce/Search";
-import { getAllCollectionProducts } from "../../util/api";
+import { getAllCategory } from "../../util/api";
 
 const Header = ({
     totalCartItems,
@@ -13,7 +13,6 @@ const Header = ({
 }) => {
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
-    const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [headerData, setheaderData] = useState([])
     useEffect(() => {
         fetchHeaderData()
@@ -27,7 +26,7 @@ const Header = ({
     
     const fetchHeaderData =async ()=>{
         try {
-            const response = await getAllCollectionProducts();
+            const response = await getAllCategory();
             console.log('fetch success: ', response)
             setheaderData(response.data)
           } catch (error) {
