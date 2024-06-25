@@ -38,7 +38,7 @@ const Products = ({ products, productFilters }) => {
     // Initialize filters from query parameters
     const { page, from_price, to_price, sort } = Router.query;
     setFilters({
-      page: page ? parseInt(page) : 1,
+      page: page ? parseInt(page) : 2,
       from_price: from_price ? parseFloat(from_price) : null,
       to_price: to_price ? parseFloat(to_price) : null,
       sort: sort || null,

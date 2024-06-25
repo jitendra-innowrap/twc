@@ -6,18 +6,18 @@ import SingleProduct from "./../ecommerce/SingleProduct";
 
 SwiperCore.use([Navigation]);
 
-const RelatedSlider = () => {
-    const [related, setRelated] = useState([]);
+const RelatedSlider = ({related}) => {
+    // const [related, setRelated] = useState([]);
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+    // useEffect(() => {
+    //     fetchProducts();
+    // }, []);
 
-    const fetchProducts = async () => {
-        // With Category
-        const allProducts = await fetchByCatagory("/static/product.json");
-        setRelated(allProducts);
-    };
+    // const fetchProducts = async () => {
+    //     // With Category
+    //     const allProducts = await fetchByCatagory("/static/product.json");
+    //     setRelated(allProducts);
+    // };
 
     return (
         <>
@@ -45,7 +45,7 @@ const RelatedSlider = () => {
                 }}
                 className="custom-class"
             >
-                {related.map((product, i) => (
+                {related?.map((product, i) => (
                     <SwiperSlide key={i}>
                         <SingleProduct product={product} />
                     </SwiperSlide>

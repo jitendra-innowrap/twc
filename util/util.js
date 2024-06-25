@@ -1,4 +1,24 @@
 
+export function getYouTubeThumbnail(videoUrl) {
+  console.log("VIDEO URL", videoUrl);
+
+  // Create a URL object from the input videoUrl
+  const url = new URL(videoUrl);
+
+  // Extract the video ID from the URL
+  let videoId;
+  if (url.searchParams.has('v')) {
+    videoId = url.searchParams.get('v');
+  } else if (url.searchParams.has('si')) {
+    videoId = url.searchParams.get('si');
+  } else {
+    // If the video ID cannot be extracted, return null or handle the error
+    return null;
+  }
+
+  // Construct the thumbnail URL
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+}
 
 
 // Delete Product from List By Id

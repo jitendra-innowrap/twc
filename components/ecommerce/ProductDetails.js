@@ -1,4 +1,4 @@
-import Link from "next/link";
+    import Link from "next/link";
 import { forwardRef, useState } from "react";
 import { connect } from "react-redux";
 import { Bounce, toast } from "react-toastify";
@@ -18,7 +18,15 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 
-
+const colorsVariants =[
+    "red",
+    "yellow",
+    "white",
+    "orange",
+    "cyan",
+    "green",
+    "purple"
+];
 const ProductDetails = ({
     product,
     cartItems,
@@ -31,23 +39,41 @@ const ProductDetails = ({
 }) => {
     let daysRent = 5;
     let today = new Date();
-    const [deliveryDate, setDeliveryDate] = useState(today);
-    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
+    // extracting details from the api
+    const productDetails = product?.result?.[0];
+    const relatedProducts  = product?.similar_product_subcategory;
+    const productGallary = product?.result?.[0]?.product_images;
+
+
+    const [heighLightDate, setHeighLightDate] = useState(false)
+    const [isInCart, setIsInCart] = useState(false)
+    const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
+    const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
+    const [deliveryDate, setDeliveryDate] = useState();
+    const [returnByDate, setReturnByDate] = useState();
     let productSizes = ['S', 'M', 'L', 'XL', 'XXL'];
     const [quantity, setQuantity] = useState(1);
-    const [color, setColor] = useState(product?.variations?.[0]);
-    const [size, setSize] = useState("M");
-    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-        <button className="custom-date-input" onClick={onClick} ref={ref}>
-            {value}
-        </button>
-    ));
+    const [color, setColor] = useState("red");
+    const [size, setSize] = useState("S");
+
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
+        if(value)
+            return(<button className="custom-date-input" onClick={onClick} ref={ref}>
+                {value}
+            </button>)
+            else{
+            return<div onClick={onClick} className={`custom-date-input ${heighLightDate?'shake-and-highlight':''}`}>
+                <span>Select Date</span> <i></i>
+            </div>
+            }
+    });
     const handleDeliveryDateChange = (date) => {
         setDeliveryDate(date);
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
     const handleCart = (product) => {
-        addToCart(product);
+        if(deliveryDate){
+            addToCart(product);
         toast.success("Added to Cart !", {
             position: "bottom-center",
             autoClose: 1500,
@@ -59,6 +85,9 @@ const ProductDetails = ({
             theme: "light",
             transition: Bounce,
         });
+        }else{
+            setHeighLightDate(true)
+        }
     };
 
     const handleWishlist = (product) => {
@@ -101,7 +130,7 @@ const ProductDetails = ({
 
                                             <div className="product-image-slider">
                                                 <ThumbSlider
-                                                    product={product}
+                                                    product={productGallary}
                                                 />
                                             </div>
                                         </div>
@@ -139,31 +168,31 @@ const ProductDetails = ({
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-right">
                                         <div className="detail-info">
                                             <div className="category">
-                                                <span>{product.category?product.category:"Decor"}</span>
+                                                <span>{productDetails?.category_name}</span>
                                             </div>
                                             <div className="sub-category">
-                                                <span>{product.subCategory?product.subCategory:product.type=="purchase"?"Decor":"Casual"}</span>
+                                                <span>{productDetails?.sub_category_name}</span>
                                             </div>
                                             <h2 className="title-detail">
-                                                {product?.title}
+                                            {productDetails?.name}
                                             </h2>
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
-                                                    {product?.price &&
+                                                    {productDetails?.selling_price &&
                                                         <ins>
                                                             <span className="">
-                                                                ₹{product.price}
+                                                                ₹{productDetails?.selling_price}
                                                             </span>
                                                             <span className="text-brand ml-10">
-                                                                {product?.type=="purchase"?`30% off`:`For ${daysRent} Days Rental`}
+                                                                {productDetails?.product_type=="2"?`30% off`:`For ${product?.rental_for_days} Days Rental`}
                                                             </span>
                                                         </ins>
                                                     }
                                                 </div>
                                                 <div className="product-price font-md">
-                                                    {product?.oldPrice && <ins className="mrp-price">
+                                                    {productDetails?.mrp && <ins className="mrp-price">
                                                         MRP &nbsp;₹<span>
-                                                            {`${product.oldPrice} `}
+                                                            {`${productDetails.mrp} `}
                                                         </span>&nbsp;Inclusive of all taxes
 
                                                     </ins>
@@ -171,7 +200,7 @@ const ProductDetails = ({
 
                                                 </div>
                                             </div>
-                                            {product?.type=="purchase" && <div className="detail-extralink">
+                                            {productDetails?.product_type=="2" && <div className="detail-extralink">
                                                 <div className="detail-qty border radius">
                                                     <a onClick={() => { handleQuantity("remove") }} className={`qty-down ${quantity === 1 ? 'disable' : ''}`} >
                                                         <i className="fi-rs-minus-small"></i>
@@ -190,7 +219,7 @@ const ProductDetails = ({
                                                     Color
                                                 </strong>
                                                 <ul className="list-filter color-filter">
-                                                    {product?.variations?.map(
+                                                    {colorsVariants.map(
                                                         (clr, i) => (
                                                             <li key={i}>
                                                                 <a href="#" onClick={(e) => {
@@ -235,13 +264,16 @@ const ProductDetails = ({
                                                     dateFormat="dd/MM/yyyy"
                                                     onChange={(date) => handleDeliveryDateChange(date)}
                                                     customInput={<ExampleCustomInput />}
-                                                    minDate={new Date()}
+                                                    minDate={calendarStartDate}
+                                                    maxDate={calendarEndDate}
                                                 />
                                             </div>
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                                             <div className="detail-extralink">
                                                 <div className="product-extra-link2">
-                                                    <a href="https://wa.me/+918448301487/?text=hi"
+                                                    <a href={`https://wa.me/+918448301487/?text=Hi i'm interested in this product: 
+                                                                http://65.2.106.71:8001/products/${productDetails?.handle}        
+                                                    `}
                                                         className="connect"
                                                         target="_blank"
                                                     >
@@ -255,12 +287,12 @@ const ProductDetails = ({
                                                     <button
                                                         onClick={(e) =>
                                                             handleCart({
-                                                                ...product,
+                                                                ...productDetails,
                                                                 quantity: quantity || 1,
                                                                 color,
                                                                 size: size,
                                                                 deliveryDate: deliveryDate,
-                                                                returnByDate: returnByDate,
+                                                                returnByDate: new Date(deliveryDate.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })
                                                         }
                                                         className="button button-add-to-cart"
@@ -289,7 +321,15 @@ const ProductDetails = ({
                                             </div>
                                             <div className="product-meta brand-assurity-icons mt-50 font-xs mb-30">
                                                 <ul>
-                                                    <li className="mb-10">
+                                                    {
+                                                        productDetails?.brand_assurity?.map((item,i)=>(
+                                                            <li className="mb-10">
+                                                                <img alt="Evara" src={item?.file} />
+                                                                <span>{item?.name}</span>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                    {/* <li className="mb-10">
                                                         <img alt="Evara" src="/assets/imgs/theme/icons/shield.png" />
                                                         <span>1 Year Warranty</span>
                                                     </li>
@@ -300,7 +340,7 @@ const ProductDetails = ({
                                                     <li>
                                                         <img alt="Evara" src="/assets/imgs/theme/icons/cash-on-delivery.png" />
                                                         <span>COD Available</span>
-                                                    </li>
+                                                    </li> */}
                                                 </ul>
                                             </div>
                                         </div>
@@ -309,7 +349,7 @@ const ProductDetails = ({
 
                                 {quickView ? null : (
                                     <>
-                                        <ProductTab />
+                                        <ProductTab productDetails={productDetails} />
                                         <div className="row mt-60">
                                             <div className="col-12">
                                                 <h3 className="section-title style-1 mb-30">
@@ -318,7 +358,7 @@ const ProductDetails = ({
                                             </div>
                                             <div className="col-12">
                                                 <div className="row related-products position-relative">
-                                                    <RelatedSlider />
+                                                    <RelatedSlider related={relatedProducts} />
                                                 </div>
                                             </div>
                                         </div>

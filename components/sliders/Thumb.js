@@ -7,6 +7,7 @@ import ReactPlayer from "react-player";
 import 'reactjs-popup/dist/index.css';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 import InnerImageZoom from 'react-inner-image-zoom';
+import { getYouTubeThumbnail } from "../../util/util";
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -34,16 +35,16 @@ const ThumbSlider = ({ product }) => {
                 thumbs={{ swiper: thumbsSwiper }}
                 className="mySwiper2"
             >
-                {product?.gallery?.map((item,i) => (
+                {product?.map((item,i) => (
                     <SwiperSlide key={i}>
                         {
-                            item.type=="image"?
+                            item.file_type=="1"?
                             <div className="magnify-image">
-                                <InnerImageZoom zoomType="hover" hideHint={true} src={item.thumb} zoomSrc={item.thumb} />
+                                <InnerImageZoom zoomType="hover" hideHint={true} src={item.file} zoomSrc={item.file} />
                             </div>
                         :
-                        <Popup trigger={<img src={item.thumb} alt="evara"/>} modal position="right center">
-                            <ReactPlayer className="player" url={item.url} />
+                        <Popup trigger={<img src={getYouTubeThumbnail(item?.file)} style={{width:'100%', height:'100%', objectFit:'cover',}} alt="thumbnail-image"/>} modal position="right center">
+                            <ReactPlayer className="player" url={item.file} />
                         </Popup>
                         }
                     </SwiperSlide>
@@ -58,17 +59,25 @@ const ThumbSlider = ({ product }) => {
                     slidesPerView={3}
                     freeMode={true}
                     watchSlidesProgress={true}
+                    navigation={{
+                        prevEl: ".miniGallary_prev_n",
+                        nextEl: ".miniGallary_next_n",
+                    }}
                     className="mySwiper"
                 >
-                    {product?.gallery?.map((item, i) => (
-                        <SwiperSlide key={i}>
-                            <img src={item.thumb} alt="evara" />
+                    {product?.map((item, i) => (
+                        <>
+                        <SwiperSlide key={i}>{
+                            item?.file_type=="1"?
+                            <img src={item.file} alt="evara" />:
+                            <img src={getYouTubeThumbnail(item?.file)} alt="evara" />}
                         </SwiperSlide>
+                        </>
                     ))}
                 </Swiper>
                 <div className="navigation">
-                    <button onClick={() => handleNavigation('down')}><i className="fi-rs-angle-up"></i></button>
-                    <button onClick={() => handleNavigation('up')}><i className="fi-rs-angle-down"></i></button>
+                    <button className="miniGallary_prev_n"><i className="fi-rs-angle-up"></i></button>
+                    <button className="miniGallary_next_n"><i className="fi-rs-angle-down"></i></button>
                 </div>
             </div>
         </div>
