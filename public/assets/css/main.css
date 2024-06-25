@@ -10683,8 +10683,7 @@ span.fi-rs-apps {
   bottom: 15px;
 }
 
-.mySwiper2 .swiper-slide,
-.mySwiper .swiper-slide {
+.mySwiper2 .swiper-slide {
   margin-block: auto;
 }
 
@@ -12144,7 +12143,7 @@ input[type="checkbox"]:checked {
   flex-direction: column;
   align-items: center;
 }
-.success-stories-section .swiper-button-disabled{
+.success-stories-section .swiper-button-disabled, .related-products .swiper-button-disabled{
   display: none;
 }
 .success-stories-section .carausel-4-columns-cover .carausel-4-columns-arrow {
@@ -12305,3 +12304,20 @@ input[type="checkbox"]:checked {
   height: 70vh;
   max-height: 700px;
 }
+.featurese-content ul, .featurese-content ol{
+  list-style: unset;
+}
+.shake-and-highlight{
+  border-color: red;
+  animation-name: shake;
+  animation-duration: 0.15s;
+  animation-iteration-count: 3;
+}
+@keyframes shake{
+  
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+ }

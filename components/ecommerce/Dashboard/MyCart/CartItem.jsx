@@ -2,6 +2,7 @@ import React from 'react'
 import { MdClose } from 'react-icons/md';
 
 export default function CartItem({item, deleteFromCart}) {
+    console.log(item)
     return (
         <div className="itemContainer-base-itemMargin">
             <button onClick={()=> deleteFromCart(item)} className="remove_from_cart">
@@ -13,23 +14,23 @@ export default function CartItem({item, deleteFromCart}) {
                         <a href="/Shirts/KETCH/KETCH-Men-Blue-Slim-Fit-Cotton-Casual-Shirt/15767156/buy?mini=true&skuId=50561314&sellerPartnerId=4036">
                             <div className style={{ background: 'rgb(255, 237, 243)', height: 148, width: 111 }}>
                                 <picture className="image-base-imgResponsive" style={{ width: '100%' }}>
-                                    <img src={item.images[0].img} 
-                                    className="image-base-imgResponsive" alt="image" fetchpriority="high" loading="eager" style={{ height: 148, width: 111, objectFit:"cover" }} /></picture>
+                                    <img src={item.product_images[0].file} 
+                                    className="image-base-imgResponsive" alt={item?.name} fetchpriority="high" loading="eager" style={{ height: 148, width: 111, objectFit:"cover" }} /></picture>
                             </div>
                         </a>
                     </div>
                     <div className="itemContainer-base-itemRight">
                         <div className="itemContainer-base-details" onClick={()=>{console.log(item)}}>
                             <div>
-                                <div className="itemContainer-base-brand">{item.category}</div>
-                                <a className="itemContainer-base-itemLink" href={`/products/${item.slug}`}>
-                                {`${item.title}`} {item.color? ` - ${item.color}`: ''} {item.size? ` , ${item.size}`: ''}
+                                <div className="itemContainer-base-brand">{item.category_name}</div>
+                                <a className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
+                                {`${item.name}`} {item.color? ` - ${item.color}`: ''} {item.size? ` , ${item.size}`: ''}
                                 </a>
                             </div>
                             <div className="itemComponents-base-sellerContainer">
                                 <div className="itemComponents-base-sellerData">
                                 {
-                                    item.type == "purchase" ?
+                                    item.product_type == "2" ?
                                         <>
                                             <p className="font-xs">
                                                 <span>Event Date:</span> {new Date(item.deliveryDate).toLocaleDateString('en-GB')}
@@ -57,16 +58,16 @@ export default function CartItem({item, deleteFromCart}) {
                             <div className="itemContainer-base-price">
                                 <div className="itemComponents-base-price itemComponents-base-bold">
                                     <div>
-                                        ₹{item.price}
+                                        ₹{item.selling_price}
                                     </div>
                                 </div>
-                                {item.oldPrice&&<div className="itemContainer-base-discountBlock">
+                                {item.mrp&&<div className="itemContainer-base-discountBlock">
                                     <span className="itemComponents-base-strikedAmount">
                                         <span className="itemComponents-base-price itemComponents-base-strike itemContainer-base-strikedAmount">
-                                            ₹{item.oldPrice}
+                                            ₹{item.mrp}
                                         </span>
                                         {(() => {
-                                        const discount = Math.round((item.oldPrice - item.price) / item.oldPrice * 100);
+                                        const discount = Math.round((item.mrp - item.selling_price) / item.mrp * 100);
                                         return (
                                             <span className="itemComponents-base-itemDiscount">{discount}% OFF</span>
                                         );

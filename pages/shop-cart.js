@@ -98,14 +98,15 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
     const cartTotal = () => {
         const priceDetails = { totalPrice: 0, totalDeposit: 0, totalDiscount: 0, totalMrp: 0 };
         cartItems.forEach((item) => {
-            const oldPrice = item.oldPrice || 0;
-            const price = item.price || 0;
+            const oldPrice = item.mrp || 0;
+            const price = item.selling_price || 0;
             const quantity = item.quantity || 0;
+            const deposit = item?.deposit_amount || 0;
 
             if (item.type === "rent") {
                 priceDetails.totalMrp += oldPrice * quantity;
                 priceDetails.totalPrice += price * quantity;
-                priceDetails.totalDeposit += price * quantity;
+                priceDetails.totalDeposit += deposit * quantity;
                 priceDetails.totalDiscount += (oldPrice - price) * quantity;
             } else {
                 priceDetails.totalMrp += oldPrice * quantity;

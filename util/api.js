@@ -29,8 +29,8 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
     formData.append('handle_sub_category', handle_sub_category);
     formData.append('handle_category', handle_category);
     formData.append('page', page);
-    formData.append('from_price', from_price);
-    formData.append('to_price', to_price);
+    formData.append('from_price', from_price || "");
+    formData.append('to_price', to_price || "");
     formData.append('flag', JSON.stringify([sort]) || JSON.stringify([]));
 
     const response = await axios.post(
