@@ -9,13 +9,14 @@ import axios from "axios";
 
 const ProductId = ({ product }) => {
     const router = useRouter();
+    const {slug} = router.query;
     const [details, setDetails] = useState({});
     useEffect(() => {
         fetchDetails();
     }, [])
     
     const fetchDetails = async ()=>{
-        const response = await getProductDetails({handle:"ClassicBlackTuxedo"})
+        const response = await getProductDetails({handle:slug})
         if(response.code==0){
           router.push('/404')
       }

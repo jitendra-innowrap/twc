@@ -8,6 +8,7 @@ import 'reactjs-popup/dist/index.css';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 import InnerImageZoom from 'react-inner-image-zoom';
 import { getYouTubeThumbnail } from "../../util/util";
+import { BiPlayCircle } from "react-icons/bi";
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -43,7 +44,13 @@ const ThumbSlider = ({ product }) => {
                                 <InnerImageZoom zoomType="hover" hideHint={true} src={item.file} zoomSrc={item.file} />
                             </div>
                         :
-                        <Popup trigger={<img src={getYouTubeThumbnail(item?.file)} style={{width:'100%', height:'100%', objectFit:'cover',}} alt="thumbnail-image"/>} modal position="right center">
+                        <Popup trigger={
+                            <div className="gallary-video">
+                                <img src={getYouTubeThumbnail(item?.file)
+                        } style={{width:'100%', height:'100%', objectFit:'cover',}} alt="thumbnail-image"/>
+                                <BiPlayCircle fontSize={52} color="#fff" />
+                            </div>
+                            } modal position="right center">
                             <ReactPlayer className="player" url={item.file} />
                         </Popup>
                         }
@@ -69,8 +76,12 @@ const ThumbSlider = ({ product }) => {
                         <>
                         <SwiperSlide key={i}>{
                             item?.file_type=="1"?
-                            <img src={item.file} alt="evara" />:
-                            <img src={getYouTubeThumbnail(item?.file)} alt="evara" />}
+                            <img src={item.file} draggable={false} alt="evara" />:
+                            <div className="gallary-video">
+                                <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="evara" />
+                                <BiPlayCircle fontSize={28} />
+                            </div>
+                            }
                         </SwiperSlide>
                         </>
                     ))}

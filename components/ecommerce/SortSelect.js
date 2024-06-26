@@ -20,8 +20,8 @@ const SortSelect = ({ updateProductFilters }) => {
     useEffect(() => {
         const { sort } = router.query;
         const selectedOption = options.find((item) => item.value === sort);
-        setFeatured(selectedOption?.text || null);
-        setSelectedOption(sort || null);
+        setFeatured(selectedOption?.text || "Price: Low to High");
+        setSelectedOption(sort || "2");
       }, [router.query, options]);
     
     const handleChange = (e) => {

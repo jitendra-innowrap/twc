@@ -15,7 +15,7 @@ import WishlistModal from "../components/ecommerce/WishlistModal";
 import Layout from "../components/layout/Layout";
 import Link from "next/link";
 import ReactDatePicker from "react-datepicker";
-import { getAllCategoryProducts } from "../util/api";
+import { getAllCategoryProducts, getAllPriceRange } from "../util/api";
 import { fetchMoreProduct, fetchProduct } from "../redux/action/product";
 import { openCart } from "../redux/action/cart";
 
@@ -38,7 +38,7 @@ const Products = ({ products, productFilters }) => {
     // Initialize filters from query parameters
     const { page, from_price, to_price, sort } = Router.query;
     setFilters({
-      page: page ? parseInt(page) : 2,
+      page: page ? parseInt(page) : 1,
       from_price: from_price ? parseFloat(from_price) : null,
       to_price: to_price ? parseFloat(to_price) : null,
       sort: sort || null,
@@ -62,15 +62,16 @@ const Products = ({ products, productFilters }) => {
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(44 / limit));
     let [currentPage, setCurrentPage] = useState(1);
+    const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
 
     useEffect(() => {
         // fetchProduct(searchTerm, "/static/product.json",  productFilters);
-        fetchProductList()
+        fetchProductList();
+        fetchPriceRange();
         cratePagination();
     }, [filters]);
 
     const fetchProductList = async ()=>{
-        const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
 
         // Create the request body
         let body = { handle_category: category || "", handle_sub_category: sub_category || "", ...filters };
@@ -87,6 +88,18 @@ const Products = ({ products, productFilters }) => {
             
           }
     }
+    const fetchPriceRange = async ()=>{
+        // Create the request body
+        let body = { flag: "", category, sub_category, collection:"" };
+    try {
+            const response = await getAllPriceRange(body);
+            console.log('fetch price range success: ', response)
+          } catch (error) {
+            console.error('there is an error: ',error);
+            
+          }
+    }
+    fetchPriceRange();
 
     const cratePagination = () => {
         // set pagination
@@ -126,7 +139,7 @@ const Products = ({ products, productFilters }) => {
     
     return (
         <>
-            <Layout parent="Home" sub="Shop" subChild="Products">
+            <Layout parent="Home" sub={category} subChild="">
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="row">
