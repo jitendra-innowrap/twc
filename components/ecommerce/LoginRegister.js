@@ -1,37 +1,118 @@
 import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-export default function LoginRegister() {
+import { loginApi, registerApi, resendOTPApi, verifyOTPApi } from '../../util/api';
+import { logIN, logOut } from '../../redux/action/signIn';
+import { connect } from 'react-redux';
+import storage from '../../util/localStorage';
+
+function LoginRegister({logIN}) {
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
+    const [auth_token, setAuth_token] = useState("")
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [error, setError] = useState({mobile:false, otp:false, name:false})
+    const [error, setError] = useState({ mobile: false, otp: false, name: false })
     const inputRefs = useRef([]);
     const router = useRouter()
     let referrer = "/"
+    const [otpTimer, setOtpTimer] = useState(false);
+    const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
+    let interval; // Declare the interval variable outside the useEffect
+
+    const handleResendOTP = () => {
+            resendOTPApi(auth_token)
+                .then(() => {
+                    setOtpTimer(true);
+                    startOTPTimer();
+                })
+                .catch((error) => {
+                    console.error('Error resending OTP:', error);
+                });
+    };
+
+    const startOTPTimer = () => {
+        interval = setInterval(() => {
+            console.log('updating', timerValue)
+            setTimerValue((prevValue) => {
+                if (prevValue === 0) {
+                    clearInterval(interval);
+                    setOtpTimer(false);
+                    return 60;
+                }
+                console.log('updated',prevValue -1)
+                return prevValue - 1;
+            });
+        }, 1000);
+    };
     useEffect(() => {
+        return () => {
+            // Clean up the timer when the component unmounts
+            clearInterval(interval);
+        };
+    }, []);
 
-    }, [])
-
-    const handleMobile = () => {
+    const handleMobile = async () => {
         if (Mobile.length === 10) {
-            setStep(2);
+            try {
+                const response = await loginApi(Mobile);
+                setStep(2);
+                console.log('submitted');
+                setAuth_token(response.token)
+            } catch (error) {
+                console.error('Error during login:', error);
+                setError((prev) => ({ ...prev, mobile: true }));
+            }
         } else {
-            setError(prev => ({...prev, mobile: true}));
+            setError((prev) => ({ ...prev, mobile: true }));
         }
-    }
-    const handleSubmit = () =>{
-        if(!name){
-            setError(prev => ({...prev, name: true}));
-        }else{
-            router.push(referrer)
+    };
+
+    const handleSubmit = () => {
+        if (!name) {
+            setError(prev => ({ ...prev, name: true }));
+        } else {
+            registerApi({auth_token,name})
+            .then((res) => {
+                if(res?.code==1){
+                    storage.set("dokani_user", {auth_token:response?.token, user: response?.result, isLoggedIn:true});
+                    router.push(referrer)
+                }else{
+                    toast.error("Something Went Wrong !", {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                    console.error(res)
+                }
+            })
+            .catch((error) => {
+                console.error('Error resending OTP:', error);
+                toast.error("Something Went Wrong !", {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            });
+
         }
     }
     const handleBack = () => {
         setStep(prev => prev - 1);
-        setError({mobile:false, otp:false})
+        setError({ mobile: false, otp: false })
     }
 
     const handleOtpChange = (index, value) => {
@@ -43,19 +124,36 @@ export default function LoginRegister() {
             inputRefs.current[index + 1].focus();
         }
 
-        if (newOtp.every(digit => digit !== '')) {
-            // Auto-submit the OTP
-            if (newOtp.join('') === tempOtp) {
-                // OTP is correct, redirect
-                console.log('OTP submitted:', newOtp.join(''));
-                // Add your redirect logic 
-                setStep(3) 
-              } else {
-                // OTP is incorrect, set error
-                setError({ ...error, otp: true });
-              }
+        if (newOtp.every((digit) => digit !== '')) {
+            verifyOTPApi({
+                otp: newOtp.join(''),
+                auth_token: auth_token, // Assuming you have the auth_token available
+            })
+                .then((response) => {
+                    // OTP is correct, redirect
+                    if (response.code == 1) {
+                        // Add your redirect logic
+                        if (response?.result?.is_profile_completed == 0) {
+                            setStep(3);
+                        } else {
+                            // logIN({auth_token:response?.token, user:response?.result, isLoggedIn:true })
+                            // logOut();
+                            storage.set("dokani_user", {auth_token:response?.token, user: response?.result, isLoggedIn:true});
+                            console.log('login',response)
+                            router.push(referrer)
+                        }
+                    } else {
+                        console.error('Error verifying OTP:', error);
+                        setError({ ...error, otp: true });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error verifying OTP:', error);
+                    setError({ ...error, otp: true });
+                });
         }
     };
+
 
     const handleKeyDown = (index, event) => {
         if (event.key === 'Backspace' && index > 0 && !otp[index]) {
@@ -79,7 +177,7 @@ export default function LoginRegister() {
                                 <span class="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
-                                    {!Mobile &&<span class="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                    {!Mobile && <span class="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
                                 </span><i class="bar"></i>
                                 {error.mobile && <div className="errorContainer">Please enter a valid mobile number (10 digits)</div>}
                             </div>
@@ -93,44 +191,46 @@ export default function LoginRegister() {
                     </div>
                 </div>
                 :
-                step === 2 ? 
+                step === 2 ?
                     <div className="login_wrap">
                         <div className="verificationContainer">
-                        <div className="otpTopImage">
-                            <div className="image">
-                                <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
-                                    <picture className="img-responsive" style={{ width: '100%' }}>
-                                        <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
-                                        <img src className="img-responsive preLoad loaded" alt title style={{ width: '100%' }} />
-                                    </picture>
+                            <div className="otpTopImage">
+                                <div className="image">
+                                    <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
+                                        <picture className="img-responsive" style={{ width: '100%' }}>
+                                            <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
+                                            <img src className="img-responsive preLoad loaded" alt title style={{ width: '100%' }} />
+                                        </picture>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="mobContainer">
-                            <h3>Verify with OTP</h3><h4>Sent to {Mobile}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
-                            <div className="otpContainer">
-                                {otp.map((digit, index) => (
-                                    <input
-                                        key={index}
-                                        name={`otp${index}`}
-                                        type="tel"
-                                        maxLength={1}
-                                        autoComplete="off"
-                                        value={digit}
-                                        onChange={(e) => handleOtpChange(index, e.target.value)}
-                                        onKeyDown={(e) => handleKeyDown(index, e)}
-                                        ref={(ref) => (inputRefs.current[index] = ref)}
-                                    />
-                                ))}
-                            </div>
-                            {error.otp && <div className="errorContainer">Incorrect OTP !</div>}
+                            <div className="mobContainer">
+                                <h3>Verify with OTP</h3><h4>Sent to {Mobile}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
+                                <div className="otpContainer">
+                                    {otp.map((digit, index) => (
+                                        <input
+                                            key={index}
+                                            name={`otp${index}`}
+                                            type="tel"
+                                            maxLength={1}
+                                            autoComplete="off"
+                                            value={digit}
+                                            onChange={(e) => handleOtpChange(index, e.target.value)}
+                                            onKeyDown={(e) => handleKeyDown(index, e)}
+                                            ref={(ref) => (inputRefs.current[index] = ref)}
+                                        />
+                                    ))}
+                                </div>
+                                {error.otp && <div className="errorContainer">Incorrect OTP !</div>}
 
-                            <div>
-                                <button className="resendContainer">RESEND OTP</button>
+                                <div>
+                                    <button className="resendContainer" style={{color:`${otpTimer?'gray':''}`}} disabled={otpTimer} onClick={handleResendOTP}>RESEND OTP</button> 
+                                    {otpTimer && <span style={{float:'right', color:'#046963', marginTop:'30px'}}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
+                                    
+                                </div>
                             </div>
+                            <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
                         </div>
-                        <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
-                    </div>
                     </div>
                     :
                     <div className="login_wrap w-100">
@@ -160,10 +260,10 @@ export default function LoginRegister() {
                             <div class="nameInputContainer">
                                 <div class="form-group ">
                                     <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder="" maxlength="10" value={name} />
-                                    <span class={`placeholderAlternative mobileNumber ${name?'focus':''}`}>
+                                    <span class={`placeholderAlternative mobileNumber ${name ? 'focus' : ''}`}>
                                         <span class="mobileNumberPlacholder">Type your name</span>
                                     </span><i class="bar"></i>
-                                { error.name && <div className="errorContainer ">Name is required</div>}
+                                    {error.name && <div className="errorContainer ">Name is required</div>}
                                 </div>
                                 <div class="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
                             </div>
@@ -173,3 +273,6 @@ export default function LoginRegister() {
         </>
     )
 }
+
+// export default connect(null, logIN)(LoginRegister);
+export default LoginRegister

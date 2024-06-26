@@ -55,3 +55,13 @@ export const CLOSE_LOGIN_MODAL = "CLOSE_LOGIN_MODAL"
 // LOCAL STORAGE
 
 export const INIT_LOCALSTORAGE = "INIT_LOCALSTORAGE"
+
+// SIGN IN
+
+export const SIGN_IN = "SIGN_IN"
+
+
+// LOG OUT
+
+export const LOG_OUT = "LOG_OUT"
+

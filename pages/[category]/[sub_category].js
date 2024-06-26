@@ -20,6 +20,9 @@ import { fetchMoreProduct, fetchProduct } from "../../redux/action/product";
 import { openCart } from "../../redux/action/cart";
 
 const Products = ({ products, productFilters }) => {
+    let today = new Date();
+    const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
+    const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
     const [sub_categories, setSub_categories] = useState([]);
     const [deliveryDate, setDeliveryDate] = useState();
@@ -33,10 +36,10 @@ const Products = ({ products, productFilters }) => {
         to_price: null,
         sort: null,
     });
+    const {category, sub_category, page, from_price, to_price, sort } = Router.query;
 
   useEffect(() => {
     // Initialize filters from query parameters
-    const { page, from_price, to_price, sort } = Router.query;
     setFilters({
       page: page ? parseInt(page) : 1,
       from_price: from_price ? parseFloat(from_price) : null,
@@ -126,7 +129,7 @@ const Products = ({ products, productFilters }) => {
     
     return (
         <>
-            <Layout parent="Home" sub="Shop" subChild="Products">
+            <Layout parent="Home" sub={category} subChild={sub_category}>
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="row">
@@ -141,12 +144,15 @@ const Products = ({ products, productFilters }) => {
                                 <div className="sidebar-widget price_range range mb-30">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
-                                            Fill by price
+                                            Fillter by
                                         </h5>
                                         <div className="bt-1 border-color-1"></div>
                                     </div>
 
                                     <div className="price-filter">
+                                    <label className="fw-900 mt-20 mb-15">
+                                                Price
+                                            </label>
                                         <div className="price-filter-inner">
                                             <br />
                                             <PriceRangeSlider />
@@ -157,11 +163,11 @@ const Products = ({ products, productFilters }) => {
                                     <div className="list-group">
                                         <div className="list-group-item mb-10">
                                             <label className="fw-900 mt-20 mb-15">
-                                                Item Condition
+                                                Size
                                             </label>
                                             <SizeFilter />
                                             <label className="fw-900 mt-35 mb-15">
-                                                Available On
+                                                Availablity Date
                                             </label>
                                             <div className="date-filter">
                                                 <ReactDatePicker
@@ -169,7 +175,8 @@ const Products = ({ products, productFilters }) => {
                                                     dateFormat="dd/MM/yyyy"
                                                     onChange={(date) => setDeliveryDate(date)}
                                                     customInput={<ExampleCustomInput />}
-                                                    minDate={new Date()}
+                                                    minDate={calendarStartDate}
+                                                    maxDate={calendarEndDate}
                                                 />
                                             </div>
                                         </div>
@@ -178,7 +185,7 @@ const Products = ({ products, productFilters }) => {
                                     <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
-                                <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
+                                {/* <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                                     <img
                                         src="/assets/imgs/banner/banner-offer.webp"
                                         alt=""
@@ -196,7 +203,7 @@ const Products = ({ products, productFilters }) => {
                                             </a>
                                         </Link>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="col-lg-9">
                                 <div className="shop-product-fillter">

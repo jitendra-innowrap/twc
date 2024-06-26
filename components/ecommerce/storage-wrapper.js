@@ -15,8 +15,9 @@ const StorageWrapper = (props) => {
         const cart = storage.get("dokani_cart") || [];
         const wishlist = storage.get("dokani_wishlist") || [];
         const compare = storage.get("dokani_compare") || [];
+        const user = storage.get("dokani_user") || {token:"randometoken"};
 
-        props.saveStoredItems({ cart, wishlist, compare });
+        props.saveStoredItems({ cart, wishlist, compare, user });
     }, []);
 
     return <>{props.children}</>;

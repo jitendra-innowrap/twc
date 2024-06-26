@@ -165,14 +165,15 @@ const Header = ({
                                                             {
                                                                 menu?.categories?.map((category, i)=>(
                                                                     <li className="sub-mega-menu sub-mega-menu-width-22" key={category?.id}>
-                                                                        <Link href={`/${category?.handle}`}>
+                                                                        {/* <Link href={`/${category?.handle}`}> */}
                                                                             <a className="menu-title">
                                                                                 {category?.name}
                                                                             </a>
-                                                                        </Link>
+                                                                        {/* </Link> */}
                                                                         <ul>
                                                                             {
-                                                                                category?.sub_categories?.slice(0, 5)?.map((sub_categorie, i) => (
+                                                                                // category?.sub_categories?.slice(0, 5)?.map((sub_categorie, i) => (
+                                                                                    category?.sub_categories?.map((sub_categorie, i) => (
                                                                                     <li key={sub_categorie?.id}>
                                                                                         <Link href={`/${category?.handle}/${sub_categorie?.handle}`}>
                                                                                             <a>
@@ -182,13 +183,13 @@ const Header = ({
                                                                                     </li>
                                                                                 ))
                                                                             }
-                                                                            {category?.sub_categories?.length > 5 && (
+                                                                            {/* {category?.sub_categories?.length > 5 && (
                                                                                 <li>
                                                                                     <Link href={`/${category?.handle}`}>
                                                                                         <a>See more</a>
                                                                                     </Link>
                                                                                 </li>
-                                                                            )}
+                                                                            )} */}
                                                                         </ul>
                                                                     </li>
                                                                 ))

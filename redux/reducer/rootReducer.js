@@ -5,6 +5,7 @@ import wishlist from './wishlist'
 import quickView from './quickView'
 import compare from './compare'
 import productFilters from './productFilters'
+import signIn from './signIn'
 
 const rootReducer = combineReducers({
     products,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     wishlist,
     quickView,
     compare,
-    productFilters
+    productFilters,
+    signIn
 })
 
 export default rootReducer

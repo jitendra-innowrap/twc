@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
+import { BiInfoCircle } from "react-icons/bi";
 
 const colorsVariants =[
     "red",
@@ -43,6 +44,7 @@ const ProductDetails = ({
     const productDetails = product?.result?.[0];
     const relatedProducts  = product?.similar_product_subcategory;
     const productGallary = product?.result?.[0]?.product_images;
+    const collectionBanner = product?.product_bottom_collections?.[0];
 
 
     const [heighLightDate, setHeighLightDate] = useState(false)
@@ -114,9 +116,7 @@ const ProductDetails = ({
     }
 
     const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
-
-    console.log(product);
-
+    
     return (
         <>
             <section className="mt-50 mb-50">
@@ -143,22 +143,27 @@ const ProductDetails = ({
                                                     </strong>
                                                 </li>
                                                 <li className="social-facebook">
-                                                    <a href="#">
+                                                    <a href={`https://www.facebook.com/sharer/sharer.php?u=http://65.2.106.71:8001/products/${productDetails?.handle}`} 
+                                                        target="_blank">
                                                         <SlSocialFacebook size={18} color="#606060" />
                                                     </a>
                                                 </li>
                                                 <li className="social-x">
-                                                    <a href="#">
+                                                    <a href={`https://twitter.com/intent/tweet?text=Check out this product: http://65.2.106.71:8001/products/${productDetails?.handle}`}
+                                                    target="_blank">
                                                         <FaXTwitter size={18} color="#606060" />
                                                     </a>
                                                 </li>
-                                                <li className="social-instagram">
-                                                    <a href="#">
+                                                {/* <li className="social-instagram">
+                                                    <a href={`https://www.instagram.com/?url=http://65.2.106.71:8001/products/${productDetails?.handle}`} 
+                                                        target="_blank">
                                                         <FaInstagram size={18} color="#606060"/>
                                                     </a>
-                                                </li>
-                                                <li className="social-instagram">
-                                                    <a href="#">
+                                                </li> */}
+                                                <li className="social-whatsapp">
+                                                    <a href={`whatsapp://send?text=Check out this product: http://65.2.106.71:8001/products/${productDetails?.handle}`} 
+                                                        data-action="share/whatsapp/share"
+                                                        target="_blank">
                                                         <FaWhatsapp size={18} color="#606060"/>
                                                     </a>
                                                 </li>
@@ -176,7 +181,7 @@ const ProductDetails = ({
                                             <h2 className="title-detail">
                                             {productDetails?.name}
                                             </h2>
-                                            <div className="clearfix product-price-cover">
+                                            <div className="c   learfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     {productDetails?.selling_price &&
                                                         <ins>
@@ -197,7 +202,17 @@ const ProductDetails = ({
 
                                                     </ins>
                                                     }
+                                                </div>
+                                                <div className="product-price font-md">
+                                                    {productDetails?.product_type=="2" && <ins className="mrp-price">
+                                                        Security &nbsp;₹{productDetails.mrp}&nbsp;(Refundable)
+                                                        <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title="Refundable within 7 working days!"> 
+                                                            <BiInfoCircle />
+                                                            {/* <i className="fi-rs-info"></i> */}
+                                                        </span>
 
+                                                    </ins>
+                                                    }
                                                 </div>
                                             </div>
                                             {productDetails?.product_type=="2" && <div className="detail-extralink">
@@ -271,7 +286,7 @@ const ProductDetails = ({
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                                             <div className="detail-extralink">
                                                 <div className="product-extra-link2">
-                                                    <a href={`https://wa.me/+918448301487/?text=Hi i'm interested in this product: 
+                                                    <a href={`https://wa.me/+919892745795/?text=Hi i'm interested in this product: 
                                                                 http://65.2.106.71:8001/products/${productDetails?.handle}        
                                                     `}
                                                         className="connect"
@@ -292,7 +307,7 @@ const ProductDetails = ({
                                                                 color,
                                                                 size: size,
                                                                 deliveryDate: deliveryDate,
-                                                                returnByDate: new Date(deliveryDate.getTime() + (5 * 24 * 60 * 60 * 1000)),
+                                                                returnByDate: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })
                                                         }
                                                         className="button button-add-to-cart"
@@ -319,7 +334,7 @@ const ProductDetails = ({
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div className="product-meta brand-assurity-icons mt-50 font-xs mb-30">
+                                            {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">
                                                 <ul>
                                                     {
                                                         productDetails?.brand_assurity?.map((item,i)=>(
@@ -342,7 +357,7 @@ const ProductDetails = ({
                                                         <span>COD Available</span>
                                                     </li> */}
                                                 </ul>
-                                            </div>
+                                            </div>}
                                         </div>
                                     </div>
                                 </div>
@@ -350,7 +365,7 @@ const ProductDetails = ({
                                 {quickView ? null : (
                                     <>
                                         <ProductTab productDetails={productDetails} />
-                                        <div className="row mt-60">
+                                        {relatedProducts?.length > 0 &&<div className="row mt-60">
                                             <div className="col-12">
                                                 <h3 className="section-title style-1 mb-30">
                                                     Related products
@@ -361,20 +376,19 @@ const ProductDetails = ({
                                                     <RelatedSlider related={relatedProducts} />
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>}
                                         <div className="banner-img banner-big wow fadeIn f-none animated mt-50">
                                             <img
                                                 className="border-radius-10"
-                                                src="/assets/imgs/banner/banner-4.png"
+                                                src={collectionBanner?.collection_image}
                                                 alt=""
                                             />
                                             <div className="banner-text">
                                                 <h4 className="mb-15 mt-40">
-                                                    Repair Services
+                                                    {productDetails?.category_name}
                                                 </h4>
                                                 <h2 className="fw-600 mb-20">
-                                                    We're an Apple <br />
-                                                    Authorised Service Provider
+                                                   {collectionBanner?.title}
                                                 </h2>
                                             </div>
                                         </div>
