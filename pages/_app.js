@@ -13,11 +13,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Preloader from "./../components/elements/Preloader";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function MyApp({ Component, pageProps }) {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const queryClient = new QueryClient()
+
     useEffect(() => {
-        setLoading(true);
         setTimeout(() => {
             setLoading(false);
         }, 2000);
@@ -30,12 +32,14 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             {!loading ? (
-                <Provider store={store}>
-                    <StorageWrapper>
-                    <ToastContainer />
-                            <Component {...pageProps} />
-                    </StorageWrapper>
-                </Provider>
+                <QueryClientProvider client={queryClient} >
+                    <Provider store={store}>
+                        <StorageWrapper>
+                        <ToastContainer />
+                                <Component {...pageProps} />
+                        </StorageWrapper>
+                    </Provider>
+                </QueryClientProvider>
             ): (
                 <Preloader />
             )} 
