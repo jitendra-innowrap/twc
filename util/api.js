@@ -24,18 +24,21 @@ export const getAllCategory = async () => {
 export const getPriceRange = async ({flag, sub_category, category, collection}) => {
   // Create a new FormData object
   const formData = new FormData();
-  formData.append('flag', flag || "");
-  formData.append('handle_sub_category', sub_category || "");
-  formData.append('handle_category', category || "");
-  formData.append('handle_collection', collection || "");
+  formData.append('flag', flag || JSON.stringify([1]));
+  formData.append('handle_category', category || "wedding");
+  formData.append('handle_sub_category', sub_category || "outfits");
+  // formData.append('handle_collection', collection || "");
   try {
-    const response = await axios.get('https://innowrap.co.in/clients/twc/App/V1/Product/getPriceRange', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Basic ${auth}`
-        // Add any other headers you need here
-      },
-    });
+      const response = await axios.post(
+        'https://innowrap.co.in/clients/twc/App/V1/Product/getPriceRange',
+        formData,
+        {
+          headers: {
+            'Authorization': `Basic ${auth}`,
+            'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+          }
+        }
+      );
     return response;
   } catch (error) {
     console.error('Failed to fetch data', error);
@@ -47,12 +50,16 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
   try {
     // Create a new FormData object
     const formData = new FormData();
+    let flag = [sort || 1];
+    if (from_price || to_price) {
+      flag.push(6);
+    }
     formData.append('handle_sub_category', handle_sub_category);
     formData.append('handle_category', handle_category);
     formData.append('page', page);
     formData.append('from_price', from_price || "");
     formData.append('to_price', to_price || "");
-    formData.append('flag', sort? JSON.stringify([sort]) : JSON.stringify([]));
+    formData.append('flag', JSON.stringify(flag));
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts',

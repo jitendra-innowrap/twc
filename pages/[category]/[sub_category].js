@@ -15,13 +15,17 @@ import WishlistModal from "../../components/ecommerce/WishlistModal";
 import Layout from "../../components/layout/Layout";
 import Link from "next/link";
 import ReactDatePicker from "react-datepicker";
-import { getAllCategoryProducts } from "../../util/api";
+import { getAllCategoryProducts, getPriceRange } from "../../util/api";
 import { fetchMoreProduct, fetchProduct } from "../../redux/action/product";
 import { openCart } from "../../redux/action/cart";
 import Preloader from "../../components/elements/Preloader";
 
 const Products = ({ products, productFilters }) => {
     let today = new Date();
+    let Router = useRouter(),
+        searchTerm = Router.query.search,
+        showLimit =20,
+        showPagination = 4;
     const [totalProducts, setTotalProducts] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
@@ -29,75 +33,58 @@ const Products = ({ products, productFilters }) => {
     const [productList, setProductList] = useState([]);
     const [sub_categories, setSub_categories] = useState([]);
     const [deliveryDate, setDeliveryDate] = useState();
-    let Router = useRouter(),
-        searchTerm = Router.query.search,
-        showLimit =20,
-        showPagination = 4;
-    const [filters, setFilters] = useState({
-        page: 1,
-        from_price: null,
-        to_price: null,
-        sort: null,
-    });
-    const {category, sub_category, page, from_price, to_price, sort } = Router.query;
-
-  useEffect(() => {
-    // Initialize filters from query parameters
-    setFilters({
-      page: page ? parseInt(page) : 1,
-      from_price: from_price ? parseFloat(from_price) : null,
-      to_price: to_price ? parseFloat(to_price) : null,
-      sort: sort || "1",
-    });
-  }, [Router.query]);
-
-    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
-        if(value)
-        return(<button className="custom-date-input" onClick={onClick} ref={ref}>
-            {value}
-        </button>)
-        else{
-        return<div onClick={onClick} className="custom-date-input">
-            <span>Select Date</span> <i></i>
-        </div>
-        }
-    });
-    
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(totalProducts / limit));
     let [currentPage, setCurrentPage] = useState(1);
 
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
+        if (value)
+            return (<button className="custom-date-input" onClick={onClick} ref={ref}>
+                {value}
+            </button>)
+        else {
+            return <div onClick={onClick} className="custom-date-input">
+                <span>Select Date</span> <i></i>
+            </div>
+        }
+    });
+
+    const { category, sub_category, page, from_price, to_price, sort } = Router.query;
+
     useEffect(() => {
-        fetchProductList()
-    }, [filters]);
-    
+        fetchProductList();
+        fetchPriceRange();
+    }, [Router.query]);
+
+
+
     useEffect(() => {
-      
         cratePagination();
-    
     }, [totalProducts])
     
-    const fetchProductList = async ()=>{
-        const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
+    const fetchPriceRange= async()=>{
+        await getPriceRange({})
+    }
 
+    const fetchProductList = async () => {
         // Create the request body
-        let body = { handle_category: category || "", handle_sub_category: sub_category || "", ...filters };
+        let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price };
         try {
-                const response = await getAllCategoryProducts(body);
-                console.log('fetch products success: ', response)
-                if(response.code==0){
-                    Router.push('/404')
-                }
-                setProductList(response?.result);
-                setSub_categories(response?.sub_categories);
-                setTotalProducts(response?.total_products);
-                setIsLoading(false);
-            } catch (error) {
-                console.error('there is an error: ',error);
-                
+            const response = await getAllCategoryProducts(body);
+            console.log('fetch products success: ', response)
+            if (response.code == 0) {
+                Router.push('/404')
             }
+            setProductList(response?.result);
+            setSub_categories(response?.sub_categories);
+            setTotalProducts(response?.total_products);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('there is an error: ', error);
+
+        }
     }
 
     const cratePagination = () => {
@@ -285,10 +272,6 @@ const Products = ({ products, productFilters }) => {
                         }
                     </div>
                 </section>
-                {/* <WishlistModal /> */}
-                {/* <CompareModal /> */}
-                {/* <CartSidebar /> */}
-                {/* <QuickView />                 */}
             </Layout>
         </>
     );
