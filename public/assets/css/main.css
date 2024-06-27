@@ -10848,16 +10848,19 @@ span.fi-rs-apps {
   max-width: calc(33.33% - 12px);
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .detail-info .brand-assurity-icons ul li img {
   width: 45px;
   height: 45px;
+  min-width: 45px;
   margin-inline: auto;
 }
 
 .detail-info .brand-assurity-icons ul li span {
   display: block;
+  text-align: center;
 }
 
 .custom-date-input {
