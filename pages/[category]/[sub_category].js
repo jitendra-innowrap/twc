@@ -18,10 +18,12 @@ import ReactDatePicker from "react-datepicker";
 import { getAllCategoryProducts } from "../../util/api";
 import { fetchMoreProduct, fetchProduct } from "../../redux/action/product";
 import { openCart } from "../../redux/action/cart";
+import Preloader from "../../components/elements/Preloader";
 
 const Products = ({ products, productFilters }) => {
     let today = new Date();
     const [totalProducts, setTotalProducts] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
@@ -70,6 +72,7 @@ const Products = ({ products, productFilters }) => {
     useEffect(() => {
         fetchProductList()
     }, [filters]);
+    
     useEffect(() => {
       
         cratePagination();
@@ -90,6 +93,7 @@ const Products = ({ products, productFilters }) => {
                 setProductList(response?.result);
                 setSub_categories(response?.sub_categories);
                 setTotalProducts(response?.total_products);
+                setIsLoading(false);
             } catch (error) {
                 console.error('there is an error: ',error);
                 
@@ -139,6 +143,9 @@ const Products = ({ products, productFilters }) => {
             <Layout parent="Home" sub={category} subChild={sub_category}>
                 <section className="mt-50 mb-50">
                     <div className="container">
+                        {isLoading?
+                        <Preloader />
+                        :
                         <div className="row">
                             <div className="col-lg-3 primary-sidebar sticky-sidebar">
                                 <div className="widget-category mb-30">
@@ -275,6 +282,7 @@ const Products = ({ products, productFilters }) => {
                                 </div>}
                             </div>
                         </div>
+                        }
                     </div>
                 </section>
                 {/* <WishlistModal /> */}
