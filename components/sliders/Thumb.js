@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Thumbs } from "swiper";
 import "swiper/css/thumbs";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,20 +9,20 @@ import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 import InnerImageZoom from 'react-inner-image-zoom';
 import { getYouTubeThumbnail } from "../../util/util";
 import { BiPlayCircle } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 SwiperCore.use([Navigation, Thumbs]);
 
 const ThumbSlider = ({ product }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const handleNavigation = (direction) => {
-        if (thumbsSwiper) {
-            if (direction === 'up') {
-                thumbsSwiper.slideNext();
-            } else if (direction === 'down') {
-                thumbsSwiper.slidePrev();
-            }
+    const [mainSwiper, setMainSwiper] = useState(null);
+
+    useEffect(() => {
+        if (mainSwiper) {
+            mainSwiper.slideTo(0);
         }
-    };
+    }, [product, mainSwiper]);
+
     return (
         <div className="product-detail-gallary">
             <Swiper
@@ -30,29 +30,27 @@ const ThumbSlider = ({ product }) => {
                     "--swiper-navigation-color": "#fff",
                     "--swiper-pagination-color": "#fff",
                 }}
-                //loop={false}
                 spaceBetween={10}
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
+                onSwiper={setMainSwiper}
                 className="mySwiper2"
             >
-                {product?.map((item,i) => (
+                {product?.map((item, i) => (
                     <SwiperSlide key={i}>
-                        {
-                            item.file_type=="1"?
+                        {item.file_type == "1" ?
                             <div className="magnify-image">
                                 <InnerImageZoom zoomType="hover" hideHint={true} src={item.file} zoomSrc={item.file} />
                             </div>
-                        :
-                        <Popup trigger={
-                            <div className="gallary-video">
-                                <img src={getYouTubeThumbnail(item?.file)
-                        } style={{width:'100%', height:'100%', objectFit:'cover',}} alt="thumbnail-image"/>
-                                <BiPlayCircle fontSize={52} color="#fff" />
-                            </div>
+                            :
+                            <Popup trigger={
+                                <div className="gallary-video">
+                                    <img src={getYouTubeThumbnail(item?.file)} style={{ width: '100%', height: '100%', objectFit: 'cover', }} alt="thumbnail-image" />
+                                    <BiPlayCircle fontSize={52} color="#fff" />
+                                </div>
                             } modal position="right center">
-                            <ReactPlayer className="player" url={item.file} />
-                        </Popup>
+                                <ReactPlayer className="player" url={item.file} />
+                            </Popup>
                         }
                     </SwiperSlide>
                 ))}
@@ -60,7 +58,6 @@ const ThumbSlider = ({ product }) => {
             <div className="small-gallary">
                 <Swiper
                     onSwiper={setThumbsSwiper}
-                    // loop={false}
                     spaceBetween={10}
                     direction="vertical"
                     slidesPerView={3}
@@ -73,17 +70,16 @@ const ThumbSlider = ({ product }) => {
                     className="mySwiper"
                 >
                     {product?.map((item, i) => (
-                        <>
-                        <SwiperSlide key={i}>{
-                            item?.file_type=="1"?
-                            <img src={item.file} draggable={false} alt="evara" />:
-                            <div className="gallary-video">
-                                <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="evara" />
-                                <BiPlayCircle fontSize={28} />
-                            </div>
+                        <SwiperSlide key={i}>
+                            {item?.file_type == "1" ?
+                                <img src={item.file} draggable={false} alt="evara" />
+                                :
+                                <div className="gallary-video">
+                                    <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="evara" />
+                                    <BiPlayCircle fontSize={28} />
+                                </div>
                             }
                         </SwiperSlide>
-                        </>
                     ))}
                 </Swiper>
                 <div className="navigation">
