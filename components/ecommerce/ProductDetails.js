@@ -62,6 +62,7 @@ const ProductDetails = ({
     const [size, setSize] = useState("S");
     useEffect(() => {
       setDeliveryDate()
+      setHeighLightDate(false)
     }, [slug])
     
 
