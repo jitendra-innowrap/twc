@@ -168,7 +168,7 @@ const ProductDetails = ({
                                                     </a>
                                                 </li> */}
                                                 <li className="social-whatsapp">
-                                                    <a href={`whatsapp://send?text=Check out this product: http://65.2.106.71:8001/products/${productDetails?.handle}`} 
+                                                    <a href={`https://wa.me/send?text=Check out this product: http://65.2.106.71:8001/products/${productDetails?.handle}`} 
                                                         data-action="share/whatsapp/share"
                                                         target="_blank">
                                                         <FaWhatsapp size={18} color="#606060"/>
