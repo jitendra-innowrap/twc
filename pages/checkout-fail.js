@@ -2,6 +2,7 @@ import Lottie from "lottie-web";
 import Layout from "../components/layout/Layout";
 import fail from "../public/assets/Lottie/fail.json"
 import { useEffect } from "react";
+import Link from "next/link";
 const OrderSucess = () => {
     useEffect(() => {
         Lottie.loadAnimation({
@@ -22,8 +23,12 @@ const OrderSucess = () => {
                             <h1 className="mb-20 text-danger">Sorry, Payment Failed!</h1>
                             <p className="mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam veniam dolorum vitae.</p>
                             <div className="actions">
-                                <button className="btn btn-border">Try Again</button>
-                                <button className="btn">Continue Shopping</button>
+                                <button className="btn btn-border">
+                                    <Link href={"shop-cart"}>Try Again</Link>
+                                </button>
+                                <button className="btn">
+                                    <Link href={"/"}>Continue Shopping</Link>
+                                </button>
                             </div>
                         </div>
                     </div>

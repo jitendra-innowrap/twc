@@ -13,7 +13,7 @@ const ProductId = ({ product }) => {
     const [details, setDetails] = useState({});
     useEffect(() => {
         fetchDetails();
-    }, [])
+    }, [slug])
     
     const fetchDetails = async ()=>{
         const response = await getProductDetails({handle:slug})

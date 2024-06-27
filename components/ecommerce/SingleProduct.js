@@ -81,18 +81,18 @@ const SingleProduct = ({
                     <div className="product-img product-img-zoom">
                         <Link
                             href="/products/[slug]"
-                            as={`/products/${product.handle}`}
+                            as={`/products/${product?.handle}`}
                         >
                             <a>
                                 <img
                                     className="default-img"
-                                    src={product.product_images[0].file}
-                                    alt={product.name}
+                                    src={product?.product_images?.[0]?.file}
+                                    alt={product?.name}
                                 />
                                 <img
                                     className="hover-img"
-                                    src={product.product_images[1].file}
-                                    alt={product.name}
+                                    src={product?.product_images?.[1]?.file}
+                                    alt={product?.name}
                                 />
                             </a>
                         </Link>
@@ -100,8 +100,8 @@ const SingleProduct = ({
 
                     <div className="product-badges product-badges-position product-badges-mrg">
                         {
-                            product.product_tags.map((tag,i)=>(
-                                <><span className="hot" style={{background:tag.color_code}}>{tag.name}</span></>
+                            product?.product_tags?.map((tag,i)=>(
+                                <><span className="hot" style={{background:tag?.color_code}}>{tag?.name}</span></>
                             ))
                         }
                     </div>
@@ -110,21 +110,21 @@ const SingleProduct = ({
                     <div className="product-category">
                     <Link href={`/${product?.category_handle}/${product?.sub_category_handle}`}>
                         <a>
-                            {product.sub_category_name}
+                            {product?.sub_category_name}
                         </a>
                     </Link>
                     </div>
                     <h2>
                     <Link
                             href="/products/[slug]"
-                            as={`/products/${product.handle}`}
+                            as={`/products/${product?.handle}`}
                         >
                             <a>{product.name}</a>
                             </Link>
                     </h2>
                     <div className="product-price">
                         <span>₹{product.selling_price} </span>
-                        <span className="old-price">{product.mrp ? `₹ ${product.mrp}`:null}</span>
+                        <span className="old-price">{product?.mrp ? `₹ ${product?.mrp}`:null}</span>
                     </div>
                 </div>
             </div>

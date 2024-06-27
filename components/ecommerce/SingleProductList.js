@@ -74,49 +74,23 @@ const SingleProductList = ({
                             <div className="product-img-inner">
                                 <Link
                                     href="/products/[slug]"
-                                    as={`/products/${product.slug}`}
+                                    as={`/products/${product?.slug}`}
                                 >
                                     <a>
                                         <img
                                             className="default-img"
-                                            src={product.images[0].img}
+                                            src={product?.images[0].img}
                                             alt=""
                                         />
                                         <img
                                             className="hover-img"
-                                            src={product.images[1].img}
+                                            src={product?.images[1].img}
                                             alt=""
                                         />
                                     </a>
                                 </Link>
                             </div>
                         </div>
-                        {/* <div className="product-action-1">
-                            <a
-                                aria-label="Quick view"
-                                className="action-btn hover-up"
-                                data-bs-toggle="modal"
-                                // data-bs-target="#quickViewModal"
-                                onClick={(e) => openQuickView(product)}
-                            >
-                                <i className="fi-rs-eye"></i>
-                            </a>
-                            <a
-                                aria-label="Add To Wishlist"
-                                className="action-btn hover-up"
-                                onClick={(e) => handleWishlist(product)}
-                            >
-                                <i className="fi-rs-heart"></i>
-                            </a>
-                            <a
-                                aria-label="Compare"
-                                className="action-btn hover-up"
-                                onClick={(e) => handleCompare(product)}
-                            >
-                                <i className="fi-rs-shuffle"></i>
-                            </a>
-                        </div> */}
-
                         <div className="product-badges product-badges-position product-badges-mrg">
                             {product.trending ? (
                                 <span className="hot">Hot</span>

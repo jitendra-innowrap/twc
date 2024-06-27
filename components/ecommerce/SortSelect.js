@@ -10,8 +10,8 @@ const SortSelect = ({ updateProductFilters }) => {
     const [selectedOption, setSelectedOption] = useState("1");
     const [showOptions, setShowOptions] = useState(false)
     const options = [
-        { value: "1", text: "Price: High to Low" },
-        { value: "2", text: "Price: Low to High" },
+        { value: "1", text: "Price: Low to High" },
+        { value: "2", text: "Price: High to Low" },
         { value: "3", text: "What's New" },
         { value: "4", text: "Trending" },
         { value: "5", text: "Best Seller" },
@@ -21,7 +21,7 @@ const SortSelect = ({ updateProductFilters }) => {
         const { sort } = router.query;
         const selectedOption = options.find((item) => item.value === sort);
         setFeatured(selectedOption?.text || "Price: Low to High");
-        setSelectedOption(sort || "2");
+        setSelectedOption(sort || "1");
       }, [router.query, options]);
     
     const handleChange = (e) => {

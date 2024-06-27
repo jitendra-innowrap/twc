@@ -5,6 +5,7 @@ import { loginApi, registerApi, resendOTPApi, verifyOTPApi } from '../../util/ap
 import { logIN, logOut } from '../../redux/action/signIn';
 import { connect } from 'react-redux';
 import storage from '../../util/localStorage';
+import { Bounce, toast } from 'react-toastify';
 
 function LoginRegister({logIN}) {
     const [Mobile, setMobile] = useState("");
@@ -62,7 +63,6 @@ function LoginRegister({logIN}) {
                 setAuth_token(response.token)
             } catch (error) {
                 console.error('Error during login:', error);
-                setError((prev) => ({ ...prev, mobile: true }));
             }
         } else {
             setError((prev) => ({ ...prev, mobile: true }));
@@ -76,7 +76,7 @@ function LoginRegister({logIN}) {
             registerApi({auth_token,name})
             .then((res) => {
                 if(res?.code==1){
-                    storage.set("dokani_user", {auth_token:response?.token, user: response?.result, isLoggedIn:true});
+                    storage.set("dokani_user", {auth_token:res?.token, user: res?.result, isLoggedIn:true});
                     router.push(referrer)
                 }else{
                     toast.error("Something Went Wrong !", {
@@ -94,7 +94,7 @@ function LoginRegister({logIN}) {
                 }
             })
             .catch((error) => {
-                console.error('Error resending OTP:', error);
+                console.error('Register:', error);
                 toast.error("Something Went Wrong !", {
                     position: "bottom-center",
                     autoClose: 1500,
@@ -259,7 +259,7 @@ function LoginRegister({logIN}) {
                             <div className="nameText">What should we call you?</div>
                             <div class="nameInputContainer">
                                 <div class="form-group ">
-                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder="" maxlength="10" value={name} />
+                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder=""  value={name} />
                                     <span class={`placeholderAlternative mobileNumber ${name ? 'focus' : ''}`}>
                                         <span class="mobileNumberPlacholder">Type your name</span>
                                     </span><i class="bar"></i>
