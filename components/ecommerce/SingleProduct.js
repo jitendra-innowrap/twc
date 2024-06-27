@@ -24,7 +24,7 @@ const SingleProduct = ({
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 500);
     }, []);
 
     const handleCart = (product) => {
