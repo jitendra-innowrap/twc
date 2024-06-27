@@ -1,5 +1,5 @@
     import Link from "next/link";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Bounce, toast } from "react-toastify";
 import {
@@ -18,6 +18,7 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import { BiInfoCircle } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 const colorsVariants =[
     "red",
@@ -40,6 +41,8 @@ const ProductDetails = ({
 }) => {
     let daysRent = 5;
     let today = new Date();
+    const router = useRouter();
+    const {slug} = router.query;
     // extracting details from the api
     const productDetails = product?.result?.[0];
     const relatedProducts  = product?.similar_product_subcategory;
@@ -57,6 +60,10 @@ const ProductDetails = ({
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState("red");
     const [size, setSize] = useState("S");
+    useEffect(() => {
+      setDeliveryDate()
+    }, [slug])
+    
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
@@ -204,11 +211,10 @@ const ProductDetails = ({
                                                     }
                                                 </div>
                                                 <div className="product-price font-md">
-                                                    {productDetails?.product_type=="2" && <ins className="mrp-price">
-                                                        Security &nbsp;₹{productDetails.mrp}&nbsp;(Refundable)
+                                                    {productDetails?.product_type=="1" && <ins className="mrp-price">
+                                                        Security &nbsp;₹18000&nbsp;(Refundable)
                                                         <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title="Refundable within 7 working days!"> 
                                                             <BiInfoCircle />
-                                                            {/* <i className="fi-rs-info"></i> */}
                                                         </span>
 
                                                     </ins>
@@ -229,7 +235,7 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            <div className="attr-detail attr-color mb-15">
+                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-color mb-15">
                                                 <strong className="mr-10">
                                                     Color
                                                 </strong>
@@ -250,8 +256,8 @@ const ProductDetails = ({
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>
-                                            <div className="attr-detail attr-size mb-15">
+                                            </div>}
+                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-size mb-15">
                                                 <strong className="mr-10">
                                                     Size
                                                 </strong>
@@ -269,10 +275,10 @@ const ProductDetails = ({
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>
+                                            </div>}
                                             <div className="attr-detail attr-date">
                                                 <strong className="">
-                                                    {product?.type=="purchase"?"Event Date":"Delivery Date"}
+                                                    {productDetails?.product_type=="2"?"Event Date":"Delivery Date"}
                                                 </strong>
                                                 <ReactDatePicker
                                                     selected={deliveryDate}
@@ -306,6 +312,7 @@ const ProductDetails = ({
                                                                 quantity: quantity || 1,
                                                                 color,
                                                                 size: size,
+                                                                deposit_amount:18000,
                                                                 deliveryDate: deliveryDate,
                                                                 returnByDate: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })
@@ -344,18 +351,6 @@ const ProductDetails = ({
                                                             </li>
                                                         ))
                                                     }
-                                                    {/* <li className="mb-10">
-                                                        <img alt="Evara" src="/assets/imgs/theme/icons/shield.png" />
-                                                        <span>1 Year Warranty</span>
-                                                    </li>
-                                                    <li className="mb-10">
-                                                        <img alt="Evara" src="/assets/imgs/theme/icons/return.png" />
-                                                        <span>30 Day Return</span>
-                                                    </li>
-                                                    <li>
-                                                        <img alt="Evara" src="/assets/imgs/theme/icons/cash-on-delivery.png" />
-                                                        <span>COD Available</span>
-                                                    </li> */}
                                                 </ul>
                                             </div>}
                                         </div>
@@ -377,7 +372,7 @@ const ProductDetails = ({
                                                 </div>
                                             </div>
                                         </div>}
-                                        <div className="banner-img banner-big wow fadeIn f-none animated mt-50">
+                                        {product?.product_bottom_collections?.length>0 &&<div className="banner-img banner-big wow fadeIn f-none animated mt-50">
                                             <img
                                                 className="border-radius-10"
                                                 src={collectionBanner?.collection_image}
@@ -391,7 +386,7 @@ const ProductDetails = ({
                                                    {collectionBanner?.title}
                                                 </h2>
                                             </div>
-                                        </div>
+                                        </div>}
                                     </>
                                 )}
                             </div>

@@ -9,7 +9,7 @@ export default function EmptyCart() {
             <h1>Your Cart is empty</h1>
             <ShoppingBag />
             <div className="cart-action text-center">
-                <div className="btn" onClick={() => router.push('/products')}>
+                <div className="btn" onClick={() => router.push('/')}>
                     <span>
                         <i className="fi-rs-shopping-bag mr-10"></i>
                         Continue Shopping

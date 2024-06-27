@@ -23,9 +23,10 @@ const Products = ({ products, productFilters }) => {
     const [productList, setProductList] = useState([]);
     const [sub_categories, setSub_categories] = useState([]);
     const [deliveryDate, setDeliveryDate] = useState();
+    const [totalProducts, setTotalProducts] = useState(0);
     let Router = useRouter(),
         searchTerm = Router.query.search,
-        showLimit =20,
+        showLimit = 2,
         showPagination = 4;
     const [filters, setFilters] = useState({
         page: 1,
@@ -34,35 +35,23 @@ const Products = ({ products, productFilters }) => {
         sort: null,
     });
 
-  useEffect(() => {
-    // Initialize filters from query parameters
-    const { page, from_price, to_price, sort } = Router.query;
-    setFilters({
-      page: page ? parseInt(page) : 1,
-      from_price: from_price ? parseFloat(from_price) : null,
-      to_price: to_price ? parseFloat(to_price) : null,
-      sort: sort || null,
-    });
-  }, [Router.query]);
-
-    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
-        if(value)
-        return(<button className="custom-date-input" onClick={onClick} ref={ref}>
-            {value}
-        </button>)
-        else{
-        return<div onClick={onClick} className="custom-date-input">
-            <span>Select Date</span> <i></i>
-        </div>
-        }
-    });
-    
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
-    let [pages, setPages] = useState(Math.ceil(44 / limit));
+    let [pages, setPages] = useState(Math.ceil(totalProducts / limit));
     let [currentPage, setCurrentPage] = useState(1);
     const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
+
+    useEffect(() => {
+        // Initialize filters from query parameters
+        const { page, from_price, to_price, sort } = Router.query;
+        setFilters({
+            page: page ? parseInt(page) : 2,
+            from_price: from_price ? parseFloat(from_price) : null,
+            to_price: to_price ? parseFloat(to_price) : null,
+            sort: sort || null,
+        });
+    }, [Router.query]);
 
     useEffect(() => {
         // fetchProduct(searchTerm, "/static/product.json",  productFilters);
@@ -71,47 +60,60 @@ const Products = ({ products, productFilters }) => {
         cratePagination();
     }, [filters]);
 
-    const fetchProductList = async ()=>{
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
+        if (value)
+            return (<button className="custom-date-input" onClick={onClick} ref={ref}>
+                {value}
+            </button>)
+        else {
+            return <div onClick={onClick} className="custom-date-input">
+                <span>Select Date</span> <i></i>
+            </div>
+        }
+    });
+
+
+    const fetchProductList = async () => {
 
         // Create the request body
         let body = { handle_category: category || "", handle_sub_category: sub_category || "", ...filters };
-    try {
+        try {
             const response = await getAllCategoryProducts(body);
             console.log('fetch products success: ', response)
-            if(response.code==0){
+            if (response.code == 0) {
                 Router.push('/404')
             }
             setProductList(response?.result);
             setSub_categories(response?.sub_categories);
-          } catch (error) {
-            console.error('there is an error: ',error);
-            
-          }
+            setTotalProducts(response?.total_products)
+        } catch (error) {
+            console.error('there is an error: ', error);
+
+        }
     }
-    const fetchPriceRange = async ()=>{
+    const fetchPriceRange = async () => {
         // Create the request body
-        let body = { flag: "", category, sub_category, collection:"" };
-    try {
+        let body = { flag: "", category, sub_category, collection: "" };
+        try {
             const response = await getAllPriceRange(body);
             console.log('fetch price range success: ', response)
-          } catch (error) {
-            console.error('there is an error: ',error);
-            
-          }
+        } catch (error) {
+            console.error('there is an error: ', error);
+
+        }
     }
-    fetchPriceRange();
 
     const cratePagination = () => {
         // set pagination
-        let arr = new Array(Math.ceil(44 / limit))
+        let arr = new Array(Math.ceil(totalProducts / limit))
             .fill()
             .map((_, idx) => idx + 1);
 
         setPagination(arr);
-        setPages(Math.ceil(44 / limit));
+        setPages(Math.ceil(totalProducts / limit));
     };
 
-    const handleClearFilters = () =>{
+    const handleClearFilters = () => {
         setDeliveryDate()
     }
 
@@ -136,7 +138,7 @@ const Products = ({ products, productFilters }) => {
     };
 
 
-    
+
     return (
         <>
             <Layout parent="Home" sub={category} subChild="">
@@ -217,7 +219,7 @@ const Products = ({ products, productFilters }) => {
                                         <p>
                                             We found
                                             <strong className="text-brand">
-                                                {productList?.length}
+                                                {totalProducts}
                                             </strong>
                                             items for you!
                                         </p>
@@ -239,18 +241,18 @@ const Products = ({ products, productFilters }) => {
                                     )}
 
                                     {getPaginatedProducts.map((item, i) => {
-                                        if(listLayout){
-                                            return<div className=""
-                                            key={i}
-                                        >
-                                            <SingleProductList product={item}/>
-                                        </div>                                        
-                                        }else{
-                                            return <div className="col-lg-4 col-md-4 col-12 col-sm-6"
-                                            key={i}
+                                        if (listLayout) {
+                                            return <div className=""
+                                                key={i}
                                             >
-                                            <SingleProduct product={item} />
-                                        </div>
+                                                <SingleProductList product={item} />
+                                            </div>
+                                        } else {
+                                            return <div className="col-lg-4 col-md-4 col-12 col-sm-6"
+                                                key={i}
+                                            >
+                                                <SingleProduct product={item} />
+                                            </div>
                                         }
                                     })}
                                 </div>

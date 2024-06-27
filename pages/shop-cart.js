@@ -102,8 +102,8 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
             const price = item.selling_price || 0;
             const quantity = item.quantity || 0;
             const deposit = item?.deposit_amount || 0;
-
-            if (item.type === "rent") {
+            console.log('desposit', deposit)
+            if (item.product_type=="1") {
                 priceDetails.totalMrp += oldPrice * quantity;
                 priceDetails.totalPrice += price * quantity;
                 priceDetails.totalDeposit += deposit * quantity;
@@ -136,9 +136,7 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
 
 
     useEffect(() => {
-      
         cartTotal();
-      
     }, [cartItems])
     
     return (

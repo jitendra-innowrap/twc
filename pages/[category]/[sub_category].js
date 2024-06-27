@@ -21,6 +21,7 @@ import { openCart } from "../../redux/action/cart";
 
 const Products = ({ products, productFilters }) => {
     let today = new Date();
+    const [totalProducts, setTotalProducts] = useState(0);
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
@@ -44,7 +45,7 @@ const Products = ({ products, productFilters }) => {
       page: page ? parseInt(page) : 1,
       from_price: from_price ? parseFloat(from_price) : null,
       to_price: to_price ? parseFloat(to_price) : null,
-      sort: sort || null,
+      sort: sort || "1",
     });
   }, [Router.query]);
 
@@ -63,43 +64,46 @@ const Products = ({ products, productFilters }) => {
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
-    let [pages, setPages] = useState(Math.ceil(44 / limit));
+    let [pages, setPages] = useState(Math.ceil(totalProducts / limit));
     let [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        // fetchProduct(searchTerm, "/static/product.json",  productFilters);
         fetchProductList()
-        cratePagination();
     }, [filters]);
-
+    useEffect(() => {
+      
+        cratePagination();
+    
+    }, [totalProducts])
+    
     const fetchProductList = async ()=>{
         const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
 
         // Create the request body
         let body = { handle_category: category || "", handle_sub_category: sub_category || "", ...filters };
-    try {
-            const response = await getAllCategoryProducts(body);
-            console.log('fetch products success: ', response)
-            if(response.code==0){
-                Router.push('/404')
+        try {
+                const response = await getAllCategoryProducts(body);
+                console.log('fetch products success: ', response)
+                if(response.code==0){
+                    Router.push('/404')
+                }
+                setProductList(response?.result);
+                setSub_categories(response?.sub_categories);
+                setTotalProducts(response?.total_products);
+            } catch (error) {
+                console.error('there is an error: ',error);
+                
             }
-            setProductList(response?.result);
-            setSub_categories(response?.sub_categories);
-          } catch (error) {
-            console.error('there is an error: ',error);
-            
-          }
     }
 
     const cratePagination = () => {
         // set pagination
-        let arr = new Array(Math.ceil(44 / limit))
-            .fill()
-            .map((_, idx) => idx + 1);
-
+        let arr = Array.from({ length: Math.ceil(totalProducts / limit) }, (_, idx) => idx + 1);
+      
         setPagination(arr);
-        setPages(Math.ceil(44 / limit));
-    };
+        setPages(Math.ceil(totalProducts / limit));
+      };
+      
 
     const handleClearFilters = () =>{
         setDeliveryDate()
@@ -123,6 +127,9 @@ const Products = ({ products, productFilters }) => {
 
     const handleActive = (item) => {
         setCurrentPage(item);
+        Router.replace({
+            query: { ...Router.query, page:item },
+            });
     };
 
 
@@ -206,7 +213,7 @@ const Products = ({ products, productFilters }) => {
                                 </div> */}
                             </div>
                             <div className="col-lg-9">
-                                <div className="shop-product-fillter">
+                                {productList.length > 0 && <div className="shop-product-fillter">
                                     <div className="totall-product">
                                         <p>
                                             We found
@@ -226,13 +233,16 @@ const Products = ({ products, productFilters }) => {
                                             </span>
                                         </div> */}
                                     </div>
-                                </div>
+                                </div>}
                                 <div className="row product-grid-3">
-                                    {getPaginatedProducts.length === 0 && (
-                                        <h3>No Products Found </h3>
+                                    {productList.length === 0 && (
+                                        <div className="no-products-found">
+                                            <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
+                                            {/* <h3> No Products Found </h3> */}
+                                        </div>
                                     )}
 
-                                    {getPaginatedProducts.map((item, i) => {
+                                    {productList?.map((item, i) => {
                                         if(listLayout){
                                             return<div className=""
                                             key={i}
@@ -249,7 +259,7 @@ const Products = ({ products, productFilters }) => {
                                     })}
                                 </div>
 
-                                <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                { <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
                                         <Pagination
                                             getPaginationGroup={
@@ -262,7 +272,7 @@ const Products = ({ products, productFilters }) => {
                                             handleActive={handleActive}
                                         />
                                     </nav>
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     </div>

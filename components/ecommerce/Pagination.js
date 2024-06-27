@@ -51,7 +51,7 @@ function Pagination({
 
             {getPaginationGroup.length <= 0 ? null : (
                 <p>
-                    show {currentPage} of {pages}
+                    showing {currentPage} of {pages}
                 </p>
             )}
         </>

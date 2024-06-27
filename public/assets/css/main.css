@@ -4603,6 +4603,7 @@ table .product-thumbnail img {
   color: #fff;
   border-radius: 4px;
   padding: 5px 10px;
+  cursor: pointer;
 }
 
 .react-datepicker__day--selected {
@@ -7124,7 +7125,7 @@ span.fi-rs-apps {
   line-height: 1;
   display: block;
   position: relative;
-  float: left;
+  /* float: left; */
   padding-right: 10px;
 }
 
@@ -7248,6 +7249,7 @@ span.fi-rs-apps {
 .main-menu>nav>ul>li:hover ul.mega-menu {
   opacity: 1;
   visibility: visible;
+  display: flex;
   margin-top: 0;
 }
 
@@ -12376,8 +12378,8 @@ input[type="checkbox"]:checked {
   width: 150px;
 }
 .magnify-image{
-  height: 70vh;
-  max-height: 700px;
+  /* height: 70vh; */
+  max-height: 65vh;
 }
 .featurese-content ul, .featurese-content ol{
   list-style: unset;
@@ -12418,3 +12420,10 @@ input[type="checkbox"]:checked {
   width: 100%;
   height: 100%;
 } */
+
+
+.no-products-found {
+  width: 50%;
+  margin-top: 100px;
+  margin-inline: auto;
+}

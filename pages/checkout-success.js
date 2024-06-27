@@ -27,7 +27,7 @@ const OrderSucess = () => {
                                     <Link href={"/my-profile?tab=2"}>view order</Link>
                                 </button>
                                 <button className="btn">
-                                    <Link href={"/products"}>Continue Shopping</Link>
+                                    <Link href={"/"}>Continue Shopping</Link>
                                 </button>
                             </div>
                         </div>

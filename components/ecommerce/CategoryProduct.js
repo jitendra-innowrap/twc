@@ -24,9 +24,9 @@ const CategoryProduct = ({ updateProductCategory, sub_categories }) => {
   return (
     <>
       <ul className="categories">
-        <li onClick={(e) => selectCategory(e, '')}>
+        {/* <li onClick={(e) => selectCategory(e, '')}>
           <a>All</a>
-        </li>
+        </li> */}
         {sub_categories.slice(0, visibleCategories).map((sub_category, i) => (
           <li key={i} onClick={(e) => selectCategory(e, `${sub_category.handle}`)}>
             <a>{sub_category.name}</a>
