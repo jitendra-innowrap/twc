@@ -23,7 +23,9 @@ export default function CartItem({item, deleteFromCart}) {
                             <div>
                                 <div className="itemContainer-base-brand">{item.category_name}</div>
                                 <a className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
-                                {`${item.name}`} {item.color? ` - ${item.color}`: ''} {item.size? ` , ${item.size}`: ''}
+                                {`${item.name}`} 
+                                {/* {item.color? ` - ${item.color}`: ''}  */}
+                                {item.size? ` - ${item.size}`: ''}
                                 </a>
                             </div>
                             <div className="itemComponents-base-sellerContainer">

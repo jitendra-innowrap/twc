@@ -235,7 +235,7 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-color mb-15">
+                                            {/* {productDetails?.product_type=="1" && <div className="attr-detail attr-color mb-15">
                                                 <strong className="mr-10">
                                                     Color
                                                 </strong>
@@ -256,8 +256,8 @@ const ProductDetails = ({
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>}
-                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-size mb-15">
+                                            </div>} */}
+                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
                                                     Size
                                                 </strong>
