@@ -28,7 +28,7 @@ function Pagination({
                             onClick={() => handleActive(item)}
                             key={index}
                             className={
-                                currentPage === item
+                                currentPage == item
                                     ? "page-item active"
                                     : "page-item"
                             }
