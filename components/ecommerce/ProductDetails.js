@@ -213,7 +213,7 @@ const ProductDetails = ({
                                                 </div>
                                                 <div className="product-price font-md">
                                                     {productDetails?.product_type=="1" && <ins className="mrp-price">
-                                                        Security &nbsp;₹18000&nbsp;(Refundable)
+                                                        Security &nbsp;₹{productDetails?.deposit_amount? productDetails?.deposit_amount:"0"}&nbsp;(Refundable)
                                                         <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title="Refundable within 7 working days!"> 
                                                             <BiInfoCircle />
                                                         </span>
@@ -313,7 +313,7 @@ const ProductDetails = ({
                                                                 quantity: quantity || 1,
                                                                 color,
                                                                 size: size,
-                                                                deposit_amount:18000,
+                                                                deposit_amount:productDetails?.deposit_amount,
                                                                 deliveryDate: deliveryDate,
                                                                 returnByDate: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })

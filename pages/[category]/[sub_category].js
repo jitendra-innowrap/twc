@@ -23,16 +23,22 @@ import Preloader from "../../components/elements/Preloader";
 const Products = ({ products, productFilters }) => {
     let today = new Date();
     let Router = useRouter(),
-        searchTerm = Router.query.search,
-        showLimit =20,
-        showPagination = 4;
+    searchTerm = Router.query.search,
+    showLimit =3,
+    showPagination = 4;
+    const { category, sub_category, page, from_price, to_price, sort, availabilityDate } = Router.query;
     const [totalProducts, setTotalProducts] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
     const [sub_categories, setSub_categories] = useState([]);
-    const [deliveryDate, setDeliveryDate] = useState();
+    let formattedDate
+    if(availabilityDate){
+        const parsedDate = new Date(JSON.parse(availabilityDate));
+         formattedDate = parsedDate.toISOString().split('T')[0]; // Format to YYYY-MM-DD
+    }
+    const [deliveryDate, setDeliveryDate] = useState(availabilityDate?formattedDate:"");
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
@@ -51,26 +57,19 @@ const Products = ({ products, productFilters }) => {
         }
     });
 
-    const { category, sub_category, page, from_price, to_price, sort } = Router.query;
 
     useEffect(() => {
         fetchProductList();
-        fetchPriceRange();
+        setCurrentPage(page||1);
     }, [Router.query]);
-
-
 
     useEffect(() => {
         cratePagination();
     }, [totalProducts])
-    
-    const fetchPriceRange= async()=>{
-        await getPriceRange({})
-    }
 
     const fetchProductList = async () => {
         // Create the request body
-        let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price };
+        let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price, availabilityDate  };
         try {
             const response = await getAllCategoryProducts(body);
             console.log('fetch products success: ', response)
@@ -90,14 +89,17 @@ const Products = ({ products, productFilters }) => {
     const cratePagination = () => {
         // set pagination
         let arr = Array.from({ length: Math.ceil(totalProducts / limit) }, (_, idx) => idx + 1);
-      
+        
         setPagination(arr);
         setPages(Math.ceil(totalProducts / limit));
       };
       
 
     const handleClearFilters = () =>{
-        setDeliveryDate()
+        setDeliveryDate();
+        Router.replace({
+            query: { ...Router.query, size: "all", availabilityDate:"", from_price:"", to_price:"", page:1 },
+            });
     }
 
     const startIndex = currentPage * limit - limit;
@@ -123,6 +125,12 @@ const Products = ({ products, productFilters }) => {
             });
     };
 
+    const handleDateFilter = (date) =>{
+        setDeliveryDate(date);
+        Router.replace({
+            query: { ...Router.query, availabilityDate: JSON.stringify(date) },
+            });
+    }
 
     
     return (
@@ -174,7 +182,7 @@ const Products = ({ products, productFilters }) => {
                                                 <ReactDatePicker
                                                     selected={deliveryDate}
                                                     dateFormat="dd/MM/yyyy"
-                                                    onChange={(date) => setDeliveryDate(date)}
+                                                    onChange={(date) => handleDateFilter(date)}
                                                     customInput={<ExampleCustomInput />}
                                                     minDate={calendarStartDate}
                                                     maxDate={calendarEndDate}
@@ -212,7 +220,7 @@ const Products = ({ products, productFilters }) => {
                                         <p>
                                             We found
                                             <strong className="text-brand">
-                                                {productList?.length}
+                                                {totalProducts}
                                             </strong>
                                             items for you!
                                         </p>

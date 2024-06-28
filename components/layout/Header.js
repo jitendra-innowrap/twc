@@ -144,7 +144,7 @@ const Header = ({
                                 <Link href="/">
                                     <a>
                                         <img
-                                            src="/assets/imgs/theme/party-house.png"
+                                            src="/assets/imgs/theme/the-party-cafe-logo.png"
                                             alt="logo"
                                         />
                                     </a>

@@ -1,34 +1,31 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { updateProductFilters } from "../../redux/action/productFiltersAction";
+import { useRouter } from "next/router";
 
-const SizeFilter = ({ updateProductFilters }) => {
-    // console.log(updateProductFilters);
+const SizeFilter = () => {
+    const router = useRouter();
+    const { size } = router.query;
+    const [active, setActive] = useState(size?size:"all");
 
     const sizes = [
-        {value: "All"},
+        {value: "all"},
         {value: "s"},
-        {value: "m "},
+        {value: "m"},
         {value: "l"},
         {value: "xl"},
     ];
 
+    useEffect(() => {
+      setActive(size)
+    }, [router.query])
     
 
-    const [selectedSizes, setSizes] = useState([]);
-    const [active, setActive] = useState(0);
-
-    useEffect(() => {
-        const filters = {
-            sizes: selectedSizes,
-        };
-
-        updateProductFilters(filters);
-    }, [selectedSizes]);
-
-    const handleClick = (i, target) => {
-        setSizes(target);
-        setActive(active == i ? 0 : i);
+    const handleClick = (size) => {
+        setActive(prev => active == prev ? "all" : size);
+        router.replace({
+            query: { ...router.query, size: size === active ? "all" : size },
+        });
     };
 
     return (
@@ -36,8 +33,8 @@ const SizeFilter = ({ updateProductFilters }) => {
         <ul className="list-filter size-filter font-small">
         {sizes.map((tag, i) => (
                     <li
-                        className={active == i ? "active":""}
-                        onClick={() => handleClick(i, tag.value)}
+                        className={active == tag.value ? "active":""}
+                        onClick={() => handleClick(tag.value)}
                         key={i}
                     >
                         <a>
