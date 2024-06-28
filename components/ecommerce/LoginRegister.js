@@ -201,7 +201,6 @@ function LoginRegister({logIN}) {
                 :
                 step === 2 ?
                     <div className="login_wrap">
-                        {timerValue}
                         <div className="verificationContainer">
                             <div className="otpTopImage">
                                 <div className="image">
