@@ -40,8 +40,17 @@ const ThumbSlider = ({ product }) => {
                     <SwiperSlide key={i}>
                         {item.file_type == "1" ?
                             <div className="magnify-image">
-                                <InnerImageZoom zoomType="hover" hideHint={true} src={item.file} zoomSrc={item.file} />
-                            </div>
+                            <InnerImageZoom
+                                zoomType="hover"
+                                hideHint={true}
+                                src={item.file}
+                                zoomSrc={item.file}
+                                width="100%"
+                                height="100%"
+                                zoomScale={1.3} // Adjust this value to control the zoom level
+
+                            />
+                        </div>
                             :
                             <Popup trigger={
                                 <div className="gallary-video">
@@ -76,7 +85,7 @@ const ThumbSlider = ({ product }) => {
                                 :
                                 <div className="gallary-video">
                                     <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="evara" />
-                                    <BiPlayCircle fontSize={28} />
+                                    <BiPlayCircle fontSize={28}  color="#fff" />
                                 </div>
                             }
                         </SwiperSlide>
