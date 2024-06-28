@@ -12237,6 +12237,7 @@ input[type="checkbox"]:checked {
 /* setup tooltips */
 .tooltip-info {
   position: relative;
+  cursor: pointer;
 }
 .tooltip-info:before,
 .tooltip-info:after {

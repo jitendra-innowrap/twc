@@ -213,9 +213,9 @@ const ProductDetails = ({
                                                 </div>
                                                 <div className="product-price font-md">
                                                     {productDetails?.product_type=="1" && <ins className="mrp-price">
-                                                        Security &nbsp;₹{productDetails?.deposit_amount? productDetails?.deposit_amount:"0"}&nbsp;(Refundable)
+                                                        Refundable Deposit:&nbsp;₹{productDetails?.deposit_amount? productDetails?.deposit_amount:"0"}&nbsp;
                                                         <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title="Refundable within 7 working days!"> 
-                                                            <BiInfoCircle />
+                                                            <BiInfoCircle size={16} style={{transform:'translateY(-1px)'}}/>
                                                         </span>
 
                                                     </ins>
