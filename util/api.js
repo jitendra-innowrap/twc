@@ -24,7 +24,7 @@ export const getAllCategory = async () => {
 export const getPriceRange = async ({flag, sub_category, category, collection}) => {
   // Create a new FormData object
   const formData = new FormData();
-  formData.append('flag', flag || JSON.stringify([1]));
+  formData.append('flag', flag || 1);
   formData.append('handle_category', category || "wedding");
   formData.append('handle_sub_category', sub_category || "outfits");
   // formData.append('handle_collection', collection || "");
@@ -46,14 +46,34 @@ export const getPriceRange = async ({flag, sub_category, category, collection}) 
   }
 };
 
-export const getAllCategoryProducts = async ({handle_sub_category, handle_category, sort, page=1, from_price, to_price}) => {
+export const getAllCategoryProducts = async ({handle_sub_category, handle_category, sort, page=1, from_price, to_price, availabilityDate}) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
-    let flag = [sort || 1];
+    let flag = [sort || ""];
     if (from_price || to_price) {
-      flag.push(6);
+      flag.push("6");
     }
+    if (availabilityDate){
+      flag.push("7");
+      // Assuming you have a datetime string like '"2024-07-18T18:30:00.000Z"'
+      const datetimeString = availabilityDate;
+
+      // Remove extra quotes if they exist
+      const cleanedDatetimeString = datetimeString.replace(/^"|"$/g, '');
+
+      // Create a new Date object from the cleaned datetime string
+      const tempdate = new Date(cleanedDatetimeString);
+
+      // Extract only the date part in 'YYYY-MM-DD' format
+      const dateOnly = tempdate.toISOString().split('T')[0];
+
+    // Append the date-only string to the form data
+    formData.append('check_available_date', dateOnly );
+    }
+
+
+
     formData.append('handle_sub_category', handle_sub_category);
     formData.append('handle_category', handle_category);
     formData.append('page', page);
