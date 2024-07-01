@@ -24,7 +24,7 @@ const SizeFilter = () => {
     const handleClick = (size) => {
         setActive(prev => active == prev ? "all" : size);
         router.replace({
-            query: { ...router.query, size: size === active ? "all" : size },
+            query: { ...router.query, size: size === active ? "all" : size, page:1 },
         });
     };
 

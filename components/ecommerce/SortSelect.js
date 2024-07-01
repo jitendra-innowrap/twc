@@ -33,7 +33,7 @@ const SortSelect = ({ updateProductFilters }) => {
         setShowOptions(false);
 
         router.replace({
-        query: { ...router.query, sort: flag },
+        query: { ...router.query, sort: flag, page:1 },
         });
 
       };

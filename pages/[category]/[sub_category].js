@@ -128,7 +128,7 @@ const Products = ({ products, productFilters }) => {
     const handleDateFilter = (date) =>{
         setDeliveryDate(date);
         Router.replace({
-            query: { ...Router.query, availabilityDate: JSON.stringify(date) },
+            query: { ...Router.query, availabilityDate: JSON.stringify(date), page:1 },
             });
     }
 
