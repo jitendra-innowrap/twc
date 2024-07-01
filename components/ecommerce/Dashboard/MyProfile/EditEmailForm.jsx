@@ -78,22 +78,22 @@ export default function EditEmailForm({close, setTempUser}) {
                                 <MdClose fontSize={22} />
                             </button>
                         </div>
-                        <div class="mobileInputContainer">
-                            <div class="form-group ">
-                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" class="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
-                                <span class="placeholderAlternative mobileNumber">
+                        <div className="mobileInputContainer">
+                            <div className="form-group ">
+                                <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" className="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
+                                <span className="placeholderAlternative mobileNumber">
 
-                                    {!Email &&<span class="mobileNumberPlacholder">Email Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
-                                </span><i class="bar"></i>
+                                    {!Email &&<span className="mobileNumberPlacholder">Email Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                </span><i className="bar"></i>
                                 {error.email && <div className="errorContainer">Please enter a valid email.</div>}
                             </div>
-                            <div class="midLinks">
+                            <div className="midLinks">
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div class="submitBottomOption" onClick={handleEmail}>CONTINUE</div>
+                            <div className="submitBottomOption" onClick={handleEmail}>CONTINUE</div>
                         </div>
-                        <div class="get-help">Have trouble logging in? <span>Get help</span></div>
+                        <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
                 </div>
                 :
@@ -160,8 +160,8 @@ export default function EditEmailForm({close, setTempUser}) {
                             <div className="accountCreated">Your Email Number is updated Successfully.</div>
                         </div>
                         <div className="padding_eight_all bg-white w-100 p-30">
-                            <div class="nameInputContainer w-100">
-                                <div class="submitBottomOption" onClick={close}>CONTINUE</div>
+                            <div className="nameInputContainer w-100">
+                                <div className="submitBottomOption" onClick={close}>CONTINUE</div>
                             </div>
                         </div>
                     </div>

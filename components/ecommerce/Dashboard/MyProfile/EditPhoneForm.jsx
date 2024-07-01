@@ -76,23 +76,23 @@ export default function EditPhoneForm({close, setTempUser}) {
                                 <MdClose fontSize={22} />
                             </button>
                         </div>
-                        <div class="mobileInputContainer">
-                            <div class="form-group ">
-                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
-                                <span class="placeholderAlternative mobileNumber">
+                        <div className="mobileInputContainer">
+                            <div className="form-group ">
+                                <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
-                                    {!Mobile &&<span class="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
-                                </span><i class="bar"></i>
+                                    {!Mobile &&<span className="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                </span><i className="bar"></i>
                                 {error.mobile && <div className="errorContainer">Please enter a valid mobile number (10 digits)</div>}
                             </div>
-                            <div class="midLinks">
+                            <div className="midLinks">
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div class="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
+                            <div className="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
                         </div>
-                        <div class="get-help">Have trouble logging in? <span>Get help</span></div>
+                        <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
                 </div>
                 :
@@ -159,8 +159,8 @@ export default function EditPhoneForm({close, setTempUser}) {
                             <div className="accountCreated">Your Mobile Number is updated Successfully.</div>
                         </div>
                         <div className="padding_eight_all bg-white w-100 p-30">
-                            <div class="nameInputContainer w-100">
-                                <div class="submitBottomOption" onClick={close}>CONTINUE</div>
+                            <div className="nameInputContainer w-100">
+                                <div className="submitBottomOption" onClick={close}>CONTINUE</div>
                             </div>
                         </div>
                     </div>

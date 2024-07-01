@@ -179,23 +179,23 @@ function LoginRegister({logIN}) {
                                 Login <span className="welcome_header_small">or</span> Signup
                             </h3>
                         </div>
-                        <div class="mobileInputContainer">
-                            <div class="form-group ">
-                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
-                                <span class="placeholderAlternative mobileNumber">
+                        <div className="mobileInputContainer">
+                            <div className="form-group ">
+                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
-                                    {!Mobile && <span class="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
-                                </span><i class="bar"></i>
+                                    {!Mobile && <span className="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                </span><i className="bar"></i>
                                 {error.mobile && <div className="errorContainer">Please enter a valid mobile number (10 digits)</div>}
                             </div>
-                            <div class="midLinks">
+                            <div className="midLinks">
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div class="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
+                            <div className="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
                         </div>
-                        <div class="get-help">Have trouble logging in? <span>Get help</span></div>
+                        <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
                 </div>
                 :
@@ -265,15 +265,15 @@ function LoginRegister({logIN}) {
                         </div>
                         <div className="padding_eight_all bg-white  p-30">
                             <div className="nameText">What should we call you?</div>
-                            <div class="nameInputContainer">
-                                <div class="form-group ">
-                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" class="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder=""  value={name} />
-                                    <span class={`placeholderAlternative mobileNumber ${name ? 'focus' : ''}`}>
-                                        <span class="mobileNumberPlacholder">Type your name</span>
-                                    </span><i class="bar"></i>
+                            <div className="nameInputContainer">
+                                <div className="form-group ">
+                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder=""  value={name} />
+                                    <span className={`placeholderAlternative mobileNumber ${name ? 'focus' : ''}`}>
+                                        <span className="mobileNumberPlacholder">Type your name</span>
+                                    </span><i className="bar"></i>
                                     {error.name && <div className="errorContainer ">Name is required</div>}
                                 </div>
-                                <div class="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
+                                <div className="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
                             </div>
                         </div>
                     </div>
