@@ -1,3 +1,4 @@
+import storage from "./localStorage";
 
 export function getYouTubeThumbnail(videoUrl) {
   console.log("VIDEO URL", videoUrl);
@@ -20,6 +21,27 @@ export function getYouTubeThumbnail(videoUrl) {
   return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 }
 
+export const isLoggedIn =()=>{
+  const savedUser = storage.get("dokani_user");
+  return savedUser.isLoggedIn;
+}
+export const getToken =()=>{
+  const savedUser = storage.get("dokani_user");
+  return savedUser.auth_token;
+}
+export const clipDateOnly = (date) => {
+  // Extract only the date part in 'dd-mm-yyyy' format
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const dateOnly = `${year}-${month}-${day}`;
+
+  return dateOnly;
+};
+export const reverseDateOrder =(date)=>{
+    const [day, month, year] = date.split('-');
+    return `${year}-${month}-${day}`;
+}
 
 // Delete Product from List By Id
 export const deleteProduct = (list, product) => {

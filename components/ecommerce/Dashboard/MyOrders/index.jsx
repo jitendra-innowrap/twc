@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getOrderList } from '../../../../util/api';
 
 export default function index() {
+    const [orderList, setOrderList] = useState([]);
+    
+    useEffect(() => {
+      fetchOrderList();
+    }, [])
+    
+    const fetchOrderList = async () =>{
+        try {
+            const res = await getOrderList();
+            setOrderList(res?.result)
+            console.log(res)
+        } catch (error) {
+            
+        }
+
+    }
     return (
         <div className="card my-orders">
             <div className="card-header">

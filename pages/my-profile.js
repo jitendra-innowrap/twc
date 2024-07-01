@@ -16,6 +16,9 @@ function Account() {
     const handleOnClick = (index) => {
         setActiveIndex(index); // remove the curly braces
     };
+    
+
+
     return (
         <>
             <Layout parent="Home" sub="Pages" subChild="Account">
@@ -79,7 +82,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="account-detail-tab"
                                             >
-                                                <MyProfile />
+                                               {activeIndex === 1 && <MyProfile />}
                                             </div>
                                             <div
                                                 className={activeIndex === 2 ? "tab-pane fade show active" : "tab-pane fade"}
@@ -87,7 +90,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="orders-tab"
                                             >
-                                                <MyOrders />
+                                                {activeIndex === 2 && <MyOrders />}
                                             </div>
                                             <div
                                                 className={activeIndex === 3 ? "tab-pane fade show active" : "tab-pane fade"}
@@ -95,7 +98,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="address-tab"
                                             >
-                                                <MyAddress />
+                                                {activeIndex === 3 && <MyAddress />}
                                             </div>
                                         </div>
                                     </div>

@@ -1,11 +1,14 @@
 // utils/api.js
 
 import axios from 'axios';
-
+import storage from './localStorage';
+import { getToken } from './util';
 const username = 'PLKT-,9_d63YGYIc87(^5';
 const password = 'PLKRn72^8YKqRip8v^a#|';
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
 
+
+// category page api's endpoints
 export const getAllCategory = async () => {
   try {
     const response = await axios.get('https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategory', {
@@ -21,7 +24,7 @@ export const getAllCategory = async () => {
     throw error;
   }
 };
-export const getPriceRange = async ({flag, sub_category, category, collection}) => {
+export const getPriceRange = async ({ flag, sub_category, category, collection }) => {
   // Create a new FormData object
   const formData = new FormData();
   formData.append('flag', flag || 1);
@@ -29,16 +32,16 @@ export const getPriceRange = async ({flag, sub_category, category, collection}) 
   formData.append('handle_sub_category', sub_category || "outfits");
   // formData.append('handle_collection', collection || "");
   try {
-      const response = await axios.post(
-        'https://innowrap.co.in/clients/twc/App/V1/Product/getPriceRange',
-        formData,
-        {
-          headers: {
-            'Authorization': `Basic ${auth}`,
-            'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
-          }
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Product/getPriceRange',
+      formData,
+      {
+        headers: {
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
-      );
+      }
+    );
     return response;
   } catch (error) {
     console.error('Failed to fetch data', error);
@@ -46,7 +49,7 @@ export const getPriceRange = async ({flag, sub_category, category, collection}) 
   }
 };
 
-export const getAllCategoryProducts = async ({handle_sub_category, handle_category, sort, page=1, from_price, to_price, availabilityDate}) => {
+export const getAllCategoryProducts = async ({ handle_sub_category, handle_category, sort, page = 1, from_price, to_price, availabilityDate }) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
@@ -54,7 +57,7 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
     if (from_price || to_price) {
       flag.push("6");
     }
-    if (availabilityDate){
+    if (availabilityDate) {
       flag.push("7");
       // Assuming you have a datetime string like '"2024-07-18T18:30:00.000Z"'
       const datetimeString = availabilityDate;
@@ -68,8 +71,8 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
       // Extract only the date part in 'YYYY-MM-DD' format
       const dateOnly = tempdate.toISOString().split('T')[0];
 
-    // Append the date-only string to the form data
-    formData.append('check_available_date', dateOnly );
+      // Append the date-only string to the form data
+      formData.append('check_available_date', dateOnly);
     }
 
 
@@ -91,7 +94,7 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
         }
       }
     );
-    
+
     return response.data;
   } catch (error) {
     console.error('Failed to fetch data', error);
@@ -99,8 +102,8 @@ export const getAllCategoryProducts = async ({handle_sub_category, handle_catego
   }
 };
 
-
-export const getProductDetails = async ({handle}) => {
+// Product details page api's endpoints
+export const getProductDetails = async ({ handle }) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
@@ -116,7 +119,7 @@ export const getProductDetails = async ({handle}) => {
         }
       }
     );
-    
+
     return response.data;
   } catch (error) {
     console.error('Failed to fetch data', error);
@@ -124,7 +127,8 @@ export const getProductDetails = async ({handle}) => {
   }
 };
 
-export const loginApi = async (mobile)=>{
+// login and auth api's endpoints
+export const loginApi = async (mobile) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
@@ -132,7 +136,7 @@ export const loginApi = async (mobile)=>{
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/Login',
-      formData, 
+      formData,
       {
         headers: {
           'auth_token': 'Qw9lMNjXYVQqKqzTwAzR0L==',
@@ -141,14 +145,14 @@ export const loginApi = async (mobile)=>{
         }
       }
     );
-    
+
     return response.data;
   } catch (error) {
     console.error('Failed to login', error);
     throw error;
   }
 }
-export const registerApi = async ({auth_token, name})=>{
+export const registerApi = async ({ auth_token, name }) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
@@ -156,7 +160,7 @@ export const registerApi = async ({auth_token, name})=>{
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/userRegistration',
-      formData, 
+      formData,
       {
         headers: {
           'auth_token': auth_token,
@@ -165,7 +169,7 @@ export const registerApi = async ({auth_token, name})=>{
         }
       }
     );
-    
+
     return response.data;
   } catch (error) {
     console.error('Failed to login', error);
@@ -173,7 +177,7 @@ export const registerApi = async ({auth_token, name})=>{
   }
 }
 
-export const verifyOTPApi = async ({auth_token, otp})=>{
+export const verifyOTPApi = async ({ auth_token, otp }) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
@@ -181,7 +185,7 @@ export const verifyOTPApi = async ({auth_token, otp})=>{
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
-      formData, 
+      formData,
       {
         headers: {
           'auth_token': auth_token,
@@ -190,14 +194,14 @@ export const verifyOTPApi = async ({auth_token, otp})=>{
         }
       }
     );
-    
+
     return response.data;
   } catch (error) {
     console.error('Failed to login', error);
     throw error;
   }
 }
-export const resendOTPApi = async (auth_token)=>{
+export const resendOTPApi = async (auth_token) => {
   try {
 
     const response = await axios.get(
@@ -210,7 +214,293 @@ export const resendOTPApi = async (auth_token)=>{
         }
       }
     );
-    
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+// Profile page api's endpoints
+
+export const getProfileDetails = async (auth_token) => {
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/myProfile',
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const editProfileDetails = async ({ fullname, mobile, email, gender, dob, alternateMobile }) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('f_name', fullname);
+  formData.append('mobile', mobile);
+  formData.append('email', email);
+  formData.append('gender', gender);
+  formData.append('dob', dob);
+  formData.append('alternate_mobile', alternateMobile);
+
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const editPhoneNumber = async (mobile) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('mobile', mobile);
+  formData.append('is_verified', 1);
+
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const verifyOTPforPhone = async (mobile, otp) => {
+  const auth_token = getToken();
+
+  try {
+    const formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('is_verified', 1);
+    formData.append('otp', otp);
+
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const resendOTPForPhone = async () => {
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+export const editEmail = async ({ email }) => {
+
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('is_verified', 2);
+
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const getAddressList = async () => {
+  const auth_token = getToken();
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/userAddressList',
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+export const addAddress = async ({ name
+  , city
+  , state_name
+  , mobile
+  , address_line_1
+  , address_line_2
+  , landmark
+  , is_default
+  , address_type
+  , other_address_type_name
+  , pincode }) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('city', city);
+  formData.append('state_name', state_name);
+  formData.append('mobile', mobile);
+  formData.append('address_line_1', address_line_1);
+  formData.append('address_line_2', address_line_2);
+  formData.append('landmark', landmark);
+  formData.append('is_default', is_default);
+  formData.append('address_type', address_type);
+  formData.append('other_address_type_name', other_address_type_name);
+  formData.append('pincode', pincode);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/addUserAddress',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const editAddress = async ({ name
+  , city
+  , state_name
+  , mobile
+  , address_line_1
+  , address_line_2
+  , landmark
+  , is_default
+  , address_type
+  , other_address_type_name
+  , pincode
+  , address_id }) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('city', city);
+  formData.append('state_name', state_name);
+  formData.append('mobile', mobile);
+  formData.append('address_line_1', address_line_1);
+  formData.append('address_line_2', address_line_2);
+  formData.append('landmark', landmark);
+  formData.append('is_default', is_default);
+  formData.append('address_type', address_type);
+  formData.append('other_address_type_name', other_address_type_name);
+  formData.append('pincode', pincode);
+  formData.append('address_id', address_id);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/editUserAddress',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+export const deleteAddress = async (address_id) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('address_id', address_id);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/deleteUserAddress',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
     return response.data;
   } catch (error) {
     console.error('Failed to login', error);
@@ -219,3 +509,26 @@ export const resendOTPApi = async (auth_token)=>{
 }
 
 
+export const getOrderList = async (page) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('page', 1);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/getOrderList',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}

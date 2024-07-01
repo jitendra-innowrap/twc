@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
 import AddAddress from './AddAddress';
 import EditAddress from './EditAddress';
+import { deleteAddress, getAddressList } from '../../../../util/api';
 const dummyAddresses = [
     {
       id: "1",
@@ -72,7 +73,22 @@ const dummyAddresses = [
   
 export default function index() {
     const [expanded, setExpanded] = useState(0);
-    const [addressList, setAddressList] = useState(dummyAddresses);
+    const [addressList, setAddressList] = useState([]);
+    
+    useEffect(() => {
+      fetchAddressList();
+    }, [])
+    
+    const fetchAddressList = async () =>{
+        try {
+            const res = await getAddressList();
+            setAddressList(res?.result)
+            console.log(res)
+        } catch (error) {
+            
+        }
+
+    }
     const handleSetDefault = (id) => {
         const updatedAddresses = dummyAddresses.map((address) => {
           if (address.id === id) {
@@ -86,6 +102,7 @@ export default function index() {
       const handleDelete = (id) => {
         const updatedList = addressList.filter((item) => item.id !== id);
         setAddressList(updatedList);
+        deleteAddress(id)
       };
       
     return (
@@ -115,13 +132,13 @@ export default function index() {
                 </div>
 
                     <div className="address_list">
-                    {addressList.map((address, id)=>(
+                    {addressList?.map((address, id)=>(
                     <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> setExpanded(id)} key={id}>
-                        <div className="card-head"><div className="name">{address.name} {address.isDefault&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
+                        <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
                         <address>
-                            {address.addressLine1}<br />
-                            {address.addressLine2 && <>{address.addressLine2}<br /></> }
-                            {`${address.city}, ${address.state} - ${address.pincode}`}<br />
+                            {address.address_line_1}<br />
+                            {address.address_line_2 && <>{address.address_line_2}<br /></> }
+                            {`${address.city}, ${address.state_name} - ${address.pincode}`}<br />
                             {address.landmark && <>{address.landmark}<br /></> }
                         </address>
                         {
@@ -130,7 +147,7 @@ export default function index() {
                                     <div className="address-phone">+91 9090909090</div>
                                         <div className="card-actions">
                                             <div className="">
-                                                {!address.isDefault && 
+                                                {address.is_default == 0 && 
                                                 <button href="#" onClick={() => {
                                                     handleSetDefault(address.id);
                                                     }} className="btn-small">Set as default Address</button>}</div>

@@ -2,25 +2,40 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from 'react-icons/md';
+import { editPhoneNumber } from '../../../../util/api';
 export default function EditPhoneForm({close, setTempUser}) {
-    const [Mobile, setMobile] = useState("");
+    const [Mobile, setMobile] = useState("9090909090");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [error, setError] = useState({mobile:false, otp:false})
+    const [error, setError] = useState({mobile:"", otp:""})
     const inputRefs = useRef([]);
     const router = useRouter()
     let referrer = "/"
+
     useEffect(() => {
 
     }, [])
 
-    const handleMobile = () => {
+
+
+    const handleMobile = async () => {
         if (Mobile.length === 10) {
-            setStep(2);
+            try {
+                const res = await editPhoneNumber(Mobile)
+                if(res.code===1){
+                    if(res.msg==='Mobile already verified'){
+                        setError(prev => ({...prev, mobile: 'Mobile already verified'}));
+                    }else{
+                        setStep(2);
+                    }
+                }
+            } catch (error) {
+                
+            }
         } else {
-            setError(prev => ({...prev, mobile: true}));
+            setError(prev => ({...prev, mobile: "Please enter a valid mobile number (10 digits)"}));
         }
     }
     const handleSubmit = () =>{
@@ -62,9 +77,10 @@ export default function EditPhoneForm({close, setTempUser}) {
             inputRefs.current[index - 1].focus();
         }
     };
+
     return (
         <div className='popUpContainer'>
-          <button onClick={close} className='close_popUp'><MdClose fontSize={22}/></button>
+          <button onClick={close} type='button' className='close_popUp'><MdClose fontSize={22}/></button>
             {step === 1 ?
                 <div className="login_wrap w-100">
                     <div className="padding_eight_all bg-white  p-30">
@@ -72,7 +88,7 @@ export default function EditPhoneForm({close, setTempUser}) {
                             <h3 className="welcome_header">
                                 Update Mobile
                             </h3>
-                            <button onClick={handleBack} className="close_popUp">
+                            <button type='button' onClick={close} className="close_popUp">
                                 <MdClose fontSize={22} />
                             </button>
                         </div>
@@ -84,7 +100,7 @@ export default function EditPhoneForm({close, setTempUser}) {
 
                                     {!Mobile &&<span className="mobileNumberPlacholder">Mobile Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
                                 </span><i className="bar"></i>
-                                {error.mobile && <div className="errorContainer">Please enter a valid mobile number (10 digits)</div>}
+                                {error.mobile && <div className="errorContainer">{error.mobile}</div>}
                             </div>
                             <div className="midLinks">
                                 By continuing, I agree to the
