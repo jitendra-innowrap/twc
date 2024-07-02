@@ -87,7 +87,6 @@ export default function index() {
         } catch (error) {
             
         }
-
     }
     const handleSetDefault = (id) => {
         const updatedAddresses = dummyAddresses.map((address) => {

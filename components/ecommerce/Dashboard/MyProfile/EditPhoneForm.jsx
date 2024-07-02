@@ -25,8 +25,8 @@ export default function EditPhoneForm({close, setTempUser}) {
             try {
                 const res = await editPhoneNumber(Mobile)
                 if(res.code===1){
-                    if(res.msg==='Mobile already verified'){
-                        setError(prev => ({...prev, mobile: 'Mobile already verified'}));
+                    if(res.msg){
+                        setError(prev => ({...prev, mobile: res.msg}));
                     }else{
                         setStep(2);
                     }
@@ -94,7 +94,7 @@ export default function EditPhoneForm({close, setTempUser}) {
                         </div>
                         <div className="mobileInputContainer">
                             <div className="form-group ">
-                                <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxLength="10" value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
@@ -120,7 +120,7 @@ export default function EditPhoneForm({close, setTempUser}) {
                                 <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
                                     <picture className="img-responsive" style={{ width: '100%' }}>
                                         <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
-                                        <img src className="img-responsive preLoad loaded" alt title style={{ width: '100%' }} />
+                                        <img src className="img-responsive preLoad loaded" alt="otp screen vector image" title style={{ width: '100%' }} />
                                     </picture>
                                 </div>
                             </div>

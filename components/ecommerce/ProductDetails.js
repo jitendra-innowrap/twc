@@ -101,7 +101,19 @@ const ProductDetails = ({
     };
 
     const handleWishlist = (product) => {
-        addToWishlist(product);
+        let wishlistItem = {
+            id: product?.result?.[0]?.id,
+            handle: product?.result?.[0]?.handle,
+            product_images: product?.result?.[0]?.product_images,
+            name: product?.result?.[0]?.name,
+            product_tags: product?.result?.[0]?.product_tags,
+            category_handle: product?.result?.[0]?.category_handle,
+            sub_category_handle: product?.result?.[0]?.sub_category_handle,
+            sub_category_name: product?.result?.[0]?.sub_category_name,
+            selling_price: product?.result?.[0]?.selling_price,
+            mrp: product?.result?.[0]?.mrp,
+        }
+        addToWishlist(wishlistItem);
         toast.success("Added to Wishlist !", {
             position: "bottom-center",
             autoClose: 1500,

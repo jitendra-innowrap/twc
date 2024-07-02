@@ -105,7 +105,7 @@ export default function EditEmailForm({close, setTempUser}) {
                                 <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
                                     <picture className="img-responsive" style={{ width: '100%' }}>
                                         <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
-                                        <img src className="img-responsive preLoad loaded" alt title style={{ width: '100%' }} />
+                                        <img src className="img-responsive preLoad loaded" alt="otp screen vector image" title="otp screen" style={{ width: '100%' }} />
                                     </picture>
                                 </div>
                             </div>

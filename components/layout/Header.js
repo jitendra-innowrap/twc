@@ -221,7 +221,7 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href="/page-login-register">
+                                            <Link href="/shop-wishlist">
                                                 <a>
                                                     <img
                                                         className="svgInject"

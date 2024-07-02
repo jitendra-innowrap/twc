@@ -1,72 +1,5 @@
 import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
-const dummyAddresses = [
-    {
-      id: "1",
-      name: "John Doe",
-      mobile: "1234567890",
-      addressLine1: "3522 Interstate",
-      addressLine2: "75 Business Spur",
-      landmark: "Sault Ste. Marie",
-      pincode: "49783",
-      state: "MI",
-      city: "Sault Ste. Marie",
-      addressType: "home",
-      isDefault: true,
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      mobile: "2345678901",
-      addressLine1: "123 Main St",
-      addressLine2: "Anytown, USA",
-      landmark: "Corner of Main and Elm",
-      pincode: "12345",
-      state: "CA",
-      city: "Anytown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "3",
-      name: "Bob Johnson",
-      mobile: "3456789012",
-      addressLine1: "456 Elm St",
-      addressLine2: "Othertown, USA",
-      landmark: "Elm and Oak",
-      pincode: "67890",
-      state: "NY",
-      city: "Othertown",
-      addressType: "home",
-      isDefault: false,
-    },
-    {
-      id: "4",
-      name: "Alice Brown",
-      mobile: "4567890123",
-      addressLine1: "789 Oak St",
-      addressLine2: "Thistown, USA",
-      landmark: "Oak and Maple",
-      pincode: "34567",
-      state: "TX",
-      city: "Thistown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "5",
-      name: "Charlie Davis",
-      mobile: "5678901234",
-      addressLine1: "901 Maple St",
-      addressLine2: "Thattown, USA",
-      landmark: "Maple and Pine",
-      pincode: "90123",
-      state: "FL",
-      city: "Thattown",
-      addressType: "home",
-      isDefault: false,
-    },
-];
 import Link from "next/link";
 import React, { useState } from 'react'
 import { clearCart, closeCart, decreaseQuantity, deleteFromCart, increaseQuantity, openCart } from "../redux/action/cart";
@@ -80,11 +13,12 @@ import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useSyncExternalStore } from "react";
 import { useEffect } from "react";
+import { deleteAddress, getAddressList, getCartList } from "../util/api";
 
 
 const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, increaseQuantity, decreaseQuantity, deleteFromCart, clearCart }) => {
-    const [addressList, setAddressList] = useState(dummyAddresses);
-    const [deliveredTo, setDeliveredTo] = useState("1");
+    const [addressList, setAddressList] = useState([]);
+    const [deliveredTo, setDeliveredTo] = useState();
     const [priceDetails, setPriceDetails] = useState({
         totalMrp:0,
         totalPrice:0,
@@ -102,7 +36,6 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
             const price = item.selling_price || 0;
             const quantity = item.quantity || 0;
             const deposit = item?.deposit_amount || 0;
-            console.log('desposit', deposit)
             if (item.product_type=="1") {
                 priceDetails.totalMrp += oldPrice * quantity;
                 priceDetails.totalPrice += price * quantity;
@@ -134,8 +67,29 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
         });
     };
 
-
+    const fetchCartList = async ()=>{
+        try {
+            const res = await getCartList();
+            console.log(res)
+        } catch (error) {
+            
+        }
+    }
+    const fetchAddressList = async () =>{
+        try {
+            const res = await getAddressList();
+            setAddressList(res?.result);
+            let defaultAddress = res.result.find(address=> address.is_default == 1);
+            setDeliveredTo(defaultAddress.id)
+            console.log('cart address',res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     useEffect(() => {
+        fetchCartList();
+        fetchAddressList();
         cartTotal();
     }, [cartItems])
     
@@ -152,14 +106,14 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                     <div className="itemBlock-base-leftBlock">
                                         <div className="addressStripV2-base-desktopContainer">
                                         {
-                                            addressList.filter((address) => address.id === deliveredTo).map((address) => (
+                                            addressList?.filter((address) => address.is_default==1).map((address) => (
                                                 <div className="addressStripV2-base-title">
                                                 <div className="addressStripV2-base-addressName">
                                                     Deliver to: <span className="addressStripV2-base-highlight">{address.name}</span>,
-                                                    <div className="addressStripV2-base-highlight">{address.pincode}</div>
+                                                    <div className="addressStripV2-base-highlight"> {address.pincode}</div>
                                                 </div>
                                                 <div className="addressStripV2-base-subText">
-                                                    {`${address.addressLine1}, ${address.addressLine2}`}
+                                                    {`${address.address_line_1}, ${address.address_line_2}`}
                                                 </div>
                                                 </div>
                                             ))

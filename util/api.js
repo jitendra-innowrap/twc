@@ -3,6 +3,7 @@
 import axios from 'axios';
 import storage from './localStorage';
 import { getToken } from './util';
+import { setRequestMeta } from 'next/dist/server/request-meta';
 const username = 'PLKT-,9_d63YGYIc87(^5';
 const password = 'PLKRn72^8YKqRip8v^a#|';
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
@@ -372,6 +373,8 @@ export const editEmail = async ({ email }) => {
     throw error;
   }
 }
+
+// My adress api's endpoints
 export const getAddressList = async () => {
   const auth_token = getToken();
   try {
@@ -391,7 +394,6 @@ export const getAddressList = async () => {
     throw error;
   }
 }
-
 export const addAddress = async ({ name
   , city
   , state_name
@@ -517,6 +519,102 @@ export const getOrderList = async (page) => {
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/getOrderList',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const getCartList = async (page) => {
+  const auth_token = getToken();
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/cartProductList',
+      {
+        headers: {
+          'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const addToCart = async ({
+  product_id,
+qty,
+mrp,
+selling_price,
+web_token,
+deposit_amount,
+rental_start_date,
+deduction_from_deposit_per_day,
+rental_end_date
+}) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('product_id', product_id);
+  formData.append('qty', qty);
+  formData.append('mrp', mrp);
+  formData.append('selling_price', selling_price);
+  formData.append('action', 'add');
+  formData.append('flag', 'Normal Add Product');
+  formData.append('web_token', web_token);
+  formData.append('deposit_amount', deposit_amount);
+  formData.append('rental_start_date', rental_start_date);
+  formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
+  formData.append('rental_end_date', rental_end_date);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/addToCart',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+export const deleteFromCart = async (page) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('product_id', product_id);
+  formData.append('qty', qty);
+  formData.append('mrp', mrp);
+  formData.append('selling_price', selling_price);
+  formData.append('action', "remove");
+  formData.append('flag', flag);
+  formData.append('web_token', web_token);
+  formData.append('deposit_amount', deposit_amount);
+  formData.append('rental_start_date', rental_start_date);
+  formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
+  formData.append('rental_end_date', rental_end_date);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/addToCart',
       formData,
       {
         headers: {
