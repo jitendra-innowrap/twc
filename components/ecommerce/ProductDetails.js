@@ -1,14 +1,6 @@
     import Link from "next/link";
 import { forwardRef, useEffect, useState } from "react";
-import { connect } from "react-redux";
 import { Bounce, toast } from "react-toastify";
-import {
-    addToCart,
-    decreaseQuantity,
-    increaseQuantity
-} from "../../redux/action/cart";
-import { addToCompare } from "../../redux/action/compareAction";
-import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
@@ -19,6 +11,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import { BiInfoCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../redux/Slices/authSlice";
+import { addToCart } from "../../redux/Slices/cartSlice";
 
 const colorsVariants =[
     "red",
@@ -30,14 +25,7 @@ const colorsVariants =[
     "purple"
 ];
 const ProductDetails = ({
-    product,
-    cartItems,
-    addToCompare,
-    addToCart,
-    addToWishlist,
-    increaseQuantity,
-    decreaseQuantity,
-    quickView,
+    product
 }) => {
     let daysRent = 5;
     let today = new Date();
@@ -65,6 +53,8 @@ const ProductDetails = ({
       setHeighLightDate(false)
     }, [slug])
     
+    const dispatch = useDispatch();
+  
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
@@ -83,7 +73,7 @@ const ProductDetails = ({
     };
     const handleCart = (product) => {
         if(deliveryDate){
-            addToCart(product);
+            dispatch(addToCart(product));
         toast.success("Added to Cart !", {
             position: "bottom-center",
             autoClose: 1500,
@@ -134,8 +124,6 @@ const ProductDetails = ({
             setQuantity(quantity - 1);
         }
     }
-
-    const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
     
     return (
         <>
@@ -369,8 +357,6 @@ const ProductDetails = ({
                                         </div>
                                     </div>
                                 </div>
-
-                                {quickView ? null : (
                                     <>
                                         <ProductTab productDetails={productDetails} />
                                         {relatedProducts?.length > 0 &&<div className="row mt-60">
@@ -401,7 +387,6 @@ const ProductDetails = ({
                                             </div>
                                         </div>}
                                     </>
-                                )}
                             </div>
                         </div>
                     </div>
@@ -411,16 +396,4 @@ const ProductDetails = ({
     );
 };
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart,
-});
-
-const mapDispatchToProps = {
-    addToCompare,
-    addToWishlist,
-    addToCart,
-    increaseQuantity,
-    decreaseQuantity,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default ProductDetails;

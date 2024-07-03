@@ -2,23 +2,64 @@
 
 import axios from 'axios';
 import storage from './localStorage';
-import { getToken } from './util';
+import { getToken, getWebToken } from './util';
 import { setRequestMeta } from 'next/dist/server/request-meta';
 const username = 'PLKT-,9_d63YGYIc87(^5';
 const password = 'PLKRn72^8YKqRip8v^a#|';
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
 
+const api = axios.create({
+    baseURL: 'https://innowrap.co.in/clients/twc/App/V1',
+    headers: {
+      'Authorization': `Basic ${auth}`,
+      'Content-Type': 'multipart/form-data'
+    }
+});
+
+// api.interceptors.request.use(
+//     (config) => {
+//         const token = store.getState().auth.token;
+//         if (authToken) {
+//           config.headers['auth_token'] = authToken;
+//         }
+//         if (webToken) {
+//           config.headers['web_token'] = webToken;
+//         }
+//         return config;
+//     },
+//     (error) => Promise.reject(error)
+// );
+
+// api.interceptors.response.use(
+//     (response) => response,
+//     async (error) => {
+//         const originalRequest = error.config;
+//         if (error.response.status === 401 && !originalRequest._retry) {
+//             originalRequest._retry = true;
+//             try {
+//                 const response = await api.post('/refresh-token', {
+//                     token: store.getState().auth.token,
+//                 });
+//                 store.dispatch(refreshToken({ token: response.data.token }));
+//                 api.defaults.headers['Authorization'] = `Bearer ${response.data.token}`;
+//                 originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`;
+//                 return api(originalRequest);
+//             } catch (err) {
+//                 store.dispatch(logout());
+//                 return Promise.reject(err);
+//             }
+//         }
+//         return Promise.reject(error);
+//     }
+// );
+
+
 
 // category page api's endpoints
+
 export const getAllCategory = async () => {
   try {
-    const response = await axios.get('https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategory', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Basic ${auth}`
-        // Add any other headers you need here
-      },
-    });
+    const response = await api.get('/Product/getAllCategory');
     return response;
   } catch (error) {
     console.error('Failed to fetch data', error);
@@ -110,16 +151,9 @@ export const getProductDetails = async ({ handle }) => {
     const formData = new FormData();
     formData.append('handle', handle);
 
-    const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/getProductDetails',
-      formData,
-      {
-        headers: {
-          'Authorization': `Basic ${auth}`,
-          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
-        }
-      }
-    );
+    const response = await api.post(
+      '/Product/getProductDetails',
+      formData);
 
     return response.data;
   } catch (error) {

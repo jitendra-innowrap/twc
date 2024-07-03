@@ -1,12 +1,6 @@
-import { connect } from "react-redux";
+
 import { Bounce, toast } from "react-toastify";
 import Layout from "../components/layout/Layout";
-import { addToCart } from "../redux/action/cart";
-import {
-    clearWishlist,
-    closeWishlistModal,
-    deleteFromWishlist
-} from "../redux/action/wishlistAction";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ShoppingBag from "../components/Svg/ShoppingBag";
@@ -15,8 +9,6 @@ import SingleProduct from "../components/ecommerce/SingleProduct";
 const Wishlist = ({
     wishlist,
     clearWishlist,
-    closeWishlistModal,
-    deleteFromWishlist,
     addToCart,
 }) => {
     const router = useRouter()
@@ -85,16 +77,4 @@ const Wishlist = ({
         </>
     );
 };
-
-const mapStateToProps = (state) => ({
-    wishlist: state.wishlist,
-});
-
-const mapDispatchToProps = {
-    closeWishlistModal,
-    deleteFromWishlist,
-    clearWishlist,
-    addToCart,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);
+export default Wishlist;

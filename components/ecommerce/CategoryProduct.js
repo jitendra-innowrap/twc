@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { connect } from 'react-redux';
-import { updateProductCategory } from '../../redux/action/productFiltersAction';
 
-const CategoryProduct = ({ updateProductCategory, sub_categories }) => {
+const CategoryProduct = ({ sub_categories }) => {
   const router = useRouter();
   const [visibleCategories, setVisibleCategories] = useState(5);
 
@@ -50,4 +48,4 @@ const CategoryProduct = ({ updateProductCategory, sub_categories }) => {
   );
 };
 
-export default connect(null, { updateProductCategory })(CategoryProduct);
+export default CategoryProduct;

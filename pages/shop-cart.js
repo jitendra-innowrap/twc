@@ -1,22 +1,18 @@
-import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
 import Link from "next/link";
 import React, { useState } from 'react'
-import { clearCart, closeCart, decreaseQuantity, deleteFromCart, increaseQuantity, openCart } from "../redux/action/cart";
 import { Bounce, toast } from "react-toastify";
-import { addToWishlist } from "../redux/action/wishlistAction";
 import { useRouter } from "next/router";
 import EmptyCart from "../components/ecommerce/Dashboard/MyCart/EmptyCart";
 import CartItem from "../components/ecommerce/Dashboard/MyCart/CartItem";
 import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
-import { useSyncExternalStore } from "react";
 import { useEffect } from "react";
-import { deleteAddress, getAddressList, getCartList } from "../util/api";
+import { getAddressList, getCartList } from "../util/api";
 
 
-const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, increaseQuantity, decreaseQuantity, deleteFromCart, clearCart }) => {
+const Cart = ({cartItems=[]}) => {
     const [addressList, setAddressList] = useState([]);
     const [deliveredTo, setDeliveredTo] = useState();
     const [priceDetails, setPriceDetails] = useState({
@@ -178,27 +174,6 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                                         <span> <span className>₹</span>{(priceDetails.totalDeposit).toFixed(2)}</span>
                                                     </span>
                                                 </div>
-                                                {/* <div className="priceDetail-base-row">
-                                                    <span>Coupon Discount</span>
-                                                    <span className="priceDetail-base-value priceDetail-base-action">Apply Coupon</span>
-                                                </div>
-                                                <div className="priceDetail-base-row">
-                                                    <span className>Platform Fee<span className="priceDetail-base-knowMore">Know More</span></span>
-                                                    <span className="priceDetail-base-value">₹<span className>20</span></span>
-                                                </div>
-                                                <div className="priceDetail-base-row">
-                                                    <span>Shipping Fee
-                                                        <div className="priceDetail-base-infoTextContainer">
-                                                            <button fontWeight="bold" role="button" className="css-1pl9bms">
-                                                                <div className="css-xjhrni">Know More</div>
-                                                            </button>
-                                                        </div>
-                                                    </span>
-                                                    <span className="priceDetail-base-value">₹<span className>79</span></span>
-                                                    <div className="priceDetail-base-convenienceCalloutText">
-                                                        Add items worth <span style={{ fontWeight: 'bold', color: '#03A685' }}>₹667</span> to get free shipping
-                                                    </div>
-                                                </div> */}
                                                 <div className="priceDetail-base-total">
                                                     <span className>Total Amount</span>
                                                     <span className="priceDetail-base-value">
@@ -226,19 +201,4 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
     );
 };
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart,
-    activeCart: state.counter
-});
-
-const mapDispatchToProps = {
-    closeCart,
-    increaseQuantity,
-    addToWishlist,
-    decreaseQuantity,
-    deleteFromCart,
-    openCart,
-    clearCart
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;

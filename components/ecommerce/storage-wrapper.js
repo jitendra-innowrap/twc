@@ -1,26 +1,25 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import * as Types from "../../redux/constants/actionTypes";
 import storage from "../../util/localStorage";
 
-const saveStoredItems = (storedItems) => (dispatch) => {
-    dispatch({
-        type: Types.INIT_LOCALSTORAGE,
-        payload: { ...storedItems },
-    });
-};
 
-const StorageWrapper = (props) => {
+
+const StorageWrapper = ({children}) => {
+    const saveStoredItems = (storedItems) => (dispatch) => {
+        dispatch({
+            type: Types.INIT_LOCALSTORAGE,
+            payload: { ...storedItems },
+        });
+    };
     useEffect(() => {
         const cart = storage.get("dokani_cart") || [];
         const wishlist = storage.get("dokani_wishlist") || [];
         const compare = storage.get("dokani_compare") || [];
         const user = storage.get("dokani_user") || {token:"randometoken"};
 
-        props.saveStoredItems({ cart, wishlist, compare, user });
+        saveStoredItems({ cart, wishlist, compare, user });
     }, []);
 
-    return <>{props.children}</>;
+    return <>{children}</>;
 };
 
-export default connect(null, { saveStoredItems })(StorageWrapper);
+export default StorageWrapper;

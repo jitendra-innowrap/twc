@@ -2,8 +2,6 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { loginApi, registerApi, resendOTPApi, verifyOTPApi } from '../../util/api';
-import { logIN, logOut } from '../../redux/action/signIn';
-import { connect } from 'react-redux';
 import storage from '../../util/localStorage';
 import { Bounce, toast } from 'react-toastify';
 
@@ -282,5 +280,4 @@ function LoginRegister({logIN}) {
     )
 }
 
-// export default connect(null, logIN)(LoginRegister);
 export default LoginRegister
