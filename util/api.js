@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import storage from './localStorage';
-import { getToken, getWebToken } from './util';
+import { clipDateOnly, getToken, getWebToken } from './util';
 import { setRequestMeta } from 'next/dist/server/request-meta';
 const username = 'PLKT-,9_d63YGYIc87(^5';
 const password = 'PLKRn72^8YKqRip8v^a#|';
@@ -163,6 +163,30 @@ export const getProductDetails = async ({ handle }) => {
 };
 
 // login and auth api's endpoints
+export const logOutApi = async (mobile) => {
+  try {
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('mobile', mobile);
+
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/Login',
+      formData,
+      {
+        headers: {
+          'auth_token': 'Qw9lMNjXYVQqKqzTwAzR0L==',
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
 export const loginApi = async (mobile) => {
   try {
     // Create a new FormData object
@@ -334,14 +358,39 @@ export const editPhoneNumber = async (mobile) => {
     throw error;
   }
 }
-export const verifyOTPforPhone = async (mobile, otp) => {
+export const resendOTPForPhone = async (mobile) => {
   const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('mobile', mobile);
+  formData.append('is_verified', 1);
 
   try {
-    const formData = new FormData();
-    formData.append('mobile', mobile);
-    formData.append('is_verified', 1);
-    formData.append('otp', otp);
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const verifyOTPforPhone = async ({mobile, otp}) => {
+  const auth_token = getToken();
+  const formData = new FormData();
+  formData.append('mobile', mobile);
+  formData.append('is_verified', 1);
+  formData.append('otp', otp);
+  try {
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
@@ -361,10 +410,18 @@ export const verifyOTPforPhone = async (mobile, otp) => {
     throw error;
   }
 }
-export const resendOTPForPhone = async () => {
+
+export const editEmail = async (email) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('is_verified', 2);
+
   try {
-    const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      formData,
       {
         headers: {
           'auth_token': auth_token,
@@ -380,17 +437,42 @@ export const resendOTPForPhone = async () => {
     throw error;
   }
 }
-
-export const editEmail = async ({ email }) => {
-
+export const resendOTPForEmail = async (email) => {
+  const auth_token = getToken();
   // Create a new FormData object
   const formData = new FormData();
   formData.append('email', email);
   formData.append('is_verified', 2);
 
   try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const verifyOTPforEmail = async ({email, otp}) => {
+  const auth_token = getToken();
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('is_verified', 2);
+  formData.append('otp', otp);
+  try {
+
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
       formData,
       {
         headers: {
@@ -606,12 +688,12 @@ rental_end_date
   formData.append('mrp', mrp);
   formData.append('selling_price', selling_price);
   formData.append('action', 'add');
-  formData.append('flag', 'Normal Add Product');
-  formData.append('web_token', web_token);
+  formData.append('flag', '1');
+  // formData.append('web_token', web_token);
   formData.append('deposit_amount', deposit_amount);
-  formData.append('rental_start_date', rental_start_date);
+  formData.append('rental_start_date', clipDateOnly(rental_start_date));
   formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
-  formData.append('rental_end_date', rental_end_date);
+  formData.append('rental_end_date', clipDateOnly(rental_end_date));
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/addToCart',
@@ -631,7 +713,17 @@ rental_end_date
   }
 }
 
-export const deleteFromCart = async (page) => {
+export const deleteFromCart = async (
+  product_id,
+qty,
+mrp,
+selling_price,
+web_token,
+deposit_amount,
+rental_start_date,
+deduction_from_deposit_per_day,
+rental_end_date
+) => {
   const auth_token = getToken();
   // Create a new FormData object
   const formData = new FormData();

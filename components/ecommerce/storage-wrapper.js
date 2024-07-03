@@ -1,25 +1,26 @@
+// StorageWrapper.js
 import React, { useEffect } from "react";
-import storage from "../../util/localStorage";
+import { useDispatch } from 'react-redux';
+import storage from "../../util/localStorage"; // Adjust the import path accordingly
+import { fetchCart, initLocalStorage } from "../../redux/Slices/cartSlice";
 
+const StorageWrapper = ({ children }) => {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const cart = null;
+    const wishlist = storage.get("dokani_wishlist");
+    const user = storage.get("dokani_user");
 
-const StorageWrapper = ({children}) => {
-    const saveStoredItems = (storedItems) => (dispatch) => {
-        dispatch({
-            type: Types.INIT_LOCALSTORAGE,
-            payload: { ...storedItems },
-        });
-    };
-    useEffect(() => {
-        const cart = storage.get("dokani_cart") || [];
-        const wishlist = storage.get("dokani_wishlist") || [];
-        const compare = storage.get("dokani_compare") || [];
-        const user = storage.get("dokani_user") || {token:"randometoken"};
+    if (cart && wishlist && user) {
+      dispatch(initLocalStorage({ cart, wishlist, compare, user }));
+    } else {
+      dispatch(fetchCart());
 
-        saveStoredItems({ cart, wishlist, compare, user });
-    }, []);
+    }
+  }, [dispatch]);
 
-    return <>{children}</>;
+  return <>{children}</>;
 };
 
 export default StorageWrapper;

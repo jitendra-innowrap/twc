@@ -8,50 +8,36 @@ import SingleProductList from "../../components/ecommerce/SingleProductList";
 import SizeFilter from "../../components/ecommerce/SizeFilter";
 import SortSelect from "../../components/ecommerce/SortSelect";
 import Layout from "../../components/layout/Layout";
-import Link from "next/link";
 import ReactDatePicker from "react-datepicker";
-import { getAllCategoryProducts, getAllPriceRange } from "../../util/api";
+import "react-datepicker/dist/react-datepicker.css";
+
+import { getAllCategoryProducts } from "../../util/api";
+import Preloader from "../../components/elements/Preloader";
 
 const Products = () => {
+    let today = new Date();
+    let Router = useRouter(),
+    searchTerm = Router.query.search,
+    showLimit =3,
+    showPagination = 4;
+    const { category, sub_category, page, from_price, to_price, sort, availabilityDate } = Router.query;
+    const [totalProducts, setTotalProducts] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
+    const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
     const [sub_categories, setSub_categories] = useState([]);
-    const [deliveryDate, setDeliveryDate] = useState();
-    const [totalProducts, setTotalProducts] = useState(0);
-    let Router = useRouter(),
-        searchTerm = Router.query.search,
-        showLimit = 2,
-        showPagination = 4;
-    const [filters, setFilters] = useState({
-        page: 1,
-        from_price: null,
-        to_price: null,
-        sort: null,
-    });
-
+    let formattedDate
+    if(availabilityDate){
+        const parsedDate = new Date(JSON.parse(availabilityDate));
+         formattedDate = parsedDate.toISOString().split('T')[0]; // Format to YYYY-MM-DD
+    }
+    const [deliveryDate, setDeliveryDate] = useState(availabilityDate?formattedDate:"");
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(totalProducts / limit));
     let [currentPage, setCurrentPage] = useState(1);
-    const { category, sub_category } = Router.query; // Extract category and sub_category from URL params
-
-    useEffect(() => {
-        // Initialize filters from query parameters
-        const { page, from_price, to_price, sort } = Router.query;
-        setFilters({
-            page: page ? parseInt(page) : 2,
-            from_price: from_price ? parseFloat(from_price) : null,
-            to_price: to_price ? parseFloat(to_price) : null,
-            sort: sort || null,
-        });
-    }, [Router.query]);
-
-    useEffect(() => {
-        // fetchProduct(searchTerm, "/static/product.json",  productFilters);
-        fetchProductList();
-        fetchPriceRange();
-        cratePagination();
-    }, [filters]);
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if (value)
@@ -66,10 +52,18 @@ const Products = () => {
     });
 
 
-    const fetchProductList = async () => {
+    useEffect(() => {
+        fetchProductList();
+        setCurrentPage(page||1);
+    }, [Router.query]);
 
+    useEffect(() => {
+        cratePagination();
+    }, [totalProducts])
+
+    const fetchProductList = async () => {
         // Create the request body
-        let body = { handle_category: category || "", handle_sub_category: sub_category || "", ...filters };
+        let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price, availabilityDate  };
         try {
             const response = await getAllCategoryProducts(body);
             console.log('fetch products success: ', response)
@@ -78,18 +72,8 @@ const Products = () => {
             }
             setProductList(response?.result);
             setSub_categories(response?.sub_categories);
-            setTotalProducts(response?.total_products)
-        } catch (error) {
-            console.error('there is an error: ', error);
-
-        }
-    }
-    const fetchPriceRange = async () => {
-        // Create the request body
-        let body = { flag: "", category, sub_category, collection: "" };
-        try {
-            const response = await getAllPriceRange(body);
-            console.log('fetch price range success: ', response)
+            setTotalProducts(response?.total_products);
+            setIsLoading(false);
         } catch (error) {
             console.error('there is an error: ', error);
 
@@ -98,16 +82,18 @@ const Products = () => {
 
     const cratePagination = () => {
         // set pagination
-        let arr = new Array(Math.ceil(totalProducts / limit))
-            .fill()
-            .map((_, idx) => idx + 1);
-
+        let arr = Array.from({ length: Math.ceil(totalProducts / limit) }, (_, idx) => idx + 1);
+        
         setPagination(arr);
         setPages(Math.ceil(totalProducts / limit));
-    };
+      };
+      
 
-    const handleClearFilters = () => {
-        setDeliveryDate()
+    const handleClearFilters = () =>{
+        setDeliveryDate();
+        Router.replace({
+            query: { ...Router.query, size: "all", availabilityDate:"", from_price:"", to_price:"", page:1 },
+            });
     }
 
     const startIndex = currentPage * limit - limit;
@@ -128,15 +114,27 @@ const Products = () => {
 
     const handleActive = (item) => {
         setCurrentPage(item);
+        Router.replace({
+            query: { ...Router.query, page:item },
+            });
     };
 
+    const handleDateFilter = (date) =>{
+        setDeliveryDate(date);
+        Router.replace({
+            query: { ...Router.query, availabilityDate: JSON.stringify(date), page:1 },
+            });
+    }
 
-
+    
     return (
         <>
-            <Layout parent="Home" sub={category} subChild="">
+            <Layout parent="Home" sub={category} subChild={sub_category}>
                 <section className="mt-50 mb-50">
                     <div className="container">
+                        {isLoading?
+                        <Preloader />
+                        :
                         <div className="row">
                             <div className="col-lg-3 primary-sidebar sticky-sidebar">
                                 <div className="widget-category mb-30">
@@ -149,12 +147,15 @@ const Products = () => {
                                 <div className="sidebar-widget price_range range mb-30">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
-                                            Fill by price
+                                            Fillter by
                                         </h5>
                                         <div className="bt-1 border-color-1"></div>
                                     </div>
 
                                     <div className="price-filter">
+                                    <label className="fw-900 mt-20 mb-15">
+                                                Price
+                                            </label>
                                         <div className="price-filter-inner">
                                             <br />
                                             <PriceRangeSlider />
@@ -165,19 +166,20 @@ const Products = () => {
                                     <div className="list-group">
                                         <div className="list-group-item mb-10">
                                             <label className="fw-900 mt-20 mb-15">
-                                                Item Condition
+                                                Size
                                             </label>
                                             <SizeFilter />
                                             <label className="fw-900 mt-35 mb-15">
-                                                Available On
+                                                Availablity Date
                                             </label>
                                             <div className="date-filter">
                                                 <ReactDatePicker
                                                     selected={deliveryDate}
                                                     dateFormat="dd/MM/yyyy"
-                                                    onChange={(date) => setDeliveryDate(date)}
+                                                    onChange={(date) => handleDateFilter(date)}
                                                     customInput={<ExampleCustomInput />}
-                                                    minDate={new Date()}
+                                                    minDate={calendarStartDate}
+                                                    maxDate={calendarEndDate}
                                                 />
                                             </div>
                                         </div>
@@ -186,7 +188,7 @@ const Products = () => {
                                     <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
-                                <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
+                                {/* <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                                     <img
                                         src="/assets/imgs/banner/banner-offer.webp"
                                         alt=""
@@ -204,10 +206,10 @@ const Products = () => {
                                             </a>
                                         </Link>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="col-lg-9">
-                                <div className="shop-product-fillter">
+                                {productList.length > 0 && <div className="shop-product-fillter">
                                     <div className="totall-product">
                                         <p>
                                             We found
@@ -227,30 +229,33 @@ const Products = () => {
                                             </span>
                                         </div> */}
                                     </div>
-                                </div>
+                                </div>}
                                 <div className="row product-grid-3">
-                                    {getPaginatedProducts.length === 0 && (
-                                        <h3>No Products Found </h3>
+                                    {productList.length === 0 && (
+                                        <div className="no-products-found">
+                                            <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
+                                            {/* <h3> No Products Found </h3> */}
+                                        </div>
                                     )}
 
-                                    {getPaginatedProducts.map((item, i) => {
-                                        if (listLayout) {
-                                            return <div className=""
-                                                key={i}
-                                            >
-                                                <SingleProductList product={item} />
-                                            </div>
-                                        } else {
+                                    {productList?.map((item, i) => {
+                                        if(listLayout){
+                                            return<div className=""
+                                            key={i}
+                                        >
+                                            <SingleProductList product={item}/>
+                                        </div>                                        
+                                        }else{
                                             return <div className="col-lg-4 col-md-4 col-12 col-sm-6"
-                                                key={i}
+                                            key={i}
                                             >
-                                                <SingleProduct product={item} />
-                                            </div>
+                                            <SingleProduct product={item} />
+                                        </div>
                                         }
                                     })}
                                 </div>
 
-                                <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                { <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
                                         <Pagination
                                             getPaginationGroup={
@@ -263,9 +268,10 @@ const Products = () => {
                                             handleActive={handleActive}
                                         />
                                     </nav>
-                                </div>
+                                </div>}
                             </div>
                         </div>
+                        }
                     </div>
                 </section>
             </Layout>

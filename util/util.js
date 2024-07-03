@@ -23,7 +23,7 @@ export function getYouTubeThumbnail(videoUrl) {
 
 export const isLoggedIn =()=>{
   const savedUser = storage.get("dokani_user");
-  return savedUser.isLoggedIn;
+  return savedUser?.isLoggedIn;
 }
 export const getToken =()=>{
   const savedUser = storage.get("dokani_user");

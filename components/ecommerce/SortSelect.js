@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const SortSelect = ({ updateProductFilters }) => {
     const router = useRouter();
     const searchTerm = router.query.search;
-    const [featured, setFeatured] = useState("default");
+    const [featured, setFeatured] = useState("Default");
     const [selectedOption, setSelectedOption] = useState("");
     const [showOptions, setShowOptions] = useState(false)
     const options = [
@@ -19,7 +19,7 @@ const SortSelect = ({ updateProductFilters }) => {
     useEffect(() => {
         const { sort } = router.query;
         const selectedOption = options.find((item) => item.value === sort);
-        setFeatured(selectedOption?.text || "default");
+        setFeatured(selectedOption?.text || "Default");
         setSelectedOption(sort || "");
       }, [router.query, options]);
     

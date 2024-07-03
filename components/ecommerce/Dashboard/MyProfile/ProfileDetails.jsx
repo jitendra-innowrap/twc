@@ -7,7 +7,9 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
     const savedUser = storage.get("dokani_user");
 
     useEffect(() => {
-        fetchProfileDetails();
+        if(savedUser?.isLoggedIn){
+            fetchProfileDetails();
+        }
     }, [setEdit])
     
 

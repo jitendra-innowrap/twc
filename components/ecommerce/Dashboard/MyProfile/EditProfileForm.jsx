@@ -16,7 +16,10 @@ export default function EditProfileForm({user, handleSubmit}) {
     };
 
     const handleDateChange = (date) => {
-        const dateDobDate = clipDateOnly(date);
+        let dateDobDate
+        if(date){
+            dateDobDate = clipDateOnly(date);
+        }
         setTempUser({
             ...tempUser,
             dob: dateDobDate,
@@ -162,6 +165,7 @@ export default function EditProfileForm({user, handleSubmit}) {
                         Date of Birth
                     </label>
                     <ReactDatePicker
+                        selected={"1999-08-25"}
                         
                         // selected={reverseDateOrder(tempUser.dob)}
                         onChange={handleDateChange}

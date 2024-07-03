@@ -10,9 +10,13 @@ import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useEffect } from "react";
 import { getAddressList, getCartList } from "../util/api";
+import { useSelector } from "react-redux";
 
 
-const Cart = ({cartItems=[]}) => {
+const Cart = () => {
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const cartCount = useSelector((state) => state.cart.cartCount);
+    const cartDetails = useSelector((state) => state.cart.cartDetails);
     const [addressList, setAddressList] = useState([]);
     const [deliveredTo, setDeliveredTo] = useState();
     const [priceDetails, setPriceDetails] = useState({
@@ -46,6 +50,7 @@ const Cart = ({cartItems=[]}) => {
         
         setPriceDetails(priceDetails);
     };
+
     const router = useRouter()
 
     const handleWishlist = (product) => {
@@ -86,8 +91,8 @@ const Cart = ({cartItems=[]}) => {
     useEffect(() => {
         fetchCartList();
         fetchAddressList();
-        cartTotal();
-    }, [cartItems])
+        // cartTotal();
+    }, [])
     
     return (
         <>
@@ -95,8 +100,10 @@ const Cart = ({cartItems=[]}) => {
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="">
-                            {cartItems.length <= 0 ?
-                                <EmptyCart />
+                            {cartItems?
+                                <>
+                                    <EmptyCart />
+                                </>
                                 :
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock">
@@ -135,8 +142,8 @@ const Cart = ({cartItems=[]}) => {
                                         </div>
                                         <div id="cartItemsList">
                                             {
-                                                cartItems.map((item, idx)=>{
-                                                    return <CartItem item={item} deleteFromCart={deleteFromCart} />
+                                                cartItems.map((item)=>{
+                                                    return <CartItem item={item} key={item?.product_id}  />
                                                 })
                                             }
                                         </div>
@@ -144,41 +151,41 @@ const Cart = ({cartItems=[]}) => {
                                     <div className="itemBlock-base-rightBlock">
                                         <ApplyCoupons/>
                                         <div className="priceBlock-base-container">
-                                            <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartItems.length} Item)</div>
+                                            <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartCount} Item)</div>
                                             <div className="priceBreakUp-base-orderSummary" id="priceBlock">
                                                 <div className="priceDetail-base-row" >
                                                     <span className>Total MRP</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalMrp).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.mrp)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Discount on MRP</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
-                                                        <span> <span className>₹</span>{(priceDetails.totalDiscount).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.dicount_on_mrp)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Total Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalPrice).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.items_total)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Refundable Deposit</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalDeposit).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.deposit_amount)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-total">
                                                     <span className>Total Amount</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(priceDetails.totalPrice + priceDetails.totalDeposit).toFixed(2)}</span>
+                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(cartDetails.total_payable)}</span>
                                                     </span>
                                                 </div>
                                             </div>

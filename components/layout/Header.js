@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import Search from "../ecommerce/Search";
 import { getAllCategory } from "../../util/api";
 import { useSelector } from "react-redux";
+import storage from "../../util/localStorage";
 
 const Header = ({
     toggleClick,
     headerStyle,
 }) => {
+    const user = storage.get("dokani_user");
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
     const [headerData, setheaderData] = useState([]);
@@ -209,7 +211,7 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href="/my-profile">
+                                            <Link href={!user?.isLoggedIn?'/page-login-register':'/my-profile'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -221,7 +223,7 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href="/shop-wishlist">
+                                            <Link href={!user?.isLoggedIn?'/page-login-register':'/shop-wishlist'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -255,7 +257,7 @@ const Header = ({
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2 gap-1">
                                     <div className="header-action-icon-2">
-                                        <Link href="/shop-wishlist">
+                                        <Link href={!user?.isLoggedIn?'/page-login-register':'/shop-wishlist'}>
                                             <a>
                                                 <img
                                                     alt="Evara"

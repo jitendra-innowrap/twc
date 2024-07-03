@@ -19,6 +19,7 @@ function LoginRegister({logIN}) {
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
+    
     const handleResendOTP = () => {
             resendOTPApi(auth_token)
                 .then(() => {
@@ -231,8 +232,7 @@ function LoginRegister({logIN}) {
 
                                 <div>
                                     <button className="resendContainer" style={{color:`${otpTimer?'gray':''}`, cursor:`${otpTimer?'default':''}`}} disabled={otpTimer} onClick={handleResendOTP}>RESEND OTP</button> 
-                                    {otpTimer && <span style={{float:'right', color:'#046963', marginTop:'30px'}}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
-                                    
+                                    {otpTimer && <span style={{float:'right', color:'#046963', marginTop:'30px'}}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}-
                                 </div>
                             </div>
                             <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>

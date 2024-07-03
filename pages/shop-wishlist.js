@@ -5,13 +5,23 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import ShoppingBag from "../components/Svg/ShoppingBag";
 import SingleProduct from "../components/ecommerce/SingleProduct";
+import { useEffect } from "react";
+import storage from "../util/localStorage";
 
 const Wishlist = ({
     wishlist,
     clearWishlist,
     addToCart,
 }) => {
-    const router = useRouter()
+    const router = useRouter();
+    const user = storage.get("dokani_user");
+
+    useEffect(() => {
+        if(!user?.isLoggedIn){
+            router.push('/')
+        }
+    }, [])
+
     const handleCart = (product) => {
         addToCart(product);
         toast.success("Added to Cart !", {

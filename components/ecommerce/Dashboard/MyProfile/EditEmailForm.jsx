@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from 'react-icons/md';
+import { editEmail, editPhoneNumber, resendOTPForEmail, resendOTPForPhone, verifyOTPforEmail, verifyOTPforPhone } from '../../../../util/api';
 export default function EditEmailForm({close, setTempUser}) {
     const [Email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -11,27 +12,72 @@ export default function EditEmailForm({close, setTempUser}) {
     const [error, setError] = useState({email:false, otp:false})
     const inputRefs = useRef([]);
     const router = useRouter()
-    let referrer = "/"
+    let referrer = "/";
+    const [otpTimer, setOtpTimer] = useState(false);
+    const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
+    let [interval, updateInterval] = useState(null);
+
+    const handleResendOTP = () => {
+        resendOTPForEmail(Email)
+            .then(() => {
+                setOtpTimer(true);
+                startOTPTimer();
+            })
+            .catch((error) => {
+                console.error('Error resending OTP:', error);
+            });
+    };
+
+    const startOTPTimer = () => {
+        const newInterval = setInterval(() => {
+            console.log('updating', timerValue)
+            setTimerValue((prevValue) => {
+                if (prevValue === 0) {
+                    clearInterval(interval);
+                    setOtpTimer(false);
+                    return 60;
+                }
+                console.log('updated', prevValue - 1)
+                return prevValue - 1;
+            });
+        }, 1000);
+        updateInterval(newInterval);
+    };
+
+    const handleBack = () => {
+        if (interval) {
+            clearInterval(interval);
+        }
+        setOtpTimer(false);
+        setTimerValue(60);
+        setStep(prev => prev - 1);
+        setError({ mobile: false, otp: false })
+    }
+
     useEffect(() => {
+        return () => {
+            // Clean up the timer when the component unmounts
+            clearInterval(interval);
+        };
+    }, []);
 
-    }, [])
-
-    const handleEmail = () => {
+    const handleEmail = async () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(Email)) {
-          setStep(2);
+            try {
+                const res = await editEmail(Email)
+                if (res.code === 0) {
+                    setError(prev => ({ ...prev, email: res.msg }));
+                } else {
+                    setStep(2);
+                }
+            } catch (error) {
+
+            }
         } else {
           setError((prev) => ({ ...prev, email: true }));
         }
       };
-
-    const handleSubmit = () =>{
-        router.push(referrer)
-    }
-    const handleBack = () => {
-        setStep(prev => prev - 1);
-        setError({email:false, otp:false})
-    }
 
     const handleOtpChange = (index, value) => {
         const newOtp = [...otp];
@@ -44,18 +90,30 @@ export default function EditEmailForm({close, setTempUser}) {
 
         if (newOtp.every(digit => digit !== '')) {
             // Auto-submit the OTP
-            if (newOtp.join('') === tempOtp) {
-                // OTP is correct, redirect
-                console.log('OTP submitted:', newOtp.join(''));
-                // Add your redirect logic 
-                setTempUser(prev => ({ ...prev, email: Email, isEmailVerified: true }));
-
-
-                setStep(3) 
-              } else {
-                // OTP is incorrect, set error
-                setError({ ...error, otp: true });
-              }
+              verifyOTPforEmail({
+                otp: newOtp.join(''),
+                email: Email,
+            })
+                .then((response) => {
+                    // OTP is correct, redirect
+                    if (response.code == 1) {
+                        // Add your redirect logic
+                        if (response?.result?.is_profile_completed == 0) {
+                            setStep(3);
+                        } else {
+                            storage.set("dokani_user", { auth_token: response?.token, user: response?.result, isLoggedIn: true });
+                            console.log('login', response)
+                            // router.push(referrer)
+                        }
+                    } else {
+                        console.error('Error verifying OTP:', error);
+                        setError({ ...error, otp: true });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error verifying OTP:', error);
+                    setError({ ...error, otp: true });
+                });
         }
     };
 
@@ -64,6 +122,7 @@ export default function EditEmailForm({close, setTempUser}) {
             inputRefs.current[index - 1].focus();
         }
     };
+
     return (
         <div className='popUpContainer'>
           <button onClick={close} className='close_popUp'><MdClose fontSize={22}/></button>
@@ -83,7 +142,7 @@ export default function EditEmailForm({close, setTempUser}) {
                                 <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" className="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
                                 <span className="placeholderAlternative mobileNumber">
 
-                                    {!Email &&<span className="mobileNumberPlacholder">Email Number<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                    {!Email &&<span className="mobileNumberPlacholder">Email<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
                                 </span><i className="bar"></i>
                                 {error.email && <div className="errorContainer">Please enter a valid email.</div>}
                             </div>
@@ -130,7 +189,8 @@ export default function EditEmailForm({close, setTempUser}) {
                             {error.otp && <div className="errorContainer">Incorrect OTP !</div>}
 
                             <div>
-                                <button className="resendContainer">RESEND OTP</button>
+                                    <button className="resendContainer" style={{ color: `${otpTimer ? 'gray' : ''}`, cursor: `${otpTimer ? 'default' : ''}` }} disabled={otpTimer} onClick={handleResendOTP}>RESEND OTP</button>
+                                    {otpTimer && <span style={{ float: 'right', color: '#046963', marginTop: '30px' }}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
                             </div>
                         </div>
                         <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>

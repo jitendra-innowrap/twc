@@ -1,79 +1,88 @@
-// store/cartSlice.js
+// cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { addToCart } from '../utils/api';
-// import storage from '../utils/localStorage';
+import { addToCart, deleteFromCart, getCartList } from '../../util/api';
 
-const initialState = {
-    cart: [],
+const INIT_LOCALSTORAGE = 'cart/INIT_LOCALSTORAGE';
+
+// Async thunks for API calls
+export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
+  const response = await getCartList();
+  return response;
+});
+
+export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (product) => {
+  const response = await addToCart(product);
+  return response.data;
+});
+
+export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (product) => {
+  const response = await deleteFromCart(product);
+  return response.data;
+});
+
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState: {
+    cartItems: [],
     cartCount: 0,
-}
+    cartDetails: {},
+    status: 'idle',
+    error: null,
+  },
+  reducers: {
+    initLocalStorage: (state, action) => {
+      const { cart } = action.payload;
+      state.cartItems = cart.cart_product || [{},{},{}];
+      state.cartCount = cart.cart_product_count || 0;
+      state.cartDetails = cart.bill_details || {};
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // fetchCart
+      .addCase(fetchCart.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.cartItems = action.payload.cart_product;
+        state.cartCount = action.payload.cart_product_count;
+        state.cartDetails = action.payload.bill_details;
+      })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      // addItemToCart
+      .addCase(addItemToCart.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addItemToCart.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.cartItems = action.payload.items;
+        state.cartCount = action.payload.count;
+        state.cartDetails = action.payload.details;
+      })
+      .addCase(addItemToCart.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      // removeItemFromCart
+      .addCase(removeItemFromCart.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(removeItemFromCart.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.cartItems = action.payload.items;
+        state.cartCount = action.payload.count;
+        state.cartDetails = action.payload.details;
+      })
+      .addCase(removeItemFromCart.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
 
-export const cartSlice = createSlice({
-    name: "cart",
-    initialState,
-    reducers: {
-        addToCart: (state, action) => {
-            state.cart.push(action.payload);
-            state.cartCount++;
-        },
-        deleteFromCart: (state, action) => {
-            const itemIndex = state.cart.findIndex(item => item.id === action.payload.id);
-            if (itemIndex !== -1) {
-                state.cart.splice(itemIndex, 1);
-                state.cartCount--;
-            }
-        },
-        cartCount: (state) => {
-            state.cartCount = state.cart.length;
-        }
-    }
-})
-
-export const { addToCart, deleteFromCart, cartCount } = cartSlice.actions
-
-
-// Async thunk for adding to cart
-// export const addToCartAsync = createAsyncThunk(
-//   'cart/addToCart',
-//   async (product, { rejectWithValue }) => {
-//     try {
-//       const response = await addToCart(product);
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
-// const cartSlice = createSlice({
-//   name: 'cart',
-//   initialState: {
-//     items: storage.getItem('cartItems') || initialState,
-//     status: 'idle',
-//     error: null
-//   },
-//   reducers: {
-//     setCartItems: (state, action) => {
-//       state.items = action.payload;
-//       storage.setItem('cartItems', action.payload);
-//     }
-//   },
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(addToCartAsync.pending, (state) => {
-//         state.status = 'loading';
-//       })
-//       .addCase(addToCartAsync.fulfilled, (state, action) => {
-//         state.status = 'succeeded';
-//         state.items = action.payload;
-//         storage.setItem('cartItems', action.payload);
-//       })
-//       .addCase(addToCartAsync.rejected, (state, action) => {
-//         state.status = 'failed';
-//         state.error = action.payload;
-//       });
-//   }
-// });
-
-// export const { setCartItems } = cartSlice.actions;
+export const { initLocalStorage } = cartSlice.actions;
 export default cartSlice.reducer;

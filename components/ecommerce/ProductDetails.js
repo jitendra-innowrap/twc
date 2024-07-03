@@ -13,7 +13,7 @@ import { BiInfoCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../redux/Slices/authSlice";
-import { addToCart } from "../../redux/Slices/cartSlice";
+import { addToCart } from "../../util/api";
 
 const colorsVariants =[
     "red",
@@ -71,23 +71,41 @@ const ProductDetails = ({
         setDeliveryDate(date);
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
-    const handleCart = (product) => {
-        if(deliveryDate){
-            dispatch(addToCart(product));
-        toast.success("Added to Cart !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-        }else{
+    const handleCart = async (product) => {
+        if (deliveryDate) {
+            // dispatch(addItemToCart(product))
+            //   .unwrap()
+            //   .then(() => {
+            //     toast.success("Added to Cart!", {
+            //       position: "bottom-center",
+            //       autoClose: 1500,
+            //       hideProgressBar: false,
+            //       closeOnClick: true,
+            //       pauseOnHover: true,
+            //       draggable: true,
+            //       progress: undefined,
+            //       theme: "light",
+            //       transition: Bounce,
+            //     });
+            //   })
+            //   .catch((error) => {
+            //     toast.error("Failed to add to cart.", {
+            //       position: "bottom-center",
+            //       autoClose: 1500,
+            //       hideProgressBar: false,
+            //       closeOnClick: true,
+            //       pauseOnHover: true,
+            //       draggable: true,
+            //       progress: undefined,
+            //       theme: "light",
+            //       transition: Bounce,
+            //     });
+            //   });
+            const res = await addToCart(product)
+            console.log(res)
+          }else{
             setHeighLightDate(true)
-        }
+          }
     };
 
     const handleWishlist = (product) => {
@@ -309,13 +327,15 @@ const ProductDetails = ({
                                                     <button
                                                         onClick={(e) =>
                                                             handleCart({
-                                                                ...productDetails,
-                                                                quantity: quantity || 1,
-                                                                color,
-                                                                size: size,
+                                                                product_id: productDetails?.id || 1,
+                                                                mrp: productDetails?.mrp,
+                                                                selling_price: productDetails?.selling_price,
+                                                                qty: quantity,
+                                                                flag: 1,
+                                                                deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
                                                                 deposit_amount:productDetails?.deposit_amount,
-                                                                deliveryDate: deliveryDate,
-                                                                returnByDate: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
+                                                                rental_start_date: deliveryDate,
+                                                                rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })
                                                         }
                                                         className="button button-add-to-cart"
