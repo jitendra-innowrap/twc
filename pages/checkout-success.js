@@ -1,6 +1,6 @@
 import Lottie from "lottie-web";
-import Layout from "../components/layout/Layout";
 import success from "../public/assets/Lottie/success.json"
+import Layout from "../components/layout/Layout";
 import { useEffect } from "react";
 import Link from "next/link";
 const OrderSucess = () => {
