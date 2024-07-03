@@ -1,13 +1,38 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import rootReducer from "./reducer/rootReducer";
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { HYDRATE, createWrapper } from 'next-redux-wrapper'
+import auth from './Slices/authSlice'
+import cart from './Slices/cartSlice'
+import wishlist from './Slices/wishlistSlice';
 
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
-);
+const combinedReducer = combineReducers({
+  cart,
+  auth,
+  wishlist
+});
 
-export default store;
+const masterReducer = (state, action) => {
+    if (action.type === HYDRATE) {
+        const nextState = {
+            ...state, // use previous state
+            // cart: {
+                
+            // },
+            // wishlist:{
+              
+            // },
+            // auth: {
 
+            // }
+        }
+        return nextState;
+    } else {
+    return combinedReducer(state, action)
+  }
+}
 
+export const makeStore = () =>
+  configureStore({
+    reducer: masterReducer,
+  });
+
+export const wrapper = createWrapper(makeStore, { debug: true });

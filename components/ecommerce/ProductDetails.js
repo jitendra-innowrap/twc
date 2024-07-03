@@ -1,14 +1,6 @@
     import Link from "next/link";
 import { forwardRef, useEffect, useState } from "react";
-import { connect } from "react-redux";
 import { Bounce, toast } from "react-toastify";
-import {
-    addToCart,
-    decreaseQuantity,
-    increaseQuantity
-} from "../../redux/action/cart";
-import { addToCompare } from "../../redux/action/compareAction";
-import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
@@ -19,6 +11,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import { BiInfoCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../redux/Slices/authSlice";
+import { addToCart } from "../../util/api";
 
 const colorsVariants =[
     "red",
@@ -30,14 +25,7 @@ const colorsVariants =[
     "purple"
 ];
 const ProductDetails = ({
-    product,
-    cartItems,
-    addToCompare,
-    addToCart,
-    addToWishlist,
-    increaseQuantity,
-    decreaseQuantity,
-    quickView,
+    product
 }) => {
     let daysRent = 5;
     let today = new Date();
@@ -65,6 +53,8 @@ const ProductDetails = ({
       setHeighLightDate(false)
     }, [slug])
     
+    const dispatch = useDispatch();
+  
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
@@ -81,27 +71,57 @@ const ProductDetails = ({
         setDeliveryDate(date);
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
-    const handleCart = (product) => {
-        if(deliveryDate){
-            addToCart(product);
-        toast.success("Added to Cart !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-        }else{
+    const handleCart = async (product) => {
+        if (deliveryDate) {
+            // dispatch(addItemToCart(product))
+            //   .unwrap()
+            //   .then(() => {
+            //     toast.success("Added to Cart!", {
+            //       position: "bottom-center",
+            //       autoClose: 1500,
+            //       hideProgressBar: false,
+            //       closeOnClick: true,
+            //       pauseOnHover: true,
+            //       draggable: true,
+            //       progress: undefined,
+            //       theme: "light",
+            //       transition: Bounce,
+            //     });
+            //   })
+            //   .catch((error) => {
+            //     toast.error("Failed to add to cart.", {
+            //       position: "bottom-center",
+            //       autoClose: 1500,
+            //       hideProgressBar: false,
+            //       closeOnClick: true,
+            //       pauseOnHover: true,
+            //       draggable: true,
+            //       progress: undefined,
+            //       theme: "light",
+            //       transition: Bounce,
+            //     });
+            //   });
+            const res = await addToCart(product)
+            console.log(res)
+          }else{
             setHeighLightDate(true)
-        }
+          }
     };
 
     const handleWishlist = (product) => {
-        addToWishlist(product);
+        let wishlistItem = {
+            id: product?.result?.[0]?.id,
+            handle: product?.result?.[0]?.handle,
+            product_images: product?.result?.[0]?.product_images,
+            name: product?.result?.[0]?.name,
+            product_tags: product?.result?.[0]?.product_tags,
+            category_handle: product?.result?.[0]?.category_handle,
+            sub_category_handle: product?.result?.[0]?.sub_category_handle,
+            sub_category_name: product?.result?.[0]?.sub_category_name,
+            selling_price: product?.result?.[0]?.selling_price,
+            mrp: product?.result?.[0]?.mrp,
+        }
+        addToWishlist(wishlistItem);
         toast.success("Added to Wishlist !", {
             position: "bottom-center",
             autoClose: 1500,
@@ -122,8 +142,6 @@ const ProductDetails = ({
             setQuantity(quantity - 1);
         }
     }
-
-    const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
     
     return (
         <>
@@ -309,13 +327,15 @@ const ProductDetails = ({
                                                     <button
                                                         onClick={(e) =>
                                                             handleCart({
-                                                                ...productDetails,
-                                                                quantity: quantity || 1,
-                                                                color,
-                                                                size: size,
+                                                                product_id: productDetails?.id || 1,
+                                                                mrp: productDetails?.mrp,
+                                                                selling_price: productDetails?.selling_price,
+                                                                qty: quantity,
+                                                                flag: 1,
+                                                                deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
                                                                 deposit_amount:productDetails?.deposit_amount,
-                                                                deliveryDate: deliveryDate,
-                                                                returnByDate: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
+                                                                rental_start_date: deliveryDate,
+                                                                rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })
                                                         }
                                                         className="button button-add-to-cart"
@@ -357,8 +377,6 @@ const ProductDetails = ({
                                         </div>
                                     </div>
                                 </div>
-
-                                {quickView ? null : (
                                     <>
                                         <ProductTab productDetails={productDetails} />
                                         {relatedProducts?.length > 0 &&<div className="row mt-60">
@@ -389,7 +407,6 @@ const ProductDetails = ({
                                             </div>
                                         </div>}
                                     </>
-                                )}
                             </div>
                         </div>
                     </div>
@@ -399,16 +416,4 @@ const ProductDetails = ({
     );
 };
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart,
-});
-
-const mapDispatchToProps = {
-    addToCompare,
-    addToWishlist,
-    addToCart,
-    increaseQuantity,
-    decreaseQuantity,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default ProductDetails;

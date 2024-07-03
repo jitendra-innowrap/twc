@@ -1,90 +1,24 @@
-import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
-const dummyAddresses = [
-    {
-      id: "1",
-      name: "John Doe",
-      mobile: "1234567890",
-      addressLine1: "3522 Interstate",
-      addressLine2: "75 Business Spur",
-      landmark: "Sault Ste. Marie",
-      pincode: "49783",
-      state: "MI",
-      city: "Sault Ste. Marie",
-      addressType: "home",
-      isDefault: true,
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      mobile: "2345678901",
-      addressLine1: "123 Main St",
-      addressLine2: "Anytown, USA",
-      landmark: "Corner of Main and Elm",
-      pincode: "12345",
-      state: "CA",
-      city: "Anytown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "3",
-      name: "Bob Johnson",
-      mobile: "3456789012",
-      addressLine1: "456 Elm St",
-      addressLine2: "Othertown, USA",
-      landmark: "Elm and Oak",
-      pincode: "67890",
-      state: "NY",
-      city: "Othertown",
-      addressType: "home",
-      isDefault: false,
-    },
-    {
-      id: "4",
-      name: "Alice Brown",
-      mobile: "4567890123",
-      addressLine1: "789 Oak St",
-      addressLine2: "Thistown, USA",
-      landmark: "Oak and Maple",
-      pincode: "34567",
-      state: "TX",
-      city: "Thistown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "5",
-      name: "Charlie Davis",
-      mobile: "5678901234",
-      addressLine1: "901 Maple St",
-      addressLine2: "Thattown, USA",
-      landmark: "Maple and Pine",
-      pincode: "90123",
-      state: "FL",
-      city: "Thattown",
-      addressType: "home",
-      isDefault: false,
-    },
-];
 import Link from "next/link";
 import React, { useState } from 'react'
-import { clearCart, closeCart, decreaseQuantity, deleteFromCart, increaseQuantity, openCart } from "../redux/action/cart";
 import { Bounce, toast } from "react-toastify";
-import { addToWishlist } from "../redux/action/wishlistAction";
 import { useRouter } from "next/router";
 import EmptyCart from "../components/ecommerce/Dashboard/MyCart/EmptyCart";
 import CartItem from "../components/ecommerce/Dashboard/MyCart/CartItem";
 import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
-import { useSyncExternalStore } from "react";
 import { useEffect } from "react";
+import { getAddressList, getCartList } from "../util/api";
+import { useSelector } from "react-redux";
 
 
-const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, increaseQuantity, decreaseQuantity, deleteFromCart, clearCart }) => {
-    const [addressList, setAddressList] = useState(dummyAddresses);
-    const [deliveredTo, setDeliveredTo] = useState("1");
+const Cart = () => {
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const cartCount = useSelector((state) => state.cart.cartCount);
+    const cartDetails = useSelector((state) => state.cart.cartDetails);
+    const [addressList, setAddressList] = useState([]);
+    const [deliveredTo, setDeliveredTo] = useState();
     const [priceDetails, setPriceDetails] = useState({
         totalMrp:0,
         totalPrice:0,
@@ -102,7 +36,6 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
             const price = item.selling_price || 0;
             const quantity = item.quantity || 0;
             const deposit = item?.deposit_amount || 0;
-            console.log('desposit', deposit)
             if (item.product_type=="1") {
                 priceDetails.totalMrp += oldPrice * quantity;
                 priceDetails.totalPrice += price * quantity;
@@ -117,6 +50,7 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
         
         setPriceDetails(priceDetails);
     };
+
     const router = useRouter()
 
     const handleWishlist = (product) => {
@@ -134,10 +68,31 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
         });
     };
 
-
+    const fetchCartList = async ()=>{
+        try {
+            const res = await getCartList();
+            console.log(res)
+        } catch (error) {
+            
+        }
+    }
+    const fetchAddressList = async () =>{
+        try {
+            const res = await getAddressList();
+            setAddressList(res?.result);
+            let defaultAddress = res.result.find(address=> address.is_default == 1);
+            setDeliveredTo(defaultAddress.id)
+            console.log('cart address',res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     useEffect(() => {
-        cartTotal();
-    }, [cartItems])
+        fetchCartList();
+        fetchAddressList();
+        // cartTotal();
+    }, [])
     
     return (
         <>
@@ -145,21 +100,23 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="">
-                            {cartItems.length <= 0 ?
-                                <EmptyCart />
+                            {cartItems?
+                                <>
+                                    <EmptyCart />
+                                </>
                                 :
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock">
                                         <div className="addressStripV2-base-desktopContainer">
                                         {
-                                            addressList.filter((address) => address.id === deliveredTo).map((address) => (
+                                            addressList?.filter((address) => address.is_default==1).map((address) => (
                                                 <div className="addressStripV2-base-title">
                                                 <div className="addressStripV2-base-addressName">
                                                     Deliver to: <span className="addressStripV2-base-highlight">{address.name}</span>,
-                                                    <div className="addressStripV2-base-highlight">{address.pincode}</div>
+                                                    <div className="addressStripV2-base-highlight"> {address.pincode}</div>
                                                 </div>
                                                 <div className="addressStripV2-base-subText">
-                                                    {`${address.addressLine1}, ${address.addressLine2}`}
+                                                    {`${address.address_line_1}, ${address.address_line_2}`}
                                                 </div>
                                                 </div>
                                             ))
@@ -185,8 +142,8 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                         </div>
                                         <div id="cartItemsList">
                                             {
-                                                cartItems.map((item, idx)=>{
-                                                    return <CartItem item={item} deleteFromCart={deleteFromCart} />
+                                                cartItems.map((item)=>{
+                                                    return <CartItem item={item} key={item?.product_id}  />
                                                 })
                                             }
                                         </div>
@@ -194,62 +151,41 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
                                     <div className="itemBlock-base-rightBlock">
                                         <ApplyCoupons/>
                                         <div className="priceBlock-base-container">
-                                            <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartItems.length} Item)</div>
+                                            <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartCount} Item)</div>
                                             <div className="priceBreakUp-base-orderSummary" id="priceBlock">
                                                 <div className="priceDetail-base-row" >
                                                     <span className>Total MRP</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalMrp).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.mrp)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Discount on MRP</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
-                                                        <span> <span className>₹</span>{(priceDetails.totalDiscount).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.dicount_on_mrp)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Total Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalPrice).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.items_total)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Refundable Deposit</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalDeposit).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.deposit_amount)}</span>
                                                     </span>
                                                 </div>
-                                                {/* <div className="priceDetail-base-row">
-                                                    <span>Coupon Discount</span>
-                                                    <span className="priceDetail-base-value priceDetail-base-action">Apply Coupon</span>
-                                                </div>
-                                                <div className="priceDetail-base-row">
-                                                    <span className>Platform Fee<span className="priceDetail-base-knowMore">Know More</span></span>
-                                                    <span className="priceDetail-base-value">₹<span className>20</span></span>
-                                                </div>
-                                                <div className="priceDetail-base-row">
-                                                    <span>Shipping Fee
-                                                        <div className="priceDetail-base-infoTextContainer">
-                                                            <button fontWeight="bold" role="button" className="css-1pl9bms">
-                                                                <div className="css-xjhrni">Know More</div>
-                                                            </button>
-                                                        </div>
-                                                    </span>
-                                                    <span className="priceDetail-base-value">₹<span className>79</span></span>
-                                                    <div className="priceDetail-base-convenienceCalloutText">
-                                                        Add items worth <span style={{ fontWeight: 'bold', color: '#03A685' }}>₹667</span> to get free shipping
-                                                    </div>
-                                                </div> */}
                                                 <div className="priceDetail-base-total">
                                                     <span className>Total Amount</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(priceDetails.totalPrice + priceDetails.totalDeposit).toFixed(2)}</span>
+                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(cartDetails.total_payable)}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -272,19 +208,4 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
     );
 };
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart,
-    activeCart: state.counter
-});
-
-const mapDispatchToProps = {
-    closeCart,
-    increaseQuantity,
-    addToWishlist,
-    decreaseQuantity,
-    deleteFromCart,
-    openCart,
-    clearCart
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;

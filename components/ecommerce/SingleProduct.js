@@ -2,19 +2,11 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Bounce, toast } from "react-toastify";
-import { addToCart } from "../../redux/action/cart";
-import { addToCompare } from "../../redux/action/compareAction";
-import { openQuickView } from "../../redux/action/quickViewAction";
-import { addToWishlist } from "../../redux/action/wishlistAction";
 import Loader from './../elements/Loader';
 
 
 const SingleProduct = ({
-    product,
-    addToCart,
-    addToCompare,
-    addToWishlist,
-    openQuickView,
+    product
 }) => {
     let today = new Date();
     const [loading, setLoading] = useState(false);
@@ -137,11 +129,4 @@ const SingleProduct = ({
     );
 };
 
-const mapDispatchToProps = {
-    addToCart,
-    addToCompare,
-    addToWishlist,
-    openQuickView,
-};
-
-export default connect(null, mapDispatchToProps)(SingleProduct);
+export default SingleProduct;

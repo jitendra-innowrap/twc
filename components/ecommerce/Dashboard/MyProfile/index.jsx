@@ -1,29 +1,37 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import ProfileDetails from './ProfileDetails';
 import EditProfileForm from './EditProfileForm';
+import { editProfileDetails, getProfileDetails } from '../../../../util/api';
+import storage from '../../../../util/localStorage';
 
 export default function MyProfile() {
     const [edit, setEdit] = useState(false);
     const [user, setUser] = useState({
-        fullname: "Aman Gangwal",
-        mobile: "9769294578",
-        email: "aman@innowrap.com",
-        gender: "1",
-        dob: new Date("1994-01-01"),
-        alternateMobile: "9090909090",
+        fullname: "",
+        mobile: "",
+        email: "",
+        gender: "",
+        dob: "",
+        alternateMobile: "",
         isMobileVerified: true,
         isEmailVerified: false,
     });
 
-    const handleSubmit = (tempUser) => {
-        setUser(tempUser)
+    useEffect(() => {
         setEdit(false)
-        // api call here
+    }, [])
+
+    const handleSubmit = async (tempUser) => {
+        const res = await editProfileDetails(tempUser);
+        console.log('submit', res);
+        setEdit(false)
     }
+
+
     
 
     return (
@@ -33,7 +41,7 @@ export default function MyProfile() {
             </div>
             <div className="card-body">
                 {!edit ? (
-                    <ProfileDetails user={user} setEdit={setEdit} />
+                    <ProfileDetails user={user} setEdit={setEdit} setUser={setUser} />
                 ) : (
                     <EditProfileForm user={user} handleSubmit={handleSubmit} />
                 )}

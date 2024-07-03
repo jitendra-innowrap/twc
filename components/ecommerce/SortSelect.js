@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 
 const SortSelect = ({ updateProductFilters }) => {
     const router = useRouter();
     const searchTerm = router.query.search;
-    const [featured, setFeatured] = useState("default");
+    const [featured, setFeatured] = useState("Default");
     const [selectedOption, setSelectedOption] = useState("");
     const [showOptions, setShowOptions] = useState(false)
     const options = [
@@ -21,7 +19,7 @@ const SortSelect = ({ updateProductFilters }) => {
     useEffect(() => {
         const { sort } = router.query;
         const selectedOption = options.find((item) => item.value === sort);
-        setFeatured(selectedOption?.text || "default");
+        setFeatured(selectedOption?.text || "Default");
         setSelectedOption(sort || "");
       }, [router.query, options]);
     
@@ -33,7 +31,7 @@ const SortSelect = ({ updateProductFilters }) => {
         setShowOptions(false);
 
         router.replace({
-        query: { ...router.query, sort: flag },
+        query: { ...router.query, sort: flag, page:1 },
         });
 
       };
@@ -72,12 +70,5 @@ const SortSelect = ({ updateProductFilters }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    products: state.products.items,
-});
 
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
-
-export default connect(mapStateToProps, mapDidpatchToProps)(SortSelect);
+export default SortSelect;

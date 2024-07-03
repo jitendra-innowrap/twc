@@ -3,6 +3,7 @@ import ReactDatePicker from 'react-datepicker';
 import Popup from 'reactjs-popup';
 import EditEmailForm from './EditEmailForm';
 import EditPhoneForm from './EditPhoneForm';
+import { clipDateOnly, reverseDateOrder } from '../../../../util/util';
 
 export default function EditProfileForm({user, handleSubmit}) {
     const [tempUser, setTempUser] = useState(user);
@@ -15,9 +16,13 @@ export default function EditProfileForm({user, handleSubmit}) {
     };
 
     const handleDateChange = (date) => {
+        let dateDobDate
+        if(date){
+            dateDobDate = clipDateOnly(date);
+        }
         setTempUser({
             ...tempUser,
-            dob: date,
+            dob: dateDobDate,
         });
     };
 
@@ -75,7 +80,7 @@ export default function EditProfileForm({user, handleSubmit}) {
                                 <button 
                                     className="btn btn-secondary btn-sm float-right" 
                                     type='button' 
-                                    onClick={handleMobile}
+                                    onClick={handleEmail}
                                     >Change
                                 </button>} 
                             modal 
@@ -160,7 +165,9 @@ export default function EditProfileForm({user, handleSubmit}) {
                         Date of Birth
                     </label>
                     <ReactDatePicker
-                        selected={tempUser.dob}
+                        selected={"1999-08-25"}
+                        
+                        // selected={reverseDateOrder(tempUser.dob)}
                         onChange={handleDateChange}
                         dateFormat="dd/MM/yyyy"
                         className="form-control square ml-15"

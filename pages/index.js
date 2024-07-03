@@ -1,22 +1,10 @@
 import Image from "next/image";
-import FeatchTab from "../components/ecommerce/fetchTab";
 import FeatchTab2 from "../components/ecommerce/fetchTabSlider";
-import Banner2 from "../components/elements/Banner2";
-import Bottom from "../components/elements/Bottom";
-import QuickView from "./../components/ecommerce/QuickView";
-import Banner3 from "./../components/elements/Banner3";
-import Banner4 from "./../components/elements/Banner4";
-import Banner5 from "./../components/elements/Banner5";
-import BannerFeatures from "./../components/elements/BannerFeatures";
-import Deals1 from "./../components/elements/Deals1";
-import Deals2 from "./../components/elements/Deals2";
-import HomeBlog from "./../components/elements/HomeBlog";
 import IntroPopup from "./../components/elements/IntroPopup";
 import Layout from "./../components/layout/Layout";
 import BrandSlider from "./../components/sliders/Brand";
 import CategorySlider from "./../components/sliders/Category";
 import Intro1 from "./../components/sliders/Intro1";
-import NewArrival from "./../components/sliders/NewArrival";
 
 
 export default function Home() {

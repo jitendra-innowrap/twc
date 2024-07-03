@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 
 const Tags = ({ updateProductFilters }) => {
     const tags = [
@@ -44,8 +42,4 @@ const Tags = ({ updateProductFilters }) => {
     );
 };
 
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
-
-export default connect(null, mapDidpatchToProps)(Tags);
+export default Tags;

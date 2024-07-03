@@ -1,26 +1,20 @@
 import { useRouter } from "next/router";
 import { forwardRef, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import BrandFilter from "../../components/ecommerce/BrandFilter";
 import CategoryProduct from "../../components/ecommerce/CategoryProduct";
 import Pagination from "../../components/ecommerce/Pagination";
 import PriceRangeSlider from "../../components/ecommerce/PriceRangeSlider";
-import QuickView from "../../components/ecommerce/QuickView";
-import ShowSelect from "../../components/ecommerce/ShowSelect";
 import SingleProduct from "../../components/ecommerce/SingleProduct";
 import SingleProductList from "../../components/ecommerce/SingleProductList";
 import SizeFilter from "../../components/ecommerce/SizeFilter";
 import SortSelect from "../../components/ecommerce/SortSelect";
-import WishlistModal from "../../components/ecommerce/WishlistModal";
 import Layout from "../../components/layout/Layout";
-import Link from "next/link";
 import ReactDatePicker from "react-datepicker";
-import { getAllCategoryProducts, getPriceRange } from "../../util/api";
-import { fetchMoreProduct, fetchProduct } from "../../redux/action/product";
-import { openCart } from "../../redux/action/cart";
+import "react-datepicker/dist/react-datepicker.css";
+
+import { getAllCategoryProducts } from "../../util/api";
 import Preloader from "../../components/elements/Preloader";
 
-const Products = ({ products, productFilters }) => {
+const Products = () => {
     let today = new Date();
     let Router = useRouter(),
     searchTerm = Router.query.search,
@@ -128,7 +122,7 @@ const Products = ({ products, productFilters }) => {
     const handleDateFilter = (date) =>{
         setDeliveryDate(date);
         Router.replace({
-            query: { ...Router.query, availabilityDate: JSON.stringify(date) },
+            query: { ...Router.query, availabilityDate: JSON.stringify(date), page:1 },
             });
     }
 
@@ -285,15 +279,5 @@ const Products = ({ products, productFilters }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    products: state.products,
-    productFilters: state.productFilters,
-});
 
-const mapDidpatchToProps = {
-    openCart,
-    fetchProduct,
-    fetchMoreProduct,
-};
-
-export default connect(mapStateToProps, mapDidpatchToProps)(Products);
+export default Products;

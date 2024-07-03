@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 import { useRouter } from "next/router";
 
 const SizeFilter = () => {
@@ -24,7 +22,7 @@ const SizeFilter = () => {
     const handleClick = (size) => {
         setActive(prev => active == prev ? "all" : size);
         router.replace({
-            query: { ...router.query, size: size === active ? "all" : size },
+            query: { ...router.query, size: size === active ? "all" : size, page:1 },
         });
     };
 
@@ -50,9 +48,4 @@ const SizeFilter = () => {
 };
 
 
-
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
-
-export default connect(null, mapDidpatchToProps)(SizeFilter);
+export default SizeFilter;

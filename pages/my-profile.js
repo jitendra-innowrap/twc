@@ -5,20 +5,36 @@ import MyProfile from "../components/ecommerce/Dashboard/MyProfile";
 import MyOrders from "../components/ecommerce/Dashboard/MyOrders";
 import MyAddress from "../components/ecommerce/Dashboard/MyAddress";
 import { useRouter } from "next/router";
+import storage from "../util/localStorage";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
     const tab = router.query.tab;
+    const user = storage.get("dokani_user");
+
     useEffect(() => {
         handleOnClick(tab ? parseInt(tab, 10) : 1);
+        if(!user?.isLoggedIn){
+            router.push('/')
+        }
     }, [])
     
     const handleOnClick = (index) => {
         setActiveIndex(index); // remove the curly braces
     };
+
+    const handleLogout = () =>{
+        storage.set("dokani_user", {auth_token:'', user: {}, isLoggedIn:false});
+        storage.set("dokani_cart", null);
+        storage.set("dokani_wishlist", null);
+        router.push('/page-login-register')
+    }
+    
+
+
     return (
         <>
-            <Layout parent="Home" sub="Pages" subChild="Account">
+            {<Layout parent="Home" sub="Pages" subChild="Account">
                 <section className="pt-70 pb-150">
                     <div className="container">
                         <div className="row">
@@ -58,15 +74,13 @@ function Account() {
                                                     </a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <Link href="/page-login-register">
                                                     <a
                                                         className="nav-link"
-                                                        
+                                                        onClick={handleLogout}
                                                     >
                                                         <i className="fi-rs-sign-out mr-10"></i>
                                                         Logout
                                                     </a>
-                                                    </Link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -79,7 +93,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="account-detail-tab"
                                             >
-                                                <MyProfile />
+                                               {activeIndex === 1 && <MyProfile />}
                                             </div>
                                             <div
                                                 className={activeIndex === 2 ? "tab-pane fade show active" : "tab-pane fade"}
@@ -87,7 +101,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="orders-tab"
                                             >
-                                                <MyOrders />
+                                                {activeIndex === 2 && <MyOrders />}
                                             </div>
                                             <div
                                                 className={activeIndex === 3 ? "tab-pane fade show active" : "tab-pane fade"}
@@ -95,7 +109,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="address-tab"
                                             >
-                                                <MyAddress />
+                                                {activeIndex === 3 && <MyAddress />}
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +118,7 @@ function Account() {
                         </div>
                     </div>
                 </section>
-            </Layout>
+            </Layout>}
         </>
     );
 }

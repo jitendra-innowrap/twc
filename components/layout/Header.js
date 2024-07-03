@@ -1,19 +1,21 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import Search from "../ecommerce/Search";
 import { getAllCategory } from "../../util/api";
+import { useSelector } from "react-redux";
+import storage from "../../util/localStorage";
 
 const Header = ({
-    totalCartItems,
-    totalCompareItems,
     toggleClick,
-    totalWishlistItems,
     headerStyle,
 }) => {
+    const user = storage.get("dokani_user");
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
-    const [headerData, setheaderData] = useState([])
+    const [headerData, setheaderData] = useState([]);
+    const { cartCount } = useSelector((state) => state.cart);
+    const { wishlistCount } = useSelector((state) => state.wishlist);
+
     useEffect(() => {
         fetchHeaderData()
         document.addEventListener("scroll", () => {
@@ -209,7 +211,7 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href="/my-profile">
+                                            <Link href={!user?.isLoggedIn?'/page-login-register':'/my-profile'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -221,7 +223,7 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href="/page-login-register">
+                                            <Link href={!user?.isLoggedIn?'/page-login-register':'/shop-wishlist'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -229,7 +231,7 @@ const Header = ({
                                                         src="/assets/imgs/theme/icons/icon-heart.svg"
                                                     />
                                                     <span className="pro-count blue">
-                                                        {totalWishlistItems}
+                                                        {wishlistCount}
                                                     </span>
                                                     <span className="header-action-name">Wishlist</span>
                                                 </a>
@@ -243,7 +245,7 @@ const Header = ({
                                                         src="/assets/imgs/theme/icons/icon-cart.svg"
                                                     />
                                                     <span className="pro-count blue">
-                                                        {totalCartItems}
+                                                        {cartCount}
                                                     </span>
                                                     <span className="header-action-name">Cart</span>
                                                 </a>
@@ -255,14 +257,14 @@ const Header = ({
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2 gap-1">
                                     <div className="header-action-icon-2">
-                                        <Link href="/shop-wishlist">
+                                        <Link href={!user?.isLoggedIn?'/page-login-register':'/shop-wishlist'}>
                                             <a>
                                                 <img
                                                     alt="Evara"
                                                     src="/assets/imgs/theme/icons/icon-heart.svg"
                                                 />
                                                 <span className="pro-count white">
-                                                    {totalWishlistItems}
+                                                    {wishlistCount}
                                                 </span>
                                             </a>
                                         </Link>
@@ -275,7 +277,7 @@ const Header = ({
                                                     src="/assets/imgs/theme/icons/icon-cart.svg"
                                                 />
                                                 <span className="pro-count white">
-                                                    {totalCartItems}
+                                                    {cartCount}
                                                 </span>
                                             </a>
                                         </Link>
@@ -396,15 +398,4 @@ const Header = ({
         </>
     );
 };
-
-const mapStateToProps = (state) => ({
-    totalCartItems: state.cart.length,
-    totalCompareItems: state.compare.items?.length,
-    totalWishlistItems: state.wishlist.items?.length,
-});
-
-export const getServerSideProps = async () => {
-    
-  };
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

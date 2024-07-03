@@ -1,7 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
+import { getProfileDetails } from '../../../../util/api';
+import storage from '../../../../util/localStorage';
 
-export default function ProfileDetails({ user, setEdit }) {
+export default function ProfileDetails({ user, setEdit, setUser }) {
+    const savedUser = storage.get("dokani_user");
+
+    useEffect(() => {
+        if(savedUser?.isLoggedIn){
+            fetchProfileDetails();
+        }
+    }, [setEdit])
+    
+
+    const fetchProfileDetails = async()=>{
+        const response = await getProfileDetails(savedUser?.auth_token || "");
+        let tempUser = response.result?.[0];
+        console.log('tempuser',tempUser)
+        setUser({
+            fullname: tempUser.f_name,
+        mobile: tempUser.mobile,
+        email: tempUser.email,
+        gender: tempUser.gender,
+        dob: tempUser.dob,
+        alternateMobile: tempUser.alternate_mobile,
+        isMobileVerified: true,
+        isEmailVerified: false,
+        })
+    }
     return (
         <div className="profile-details">
             <div className="mb-3">
@@ -19,14 +45,14 @@ export default function ProfileDetails({ user, setEdit }) {
                         <div className="col-sm-3">
                             <h6 className="mb-0">Email</h6>
                         </div>
-                        <div className="col-sm-9 text-secondary">
+                        {user?.email && <div className="col-sm-9 text-secondary">
                             {user?.email}
                             {user?.isEmailVerified ? (
                                 <FaCheckCircle className="text-success ms-2" />
                             ) : (
                                 <FaTimesCircle className="text-danger ms-2" />
                             )}
-                        </div>
+                        </div>}
                     </div>
                     <hr />
                     <div className="row">
@@ -66,7 +92,7 @@ export default function ProfileDetails({ user, setEdit }) {
                             <h6 className="mb-0">Date of Birth</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                            {user?.dob?.toLocaleDateString()}
+                            {user?.dob ? user?.dob: ""}
                         </div>
                     </div>
                     <hr />

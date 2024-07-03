@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
+import { editAddress } from '../../../../util/api';
 
 export default function EditAddress({ close , setAddressList, currentAddress, addressList}) {
     const [isSumbitting, setIsSumbitting] = useState(false)
   const [address, setAddress] = useState({
     name: currentAddress.name,
     mobile: currentAddress.mobile,
-    addressLine1: currentAddress.addressLine1,
-    addressLine2: currentAddress.addressLine2,
+    addressLine1: currentAddress.address_line_1,
+    addressLine2: currentAddress.address_line_2,
     landmark: currentAddress.landmark,
     pincode: currentAddress.pincode,
-    state: currentAddress.state,
+    state: currentAddress.state_name,
     city: currentAddress.city,
-    addressType: currentAddress.addressType,
-    isDefault: currentAddress.isDefault,
+    addressType: currentAddress.address_type,
+    isDefault: currentAddress.is_default,
+    id: currentAddress.id,
   });
   const [error, setError] = useState({
     name: false,
@@ -37,10 +39,10 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
   };
 
   const handleDefaultChange = (e) => {
-    setAddress((prev) => ({ ...prev, isDefault: e.target.checked }));
+    setAddress((prev) => ({ ...prev, isDefault: e.target.checked? 1:0 }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let hasError = false;
 
     if (!address.name) {
@@ -99,6 +101,29 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
           }
           });
           setAddressList(updatedAddresses);
+      }
+
+      // Edit address
+      try {
+        let body = {
+          name:address.name,
+          city:address.city,
+          state_name:address.state,
+          mobile:address.mobile,
+          address_line_1:address.addressLine1,
+          address_line_2:address.addressLine2,
+          landmark:address.landmark,
+          is_default:address.isDefault,
+          address_type:address.addressType,
+          other_address_type_name:"",
+          pincode:address.pincode,
+          address_id:address.id
+        }
+        const res = await editAddress(body);
+        console.log(res)
+        
+      } catch (error) {
+        
       }
       close();
     }
@@ -242,14 +267,14 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
               </label>
               <div className="address-type-buttons">
                 <button
-                  className={`${address.addressType === 'home' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('home')}
+                  className={`${address.addressType === '0' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('0')}
                   >
                   Home
                 </button>
                 <button
-                  className={`${address.addressType === 'office' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('office')}
+                  className={`${address.addressType === '1' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('1')}
                   >
                   Office
                 </button>
@@ -261,7 +286,7 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
                 type="checkbox"
                 name='setDefault'
                 id='setDefault'
-                checked={address?.isDefault}
+                checked={address?.isDefault==1 ? true: false}
                 onChange={handleDefaultChange}
                 className='checkbox'
                 />
