@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { getPriceRange } from "../../util/api";
@@ -53,12 +51,4 @@ const PriceRangeSlider = () => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    products: state.products.items,
-});
-
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
-
-export default connect(mapStateToProps, mapDidpatchToProps)(PriceRangeSlider);
+export default PriceRangeSlider;

@@ -1,7 +1,4 @@
-import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
-
-import { clearCart, closeCart, decreaseQuantity, deleteFromCart, increaseQuantity, openCart } from "../redux/action/cart";
 
 const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, decreaseQuantity, deleteFromCart, clearCart }) => {
     const price = () => {
@@ -712,18 +709,5 @@ const Cart = ({ openCart, cartItems, activeCart, closeCart, increaseQuantity, de
     );
 };
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart,
-    activeCart: state.counter
-});
 
-const mapDispatchToProps = {
-    closeCart,
-    increaseQuantity,
-    decreaseQuantity,
-    deleteFromCart,
-    openCart,
-    clearCart
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;

@@ -1,7 +1,6 @@
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { Provider } from "react-redux";
 import "react-responsive-modal/styles.css";
-import store from "../redux/store";
+import { wrapper } from "../redux/store";
 import StorageWrapper from "../components/ecommerce/storage-wrapper";
 import "../public/assets/css/main.css";
 import React, { useEffect, useState } from "react";
@@ -33,12 +32,10 @@ function MyApp({ Component, pageProps }) {
         <>
             {!loading ? (
                 <QueryClientProvider client={queryClient} >
-                    <Provider store={store}>
                         <StorageWrapper>
                         <ToastContainer />
                                 <Component {...pageProps} />
                         </StorageWrapper>
-                    </Provider>
                 </QueryClientProvider>
             ): (
                 <Preloader />
@@ -47,4 +44,4 @@ function MyApp({ Component, pageProps }) {
     );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

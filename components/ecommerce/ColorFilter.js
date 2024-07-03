@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 
 const ColorFilter = ({ updateProductFilters }) => {
     const colors = [
@@ -54,8 +52,5 @@ const ColorFilter = ({ updateProductFilters }) => {
     );
 };
 
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
 
-export default connect(null, mapDidpatchToProps)(ColorFilter);
+export default ColorFilter;
