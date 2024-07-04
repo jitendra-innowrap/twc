@@ -245,15 +245,15 @@ export const verifyOTPApi = async ({ auth_token, otp }) => {
     const formData = new FormData();
     formData.append('otp', otp);
     
-  const auth_token = getToken();
-  const web_token = storage.get("web_token")
+  // const auth_token = storage.get("auth_token")
+  // const web_token = storage.get("web_token")
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
       formData,
       {
         headers: {
-          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'auth_token': auth_token,
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }

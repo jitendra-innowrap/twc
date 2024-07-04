@@ -55,6 +55,7 @@ function LoginRegister({logIN}) {
           clearInterval(interval);
         }        
         setOtpTimer(false);
+        setOtp(['', '', '', ''])
         setTimerValue(60);
         setStep(prev => prev - 1);
         setError({ mobile: false, otp: false })
@@ -172,7 +173,7 @@ function LoginRegister({logIN}) {
         <>
             {step === 1 ?
                 <div className="login_wrap w-100">
-                    <img src="/assets/imgs/banner/login_banner.png" alt="Login Banner" />
+                    <img src="/assets/imgs/banner/login_banner.png" className='login-banner-image' alt="Login Banner" />
                     <div className="padding_eight_all bg-white  p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
@@ -233,7 +234,7 @@ function LoginRegister({logIN}) {
 
                                 <div>
                                     <button className="resendContainer" style={{color:`${otpTimer?'gray':''}`, cursor:`${otpTimer?'default':''}`}} disabled={otpTimer} onClick={handleResendOTP}>RESEND OTP</button> 
-                                    {otpTimer && <span style={{float:'right', color:'#046963', marginTop:'30px'}}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}-
+                                    {otpTimer && <span style={{float:'right', color:'#046963', marginTop:'30px'}}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
                                 </div>
                             </div>
                             <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
