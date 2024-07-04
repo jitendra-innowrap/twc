@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md';
 import { editPhoneNumber, resendOTPApi, resendOTPForPhone, verifyOTPforPhone } from '../../../../util/api';
 
 export default function EditPhoneForm({ close, setTempUser }) {
-    const [Mobile, setMobile] = useState("9090909090");
+    const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
     let tempOtp = "1234"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
 import AddAddress from './AddAddress';
 import EditAddress from './EditAddress';
-import { deleteAddress, getAddressList } from '../../../../util/api';
+import { deleteAddress, editAddress, getAddressList } from '../../../../util/api';
 import Lottie from "lottie-web";
 import success from "../../../../public/assets/Lottie/no-orders.json"
 import Link from 'next/link';
@@ -99,20 +99,25 @@ export default function index() {
             
         }
     }
-    const handleSetDefault = (id) => {
-        const updatedAddresses = dummyAddresses.map((address) => {
-          if (address.id === id) {
-            return { ...address, isDefault: true };
-          } else {
-            return { ...address, isDefault: false };
-          }
-        });
-        setAddressList(updatedAddresses);
-      };
-      const handleDelete = (id) => {
-        const updatedList = addressList.filter((item) => item.id !== id);
-        setAddressList(updatedList);
-        deleteAddress(id)
+    const handleSetDefault = async (address) => {
+        const updatedAddresses = address;
+        updatedAddresses.is_default = 1;
+        updatedAddresses.address_id = address.id
+        try {
+            const res = await editAddress(updatedAddresses);
+            fetchAddressList();
+        } catch (error) {
+            console.log(error)
+        }
+    };
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteAddress(id);
+            fetchAddressList();
+        } catch (error) {
+            console.log(error)
+            
+        }
       };
       
     return (
@@ -134,7 +139,7 @@ export default function index() {
                             >
                                 {
                                     (close)=>(
-                                        <AddAddress close={close} addressList={addressList} setAddressList={setAddressList} />
+                                        <AddAddress close={close} addressList={addressList} fetchAddressList={fetchAddressList} setAddressList={setAddressList} />
                                     )
                                 }
                         </Popup>
@@ -152,7 +157,7 @@ export default function index() {
                     ):
                     <div className="address_list">
                         {addressList?.map((address, id)=>(
-                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> setExpanded(id)} key={id}>
+                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> {setExpanded(id); console.log(address)}} key={id}>
                                 <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
                                 <address>
                                     {address.address_line_1}<br />
@@ -168,7 +173,7 @@ export default function index() {
                                                     <div className="">
                                                         {address.is_default == 0 && 
                                                         <button href="#" onClick={() => {
-                                                            handleSetDefault(address.id);
+                                                            handleSetDefault(address);
                                                             }} className="btn-small">Set as default Address</button>}</div>
                                                     {<div className="change">
                                                         <Popup
@@ -178,7 +183,7 @@ export default function index() {
                                                             >
                                                                 {
                                                                     (close)=>(
-                                                                        <EditAddress addressList={addressList} close={close} setAddressList={setAddressList} currentAddress={address} />
+                                                                        <EditAddress addressList={addressList} close={close} fetchAddressList={fetchAddressList} setAddressList={setAddressList} currentAddress={address} />
                                                                     )
                                                                 }
                                                         </Popup>

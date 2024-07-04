@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
 import { editAddress } from '../../../../util/api';
 
-export default function EditAddress({ close , setAddressList, currentAddress, addressList}) {
+export default function EditAddress({ close , currentAddress, fetchAddressList}) {
     const [isSumbitting, setIsSumbitting] = useState(false)
   const [address, setAddress] = useState({
     name: currentAddress.name,
@@ -81,28 +81,6 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
     }
 
     if (!hasError) {
-      // Edit the address of id check if the edited addess is set to default 
-      // make all other address isDefault false edited address index will not change
-      if(address.isDefault==true){
-        const updatedAddresses = addressList.map((item) => {
-          if (item.id === currentAddress.id) {
-            return address
-          }else{
-            return { ...item, isDefault: false };
-          }
-          });
-          setAddressList(updatedAddresses);
-      }else{
-        const updatedAddresses = addressList.map((item) => {
-          if (item.id === currentAddress.id) {
-            return address
-          }else{
-            return item;
-          }
-          });
-          setAddressList(updatedAddresses);
-      }
-
       // Edit address
       try {
         let body = {
@@ -120,10 +98,9 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
           address_id:address.id
         }
         const res = await editAddress(body);
-        console.log(res)
-        
+        fetchAddressList();
       } catch (error) {
-        
+        console.log(error)
       }
       close();
     }
@@ -224,6 +201,7 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
                 className={`form-control square`}
                 name="pincode"
                 type="text"
+                maxLength={6}
                 value={address.pincode}
                 onChange={handleInputChange}
                 />
