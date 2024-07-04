@@ -10,7 +10,10 @@ import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useEffect } from "react";
 import { getAddressList, getCartList } from "../util/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../redux/Slices/cartSlice";
+import storage from "../util/localStorage";
+import LoginRegister from "../components/ecommerce/LoginRegister";
 
 
 const Cart = () => {
@@ -25,63 +28,23 @@ const Cart = () => {
         totalDiscount:0,
         totalDeposit:0,
     })
-    
+    const dispatch = useDispatch();
+
     const handleSelectAddress = (id) =>{
         setDeliveredTo(id)
     }
-    const cartTotal = () => {
-        const priceDetails = { totalPrice: 0, totalDeposit: 0, totalDiscount: 0, totalMrp: 0 };
-        cartItems.forEach((item) => {
-            const oldPrice = item.mrp || 0;
-            const price = item.selling_price || 0;
-            const quantity = item.quantity || 0;
-            const deposit = item?.deposit_amount || 0;
-            if (item.product_type=="1") {
-                priceDetails.totalMrp += oldPrice * quantity;
-                priceDetails.totalPrice += price * quantity;
-                priceDetails.totalDeposit += deposit * quantity;
-                priceDetails.totalDiscount += (oldPrice - price) * quantity;
-            } else {
-                priceDetails.totalMrp += oldPrice * quantity;
-                priceDetails.totalPrice += price * quantity;
-                priceDetails.totalDiscount += (oldPrice - price) * quantity;
-            }
-        });
-        
-        setPriceDetails(priceDetails);
-    };
 
     const router = useRouter()
+    const handleLogin = () =>{
 
-    const handleWishlist = (product) => {
-        addToWishlist(product);
-        toast.success("Added to Wishlist !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
-    const fetchCartList = async ()=>{
-        try {
-            const res = await getCartList();
-            console.log(res)
-        } catch (error) {
-            
-        }
     }
+    const auth_token = storage.get("auth_token");
     const fetchAddressList = async () =>{
         try {
             const res = await getAddressList();
             setAddressList(res?.result);
             let defaultAddress = res.result.find(address=> address.is_default == 1);
-            setDeliveredTo(defaultAddress.id)
+            setDeliveredTo(defaultAddress? defaultAddress.id: res?.result?.[0].id)
             console.log('cart address',res)
         } catch (error) {
             console.log(error)
@@ -89,7 +52,8 @@ const Cart = () => {
     }
     
     useEffect(() => {
-        fetchCartList();
+        // fetchCartList();
+        dispatch(fetchCart());
         fetchAddressList();
         // cartTotal();
     }, [])
@@ -100,31 +64,31 @@ const Cart = () => {
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="">
-                            {cartItems?
+                            {!cartItems.length?
                                 <>
-                                    <EmptyCart />
+                                <EmptyCart />
                                 </>
                                 :
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock">
-                                        <div className="addressStripV2-base-desktopContainer">
+                                        <div className="addressStripV2-base-desktopContainer" style={{justifyContent:`${addressList?.length>0?'':'end'}`}}>
                                         {
-                                            addressList?.filter((address) => address.is_default==1).map((address) => (
+                                            addressList?.filter((address) => address.id==deliveredTo).map((address) => (
                                                 <div className="addressStripV2-base-title">
                                                 <div className="addressStripV2-base-addressName">
                                                     Deliver to: <span className="addressStripV2-base-highlight">{address.name}</span>,
                                                     <div className="addressStripV2-base-highlight"> {address.pincode}</div>
                                                 </div>
                                                 <div className="addressStripV2-base-subText">
-                                                    {`${address.address_line_1}, ${address.address_line_2}`}
+                                                    {`${address.address_line_1 || address?.addressLine1}, ${address.address_line_2 || address?.addressLine2}`}
                                                 </div>
                                                 </div>
                                             ))
                                             }
-                                            <Popup
+                                            {auth_token?<Popup
                                                 trigger={<div>
                                                     <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
-                                                        CHANGE ADDRESS
+                                                        {addressList?.length>0?'CHANGE ADDRESS':'ADD ADDRESS'}
                                                     </div>
                                                     <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup mobile">
                                                         CHANGE
@@ -139,6 +103,21 @@ const Cart = () => {
                                                         )
                                                     }
                                             </Popup>
+                                            :
+                                            <Popup
+                                                trigger={<div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
+                                                    {addressList?.length>0?'CHANGE ADDRESS':'SIGN TO ADD ADDRESS'}
+                                            </div>} 
+                                                modal 
+                                                position="right center"
+                                                >
+                                                    {
+                                                        (close)=>(
+                                                            <LoginRegister close={close} />
+                                                        )
+                                                    }
+                                            </Popup>    
+                                        }
                                         </div>
                                         <div id="cartItemsList">
                                             {

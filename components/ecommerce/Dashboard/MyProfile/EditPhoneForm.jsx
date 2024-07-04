@@ -18,15 +18,18 @@ export default function EditPhoneForm({ close, setTempUser }) {
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
 
-    const handleResendOTP = () => {
-        resendOTPForPhone()
-            .then(() => {
-                setOtpTimer(true);
-                startOTPTimer();
-            })
-            .catch((error) => {
+    const handleResendOTP = async () => {
+            try {
+                const res = await resendOTPForPhone(Mobile)
+                if (res.code === 1) {
+                    setOtpTimer(true);
+                    startOTPTimer();
+                } else {
+                    setError(prev => ({ ...prev, mobile: res.msg }));
+                }
+            } catch (error) {
                 console.error('Error resending OTP:', error);
-            });
+            }
     };
 
     const startOTPTimer = () => {
@@ -51,6 +54,7 @@ export default function EditPhoneForm({ close, setTempUser }) {
         }
         setOtpTimer(false);
         setTimerValue(60);
+        setOtp(['', '', '', ''])
         setStep(prev => prev - 1);
         setError({ mobile: false, otp: false })
     }
@@ -100,15 +104,11 @@ export default function EditPhoneForm({ close, setTempUser }) {
                     // OTP is correct, redirect
                     if (response.code == 1) {
                         // Add your redirect logic
-                        if (response?.result?.is_profile_completed == 0) {
-                            setStep(3);
-                        } else {
-                            // logIN({auth_token:response?.token, user:response?.result, isLoggedIn:true })
-                            // logOut();
-                            storage.set("dokani_user", { auth_token: response?.token, user: response?.result, isLoggedIn: true });
-                            console.log('login', response)
-                            // router.push(referrer)
-                        }
+                        setStep(3);
+                        setTempUser((prevTempUser) => ({
+                            ...prevTempUser,
+                            mobile: Mobile,
+                          }));
                     } else {
                         console.error('Error verifying OTP:', error);
                         setError({ ...error, otp: true });

@@ -6,6 +6,7 @@ class storage {
     }
 
     static get(key) {
+        if (typeof window !== 'undefined') {
         const data = localStorage?.getItem(key);
         if (data && data !== 'null') {
             try {
@@ -15,6 +16,7 @@ class storage {
                 return null;
             }
         }
+    }
         return null;
     }
 }

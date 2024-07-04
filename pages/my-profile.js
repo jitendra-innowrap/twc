@@ -10,11 +10,11 @@ function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
     const tab = router.query.tab;
-    const user = storage.get("dokani_user");
+    const auth_token = storage.get("auth_token");
 
     useEffect(() => {
         handleOnClick(tab ? parseInt(tab, 10) : 1);
-        if(!user?.isLoggedIn){
+        if(!auth_token){
             router.push('/')
         }
     }, [])
@@ -24,13 +24,12 @@ function Account() {
     };
 
     const handleLogout = () =>{
-        storage.set("dokani_user", {auth_token:'', user: {}, isLoggedIn:false});
-        storage.set("dokani_cart", null);
-        storage.set("dokani_wishlist", null);
+        const randomString = Math.random().toString(36).substring(2);
+        const token = btoa(randomString);
+        storage.set("web_token", token);
+        storage.set("auth_token", null);        
         router.push('/page-login-register')
     }
-    
-
 
     return (
         <>

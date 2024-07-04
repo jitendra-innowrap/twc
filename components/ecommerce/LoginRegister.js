@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { loginApi, registerApi, resendOTPApi, verifyOTPApi } from '../../util/api';
 import storage from '../../util/localStorage';
 import { Bounce, toast } from 'react-toastify';
+import { refreshToken } from '../../redux/Slices/authSlice';
+import { useDispatch } from 'react-redux';
 
 function LoginRegister({logIN}) {
     const [Mobile, setMobile] = useState("");
@@ -19,7 +21,8 @@ function LoginRegister({logIN}) {
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
-    
+    const dispatch = useDispatch();
+
     const handleResendOTP = () => {
             resendOTPApi(auth_token)
                 .then(() => {
@@ -69,7 +72,6 @@ function LoginRegister({logIN}) {
             try {
                 const response = await loginApi(Mobile);
                 setStep(2);
-                console.log('submitted');
                 setAuth_token(response.token)
             } catch (error) {
                 console.error('Error during login:', error);
@@ -86,7 +88,8 @@ function LoginRegister({logIN}) {
             registerApi({auth_token,name})
             .then((res) => {
                 if(res?.code==1){
-                    storage.set("dokani_user", {auth_token:res?.token, user: res?.result, isLoggedIn:true});
+                    storage.set("auth_token", auth_token);
+                    storage.set("web_token", null);
                     router.push(referrer)
                 }else{
                     toast.error("Something Went Wrong !", {
@@ -143,11 +146,9 @@ function LoginRegister({logIN}) {
                         if (response?.result?.is_profile_completed == 0) {
                             setStep(3);
                         } else {
-                            // logIN({auth_token:response?.token, user:response?.result, isLoggedIn:true })
-                            // logOut();
-                            storage.set("dokani_user", {auth_token:response?.token, user: response?.result, isLoggedIn:true});
-                            console.log('login',response)
                             router.push(referrer)
+                            storage.set("auth_token", auth_token);
+                            storage.set("web_token", null);
                         }
                     } else {
                         console.error('Error verifying OTP:', error);

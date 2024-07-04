@@ -150,6 +150,7 @@ export default function EditProfileForm({user, handleSubmit}) {
                         className="form-control square dropdown-toggle"
                         name="gender"
                         value={tempUser.gender}
+                        defaultValue={""}
                         onChange={handleInputChange}
                     >
                         <option value="1" className="dropdown-item">
@@ -164,10 +165,8 @@ export default function EditProfileForm({user, handleSubmit}) {
                     <label>
                         Date of Birth
                     </label>
-                    <ReactDatePicker
-                        selected={"1999-08-25"}
-                        
-                        // selected={reverseDateOrder(tempUser.dob)}
+                    <ReactDatePicker                        
+                        selected={tempUser.dob}
                         onChange={handleDateChange}
                         dateFormat="dd/MM/yyyy"
                         className="form-control square ml-15"

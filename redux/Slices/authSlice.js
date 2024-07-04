@@ -1,66 +1,57 @@
-// authSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { logOutApi, loginApi } from '../../util/api';
+import { createSlice } from '@reduxjs/toolkit';
+import storage from '../../util/localStorage'; // Adjust the import path accordingly
 
-export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
-    try {
-        const response = await loginApi(credentials);
-        return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
-    }
-});
 
-export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
-    try {
-        const response = await logOutApi();
-        storage.set("dokani_user", {auth_token:res?.token, user: res?.result, isLoggedIn:false});
-        return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
-    }
-});
+// Initial token retrieval
+let auth_token, web_token;
+if (typeof window !== 'undefined') {
+  auth_token = storage.get("auth_token");
+  web_token = storage.get("web_token");
+  if (auth_token && web_token) {
+    // Remove web_token if auth_token is present
+    storage.set("web_token",null);
+    web_token = null;
+  }
+}
+
+const initialState = {
+  auth: {
+    type: auth_token ? 'auth_token' : (web_token ? 'web_token' : ''),
+    token: auth_token || web_token || '',
+  },
+};
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: { token: null, user: null, status: 'idle', error: null },
-    reducers: {
-        refreshToken: (state, action) => {
-            state.token = action.payload.token;
-        },
+  name: 'auth',
+  initialState,
+  reducers: {
+    refreshToken: (state, action) => {
+      state.auth.token = action.payload.token;
+      if (state.auth.type === 'web_token') {
+        // Update storage and state for auth_token
+        storage.set("auth_token", action.payload.token);
+        storage.set("web_token",null);
+        state.auth.type = 'auth_token';
+      } else {
+        // Just update the auth_token in storage
+        storage.set("auth_token", action.payload.token);
+      }
     },
-    extraReducers: (builder) => {
-        builder
-            // Handle login
-            .addCase(login.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(login.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.token = action.payload.token;
-                state.user = action.payload.user;
-                state.error = null;
-            })
-            .addCase(login.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload;
-            })
-            // Handle logout
-            .addCase(logout.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(logout.fulfilled, (state) => {
-                state.status = 'succeeded';
-                state.token = null;
-                state.user = null;
-                state.error = null;
-            })
-            .addCase(logout.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload;
-            });
+    setWebToken: (state, action) => {
+      state.auth.type = 'web_token';
+      state.auth.token = action.payload.token;
+      // Update storage and remove auth_token if setting web_token
+      storage.set("web_token", action.payload.token);
+      storage.set("auth_token",null);
     },
+    clearTokens: (state) => {
+      state.auth.type = '';
+      state.auth.token = '';
+      storage.set("auth_token",null);
+      storage.set("web_token",null);
+    },
+  },
 });
 
-export const { refreshToken } = authSlice.actions;
+export const { refreshToken, setWebToken, clearTokens } = authSlice.actions;
 export default authSlice.reducer;

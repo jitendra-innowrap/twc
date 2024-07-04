@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../redux/Slices/authSlice";
 import { addToCart } from "../../util/api";
+import { addItemToCart, fetchCart } from "../../redux/Slices/cartSlice";
 
 const colorsVariants =[
     "red",
@@ -30,6 +31,8 @@ const ProductDetails = ({
     let daysRent = 5;
     let today = new Date();
     const router = useRouter();
+    const dispatch = useDispatch();
+
     const {slug} = router.query;
     // extracting details from the api
     const productDetails = product?.result?.[0];
@@ -51,10 +54,7 @@ const ProductDetails = ({
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
-    }, [slug])
-    
-    const dispatch = useDispatch();
-  
+    }, [slug])  
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
@@ -101,8 +101,9 @@ const ProductDetails = ({
             //       transition: Bounce,
             //     });
             //   });
-            const res = await addToCart(product)
-            console.log(res)
+            // const res = await addToCart(product)
+            dispatch(addItemToCart(product));
+
           }else{
             setHeighLightDate(true)
           }

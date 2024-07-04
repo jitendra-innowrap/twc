@@ -7,16 +7,19 @@ const INIT_LOCALSTORAGE = 'cart/INIT_LOCALSTORAGE';
 // Async thunks for API calls
 export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
   const response = await getCartList();
+  console.log('response from thunk', response)
   return response;
 });
 
 export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (product) => {
   const response = await addToCart(product);
+  console.log('response from thunk add', response.data)
   return response.data;
 });
 
 export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (product) => {
   const response = await deleteFromCart(product);
+  console.log('response from thunk remove', response.data)
   return response.data;
 });
 
@@ -45,9 +48,9 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.cartItems = action.payload.cart_product;
-        state.cartCount = action.payload.cart_product_count;
-        state.cartDetails = action.payload.bill_details;
+        state.cartItems = action.payload.cart_product || [];
+        state.cartCount = action.payload.cart_product_count || 0;
+        state.cartDetails = action.payload.bill_details || {};
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = 'failed';
@@ -59,9 +62,9 @@ const cartSlice = createSlice({
       })
       .addCase(addItemToCart.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.cartItems = action.payload.items;
-        state.cartCount = action.payload.count;
-        state.cartDetails = action.payload.details;
+        state.cartItems = action.payload.cart_product || [];
+        state.cartCount = action.payload.cart_product_count || 0;
+        state.cartDetails = action.payload.bill_details || {};
       })
       .addCase(addItemToCart.rejected, (state, action) => {
         state.status = 'failed';
@@ -73,9 +76,9 @@ const cartSlice = createSlice({
       })
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.cartItems = action.payload.items;
-        state.cartCount = action.payload.count;
-        state.cartDetails = action.payload.details;
+        state.cartItems = action.payload.cart_product || [];
+        state.cartCount = action.payload.cart_product_count || 0;
+        state.cartDetails = action.payload.bill_details || {};
       })
       .addCase(removeItemFromCart.rejected, (state, action) => {
         state.status = 'failed';
