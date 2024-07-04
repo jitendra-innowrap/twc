@@ -1,3 +1,4 @@
+import { TbArrowUp } from "react-icons/tb";
 import storage from "./localStorage";
 
 export function getYouTubeThumbnail(videoUrl) {
@@ -22,12 +23,15 @@ export function getYouTubeThumbnail(videoUrl) {
 }
 
 export const isLoggedIn =()=>{
-  const savedUser = storage.get("dokani_user");
-  return savedUser?.isLoggedIn;
+  const token = storage.get("auth_token");
+  if(token){
+    return true
+  }
+  return false;
 }
 export const getToken =()=>{
-  const savedUser = storage.get("dokani_user");
-  return savedUser.auth_token;
+  const token = storage.get("auth_token");
+  return token;
 }
 export const clipDateOnly = (date) => {
   // Extract only the date part in 'dd-mm-yyyy' format

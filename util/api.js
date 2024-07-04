@@ -7,7 +7,6 @@ import { setRequestMeta } from 'next/dist/server/request-meta';
 const username = 'PLKT-,9_d63YGYIc87(^5';
 const password = 'PLKRn72^8YKqRip8v^a#|';
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
-
 const api = axios.create({
     baseURL: 'https://innowrap.co.in/clients/twc/App/V1',
     headers: {
@@ -16,13 +15,13 @@ const api = axios.create({
     }
 });
 
+
 // api.interceptors.request.use(
 //     (config) => {
-//         const token = store.getState().auth.token;
+//         
 //         if (authToken) {
 //           config.headers['auth_token'] = authToken;
-//         }
-//         if (webToken) {
+//         }else{
 //           config.headers['web_token'] = webToken;
 //         }
 //         return config;
@@ -144,6 +143,7 @@ export const getAllCategoryProducts = async ({ handle_sub_category, handle_categ
   }
 };
 
+
 // Product details page api's endpoints
 export const getProductDetails = async ({ handle }) => {
   try {
@@ -183,7 +183,7 @@ export const logOutApi = async (mobile) => {
 
     return response.data;
   } catch (error) {
-    console.error('Failed to login', error);
+    console.error('Failed to logout', error);
     throw error;
   }
 }
@@ -191,6 +191,9 @@ export const loginApi = async (mobile) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
+    
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
     formData.append('mobile', mobile);
 
     const response = await axios.post(
@@ -198,7 +201,7 @@ export const loginApi = async (mobile) => {
       formData,
       {
         headers: {
-          'auth_token': 'Qw9lMNjXYVQqKqzTwAzR0L==',
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
@@ -241,13 +244,16 @@ export const verifyOTPApi = async ({ auth_token, otp }) => {
     // Create a new FormData object
     const formData = new FormData();
     formData.append('otp', otp);
+    
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
 
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
       formData,
       {
         headers: {
-          'auth_token': auth_token,
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
@@ -262,13 +268,14 @@ export const verifyOTPApi = async ({ auth_token, otp }) => {
 }
 export const resendOTPApi = async (auth_token) => {
   try {
-
+    
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
     const response = await axios.get(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
       {
         headers: {
-          'auth_token': auth_token,
-          'Authorization': `Basic ${auth}`,
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),          'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
       }
@@ -366,8 +373,8 @@ export const resendOTPForPhone = async (mobile) => {
   formData.append('is_verified', 1);
 
   try {
-    const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTPProfile',
       formData,
       {
         headers: {
@@ -652,12 +659,15 @@ export const getOrderList = async (page) => {
 }
 export const getCartList = async (page) => {
   const auth_token = getToken();
+  const web_token = storage.get("web_token")
+
   try {
     const response = await axios.get(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/cartProductList',
       {
         headers: {
-          'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
+          // 'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
@@ -674,22 +684,23 @@ export const addToCart = async ({
 qty,
 mrp,
 selling_price,
-web_token,
+// web_token,
 deposit_amount,
 rental_start_date,
 deduction_from_deposit_per_day,
 rental_end_date
 }) => {
   const auth_token = getToken();
+  const web_token = storage.get("web_token")
   // Create a new FormData object
   const formData = new FormData();
   formData.append('product_id', product_id);
   formData.append('qty', qty);
   formData.append('mrp', mrp);
   formData.append('selling_price', selling_price);
-  formData.append('action', 'add');
+  formData.append('action', '1');
   formData.append('flag', '1');
-  // formData.append('web_token', web_token);
+  !auth_token &&  (formData.append('web_token', web_token));
   formData.append('deposit_amount', deposit_amount);
   formData.append('rental_start_date', clipDateOnly(rental_start_date));
   formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
@@ -700,13 +711,14 @@ rental_end_date
       formData,
       {
         headers: {
-          'auth_token': auth_token,
           'Authorization': `Basic ${auth}`,
-          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+          'Content-Type': 'multipart/form-data',
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
         }
       }
     );
-    return response.data;
+    console.log(auth_token ,web_token)
+    return response;
   } catch (error) {
     console.error('Failed to login', error);
     throw error;
@@ -714,43 +726,46 @@ rental_end_date
 }
 
 export const deleteFromCart = async (
-  product_id,
+  {product_id,
+    cart_id,
 qty,
 mrp,
 selling_price,
-web_token,
+// web_token,
 deposit_amount,
 rental_start_date,
 deduction_from_deposit_per_day,
-rental_end_date
+rental_end_date}
 ) => {
   const auth_token = getToken();
+  const web_token = storage.get("web_token")
   // Create a new FormData object
   const formData = new FormData();
   formData.append('product_id', product_id);
-  formData.append('qty', qty);
-  formData.append('mrp', mrp);
-  formData.append('selling_price', selling_price);
-  formData.append('action', "remove");
-  formData.append('flag', flag);
-  formData.append('web_token', web_token);
-  formData.append('deposit_amount', deposit_amount);
-  formData.append('rental_start_date', rental_start_date);
-  formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
-  formData.append('rental_end_date', rental_end_date);
+  formData.append('cart_id', cart_id);
+  // formData.append('qty', qty);
+  // formData.append('mrp', mrp);
+  // formData.append('selling_price', selling_price);
+  // formData.append('action', "2");
+  // formData.append('flag', "1");
+  // !auth_token && (formData.append('web_token', web_token));
+  // formData.append('deposit_amount', deposit_amount);
+  // formData.append('rental_start_date', rental_start_date);
+  // formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
+  // formData.append('rental_end_date', rental_end_date);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/addToCart',
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
       formData,
       {
         headers: {
-          'auth_token': auth_token,
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Failed to login', error);
     throw error;

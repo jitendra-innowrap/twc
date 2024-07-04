@@ -1,10 +1,20 @@
 import React from 'react'
 import { MdClose } from 'react-icons/md';
+import { reverseDateOrder } from '../../../../util/util';
+import { fetchCart, removeItemFromCart } from '../../../../redux/Slices/cartSlice';
+import { useDispatch } from 'react-redux';
+import { deleteFromCart } from '../../../../util/api';
 
-export default function CartItem({item, deleteFromCart}) {
+export default function CartItem({item}) {
+    const dispatch = useDispatch();
+    const removeItem = async (item)=>{
+        console.log(item)
+        // const res = await deleteFromCart(item)
+        dispatch(removeItemFromCart(item));
+    }
     return (
         <div className="itemContainer-base-itemMargin">
-            <button onClick={()=> deleteFromCart(item)} className="remove_from_cart">
+            <button onClick={()=> removeItem(item)} className="remove_from_cart">
                 <MdClose fontSize={16} />
               </button>
                 <div className="item-base-item">
@@ -19,13 +29,13 @@ export default function CartItem({item, deleteFromCart}) {
                         </a>
                     </div>
                     <div className="itemContainer-base-itemRight">
-                        <div className="itemContainer-base-details" onClick={()=>{console.log(item)}}>
+                        <div className="itemContainer-base-details">
                             <div>
                                 <div className="itemContainer-base-brand">{item.category_name}</div>
                                 <a className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
                                 {`${item.name}`} 
                                 {/* {item.color? ` - ${item.color}`: ''}  */}
-                                {item.size? ` - ${item.size}`: ''}
+                                {item.option_value_1? ` - ${item.option_value_1}`: ''}
                                 </a>
                             </div>
                             <div className="itemComponents-base-sellerContainer">
@@ -40,8 +50,8 @@ export default function CartItem({item, deleteFromCart}) {
                                         :
                                         <>
                                             <p className="font-xs">
-                                                <span>From: </span> {new Date(item.deliveryDate).toLocaleDateString('en-GB')}
-                                                <span> - To: </span>{new Date(item.returnByDate).toLocaleDateString('en-GB')}
+                                                <span>From: </span> {reverseDateOrder(item.rental_start_date)}
+                                                <span> - To: </span>{reverseDateOrder(item.rental_end_date)}
                                             </p>
                                             <p className="font-xs">
                                             </p>
@@ -52,7 +62,7 @@ export default function CartItem({item, deleteFromCart}) {
                             <div className="itemContainer-base-sizeAndQtyContainer">
                                 <div className="itemContainer-base-sizeAndQty">
                                     <div className="itemComponents-base-size">
-                                        <span className>Qty: {item.quantity}</span>
+                                        <span className>Qty: {item.qty}</span>
                                     </div>
                                 </div>
                             </div>

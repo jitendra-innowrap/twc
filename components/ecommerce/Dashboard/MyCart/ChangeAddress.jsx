@@ -103,14 +103,18 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
 
     if (!hasError) {
       // Save the address
-    //   if(address.isDefault==true){
-    //     const updatedAddresses = addressList.map((address) => {
-    //           return { ...address, isDefault: false };
-    //       });
-    //       setAddressList([address,...updatedAddresses]);
-    //   }else{
-    //     setAddressList(prevList => [address, ...prevList])
-    //   }
+      if(address.isDefault==true){
+        const updatedAddresses = addressList?.map((address) => {
+              return { ...address, isDefault: false };
+          });
+          if(updatedAddresses?.length>0){
+              setAddressList([address,...updatedAddresses]);
+          }else{
+            setAddressList([address]);
+          }
+      }else{
+        setAddressList(prevList => [address, ...prevList])
+      }
 
     try {
         let body = {
@@ -160,20 +164,20 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                         </div>
                     </div>
                     {
-                        addressList.map((address)=>{
+                        addressList?.map((address)=>{
                             return (
-                                <div className={`addressStripV2-base-desktopContainer ${deliveredTo == address.id? 'selected':''}`}>
+                                <div className={`addressStripV2-base-desktopContainer ${deliveredTo == address?.id? 'selected':''}`}>
                                     <div className="addressStripV2-base-title">
                                         <div className="addressStripV2-base-addressName">
-                                            Deliver to: {address.id} <span className="addressStripV2-base-highlight">{address.name}</span>,
-                                            <div className="addressStripV2-base-highlight">{address.pincode}</div>
+                                            Deliver to:<span className="addressStripV2-base-highlight">{address?.name}</span>,
+                                            <div className="addressStripV2-base-highlight">{address?.pincode}</div>
                                         </div>
                                         <div className="addressStripV2-base-subText">
-                                            {`${address.address_line_1}, ${address.address_line_2}`}
+                                            {`${address?.address_line_1 || address?.addressLine1}, ${address?.address_line_2 || address?.addressLine2}`}
                                         </div>
                                     </div>
-                                    <div onClick={()=>{handleSelectAddress(address.id)}} className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop">
-                                        {deliveredTo == address.id?"Selected":"Choose"}
+                                    <div onClick={()=>{handleSelectAddress(address?.id)}} className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop">
+                                        {deliveredTo == address?.id?"Selected":"Choose"}
                                     </div>
                                 </div>
                             )
@@ -200,7 +204,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className={`form-control square`}
                             name="name"
                             type="text"
-                            value={address.name}
+                            value={address?.name}
                             onChange={handleInputChange}
                         />
                         {error.name && <div className="errorContainer">Name is required</div>}
@@ -217,7 +221,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             name="mobile"
                             maxLength={10}
                             type="tel"
-                            value={address.mobile}
+                            value={address?.mobile}
                             onChange={handleInputChange}
                         />
                         {error.mobile && <div className="errorContainer">Please enter a valid mobile number (10 digits)</div>}
@@ -232,7 +236,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className={`form-control square`}
                             name="addressLine1"
                             type="text"
-                            value={address.addressLine1}
+                            value={address?.addressLine1}
                             onChange={handleInputChange}
                         />
                         {error.addressLine1 && <div className="errorContainer">Address is required</div>}
@@ -243,7 +247,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className="form-control square"
                             name="addressLine2"
                             type="text"
-                            value={address.addressLine2}
+                            value={address?.addressLine2}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -253,7 +257,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className="form-control square"
                             name="landmark"
                             type="text"
-                            value={address.landmark}
+                            value={address?.landmark}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -267,7 +271,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className={`form-control square`}
                             name="pincode"
                             type="text"
-                            value={address.pincode}
+                            value={address?.pincode}
                             onChange={handleInputChange}
                         />
                         {error.pincode && <div className="errorContainer">Pincode is required</div>}
@@ -282,7 +286,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className={`form-control square`}
                             name="state"
                             type="text"
-                            value={address.state}
+                            value={address?.state}
                             onChange={handleInputChange}
                         />
                         {error.state && <div className="errorContainer">State is required</div>}
@@ -297,7 +301,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             className={`form-control square`}
                             name="city"
                             type="text"
-                            value={address.city}
+                            value={address?.city}
                             onChange={handleInputChange}
                         />
                         {error.city && <div className="errorContainer">City is required</div>}
@@ -310,13 +314,13 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                         </label>
                         <div className="address-type-buttons">
                             <button
-                                className={`${address.addressType === '0' ? 'selected' : ''}`}
+                                className={`${address?.addressType === '0' ? 'selected' : ''}`}
                                 onClick={() => handleAddressTypeChange('0')}
                             >
                                 Home
                             </button>
                             <button
-                                className={`${address.addressType === '1' ? 'selected' : ''}`}
+                                className={`${address?.addressType === '1' ? 'selected' : ''}`}
                                 onClick={() => handleAddressTypeChange('1')}
                             >
                                 Office

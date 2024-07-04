@@ -3,6 +3,9 @@ import Popup from 'reactjs-popup';
 import AddAddress from './AddAddress';
 import EditAddress from './EditAddress';
 import { deleteAddress, getAddressList } from '../../../../util/api';
+import Lottie from "lottie-web";
+import success from "../../../../public/assets/Lottie/no-orders.json"
+import Link from 'next/link';
 const dummyAddresses = [
     {
       id: "1",
@@ -74,7 +77,15 @@ const dummyAddresses = [
 export default function index() {
     const [expanded, setExpanded] = useState(0);
     const [addressList, setAddressList] = useState([]);
-    
+    useEffect(() => {
+        Lottie.loadAnimation({
+          container: document.getElementById('animation'),
+          animationData: success,
+          renderer: 'svg',
+          loop: true,
+          autoplay: true,
+        });
+      }, []);
     useEffect(() => {
       fetchAddressList();
     }, [])
@@ -129,52 +140,62 @@ export default function index() {
                         </Popup>
                     </div>
                 </div>
-
+                {
+                    !addressList?.length>0?
+                    (
+                        <div className="order-sucess-container mb-20" style={{boxShadow:'none'}}>
+                            <div id="animation" style={{ width: 200, height: 200 , marginInline:"auto"}} />
+                            <h1 className="mb-20">No Saved Address!</h1>
+                            <p className="mb-20">Click On Add New Button to Add.</p>
+                            
+                        </div>
+                    ):
                     <div className="address_list">
-                    {addressList?.map((address, id)=>(
-                    <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> setExpanded(id)} key={id}>
-                        <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
-                        <address>
-                            {address.address_line_1}<br />
-                            {address.address_line_2 && <>{address.address_line_2}<br /></> }
-                            {`${address.city}, ${address.state_name} - ${address.pincode}`}<br />
-                            {address.landmark && <>{address.landmark}<br /></> }
-                        </address>
-                        {
-                            expanded===id && (
-                                <div className="bottom">
-                                    <div className="address-phone">+91 9090909090</div>
-                                        <div className="card-actions">
-                                            <div className="">
-                                                {address.is_default == 0 && 
-                                                <button href="#" onClick={() => {
-                                                    handleSetDefault(address.id);
-                                                    }} className="btn-small">Set as default Address</button>}</div>
-                                            {<div className="change">
-                                                <Popup
-                                                    trigger={<button href="#" className="btn-small"><i className='fi-rs-pencil mr-5'></i>Edit</button>} 
-                                                    modal 
-                                                    position="right center"
-                                                    >
-                                                        {
-                                                            (close)=>(
-                                                                <EditAddress addressList={addressList} close={close} setAddressList={setAddressList} currentAddress={address} />
-                                                            )
-                                                        }
-                                                </Popup>
-                                                
-                                                <button href="#" onClick={() => {
-                                                    handleDelete(address.id);
-                                                    }} className="btn-small ml-20"><i className='fi-rs-trash mr-5'></i>delete</button>
-                                            </div>}
+                        {addressList?.map((address, id)=>(
+                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> setExpanded(id)} key={id}>
+                                <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
+                                <address>
+                                    {address.address_line_1}<br />
+                                    {address.address_line_2 && <>{address.address_line_2}<br /></> }
+                                    {`${address.city}, ${address.state_name} - ${address.pincode}`}<br />
+                                    {address.landmark && <>{address.landmark}<br /></> }
+                                </address>
+                                {
+                                    expanded===id && (
+                                        <div className="bottom">
+                                            <div className="address-phone">+91 9090909090</div>
+                                                <div className="card-actions">
+                                                    <div className="">
+                                                        {address.is_default == 0 && 
+                                                        <button href="#" onClick={() => {
+                                                            handleSetDefault(address.id);
+                                                            }} className="btn-small">Set as default Address</button>}</div>
+                                                    {<div className="change">
+                                                        <Popup
+                                                            trigger={<button href="#" className="btn-small"><i className='fi-rs-pencil mr-5'></i>Edit</button>} 
+                                                            modal 
+                                                            position="right center"
+                                                            >
+                                                                {
+                                                                    (close)=>(
+                                                                        <EditAddress addressList={addressList} close={close} setAddressList={setAddressList} currentAddress={address} />
+                                                                    )
+                                                                }
+                                                        </Popup>
+                                                        
+                                                        <button href="#" onClick={() => {
+                                                            handleDelete(address.id);
+                                                            }} className="btn-small ml-20"><i className='fi-rs-trash mr-5'></i>delete</button>
+                                                    </div>}
+                                                </div>
                                         </div>
-                                </div>
-                            )
-                        }
-                    </div>  
-                    ))}
+                                    )
+                                }
+                            </div>  
+                        ))}
 
                     </div>
+                }
             </div>
         </div>
     )
