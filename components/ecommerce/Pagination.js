@@ -14,7 +14,7 @@ function Pagination({
             <ul className="pagination justify-content-start">
                 {getPaginationGroup.length <= 0 ? null : (
                     <li onClick={prev} className="page-item">
-                        {currentPage === 1 ? null : (
+                        {currentPage == 1 ? null : (
                             <a className="page-link">
                                 <i className="fi-rs-angle-double-small-left"></i>
                             </a>
