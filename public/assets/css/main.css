@@ -12460,3 +12460,23 @@ input[type="checkbox"]:checked {
   height: 100% !important;
   object-fit: contain; 
 } */
+
+
+/* Pop Up sign in */
+.popUpContainer.login img.login-banner-image{
+  margin-top: 60px;
+}
+.popUpContainer.login .heading_s1 .welcome_header{
+  margin-bottom: 0 !important;
+}
+.popUpContainer.login .close_popUp{
+  z-index: 10;
+  top: 15px;
+}
+.popUpContainer.login{
+  padding-block: 0;
+  margin-block: 30px;
+}
+.popUpContainer.login .heading_s1 {
+  top: 0;
+}
