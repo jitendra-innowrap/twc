@@ -11321,6 +11321,12 @@ span.fi-rs-apps {
   font-weight: 600;
   color: #046963;
 }
+
+.get-help span{
+  font-weight: 600;
+  cursor: pointer;
+  color: #088178;
+}
 .login_wrap .backButton{
   height: 16px;
   font-weight: 1000;
@@ -11656,7 +11662,16 @@ input[type="checkbox"]:checked {
   font-size: 14px;
   font-weight: 700;
 }
-
+.billing_address .billing_address_check{
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 15px;
+}
+.billing_address .billing_address_check input#billing_address{
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
 /* Cart item */
 .itemContainer-base-itemMargin {
   margin-bottom: 8px;
@@ -12480,3 +12495,8 @@ input[type="checkbox"]:checked {
 .popUpContainer.login .heading_s1 {
   top: 0;
 }
+main.login_page{
+  overflow-y: hidden;
+}
+
+

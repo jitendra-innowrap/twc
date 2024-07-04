@@ -26,7 +26,7 @@ function Terms() {
                                         <img src="assets/imgs/blog/blog-10.jpg" alt="" />
                                     </figure>
                                     <div className="single-content">
-                                        <p> Please read these Terms of Service (“Terms”, “Terms of Service”) carefully before using the https://Evara.com website (the “Service”) operated by Evara (“us”, “we”, or “our”).</p>
+                                        <p> Please read these Terms of Service (“Terms”, “Terms of Service”) carefully before using the https://Evara.com website (the “Service”) operated by The Party Cafe(“us”, “we”, or “our”).</p>
                                         <p>Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
                                         <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.</p>
                                         <h4>Rights & restrictions</h4>
@@ -39,7 +39,7 @@ function Terms() {
                                         </ol>
                                         <h4>Links To Other Web Sites</h4>
                                         <p>Our Service may contain links to third-party web sites or services that are not owned or controlled by Evara.</p>
-                                        <p>Evara has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that Evara shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.</p>
+                                        <p>The Party Cafehas no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that The Party Cafeshall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.</p>
                                         <p>We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or services that you visit.</p>
                                         <h4>Termination</h4>
                                         <p>We may terminate or suspend access to our Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>

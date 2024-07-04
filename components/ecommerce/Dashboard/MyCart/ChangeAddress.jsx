@@ -159,7 +159,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                 <div className="change_address_list">
                     <div className="heading_s2">
                         <h4>Saved Address</h4>
-                        <div className="add_new_btn" onClick={()=>{setAddNew(true)}}>
+                        <div className="add_new_btn" role='button' onClick={()=>{setAddNew(true)}}>
                             <i className='fi-rs-plus'></i> <span>Add New</span>
                         </div>
                     </div>
@@ -188,7 +188,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
             :
             <div className="padding_eight_all bg-white p-30">
                 <div className="heading_s1">
-                    <h3 className="welcome_header"><i onClick={()=>{setAddNew(false)}} className='fi-rs-arrow-left mr-15'></i>Change Address</h3>
+                    <h3 className="welcome_header"><i role='button'  onClick={()=>{setAddNew(false)}} className='fi-rs-arrow-left mr-15'></i>Change Address</h3>
                     <button onClick={handleBack} className="close_popUp">
                         <MdClose fontSize={22} />
                     </button>
@@ -270,7 +270,8 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                             required
                             className={`form-control square`}
                             name="pincode"
-                            type="text"
+                            type="tel"
+                            maxLength={6}
                             value={address?.pincode}
                             onChange={handleInputChange}
                         />

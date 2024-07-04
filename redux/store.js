@@ -7,7 +7,7 @@ import wishlist from './Slices/wishlistSlice';
 const combinedReducer = combineReducers({
   cart,
   auth,
-  wishlist
+  wishlist,
 });
 
 const masterReducer = (state, action) => {

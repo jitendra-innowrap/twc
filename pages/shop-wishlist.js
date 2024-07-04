@@ -14,10 +14,10 @@ const Wishlist = ({
     addToCart,
 }) => {
     const router = useRouter();
-    const user = storage.get("dokani_user");
+    const isLoggedIn = storage.get("auth_token");
 
     useEffect(() => {
-        if(!user?.isLoggedIn){
+        if(!isLoggedIn){
             router.push('/')
         }
     }, [])

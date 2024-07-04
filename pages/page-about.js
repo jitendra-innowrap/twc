@@ -236,7 +236,7 @@ function About() {
                         <div className="row mb-50">
                             <div className="col-lg-12 col-md-12 text-center">
                                 <h6 className="mt-0 mb-5 text-uppercase  text-brand font-sm wow fadeIn animated">
-                                    Evara Coporation
+                                    The Party CafeCoporation
                                 </h6>
                                 <h2 className="mb-15 text-grey-1 wow fadeIn animated">
                                     Our main branches
