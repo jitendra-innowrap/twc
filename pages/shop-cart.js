@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
 import LoginRegister from "../components/ecommerce/LoginRegister";
+import { MdClose } from "react-icons/md";
 
 
 const Cart = () => {
@@ -104,19 +105,26 @@ const Cart = () => {
                                                     }
                                             </Popup>
                                             :
-                                            <Popup
+                                            <div className="login_popUp">
+                                                <Popup
                                                 trigger={<div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
-                                                    {addressList?.length>0?'CHANGE ADDRESS':'SIGN TO ADD ADDRESS'}
+                                                    {addressList?.length>0?'CHANGE ADDRESS':'ADD ADDRESS'}
                                             </div>} 
                                                 modal 
                                                 position="right center"
                                                 >
                                                     {
                                                         (close)=>(
+                                                            <div className='popUpContainer login'>
+                                                                <button onClick={close} className='close_popUp'>
+                                                                    <MdClose fontSize={22}/>
+                                                                </button>
                                                             <LoginRegister close={close} />
+                                                            </div>
                                                         )
                                                     }
-                                            </Popup>    
+                                            </Popup> 
+                                            </div>   
                                         }
                                         </div>
                                         <div id="cartItemsList">

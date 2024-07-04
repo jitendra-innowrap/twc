@@ -1,6 +1,7 @@
 // cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { addToCart, deleteFromCart, getCartList } from '../../util/api';
+import { Bounce, toast } from 'react-toastify';
 
 const INIT_LOCALSTORAGE = 'cart/INIT_LOCALSTORAGE';
 
@@ -14,12 +15,35 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
 export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (product) => {
   const response = await addToCart(product);
   console.log('response from thunk add', response.data)
+  toast.success("Added to Cart!", {
+    position: "bottom-center",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
   return response.data;
+  
 });
 
 export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (product) => {
   const response = await deleteFromCart(product);
   console.log('response from thunk remove', response.data)
+  toast.success("Removed to Cart!", {
+    position: "bottom-center",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
   return response.data;
 });
 

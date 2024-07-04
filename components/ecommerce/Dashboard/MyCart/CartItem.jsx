@@ -44,7 +44,7 @@ export default function CartItem({item}) {
                                     item.product_type == "2" ?
                                         <>
                                             <p className="font-xs">
-                                                <span>Event Date:</span> {new Date(item.deliveryDate).toLocaleDateString('en-GB')}
+                                                <span>Event Date:</span> {reverseDateOrder(item.rental_start_date)}
                                             </p>
                                         </>
                                         :
