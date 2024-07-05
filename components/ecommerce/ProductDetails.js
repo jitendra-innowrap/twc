@@ -15,6 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../redux/Slices/authSlice";
 import { addToCart } from "../../util/api";
 import { addItemToCart, fetchCart } from "../../redux/Slices/cartSlice";
+import Popup from "reactjs-popup";
+import { MdClose } from "react-icons/md";
+import LoginRegister from "./LoginRegister";
+import storage from "../../util/localStorage";
+
 
 const colorsVariants =[
     "red",
@@ -32,7 +37,7 @@ const ProductDetails = ({
     let today = new Date();
     const router = useRouter();
     const dispatch = useDispatch();
-
+    const auth_token = storage.get("auth_token");
     const {slug} = router.query;
     // extracting details from the api
     const productDetails = product?.result?.[0];
@@ -331,7 +336,7 @@ const ProductDetails = ({
                                                     >
                                                         {isInCart ?'Go to cart':'Add to cart'}
                                                     </button>
-                                                    <a
+                                                    {auth_token?<a
                                                         aria-label="Add To Wishlist"
                                                         className="action-btn add-to-wishlist"
                                                         onClick={(e) =>
@@ -349,6 +354,26 @@ const ProductDetails = ({
                                                     >
                                                         <i className="fi-rs-heart"></i>
                                                     </a>
+                                                    : <Popup
+                                                        trigger={<a
+                                                            aria-label="Add To Wishlist"
+                                                            className="action-btn add-to-wishlist"
+                                                        >
+                                                            <i className="fi-rs-heart"></i>
+                                                        </a>}
+                                                        modal
+                                                        position="right center">
+                                                        {
+                                                            (close) => (
+                                                                <div className='popUpContainer login'>
+                                                                    <button onClick={close} className='close_popUp'>
+                                                                        <MdClose fontSize={22} />
+                                                                    </button>
+                                                                    <LoginRegister close={close} />
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </Popup>}
                                                 </div>
                                             </div>
                                             {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">

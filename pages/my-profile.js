@@ -6,6 +6,8 @@ import MyOrders from "../components/ecommerce/Dashboard/MyOrders";
 import MyAddress from "../components/ecommerce/Dashboard/MyAddress";
 import { useRouter } from "next/router";
 import storage from "../util/localStorage";
+import { useDispatch } from "react-redux";
+import { emptyCart } from "../redux/Slices/cartSlice";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
@@ -18,7 +20,12 @@ function Account() {
             router.push('/')
         }
     }, [])
-    
+    const dispatch = useDispatch();
+
+    const handleEmptyCart = () => {
+        dispatch(emptyCart());
+    };
+
     const handleOnClick = (index) => {
         setActiveIndex(index); // remove the curly braces
     };
@@ -27,7 +34,8 @@ function Account() {
         const randomString = Math.random().toString(36).substring(2);
         const token = btoa(randomString);
         storage.set("web_token", token);
-        storage.set("auth_token", null);        
+        storage.set("auth_token", null);
+        handleEmptyCart();
         router.push('/page-login-register')
     }
 
