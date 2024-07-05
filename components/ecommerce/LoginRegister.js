@@ -28,6 +28,7 @@ function LoginRegister({logIN}) {
                 .then(() => {
                     setOtpTimer(true);
                     startOTPTimer();
+                    setOtp(['', '', '', '']);
                 })
                 .catch((error) => {
                     console.error('Error resending OTP:', error);
