@@ -25,13 +25,13 @@ const CategoryProduct = ({ sub_categories }) => {
         {/* <li onClick={(e) => selectCategory(e, '')}>
           <a>All</a>
         </li> */}
-        {sub_categories.slice(0, visibleCategories).map((sub_category, i) => (
+        {sub_categories?.slice(0, visibleCategories)?.map((sub_category, i) => (
           <li key={i} onClick={(e) => selectCategory(e, `${sub_category.handle}`)}>
             <a>{sub_category.name}</a>
           </li>
         ))}
       </ul>
-      {sub_categories.length > 5 && (
+      {sub_categories?.length > 5 && (
         <div className="see-more-container">
           {visibleCategories < sub_categories.length ? (
             <button className="see-more-btn" onClick={handleSeeMore}>

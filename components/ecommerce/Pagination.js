@@ -12,7 +12,7 @@ function Pagination({
     return (
         <>
             <ul className="pagination justify-content-start">
-                {getPaginationGroup.length <= 0 ? null : (
+                {getPaginationGroup?.length <= 0 ? null : (
                     <li onClick={prev} className="page-item">
                         {currentPage == 1 ? null : (
                             <a className="page-link">
@@ -22,7 +22,7 @@ function Pagination({
                     </li>
                 )}
 
-                {getPaginationGroup.map((item, index) => {
+                {getPaginationGroup?.map((item, index) => {
                     return (
                         <li
                             onClick={() => handleActive(item)}
@@ -38,7 +38,7 @@ function Pagination({
                     );
                 })}
 
-                {getPaginationGroup.length <= 0 ? null : (
+                {getPaginationGroup?.length <= 0 ? null : (
                     <li onClick={next} className="page-item">
                         {currentPage >= pages ? null : (
                             <a className="page-link">
@@ -49,7 +49,7 @@ function Pagination({
                 )}
             </ul>
 
-            {getPaginationGroup.length <= 0 ? null : (
+            {getPaginationGroup?.length <= 0 ? null : (
                 <p>
                     showing {currentPage} of {pages}
                 </p>

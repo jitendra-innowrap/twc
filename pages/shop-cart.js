@@ -47,13 +47,9 @@ const Cart = () => {
             console.log(error)
         }
     }
-    const makeBillingSame =()=>{
-        if(deliveredTo===billingTo){
-            setBillingAsDelivery(false);
-        }else{
-            setBillingAsDelivery(true);
-            setBillingTo(deliveredTo)
-        }
+    const billingToggle =()=>{
+        setBillingAsDelivery(!billingAsDelivery)
+
     }
     useEffect(() => {
         dispatch(fetchCart());
@@ -133,10 +129,10 @@ const Cart = () => {
                                             auth_token && <div className="billing_address">
                                                 <hr />
                                                 <div className="billing_address_check d-flex">
-                                                    <input type="checkbox" checked={billingAsDelivery} onClick={makeBillingSame} name="billing_address" id="billing_address" />
-                                                    <label htmlFor="billing_address" className="mb-0">Billing Address Same as Delivery Address</label>
+                                                    <input type="checkbox" checked={!billingAsDelivery} onClick={billingToggle} name="billing_address" id="billing_address" />
+                                                    <label htmlFor="billing_address" className="mb-0"> Billing Address Same as Delivery Address</label>
                                                 </div>
-                                                {!billingAsDelivery && <div className="">
+                                                {billingAsDelivery && <div className="">
                                                     <div className="coupons-base-header">Billing Address</div>
                                                     <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `${addressList?.length > 0 ? '' : 'end'}` }}>
                                                         {
@@ -225,11 +221,28 @@ const Cart = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            <Link href={'/checkout-success'}>
+                                            {auth_token ? <Link href={'/checkout-success'}>
                                                 <button width="100%" letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
                                                     <div className="css-xjhrni">PLACE ORDER</div>
                                                 </button>
-                                            </Link>
+                                            </Link>:
+                                                <Popup
+                                                trigger={<div className="css-xjhrni">PLACE ORDER</div>}
+                                                modal
+                                                position="right center"
+                                            >
+                                                {
+                                                    (close) => (
+                                                        <div className='popUpContainer login'>
+                                                            <button onClick={close} className='close_popUp'>
+                                                                <MdClose fontSize={22} />
+                                                            </button>
+                                                            <LoginRegister close={close} />
+                                                        </div>
+                                                    )
+                                                }
+                                            </Popup>
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -15,7 +15,7 @@ import Preloader from "./../components/elements/Preloader";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function MyApp({ Component, pageProps }) {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const queryClient = new QueryClient()
 
     useEffect(() => {
