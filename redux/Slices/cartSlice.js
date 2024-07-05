@@ -63,6 +63,11 @@ const cartSlice = createSlice({
       state.cartCount = cart.cart_product_count || 0;
       state.cartDetails = cart.bill_details || {};
     },
+    emptyCart: (state) => {
+      state.cartItems = [];
+      state.cartCount = 0;
+      state.cartDetails = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -111,5 +116,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { initLocalStorage } = cartSlice.actions;
+export const { initLocalStorage, emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;
