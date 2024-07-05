@@ -70,13 +70,51 @@ function LoginRegister({logIN}) {
 
     const handleMobile = async () => {
         if (Mobile.length === 10) {
-            try {
-                const response = await loginApi(Mobile);
-                setStep(2);
-                setAuth_token(response.token)
-            } catch (error) {
-                console.error('Error during login:', error);
-            }
+                loginApi(Mobile)
+                .then((res) => {
+                    if(res?.code==1){
+                        setStep(2);
+                        setAuth_token(res?.token)
+                        toast.success("OTP Sent Successfully !", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    }else{
+                        toast.error("Something Went Wrong !", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        console.error(res)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error during login:', error);
+                    toast.error("Something Went Wrong !", {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                });
         } else {
             setError((prev) => ({ ...prev, mobile: true }));
         }
@@ -91,7 +129,18 @@ function LoginRegister({logIN}) {
                 if(res?.code==1){
                     storage.set("auth_token", auth_token);
                     storage.set("web_token", null);
-                    router.push(referrer)
+                    router.push(referrer);
+                    toast.success("Account Created Successfully !", {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
                 }else{
                     toast.error("Something Went Wrong !", {
                         position: "bottom-center",
@@ -146,10 +195,32 @@ function LoginRegister({logIN}) {
                         // Add your redirect logic
                         if (response?.result?.is_profile_completed == 0) {
                             setStep(3);
+                            toast.success("OTP Verified Successfully !", {
+                                position: "bottom-center",
+                                autoClose: 1500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                                transition: Bounce,
+                            });
                         } else {
                             router.push(referrer)
                             storage.set("auth_token", auth_token);
                             storage.set("web_token", null);
+                            toast.success("Logged In Successfully !", {
+                                position: "bottom-center",
+                                autoClose: 1500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                                transition: Bounce,
+                            });
                         }
                     } else {
                         console.error('Error verifying OTP:', error);
