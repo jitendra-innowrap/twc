@@ -227,7 +227,9 @@ const Cart = () => {
                                                 </button>
                                             </Link>:
                                                 <Popup
-                                                trigger={<div className="css-xjhrni">PLACE ORDER</div>}
+                                                trigger={<button width="100%" letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
+                                                    <div className="css-xjhrni">PLACE ORDER</div>
+                                                </button>}
                                                 modal
                                                 position="right center"
                                             >

@@ -40,7 +40,9 @@ const ProductDetails = ({
     const productGallary = product?.result?.[0]?.product_images;
     const collectionBanner = product?.product_bottom_collections?.[0];
     const [heighLightDate, setHeighLightDate] = useState(false)
-    const [isInCart, setIsInCart] = useState(productDetails?.qty!==0)
+    const [isInCart, setIsInCart] = useState(false)
+    const cartItems = useSelector((state) => state.cart.cartItems);
+
     const [isInWishlist, setIsInWishlist] = useState(false)
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
@@ -53,9 +55,31 @@ const ProductDetails = ({
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
-      setIsInCart(productDetails?.qty!==0)
+      let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
+      console.log('already in cart',inCart.length)
+      setIsInCart(inCart.length?true:false);
     }, [slug])  
-
+    
+    const handleCart = async (product) => {
+        let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
+        if(isInCart){
+            router.push('/shop-cart')
+        }else{
+            if (deliveryDate) {
+                dispatch(addItemToCart(product));
+                setIsInCart(true)
+              }else{
+                setHeighLightDate(true)
+              }
+        }
+    };
+    useEffect(() => {
+        let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
+        console.log('already in cart',inCart.length)
+        setIsInCart(inCart.length?true:false);
+    }, [router.query, handleCart])
+    
+    
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
             return(<button className="custom-date-input" onClick={onClick} ref={ref}>
@@ -70,18 +94,6 @@ const ProductDetails = ({
     const handleDeliveryDateChange = (date) => {
         setDeliveryDate(date);
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
-    };
-    const handleCart = async (product) => {
-        if(isInCart && productDetails.product_type==1){
-            router.push('/shop-cart')
-        }else{
-            if (deliveryDate) {
-                dispatch(addItemToCart(product));
-                setIsInCart(true)
-              }else{
-                setHeighLightDate(true)
-              }
-        }
     };
 
     const handleWishlist = (product) => {
@@ -317,7 +329,7 @@ const ProductDetails = ({
                                                         }
                                                         className="button button-add-to-cart"
                                                     >
-                                                        {(isInCart && productDetails?.product_type==1) ?'Go to cart':'Add to cart'}
+                                                        {isInCart ?'Go to cart':'Add to cart'}
                                                     </button>
                                                     <a
                                                         aria-label="Add To Wishlist"
@@ -337,6 +349,7 @@ const ProductDetails = ({
                                                     >
                                                         <i className="fi-rs-heart"></i>
                                                     </a>
+                                                    {JSON.stringify(isInCart)}
                                                 </div>
                                             </div>
                                             {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">

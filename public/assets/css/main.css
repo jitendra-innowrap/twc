@@ -12500,3 +12500,14 @@ main.login_page{
 }
 
 
+
+
+/* laptop first  reponsive */
+
+
+@media only screen and (max-width: 992px) {
+  .product-detail-gallary {
+      flex-direction: column;
+  }
+  /* .product-detail-gallary .small-gallary . */
+}
