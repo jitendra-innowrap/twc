@@ -216,7 +216,7 @@ const Products = () => {
                                 </div> */}
                             </div>
                             <div className="col-lg-9">
-                                {productList.length > 0 && <div className="shop-product-fillter">
+                                {productList?.length > 0 && <div className="shop-product-fillter">
                                     <div className="totall-product">
                                         <p>
                                             We found
@@ -238,7 +238,7 @@ const Products = () => {
                                     </div>
                                 </div>}
                                 <div className="row product-grid-3">
-                                    {productList.length === 0 && (
+                                    {productList?.length === 0 && (
                                         <div className="no-products-found">
                                             <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
                                             {/* <h3> No Products Found </h3> */}

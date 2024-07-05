@@ -53,7 +53,7 @@ const ProductDetails = ({
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
-      setIsInCart(productDetails?.qty!=0)
+      setIsInCart(productDetails?.qty!==0)
     }, [slug])  
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -72,8 +72,7 @@ const ProductDetails = ({
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
     const handleCart = async (product) => {
-
-        if(isInCart && product.product_type==1){
+        if(isInCart && productDetails.product_type==1){
             router.push('/shop-cart')
         }else{
             if (deliveryDate) {
