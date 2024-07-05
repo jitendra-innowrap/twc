@@ -271,7 +271,6 @@ export const verifyOTPApi = async ({ auth_token, otp }) => {
 export const resendOTPApi = async (auth_token) => {
   try {
     
-  const auth_token = getToken();
   const web_token = storage.get("web_token")
     const response = await axios.get(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
