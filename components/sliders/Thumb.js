@@ -10,10 +10,13 @@ import InnerImageZoom from 'react-inner-image-zoom';
 import { getYouTubeThumbnail } from "../../util/util";
 import { BiPlayCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
-
+import { useMediaQuery } from "react-responsive";
 SwiperCore.use([Navigation, Thumbs]);
 
 const ThumbSlider = ({ product }) => {
+    const isTab = useMediaQuery({
+        query: '(max-width: 992px)'
+      })
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [mainSwiper, setMainSwiper] = useState(null);
 
@@ -68,7 +71,7 @@ const ThumbSlider = ({ product }) => {
                 <Swiper
                     onSwiper={setThumbsSwiper}
                     spaceBetween={10}
-                    direction="vertical"
+                    direction={isTab?"horizontal":"vertical"}
                     slidesPerView={3}
                     freeMode={true}
                     watchSlidesProgress={true}
