@@ -349,7 +349,6 @@ const ProductDetails = ({
                                                     >
                                                         <i className="fi-rs-heart"></i>
                                                     </a>
-                                                    {JSON.stringify(isInCart)}
                                                 </div>
                                             </div>
                                             {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">
