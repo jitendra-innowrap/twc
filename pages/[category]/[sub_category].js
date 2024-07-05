@@ -106,10 +106,17 @@ const Products = () => {
 
     const next = () => {
         setCurrentPage((page) => page + 1);
+        Router.replace({
+            query: { ...Router.query, page:parseInt(currentPage)+1 },
+            });
+            console.clear()
     };
 
     const prev = () => {
         setCurrentPage((page) => page - 1);
+        Router.replace({
+            query: { ...Router.query, page:parseInt(currentPage)-1 },
+            });
     };
 
     const handleActive = (item) => {

@@ -260,7 +260,7 @@ function LoginRegister({logIN}) {
                                     ></path>
                                 </g>
                             </svg>
-                            <div className="welcomeText">Welcome to TWC</div>
+                            <div className="welcomeText">Welcome</div>
                             <div className="accountCreated">Your account has been created</div>
                         </div>
                         <div className="padding_eight_all bg-white  p-30">

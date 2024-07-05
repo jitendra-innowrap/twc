@@ -39,10 +39,9 @@ const ProductDetails = ({
     const relatedProducts  = product?.similar_product_subcategory;
     const productGallary = product?.result?.[0]?.product_images;
     const collectionBanner = product?.product_bottom_collections?.[0];
-
-
     const [heighLightDate, setHeighLightDate] = useState(false)
-    const [isInCart, setIsInCart] = useState(false)
+    const [isInCart, setIsInCart] = useState(productDetails?.qty!==0)
+    const [isInWishlist, setIsInWishlist] = useState(false)
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [deliveryDate, setDeliveryDate] = useState();
@@ -54,6 +53,7 @@ const ProductDetails = ({
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
+      setIsInCart(productDetails?.qty!=0)
     }, [slug])  
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -72,67 +72,44 @@ const ProductDetails = ({
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
     const handleCart = async (product) => {
-        if (deliveryDate) {
-            // dispatch(addItemToCart(product))
-            //   .unwrap()
-            //   .then(() => {
-            //     toast.success("Added to Cart!", {
-            //       position: "bottom-center",
-            //       autoClose: 1500,
-            //       hideProgressBar: false,
-            //       closeOnClick: true,
-            //       pauseOnHover: true,
-            //       draggable: true,
-            //       progress: undefined,
-            //       theme: "light",
-            //       transition: Bounce,
-            //     });
-            //   })
-            //   .catch((error) => {
-            //     toast.error("Failed to add to cart.", {
-            //       position: "bottom-center",
-            //       autoClose: 1500,
-            //       hideProgressBar: false,
-            //       closeOnClick: true,
-            //       pauseOnHover: true,
-            //       draggable: true,
-            //       progress: undefined,
-            //       theme: "light",
-            //       transition: Bounce,
-            //     });
-            //   });
-            // const res = await addToCart(product)
-            dispatch(addItemToCart(product));
-          }else{
-            setHeighLightDate(true)
-          }
+
+        if(isInCart && product.product_type==1){
+            router.push('/shop-cart')
+        }else{
+            if (deliveryDate) {
+                dispatch(addItemToCart(product));
+                setIsInCart(true)
+              }else{
+                setHeighLightDate(true)
+              }
+        }
     };
 
     const handleWishlist = (product) => {
-        let wishlistItem = {
-            id: product?.result?.[0]?.id,
-            handle: product?.result?.[0]?.handle,
-            product_images: product?.result?.[0]?.product_images,
-            name: product?.result?.[0]?.name,
-            product_tags: product?.result?.[0]?.product_tags,
-            category_handle: product?.result?.[0]?.category_handle,
-            sub_category_handle: product?.result?.[0]?.sub_category_handle,
-            sub_category_name: product?.result?.[0]?.sub_category_name,
-            selling_price: product?.result?.[0]?.selling_price,
-            mrp: product?.result?.[0]?.mrp,
-        }
-        addToWishlist(wishlistItem);
-        toast.success("Added to Wishlist !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
+        // let wishlistItem = {
+        //     id: product?.result?.[0]?.id,
+        //     handle: product?.result?.[0]?.handle,
+        //     product_images: product?.result?.[0]?.product_images,
+        //     name: product?.result?.[0]?.name,
+        //     product_tags: product?.result?.[0]?.product_tags,
+        //     category_handle: product?.result?.[0]?.category_handle,
+        //     sub_category_handle: product?.result?.[0]?.sub_category_handle,
+        //     sub_category_name: product?.result?.[0]?.sub_category_name,
+        //     selling_price: product?.result?.[0]?.selling_price,
+        //     mrp: product?.result?.[0]?.mrp,
+        // }
+        // addToWishlist(wishlistItem);
+        // toast.success("Added to Wishlist !", {
+        //     position: "bottom-center",
+        //     autoClose: 1500,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "light",
+        //     transition: Bounce,
+        // });
     };
 
     const handleQuantity = (type) => {
@@ -309,6 +286,7 @@ const ProductDetails = ({
                                                 />
                                             </div>
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
+
                                             <div className="detail-extralink">
                                                 <div className="product-extra-link2">
                                                     <a href={`https://wa.me/+919892745795/?text=Hi i'm interested in this product: 
@@ -340,7 +318,7 @@ const ProductDetails = ({
                                                         }
                                                         className="button button-add-to-cart"
                                                     >
-                                                        Add to cart
+                                                        {(isInCart && productDetails?.product_type==1) ?'Go to cart':'Add to cart'}
                                                     </button>
                                                     <a
                                                         aria-label="Add To Wishlist"

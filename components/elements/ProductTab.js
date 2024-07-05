@@ -90,7 +90,7 @@ const ProductTab = ({productDetails}) => {
                                 {productDetails?.product_subtext}
                             </p>
                             <br />
-                            <div dangerouslySetInnerHTML={{ __html: productDetails?.description }} />
+                            <div onClick={()=>{console.log(productDetails?.description)}} dangerouslySetInnerHTML={{ __html: productDetails?.description }} />
                         </div>
                     </div>
                     <div

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
 import { addAddress } from '../../../../util/api';
 
-export default function AddAddress({ close , setAddressList, addressList}) {
+export default function AddAddress({ close , setAddressList, fetchAddressList, addressList}) {
     const [isSumbitting, setIsSumbitting] = useState(false)
   const [address, setAddress] = useState({
     name: '',
@@ -81,17 +81,6 @@ export default function AddAddress({ close , setAddressList, addressList}) {
     }
 
     if (!hasError) {
-      // Save the address
-      // if(address.isDefault==true){
-      //   const updatedAddresses = addressList.map((address) => {
-      //         return { ...address, isDefault: false };
-      //     });
-      //     setAddressList([address,...updatedAddresses]);
-      // }else{
-      //     setAddressList(prevList => [address, ...prevList])
-      // }
-      
-
       // Adding address
       try {
         let body = {
@@ -108,9 +97,10 @@ export default function AddAddress({ close , setAddressList, addressList}) {
           pincode:address.pincode
         }
         const res = await addAddress(body);
-        console.log(res)
+        // make all other address isDefault false edited address index will not change
+        fetchAddressList();
       } catch (error) {
-        
+        console.log(error)
       }
       close();
       }
@@ -210,6 +200,7 @@ export default function AddAddress({ close , setAddressList, addressList}) {
                 className={`form-control square`}
                 name="pincode"
                 type="text"
+                maxLength={6}
                 value={address.pincode}
                 onChange={handleInputChange}
                 />

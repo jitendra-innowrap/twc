@@ -33,7 +33,7 @@ export default function CartItem({item}) {
                             <div>
                                 <div className="itemContainer-base-brand">{item.category_name}</div>
                                 <a className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
-                                {`${item.name}`} 
+                                {`${item.name}`}
                                 {/* {item.color? ` - ${item.color}`: ''}  */}
                                 {item.option_value_1? ` - ${item.option_value_1}`: ''}
                                 </a>

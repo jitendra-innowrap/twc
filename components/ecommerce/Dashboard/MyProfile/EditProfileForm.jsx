@@ -152,12 +152,17 @@ export default function EditProfileForm({user, handleSubmit}) {
                         value={tempUser.gender}
                         defaultValue={""}
                         onChange={handleInputChange}
-                    >
+                    >   
+                        <option value="" className="dropdown-item" selected={tempUser.gender === ""}>
+                        </option>
                         <option value="1" className="dropdown-item">
                         Male
                         </option>
                         <option value="2" className="dropdown-item">
                         Female
+                        </option>
+                        <option value="3" className="dropdown-item">
+                        Other
                         </option>
                     </select>
                 </div>
