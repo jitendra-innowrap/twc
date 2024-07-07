@@ -17,7 +17,7 @@ export default function Home() {
                     <Intro1 />
                 </section>
 
-                <section className="popular-categories section-padding mt-15 mb-25">
+                <section className="popular-categories section-padding mt-md-15 mb-md-25">
                     <div className="container wow fadeIn animated">
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Events Category
@@ -33,16 +33,16 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding mt-15 mb-25">
+                <section className="section-padding mt-md-15 mb-md-25">
                     <div className="container wow fadeIn animated">
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Rental Category
                         </h3>
-                        <div className="container mt-70">
+                        <div className="container mt-md-70">
                             <div className="rental-category">
                                 <div className="rental-category-card">
                                     <div
-                                        className="rental-category-card-img wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0"
+                                        className="rental-category-card-img wow fadeIn animated"
                                     >
                                         <Image
                                             src={'/assets/imgs/banner/For_Her.jpg'}
@@ -59,7 +59,7 @@ export default function Home() {
                                 </div>
                                 <div className="rental-category-card">
                                     <div
-                                        className="rental-category-card-img wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0"
+                                        className="rental-category-card-img wow fadeIn animated"
                                     >
                                         <Image
                                             src={'/assets/imgs/banner/For_Him.jpg'}
@@ -79,46 +79,46 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding mt-15 mb-25">
+                <section className="section-padding mt-md-15 mb-md-25">
                     <div className="container wow fadeIn animated">
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Rental Collections
                         </h3>
-                        <div className="rental-banner mt-70">
+                        <div className="rental-banner mt-15 mt-md-70">
                             <div
-                                className="rental-category-card-full image-press wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-category-card-full image-press wow fadeIn animated"
                             >
                                 <img src="/assets/imgs/banner/rental-banner-2.jpg" alt="" />
                             </div>
                         </div>
                         <div className="rental-collection-grid mt-20">
                             <div
-                                className="rental-collection-card-img wow fadeIn image-press animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-collection-card-img wow fadeIn image-press animated"
                             >
                                 <img src="/assets/imgs/banner/rental-collection-1.jpeg" alt="" />
                             </div>
                             <div
-                                className="rental-collection-card-img wow fadeIn image-press animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-collection-card-img wow fadeIn image-press animated"
                             >
                                 <img src="/assets/imgs/banner/rental-collection-2.jpeg" alt="" />
                             </div>
                             <div
-                                className="rental-collection-card-img wow fadeIn image-press animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-collection-card-img wow fadeIn image-press animated"
                             >
                                 <img src="/assets/imgs/banner/rental-collection-3.jpeg" alt="" />
                             </div>
                             <div
-                                className="rental-collection-card-img wow fadeIn image-press animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-collection-card-img wow fadeIn image-press animated"
                             >
                                 <img src="/assets/imgs/banner/rental-collection-4.jpeg" alt="" />
                             </div>
                             <div
-                                className="rental-collection-card-img wow fadeIn image-press animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-collection-card-img wow fadeIn image-press animated"
                             >
                                 <img src="/assets/imgs/banner/rental-collection-5.jpeg" alt="" />
                             </div>
                             <div
-                                className="rental-collection-card-img wow fadeIn image-press animated mb-md-4 mb-sm-4 mb-lg-0"
+                                className="rental-collection-card-img wow fadeIn image-press animated"
                             >
                                 <img src="/assets/imgs/banner/rental-collection-6.jpeg" alt="" />
                             </div>
@@ -190,7 +190,7 @@ export default function Home() {
 
                 <section className="section-padding">
                     <div className="container">
-                        <div className="head d-flex justify-content-center align-items-end mb-50">
+                        <div className="head d-flex justify-content-center align-items-end mb-md-50">
                             <div className="left">
                                 <h3 className="section-title">
                                     We love our clients
@@ -206,7 +206,7 @@ export default function Home() {
 
                 <section className="section-padding success-stories-section">
 
-                    <div className="container pt-25 pb-25">
+                    <div className="container pt-md-25 pb-md-25">
                         <div className="head d-flex justify-content-between align-items-end mb-50">
                             <div className="left">
                                 <p>The inspiring tales of our exceptional achievements.</p>
@@ -221,7 +221,7 @@ export default function Home() {
 
                 <section className="section-padding usp-section">
 
-                    <div className="container pt-25 pb-25">
+                    <div className="container pt-md-25 pb-25">
                         <div className="head d-flex justify-content-between align-items-start mb-50">
                             <div className="left">
                                 <h3 className="section-title title-rightline">

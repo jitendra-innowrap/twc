@@ -259,16 +259,17 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
               </div>
                     {error.addressType && <div className="errorContainer">Select address type</div>}
             </div>
-            <div className="form-group col-md-12 d-flex align-items-center">
+            <div  className="form-group col-md-12 d-flex align-items-center">
                 <input
                 type="checkbox"
                 name='setDefault'
+                role='button'
                 id='setDefault'
                 checked={address?.isDefault==1 ? true: false}
                 onChange={handleDefaultChange}
                 className='checkbox'
                 />
-                <label htmlFor='setDefault' className='ml-10'>
+                <label role='button' htmlFor='setDefault' className='ml-10 mb-0 cursor-pointer'>
                     Make this default address
                 </label>
             </div>

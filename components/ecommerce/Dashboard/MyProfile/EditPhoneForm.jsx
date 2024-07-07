@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from 'react-icons/md';
-import { editPhoneNumber, resendOTPApi, resendOTPForPhone, verifyOTPforPhone } from '../../../../util/api';
+import { editPhoneNumber, resendOTPForPhone, verifyOTPforPhone } from '../../../../util/api';
+import { Bounce, toast } from 'react-toastify';
 
 export default function EditPhoneForm({ close, setTempUser }) {
     const [Mobile, setMobile] = useState("");
@@ -19,17 +20,39 @@ export default function EditPhoneForm({ close, setTempUser }) {
     let [interval, updateInterval] = useState(null);
 
     const handleResendOTP = async () => {
-            try {
-                const res = await resendOTPForPhone(Mobile)
-                if (res.code === 1) {
-                    setOtpTimer(true);
-                    startOTPTimer();
-                } else {
-                    setError(prev => ({ ...prev, mobile: res.msg }));
-                }
-            } catch (error) {
-                console.error('Error resending OTP:', error);
+        try {
+            const res = await resendOTPForPhone(Mobile)
+            if (res.code === 1) {
+                setOtpTimer(true);
+                startOTPTimer();
+                toast.success("OTP Sent Successfully !", {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            } else {
+                setError(prev => ({ ...prev, mobile: res.msg }));
+                toast.error(`Error! ${res?.msg}`, {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
             }
+        } catch (error) {
+            console.error('Error resending OTP:', error);
+        }
     };
 
     const startOTPTimer = () => {
@@ -72,13 +95,36 @@ export default function EditPhoneForm({ close, setTempUser }) {
         if (Mobile.length === 10) {
             try {
                 const res = await editPhoneNumber(Mobile)
-                if (res.code === 0) {
-                    setError(prev => ({ ...prev, mobile: res.msg }));
-                } else {
+                if (res.code === 1) {
                     setStep(2);
+                    toast.success("OTP Sent Successfully !", {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                } else {
+                    setError(prev => ({ ...prev, mobile: res.msg }));
+                    toast.error(`Error! ${error?.msg}`, {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+
                 }
             } catch (error) {
-
+                console.error('Error resending OTP:', error);
             }
         } else {
             setError(prev => ({ ...prev, mobile: "Please enter a valid mobile number (10 digits)" }));
@@ -102,21 +148,42 @@ export default function EditPhoneForm({ close, setTempUser }) {
             })
                 .then((response) => {
                     // OTP is correct, redirect
-                    if (response.code == 1) {
+                    if (response?.code == 1) {
                         // Add your redirect logic
                         setStep(3);
                         setTempUser((prevTempUser) => ({
                             ...prevTempUser,
                             mobile: Mobile,
-                          }));
-                    } else {
-                        console.error('Error verifying OTP:', error);
-                        setError({ ...error, otp: true });
+                        }));
+                        toast.success("Mobile Verified Successfully !", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    } else {        
+                        toast.error(`Error! ${response?.msg}`, {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce, 
+                        });
+                        setError({ ...error, otp: response?.msg });
+                        console.error('Error verifying OTP:', response?.msg);
                     }
                 })
                 .catch((error) => {
                     console.error('Error verifying OTP:', error);
-                    setError({ ...error, otp: true });
                 });
         }
     };

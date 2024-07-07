@@ -54,7 +54,7 @@ const CategorySlider = () => {
     return (
         <>
             <Swiper
-                slidesPerView={isPhone?3:isTab?4:6}
+                slidesPerView={isPhone?3.2:isTab?4:6}
                 spaceBetween={20}
                 // autoplay={{
                 //     delay: 2500,

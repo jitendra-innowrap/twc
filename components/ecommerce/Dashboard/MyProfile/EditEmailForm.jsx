@@ -3,13 +3,14 @@ import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from 'react-icons/md';
 import { editEmail, editPhoneNumber, resendOTPForEmail, resendOTPForPhone, verifyOTPforEmail, verifyOTPforPhone } from '../../../../util/api';
-export default function EditEmailForm({close, setTempUser}) {
+import { Bounce, toast } from 'react-toastify';
+export default function EditEmailForm({ close, setTempUser }) {
     const [Email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [error, setError] = useState({email:false, otp:false})
+    const [error, setError] = useState({ email: false, otp: false })
     const inputRefs = useRef([]);
     const router = useRouter()
     let referrer = "/";
@@ -19,9 +20,25 @@ export default function EditEmailForm({close, setTempUser}) {
 
     const handleResendOTP = () => {
         resendOTPForEmail(Email)
-            .then(() => {
-                setOtpTimer(true);
-                startOTPTimer();
+            .then((response) => {
+                if (response?.code == 1) {
+                    setOtpTimer(true);
+                    startOTPTimer();
+                    setOtp(['', '', '', ''])
+                    toast.success("OTP Sent Successfully !", {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                } else {
+                    console.log('response', response)
+                }
             })
             .catch((error) => {
                 console.error('Error resending OTP:', error);
@@ -50,6 +67,7 @@ export default function EditEmailForm({close, setTempUser}) {
         }
         setOtpTimer(false);
         setTimerValue(60);
+        setOtp(['', '', '', ''])
         setStep(prev => prev - 1);
         setError({ mobile: false, otp: false })
     }
@@ -66,18 +84,29 @@ export default function EditEmailForm({close, setTempUser}) {
         if (emailRegex.test(Email)) {
             try {
                 const res = await editEmail(Email)
-                if (res.code === 0) {
-                    setError(prev => ({ ...prev, email: res.msg }));
-                } else {
+                if (res.code === 1) {
                     setStep(2);
+                    toast.success("OTP Sent Successfully !", {
+                        position: "bottom-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                } else {
+                    setError(prev => ({ ...prev, email: res.msg }));
                 }
             } catch (error) {
 
             }
         } else {
-          setError((prev) => ({ ...prev, email: true }));
+            setError((prev) => ({ ...prev, email: 'Please enter a valid email.' }));
         }
-      };
+    };
 
     const handleOtpChange = (index, value) => {
         const newOtp = [...otp];
@@ -90,29 +119,47 @@ export default function EditEmailForm({close, setTempUser}) {
 
         if (newOtp.every(digit => digit !== '')) {
             // Auto-submit the OTP
-              verifyOTPforEmail({
+            verifyOTPforEmail({
                 otp: newOtp.join(''),
                 email: Email,
             })
                 .then((response) => {
                     // OTP is correct, redirect
-                    if (response.code == 1) {
-                        // Add your redirect logic
-                        if (response?.result?.is_profile_completed == 0) {
-                            setStep(3);
-                        } else {
-                            storage.set("dokani_user", { auth_token: response?.token, user: response?.result, isLoggedIn: true });
-                            console.log('login', response)
-                            // router.push(referrer)
-                        }
-                    } else {
+                    if (response?.code == 1) {
+                        setStep(3);
+                        setTempUser((prevTempUser) => ({
+                            ...prevTempUser,
+                            email: Email,
+                          }));
+                        toast.success("Email Verified Successfully !", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    } else {        
+                        toast.error(`Error! ${response?.msg}`, {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
                         console.error('Error verifying OTP:', error);
-                        setError({ ...error, otp: true });
+                        setError({ ...error, otp: response?.msg });
                     }
                 })
                 .catch((error) => {
                     console.error('Error verifying OTP:', error);
-                    setError({ ...error, otp: true });
                 });
         }
     };
@@ -125,7 +172,7 @@ export default function EditEmailForm({close, setTempUser}) {
 
     return (
         <div className='popUpContainer'>
-          <button onClick={close} className='close_popUp'><MdClose fontSize={22}/></button>
+            <button onClick={close} className='close_popUp'><MdClose fontSize={22} /></button>
             {step === 1 ?
                 <div className="login_wrap w-100">
                     <div className="padding_eight_all bg-white  p-30">
@@ -142,9 +189,9 @@ export default function EditEmailForm({close, setTempUser}) {
                                 <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" className="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
                                 <span className="placeholderAlternative mobileNumber">
 
-                                    {!Email &&<span className="mobileNumberPlacholder">Email<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
+                                    {!Email && <span className="mobileNumberPlacholder">Email<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}
                                 </span><i className="bar"></i>
-                                {error.email && <div className="errorContainer">Please enter a valid email.</div>}
+                                {error.email && <div className="errorContainer">{error.email}</div>}
                             </div>
                             <div className="midLinks">
                                 By continuing, I agree to the
@@ -156,45 +203,45 @@ export default function EditEmailForm({close, setTempUser}) {
                     </div>
                 </div>
                 :
-                step === 2 ? 
+                step === 2 ?
                     <div className="login_wrap">
-                      <div className="verificationContainer">
-                        <div className="otpTopImage">
-                            <div className="image">
-                                <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
-                                    <picture className="img-responsive" style={{ width: '100%' }}>
-                                        <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
-                                        <img src className="img-responsive preLoad loaded" alt="otp screen vector image" title="otp screen" style={{ width: '100%' }} />
-                                    </picture>
+                        <div className="verificationContainer">
+                            <div className="otpTopImage">
+                                <div className="image">
+                                    <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
+                                        <picture className="img-responsive" style={{ width: '100%' }}>
+                                            <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
+                                            <img src className="img-responsive preLoad loaded" alt="otp screen vector image" title="otp screen" style={{ width: '100%' }} />
+                                        </picture>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="mobContainer">
-                            <h3>Verify with OTP</h3><h4>Sent to {Email}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
-                            <div className="otpContainer">
-                                {otp.map((digit, index) => (
-                                    <input
-                                        key={index}
-                                        name={`otp${index}`}
-                                        type="tel"
-                                        maxLength={1}
-                                        autoComplete="off"
-                                        value={digit}
-                                        onChange={(e) => handleOtpChange(index, e.target.value)}
-                                        onKeyDown={(e) => handleKeyDown(index, e)}
-                                        ref={(ref) => (inputRefs.current[index] = ref)}
-                                    />
-                                ))}
-                            </div>
-                            {error.otp && <div className="errorContainer">Incorrect OTP !</div>}
+                            <div className="mobContainer">
+                                <h3>Verify with OTP</h3><h4>Sent to {Email}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
+                                <div className="otpContainer">
+                                    {otp.map((digit, index) => (
+                                        <input
+                                            key={index}
+                                            name={`otp${index}`}
+                                            type="tel"
+                                            maxLength={1}
+                                            autoComplete="off"
+                                            value={digit}
+                                            onChange={(e) => handleOtpChange(index, e.target.value)}
+                                            onKeyDown={(e) => handleKeyDown(index, e)}
+                                            ref={(ref) => (inputRefs.current[index] = ref)}
+                                        />
+                                    ))}
+                                </div>
+                                {error.otp && <div className="errorContainer">{error?.otp}</div>}
 
-                            <div>
+                                <div>
                                     <button className="resendContainer" style={{ color: `${otpTimer ? 'gray' : ''}`, cursor: `${otpTimer ? 'default' : ''}` }} disabled={otpTimer} onClick={handleResendOTP}>RESEND OTP</button>
                                     {otpTimer && <span style={{ float: 'right', color: '#046963', marginTop: '30px' }}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
+                                </div>
                             </div>
+                            <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
                         </div>
-                        <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
-                    </div>
                     </div>
                     :
                     <div className="login_wrap w-100 d-flex align-items-center">

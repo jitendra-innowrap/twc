@@ -1035,7 +1035,8 @@ button[type='submit']:hover {
 }
 
 .btn:hover,
-.button:hover {
+.button:hover,
+.btn:focus {
   background-color: #046963;
 }
 
@@ -1351,6 +1352,7 @@ textarea:focus {
 .form-group input {
   background: #fff;
   border: 1px solid #e2e9e1;
+  border-radius: 4px;
   height: 45px;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -1360,9 +1362,82 @@ textarea:focus {
   width: 100%;
 }
 
-.form-group input:focus {
-  background: transparent;
+.form-group input.form-control:focus, .form-group button:focus {
+  border: 1px solid #088178 !important;
+  outline: none;
+  box-shadow: 0 0 0 1px #088178 !important;
+}
+.select__control--is-focused{
+  border-color: #088178 !important;
+  box-shadow: 0 0 0 1px #088178 !important;
+}
+.select__input-container input{
+  height: 32px;
+}
+.react-select .select__control, .react-select .select__control:hover{
   border-color: #e2e9e1;
+}
+
+.select__menu > .select__menu-list > .select__option--is-focused{
+  background-color: #09a39bbd; 
+  color: #fff;
+}
+/* Hover state */
+.select__menu > .select__menu-list > .select__option:hover, .select__menu > .select__menu-list > .select__option:focus {
+  background-color: #09a39bbd; 
+  color: #fff;
+}
+
+/* Selected state */
+.select__menu > .select__menu-list > .select__option--is-selected, 
+.select__menu > .select__menu-list > .select__option--is-selected:hover {
+  background-color: #04817a;
+  color: #fff;
+}
+.react-datepicker__year-dropdown{
+  background: #088178 !important;
+}
+.react-datepicker__year-dropdown .react-datepicker__navigation.react-datepicker__navigation--years{
+  display: none;
+}
+
+.react-datepicker__header__dropdown{
+    width: 100%;
+    margin: 0;
+    transform: translateY(-16px);
+}
+.react-datepicker__header__dropdown .react-datepicker__year-dropdown-container {
+  width: 60%;
+}
+.react-datepicker__header__dropdown .react-datepicker__year-read-view{
+  opacity: 0 !important;
+  background: #000;
+  width: 90%;
+}
+.react-datepicker__year-dropdown::-webkit-scrollbar {
+  width: 10px !important; /* Width of the scrollbar */
+}
+
+.react-datepicker__year-dropdown::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color of the track (the area behind the scrollbar) */
+  border-radius: 5px; /* Rounded corners of the track */
+}
+
+.react-datepicker__year-dropdown::-webkit-scrollbar-thumb {
+  background-color: #fc1b1b; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners of the scrollbar thumb */
+}
+
+.react-datepicker__year-dropdown::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color of the scrollbar thumb on hover */
+}
+
+.react-datepicker__year-dropdown {
+  scrollbar-width: thin; /* Width of the scrollbar in Firefox */
+  scrollbar-color: #088178 #d9d9d9; /* Color of the scrollbar thumb and track in Firefox */
+}
+.react-datepicker__year-dropdown .react-datepicker__year-option:hover{
+  background: #03a685;
 }
 
 label {
@@ -11489,6 +11564,8 @@ span.fi-rs-apps {
 .popUpContainer{
   position: relative;
   width: 400px;
+  max-width: 90vw;
+  margin-inline: auto;
   padding-block: 30px;
   /* background: #fff; */
   height: 100vh;
@@ -11573,8 +11650,11 @@ span.fi-rs-apps {
   border: 1.5px solid #088178;
   border-color: transparent;
 }
-.card-body.address .card-actions button:focus{
+.card-body.address .card-actions button:focus , .card-body.address .card-actions button:hover{
   border: 1.5px solid #088178;
+  border-radius: 4px;
+  color: #fff;
+  background: #088178;
 }
 
 .address-type-buttons button{
@@ -11591,11 +11671,15 @@ span.fi-rs-apps {
 }
 .add_address .checkbox{
   width: 20px;
+  height: 20px;
 }
+
 input[type="checkbox"]:checked {
   accent-color: #088178;
 }
-
+input[type="checkbox"]:hover{
+  border: 1px solid #088178;
+}
 .login_wrap.add_address{
   height: 100%;
   overflow-y: auto;
@@ -11959,7 +12043,7 @@ input[type="checkbox"]:checked {
   padding-top: 2px;
 }.returnPeriod-base-returnText {
   margin-left: 6px;
-  line-height: 2.5;
+  line-height: 1.5;
 }.returnPeriod-base-returnDays {
   font-weight: 700;
 }
@@ -12349,7 +12433,7 @@ input[type="checkbox"]:checked {
     overflow: auto;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
   }
   
   .events-collection-grid::-webkit-scrollbar {
@@ -12392,13 +12476,13 @@ input[type="checkbox"]:checked {
 @media (max-width:575px){
   .client-icons-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr ;
 }
 .rental-category{
   height: 300px;
 }
-
 }
+
 
 .header-wrap .logo.logo-width-1 {
   margin-right: 20px;
@@ -12502,12 +12586,204 @@ main.login_page{
 
 
 
+
 /* laptop first  reponsive */
 
 
 @media only screen and (max-width: 992px) {
+  .logo.logo-width-1 a img{
+    min-width: unset;
+    width: 80px;
+  }
   .product-detail-gallary {
       flex-direction: column;
   }
-  /* .product-detail-gallary .small-gallary . */
+  .product-detail-gallary .swiper.mySwiper{
+    height: 150px;
+    width: 100% !important;
+    margin-inline-start: 0;
+  }
+  .product-detail-gallary .swiper.mySwiper2{
+    width: 100% !important;
+  }
+  .small-gallary{
+    display: flex;
+    position: relative;
+  }
+  .product-detail-gallary .small-gallary .navigation{
+    /* position: absolute; */
+    width: unset;
+    height: 100%;
+    z-index: 1;
+    justify-content: space-between;
+  }
+  .product-detail-gallary .small-gallary .navigation button{
+    flex: none;
+    height: fit-content;
+    margin-block: auto;
+  }
+  .product-detail-gallary .small-gallary .navigation button{
+    position: absolute;
+    transform: rotate(-90deg);
+  }
+  .product-detail-gallary .small-gallary .navigation button.miniGallary_prev_n{
+    color: #fff;
+    top: calc( 50% - 20px);
+    left: 0;
+  }
+  .product-detail-gallary .small-gallary .navigation button.miniGallary_next_n{
+    color: #fff;
+    top: calc( 50% - 20px);
+    right: 0;
+  }
+  .detail-info .attr-size .list-filter li{
+    padding: 2px 7px;
+  }
+  .detail-info .attr-size .list-filter li a{
+    min-width: 20px;
+  }
+  .detail-info .attr-detail.attr-date{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .detail-info .detail-extralink .product-extra-link2{
+    flex-wrap: wrap;
+  }
+  .detail-info .detail-extralink .product-extra-link2 button.button-add-to-cart{
+    flex: 100%;
+    margin-top: 10px;
+    order: 3;
+  }
+  .tab-style3 .nav-tabs{
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .tab-style3 .tab-content.shop_info_tab{
+    margin-top: 20px;
+  }
+  .tab-style3 .nav-tabs li.nav-item a{
+    line-height: 18px;
+    font-size: 12px;
+  }
+  .banner-img.f-none{
+    margin-top: 20px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard-menu{
+    margin-bottom: 40px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  h3.section-title {
+    font-size: 14px;
+}
+.title-underline::after {
+  bottom: -10px;
+  height: 3px;
+}
+.card-1 h5 {
+  text-transform: uppercase;
+  font-size: 9px;
+  margin: 0 0;
+}
+.card-1 h5 a{
+  text-align: center;
+}
+.carausel-6-columns-cover .carausel-6-columns .card-1{
+  margin-inline: 0;
+}
+.rental-category{
+  height: auto;
+}
+.rental-category-card-img{
+  width: 100%;
+  height: auto;
+}
+.rental-category-card-img span{
+  width: 100% !important;
+  height: auto !important;
+  overflow: unset !important;
+  position: inherit !important;
+}
+.rental-category-card-img span img{ 
+  width: 100% !important;
+  height: auto !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  position: inherit !important;
+}
+p{
+  font-size: 12px;
+}
+.events-section .left .title-rightline::after, .success-stories-section .left .title-rightline::after, .usp-section .left .title-rightline::after{
+  margin-top: 16px;
+  height: 3px;
+}
+.events-section .right .title-btn, .usp-section .right .title-btn{
+  font-size: 10px;
+  width: max-content;
+}
+.product-detail-gallary {
+    flex-direction: column;
+}
+.usp-card .image {
+  width: 120px !important;
+  height: 100px !important;
+  margin-inline: 20px;
+}
+.usp-card h5{
+  font-size: 10px;
+}
+.usp-icons-grid{
+  margin-bottom: 70px;
+}
+.product-cart-wrap{
+  max-width: 300px;
+  margin-inline: auto;
+}
+.newsletter .icon-email{
+  max-width: 30px;
+}
+.newsletter h4{
+  font-size: 12px;
+}
+.newsletter form input{
+  height: 35px;
+}
+.newsletter .form-subcriber button{
+  font-size: 10px;
+  padding: 0 12px;
+}
+.change_address_list .addressStripV2-base-desktopContainer{
+  gap: 10px;
+}
+.itemContainer-base-itemLink{
+  display: block;
+  max-width: 100%;
+  font-size: 14px;
+  line-height: 18px;
+}
+}
+
+.itemComponents-base-sellerContainer .from-to-date-mobile{
+display: none;
+}
+@media only screen and (max-width: 400px) {
+  .itemComponents-base-sellerContainer .from-to-date{
+    display: none;
+    }
+    .itemComponents-base-sellerContainer .from-to-date-mobile{
+      display: block;
+      }
+.product-cart-wrap .product-img-action-wrap .product-img a img{
+  height: 250px;
+}
+.card-body.address .card-actions{
+  flex-direction: column;
+  gap: 20px;
+}
 }

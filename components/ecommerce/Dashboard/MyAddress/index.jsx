@@ -94,7 +94,6 @@ export default function index() {
         try {
             const res = await getAddressList();
             setAddressList(res?.result)
-            console.log(res)
         } catch (error) {
             
         }
@@ -158,7 +157,7 @@ export default function index() {
                     <div className="address_list">
                         {addressList?.map((address, id)=>(
                             <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> {setExpanded(id); console.log(address)}} key={id}>
-                                <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>Home</span></div>
+                                <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>{address?.address_type==1?'Office':'Home'}</span></div>
                                 <address>
                                     {address.address_line_1}<br />
                                     {address.address_line_2 && <>{address.address_line_2}<br /></> }
@@ -168,7 +167,7 @@ export default function index() {
                                 {
                                     expanded===id && (
                                         <div className="bottom">
-                                            <div className="address-phone">+91 9090909090</div>
+                                            <div className="address-phone">+91 {address.mobile}</div>
                                                 <div className="card-actions">
                                                     <div className="">
                                                         {address.is_default == 0 && 
@@ -177,7 +176,7 @@ export default function index() {
                                                             }} className="btn-small">Set as default Address</button>}</div>
                                                     {<div className="change">
                                                         <Popup
-                                                            trigger={<button href="#" className="btn-small"><i className='fi-rs-pencil mr-5'></i>Edit</button>} 
+                                                            trigger={<button href="#" className="btn-small"><i className='fi-rs-pencil mr-5'></i>Update</button>} 
                                                             modal 
                                                             position="right center"
                                                             >
@@ -190,7 +189,7 @@ export default function index() {
                                                         
                                                         <button href="#" onClick={() => {
                                                             handleDelete(address.id);
-                                                            }} className="btn-small ml-20"><i className='fi-rs-trash mr-5'></i>delete</button>
+                                                            }} className="btn-small ml-20"><i className='fi-rs-trash mr-5'></i>Delete</button>
                                                     </div>}
                                                 </div>
                                         </div>
