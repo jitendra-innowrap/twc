@@ -19,14 +19,14 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
         let tempUser = response.result?.[0];
         console.log('tempuser',tempUser)
         setUser({
-            fullname: tempUser.f_name,
-        mobile: tempUser.mobile,
-        email: tempUser.email,
-        gender: tempUser.gender || 1,
-        dob: tempUser.dob,
-        alternateMobile: tempUser.alternate_mobile,
-        isMobileVerified: true,
-        isEmailVerified: false,
+            fullname: tempUser?.f_name,
+        mobile: tempUser?.mobile,
+        email: tempUser?.email,
+        gender: tempUser?.gender || 1,
+        dob: tempUser?.dob,
+        alternateMobile: tempUser?.alternate_mobile,
+        isMobileVerified: tempUser?.is_mobile_verified,
+        isEmailVerified: tempUser?.is_email_verified,
         })
     }
     return (
@@ -35,7 +35,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                 <div>
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Full Name</h6>
+                            <label className="mb-0 text-dark fw-bold">Full Name</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
                             {user?.fullname}
@@ -44,7 +44,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Email</h6>
+                            <label className="mb-0 text-dark fw-bold">Email</label>
                         </div>
                         {user?.email && <div className="col-sm-9 text-secondary">
                             {user?.email}
@@ -58,7 +58,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Mobile</h6>
+                            <label className="mb-0 text-dark fw-bold">Mobile</label>
                         </div>
                         {user?.mobile && <div className="col-sm-9 text-secondary">
                             {user?.mobile}
@@ -72,7 +72,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Alternate Mobile</h6>
+                            <label className="mb-0 text-dark fw-bold">Alternate Mobile</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
                             {user?.alternateMobile}
@@ -81,16 +81,16 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Gender</h6>
+                            <label className="mb-0 text-dark fw-bold">Gender</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                            {user?.gender === "1" ? "Male" :user?.gender ==="2"? "Female":user?.gender ==="3"? "Other":''}
+                            {user?.gender == "1" ? "Male" :user?.gender =="2"? "Female":user?.gender =="3"? "Other":''}
                         </div>
                     </div>
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Date of Birth</h6>
+                            <label className="mb-0 text-dark fw-bold">Date of Birth</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
                             {user?.dob ? reverseDateOrder(user?.dob): ""}
@@ -103,7 +103,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                                 className="btn btn-info"
                                 onClick={() => setEdit(true)}
                             >
-                                Edit
+                                Update
                             </button>
                         </div>
                     </div>

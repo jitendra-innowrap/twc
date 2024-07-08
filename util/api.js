@@ -318,7 +318,7 @@ export const editProfileDetails = async ({ fullname, mobile, email, gender, dob,
   formData.append('mobile', mobile);
   formData.append('email', email);
   formData.append('gender', gender);
-  formData.append('dob', dob);
+  formData.append('dob', dob || "");
   formData.append('alternate_mobile', alternateMobile);
 
   try {

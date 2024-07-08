@@ -6,17 +6,6 @@ import SingleProduct from "./../ecommerce/SingleProduct";
 SwiperCore.use([Navigation]);
 
 const RelatedSlider = ({related}) => {
-    // const [related, setRelated] = useState([]);
-
-    // useEffect(() => {
-    //     fetchProducts();
-    // }, []);
-
-    // const fetchProducts = async () => {
-    //     // With Category
-    //     const allProducts = await fetchByCatagory("/static/product.json");
-    //     setRelated(allProducts);
-    // };
 
     return (
         <>

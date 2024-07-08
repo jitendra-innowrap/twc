@@ -1,12 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDatePicker from 'react-datepicker';
 import Popup from 'reactjs-popup';
 import EditEmailForm from './EditEmailForm';
 import EditPhoneForm from './EditPhoneForm';
 import { clipDateOnly, reverseDateOrder } from '../../../../util/util';
+import Select from 'react-select';
 
-export default function EditProfileForm({user, handleSubmit}) {
+export default function EditProfileForm({ user, handleSubmit }) {
+    const genderOptions = [
+        { value: 1, label: "Male" },
+        { value: 2, label: "Female" },
+        { value: 3, label: "Other" },
+    ];
+    const initialGender = user?.gender
+            ? genderOptions.find((option) => option.value === user.gender)
+            : null;
+    const [selectedGender, setSelectedGender] = useState(initialGender);
     const [tempUser, setTempUser] = useState(user);
+
+
+    useEffect(() => {
+        const initialGender = user?.gender
+            ? genderOptions.find((option) => option.value == user.gender)
+            : null;
+        console.log('open edit', initialGender)
+        setSelectedGender(initialGender);
+    }, []);
+
+    const handleGenderChange = (option) => {
+        setSelectedGender(option);
+        setTempUser({ 
+            ...tempUser,
+            gender: option?.value || ""
+         });
+    };
+
+    const handleGenderClear = () => {
+        setSelectedGender(null);
+        setTempUser({
+            ...tempUser,
+            gender: "",
+        });
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setTempUser({
@@ -17,7 +53,7 @@ export default function EditProfileForm({user, handleSubmit}) {
 
     const handleDateChange = (date) => {
         let dateDobDate
-        if(date){
+        if (date) {
             dateDobDate = clipDateOnly(date);
         }
         setTempUser({
@@ -31,7 +67,7 @@ export default function EditProfileForm({user, handleSubmit}) {
         handleSubmit(tempUser)
     }
 
-    const handleMobile  = (e) => {
+    const handleMobile = (e) => {
         e.preventDefault();
         handleSubmit(tempUser)
     }
@@ -77,22 +113,22 @@ export default function EditProfileForm({user, handleSubmit}) {
                         />
                         <Popup
                             trigger={
-                                <button 
-                                    className="btn btn-secondary btn-sm float-right" 
-                                    type='button' 
+                                <button
+                                    className="btn btn-secondary btn-sm float-right"
+                                    type='button'
                                     onClick={handleEmail}
-                                    >Change
-                                </button>} 
-                            modal 
+                                >Change
+                                </button>}
+                            modal
                             position="right center"
-                            >
-                                {
-                                    (close)=>(
-                                        <EditEmailForm close={close} setTempUser={setTempUser} />
-                                    )
-                                }
+                        >
+                            {
+                                (close) => (
+                                    <EditEmailForm close={close} setTempUser={setTempUser} />
+                                )
+                            }
                         </Popup>
-                        
+
                     </div>
                 </div>
                 <div className="form-group col-md-12 d-relative">
@@ -112,20 +148,20 @@ export default function EditProfileForm({user, handleSubmit}) {
                         />
                         <Popup
                             trigger={
-                                <button 
-                                    className="btn btn-secondary btn-sm float-right" 
-                                    type='button' 
+                                <button
+                                    className="btn btn-secondary btn-sm float-right"
+                                    type='button'
                                     onClick={handleMobile}
-                                    >Change
-                                </button>} 
-                            modal 
+                                >Change
+                                </button>}
+                            modal
                             position="right center"
-                            >
-                                {
-                                    (close)=>(
-                                        <EditPhoneForm close={close} setTempUser={setTempUser} />
-                                    )
-                                }
+                        >
+                            {
+                                (close) => (
+                                    <EditPhoneForm close={close} setTempUser={setTempUser} />
+                                )
+                            }
                         </Popup>
                     </div>
                 </div>
@@ -143,10 +179,26 @@ export default function EditProfileForm({user, handleSubmit}) {
                     />
                 </div>
                 <div className="form-group col-md-12">
-                    <label>
-                        Gender
-                    </label>
-                    <select
+                    <label>Gender</label>
+                    <Select
+                        className="react-select"
+                        classNamePrefix="select"
+                        styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderColor: state.isFocused ? 'grey' : 'red',
+                            })
+                        }}
+                        defaultValue={selectedGender}
+                        value={selectedGender}
+                        isClearable={true}
+                        name="gender"
+                        options={genderOptions}
+                        onChange={handleGenderChange}
+                        onClear={handleGenderClear}
+                    />
+                </div>
+                {/* <select
                         className="form-control square dropdown-toggle"
                         name="gender"
                         value={tempUser.gender}
@@ -164,17 +216,19 @@ export default function EditProfileForm({user, handleSubmit}) {
                         <option value="3" className="dropdown-item">
                         Other
                         </option>
-                    </select>
-                </div>
+                    </select> */}
                 <div className="form-group col-md-12">
                     <label>
                         Date of Birth
                     </label>
-                    <ReactDatePicker                        
+                    <ReactDatePicker
                         selected={tempUser.dob}
                         onChange={handleDateChange}
                         dateFormat="dd/MM/yyyy"
                         className="form-control square ml-15"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        onYearChange={""}
                     />
                 </div>
                 <div className="col-md-12">

@@ -49,10 +49,14 @@ export default function CartItem({item}) {
                                         </>
                                         :
                                         <>
-                                            <p className="font-xs">
-                                                <span>From: </span> {reverseDateOrder(item.rental_start_date)}
-                                                <span> - To: </span>{reverseDateOrder(item.rental_end_date)}
-                                            </p>
+                                        <p className="font-xs from-to-date">
+                                            <span>From: </span> {reverseDateOrder(item.rental_start_date)}
+                                            <span> - To: </span>{reverseDateOrder(item.rental_end_date)}
+                                        </p>
+                                        <p className="font-xs from-to-date-mobile">
+                                            <span>From: </span> {reverseDateOrder(item.rental_start_date)}
+                                            <br /><span>To: </span>{reverseDateOrder(item.rental_end_date)}
+                                        </p>
                                             <p className="font-xs">
                                             </p>
                                         </>

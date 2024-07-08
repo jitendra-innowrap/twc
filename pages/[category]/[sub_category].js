@@ -154,7 +154,7 @@ const Products = () => {
                                 <div className="sidebar-widget price_range range mb-30">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
-                                            Fillter by
+                                            Filter by
                                         </h5>
                                         <div className="bt-1 border-color-1"></div>
                                     </div>

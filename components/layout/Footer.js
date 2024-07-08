@@ -12,7 +12,7 @@ const Footer = () => {
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-lg-7 mb-md-3 mb-lg-0">
-                                <div className="row align-items-center">
+                                <div className="align-items-center">
                                     <div className="col flex-horizontal-center">
                                         <img
                                             className="icon-email"

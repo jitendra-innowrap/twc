@@ -138,7 +138,7 @@ const ProductDetails = ({
     
     return (
         <>
-            <section className="mt-50 mb-50">
+            <section className="mt-md-50 mb-md-50">
                 <div className="container">
                     <div className="row flex-row-reverse">
                         <div className="col-lg-12">
