@@ -12669,6 +12669,9 @@ main.login_page{
   .banner-img.f-none{
     margin-top: 20px !important;
   }
+  .product-detail .section-title.style-1{
+    font-size: 16px;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -12785,5 +12788,9 @@ display: none;
 .card-body.address .card-actions{
   flex-direction: column;
   gap: 20px;
+}
+.events-collection-card .image {
+  width: 200px;
+  height: 200px;
 }
 }

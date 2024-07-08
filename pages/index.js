@@ -38,7 +38,7 @@ export default function Home() {
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Rental Category
                         </h3>
-                        <div className="container mt-md-70">
+                        <div className="mt-md-70">
                             <div className="rental-category">
                                 <div className="rental-category-card">
                                     <div

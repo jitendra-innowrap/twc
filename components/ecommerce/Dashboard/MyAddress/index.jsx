@@ -156,7 +156,7 @@ export default function index() {
                     ):
                     <div className="address_list">
                         {addressList?.map((address, id)=>(
-                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> {setExpanded(id); console.log(address)}} key={id}>
+                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> {setExpanded(id); console.log(address)}} key={address?.id}>
                                 <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>{address?.address_type==1?'Office':'Home'}</span></div>
                                 <address>
                                     {address.address_line_1}<br />
