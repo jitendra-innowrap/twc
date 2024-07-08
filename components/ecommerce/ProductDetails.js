@@ -66,8 +66,7 @@ const ProductDetails = ({
     }, [slug])  
     
     const handleCart = async (product) => {
-        let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
-        if(isInCart){
+        if(isInCart && productDetails?.product_type=="1"){
             router.push('/shop-cart')
         }else{
             if (deliveryDate) {
@@ -96,36 +95,16 @@ const ProductDetails = ({
             </div>
             }
     });
+
     const handleDeliveryDateChange = (date) => {
         setDeliveryDate(date);
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
 
     const handleWishlist = (product) => {
-        // let wishlistItem = {
-        //     id: product?.result?.[0]?.id,
-        //     handle: product?.result?.[0]?.handle,
-        //     product_images: product?.result?.[0]?.product_images,
-        //     name: product?.result?.[0]?.name,
-        //     product_tags: product?.result?.[0]?.product_tags,
-        //     category_handle: product?.result?.[0]?.category_handle,
-        //     sub_category_handle: product?.result?.[0]?.sub_category_handle,
-        //     sub_category_name: product?.result?.[0]?.sub_category_name,
-        //     selling_price: product?.result?.[0]?.selling_price,
-        //     mrp: product?.result?.[0]?.mrp,
-        // }
-        // addToWishlist(wishlistItem);
-        // toast.success("Added to Wishlist !", {
-        //     position: "bottom-center",
-        //     autoClose: 1500,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "light",
-        //     transition: Bounce,
-        // });
+        if(!auth_token){
+            router.push('/page-login-register')
+        }
     };
 
     const handleQuantity = (type) => {
@@ -334,9 +313,9 @@ const ProductDetails = ({
                                                         }
                                                         className="button button-add-to-cart"
                                                     >
-                                                        {isInCart ?'Go to cart':'Add to cart'}
+                                                        {(isInCart && productDetails?.product_type=="1") ?'Go to cart':'Add to cart'}
                                                     </button>
-                                                    {auth_token?<a
+                                                    <a
                                                         aria-label="Add To Wishlist"
                                                         className="action-btn add-to-wishlist"
                                                         onClick={(e) =>
@@ -354,26 +333,6 @@ const ProductDetails = ({
                                                     >
                                                         <i className="fi-rs-heart"></i>
                                                     </a>
-                                                    : <Popup
-                                                        trigger={<a
-                                                            aria-label="Add To Wishlist"
-                                                            className="action-btn add-to-wishlist"
-                                                        >
-                                                            <i className="fi-rs-heart"></i>
-                                                        </a>}
-                                                        modal
-                                                        position="right center">
-                                                        {
-                                                            (close) => (
-                                                                <div className='popUpContainer login'>
-                                                                    <button onClick={close} className='close_popUp'>
-                                                                        <MdClose fontSize={22} />
-                                                                    </button>
-                                                                    <LoginRegister close={close} />
-                                                                </div>
-                                                            )
-                                                        }
-                                                    </Popup>}
                                                 </div>
                                             </div>
                                             {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">
