@@ -225,6 +225,9 @@ export default function EditProfileForm({ user, handleSubmit }) {
                         selected={tempUser.dob}
                         onChange={handleDateChange}
                         dateFormat="dd/MM/yyyy"
+                        maxDate={new Date()}
+                        minDate={new Date(1900, 0, 1)}
+                        yearDropdownItemNumber={100}
                         className="form-control square ml-15"
                         showYearDropdown
                         scrollableYearDropdown
