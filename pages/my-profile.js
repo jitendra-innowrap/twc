@@ -17,7 +17,7 @@ function Account() {
     useEffect(() => {
         handleOnClick(tab ? parseInt(tab, 10) : 1);
         if(!auth_token){
-            router.push('/')
+            router.push('/page-login-register')
         }
     }, [])
     const dispatch = useDispatch();
