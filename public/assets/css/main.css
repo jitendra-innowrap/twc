@@ -11227,7 +11227,7 @@ span.fi-rs-apps {
   }
   @media only screen and (min-width: 0px) and (max-width: 480px){
   .login_container{
-    height: calc( 100vh - 73.46px);
+    height: calc( 100vh - 80px);
   }
 }
 @media only screen and (min-width: 480px) and (max-width: 667px){
