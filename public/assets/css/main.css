@@ -12585,10 +12585,34 @@ main.login_page{
 
 
 
-
+@media only screen and (min-width: 668px) and (max-width: 768px) {
+  .login_container {
+      height: calc(100vh - 66.46px);
+  }
+}
 
 /* laptop first  reponsive */
-
+@media only screen and (max-width: 1600px) {
+  .login_container .login_wrap{
+    max-width: 350px;
+  }
+  .login_container .login_wrap .padding_eight_all {
+    padding: 15px !important;
+  }
+  .login_container .login_wrap .heading_s1 .welcome_header{
+    font-size: 16px;
+    margin-bottom: 15px !important;
+  }
+  .mobileInputContainer .form-group{
+    margin-bottom: 15px;
+  }
+  .mobileInputContainer .midLinks{
+    margin-bottom: 15px;
+  }
+  .get-help{
+    margin-block: 15px;
+  }
+  }
 
 @media only screen and (max-width: 992px) {
   .logo.logo-width-1 a img{
@@ -12769,6 +12793,14 @@ p{
   max-width: 100%;
   font-size: 14px;
   line-height: 18px;
+}
+.empty-cart .cart-action .btn{
+  font-size: 12px;
+  font-weight: 400;
+  padding: 10px 10px;
+}
+.empty-cart h1{
+  font-size: 16px;
 }
 }
 
