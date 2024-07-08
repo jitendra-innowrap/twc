@@ -24,7 +24,7 @@ export default function CartItem({item}) {
                             <div className style={{ background: 'rgb(255, 237, 243)', height: 148, width: 111 }}>
                                 <picture className="image-base-imgResponsive" style={{ width: '100%' }}>
                                     <img src={item.product_images[0].file} 
-                                    className="image-base-imgResponsive" alt={item?.name} fetchpriority="high" loading="eager" style={{ height: 148, width: 111, objectFit:"cover" }} /></picture>
+                                    className="image-base-imgResponsive" alt={item?.name} fetchpriority="high" loading="eager" style={{ height: 148, width: 111, objectFit:"cover", objectPosition:'top' }} /></picture>
                             </div>
                         </a>
                     </div>
