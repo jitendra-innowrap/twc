@@ -105,8 +105,10 @@ const Cart = () => {
                                                 :
                                                 <div className="login_popUp">
                                                     <Popup
-                                                        trigger={<div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
-                                                            {addressList?.length > 0 ? 'CHANGE ADDRESS' : 'ADD ADDRESS'}
+                                                        trigger={<div>
+                                                            <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop">
+                                                            ADD ADDRESS
+                                                            </div>
                                                         </div>}
                                                         modal
                                                         position="right center"
