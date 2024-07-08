@@ -22,7 +22,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
             fullname: tempUser?.f_name,
         mobile: tempUser?.mobile,
         email: tempUser?.email,
-        gender: tempUser?.gender || 1,
+        gender: tempUser?.gender,
         dob: tempUser?.dob,
         alternateMobile: tempUser?.alternate_mobile,
         isMobileVerified: tempUser?.is_mobile_verified,
@@ -84,7 +84,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                             <label className="mb-0 text-dark fw-bold">Gender</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                            {user?.gender == "1" ? "Male" :user?.gender =="2"? "Female":user?.gender =="3"? "Other":''}
+                            {user?.gender == "1" ? "Male" :user?.gender =="2"? "Female":user?.gender =="3"? "Other":''}{user.gender}
                         </div>
                     </div>
                     <hr />
