@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import storage from "../../util/localStorage"; // Adjust the import path accordingly
 import { fetchCart } from "../../redux/Slices/cartSlice";
 import { refreshToken, setWebToken } from "../../redux/Slices/authSlice"; // Adjust the import path accordingly
+import { fetchWishlist } from "../../redux/Slices/wishlistSlice";
 
 const generateGuestToken = () => {
   const randomString = Math.random().toString(36).substring(2);
@@ -39,6 +40,7 @@ const StorageWrapper = ({ children }) => {
 
       // Fetch cart data from server
       dispatch(fetchCart());
+      dispatch(fetchWishlist());
     }
   }, [dispatch]);
 

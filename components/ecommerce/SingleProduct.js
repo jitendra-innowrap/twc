@@ -1,17 +1,15 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Bounce, toast } from "react-toastify";
 import Loader from './../elements/Loader';
+import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
 
 
-const SingleProduct = ({
-    product
-}) => {
-    let today = new Date();
+const SingleProduct = ({product, deleteWishList}) => {
     const [loading, setLoading] = useState(false);
-    const [deliveryDate, setDeliveryDate] = useState(today);
-    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
+    const dispatch = useDispatch();
+
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
@@ -19,50 +17,10 @@ const SingleProduct = ({
         }, 500);
     }, []);
 
-    const handleCart = (product) => {
-        addToCart(product);
-        toast.success("Added to Cart !",{
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
-    const handleCompare = (product) => {
-        addToCompare(product);
-        toast.success("Add to Compare !",{
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
-    const handleWishlist = (product) => {
-        addToWishlist(product);
-        toast.success("Added to Wishlist !",{
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
+    const handleRemoveWishlist = async (product_id)=>{
+            dispatch(addItemToWishlist(product_id));
+            dispatch(fetchWishlist())
+    }
     return (
         <>
 
@@ -98,6 +56,11 @@ const SingleProduct = ({
                         }
                     </div>
                 </div>
+                {
+                    deleteWishList && <div className="delete-icon" onClick={()=>handleRemoveWishlist(product?.id)}>
+                        <i className="fi-rs-trash"></i>
+                    </div>
+                }
                 <div className="product-content-wrap">
                     <div className="product-category">
                     <Link href={`/${product?.category_handle}/${product?.sub_category_handle}`}>

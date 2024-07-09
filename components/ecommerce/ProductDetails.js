@@ -19,6 +19,8 @@ import Popup from "reactjs-popup";
 import { MdClose } from "react-icons/md";
 import LoginRegister from "./LoginRegister";
 import storage from "../../util/localStorage";
+import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
+import { priceOffPercentage } from "../../util/util";
 
 
 const colorsVariants =[
@@ -101,10 +103,15 @@ const ProductDetails = ({
         setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
     };
 
-    const handleWishlist = (product) => {
+    const handleWishlist = async (product) => {
         if(!auth_token){
             router.push('/page-login-register')
+        }else{
+            dispatch(addItemToWishlist(product || 1));
+            dispatch(fetchWishlist())
+            
         }
+
     };
 
     const handleQuantity = (type) => {
@@ -117,7 +124,7 @@ const ProductDetails = ({
     
     return (
         <>
-            <section className="mt-md-50 mb-md-50">
+            <section className="mt-15 mt-md-50 mb-md-50">
                 <div className="container">
                     <div className="row flex-row-reverse">
                         <div className="col-lg-12">
@@ -125,7 +132,6 @@ const ProductDetails = ({
                                 <div className="row mb-50">
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-left">
                                         <div className="detail-gallery">
-
                                             <div className="product-image-slider">
                                                 <ThumbSlider
                                                     product={productGallary}
@@ -187,7 +193,7 @@ const ProductDetails = ({
                                                                 ₹{productDetails?.selling_price}
                                                             </span>
                                                             <span className="text-brand ml-10">
-                                                                {productDetails?.product_type=="2"?`30% off`:`For ${product?.rental_for_days} Days Rental`}
+                                                                {productDetails?.product_type=="2"?` ${priceOffPercentage(productDetails?.mrp, productDetails?.selling_price)}% off`:`For ${product?.rental_for_days} Days Rental`}
                                                             </span>
                                                         </ins>
                                                     }
@@ -226,7 +232,7 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            {/* {productDetails?.product_type=="1" && <div className="attr-detail attr-color mb-15">
+                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-size mb-15">
                                                 <strong className="mr-10">
                                                     Color
                                                 </strong>
@@ -238,16 +244,13 @@ const ProductDetails = ({
                                                                     e.preventDefault();
                                                                     setColor(clr);
                                                                 }}>
-                                                                    <span
-                                                                        className={`product-color-${clr}`}
-                                                                        style={{ border: `${color === clr ? '2px solid #088178' : '1px solid gray'}` }}
-                                                                    ></span>
+                                                                    {clr}
                                                                 </a>
                                                             </li>
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>} */}
+                                            </div>}
                                             {productDetails?.product_type=="1" && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
                                                     Size
@@ -300,7 +303,7 @@ const ProductDetails = ({
                                                     <button
                                                         onClick={(e) =>
                                                             handleCart({
-                                                                product_id: productDetails?.id || 1,
+                                                                product_id: productDetails?.id,
                                                                 mrp: productDetails?.mrp,
                                                                 selling_price: productDetails?.selling_price,
                                                                 qty: quantity,
@@ -320,14 +323,7 @@ const ProductDetails = ({
                                                         className="action-btn add-to-wishlist"
                                                         onClick={(e) =>
                                                             handleWishlist(
-                                                                {
-                                                                    ...product,
-                                                                    quantity: quantity || 1,
-                                                                    color: color,
-                                                                    size: size,
-                                                                    deliveryDate: deliveryDate,
-                                                                    returnByDate: returnByDate,
-                                                                }
+                                                                productDetails?.id
                                                             )
                                                         }
                                                     >

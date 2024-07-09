@@ -7,80 +7,41 @@ import ShoppingBag from "../components/Svg/ShoppingBag";
 import SingleProduct from "../components/ecommerce/SingleProduct";
 import { useEffect } from "react";
 import storage from "../util/localStorage";
+import { useSelector } from "react-redux";
 
-const Wishlist = ({
-    wishlist,
-    clearWishlist,
-    addToCart,
-}) => {
+const Wishlist = () => {
     const router = useRouter();
     const isLoggedIn = storage.get("auth_token");
-
+    const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
     useEffect(() => {
         if(!isLoggedIn){
             router.push('/')
         }
     }, [])
 
-    const handleCart = (product) => {
-        addToCart(product);
-        toast.success("Added to Cart !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
+    
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Wishlist">
                 <section className="mt-50 mb-50">
                     <div className="container">
-                        <div className="row">
-                            <div className="col-12">
-                                {wishlist?.items?.length > 0 ? (
-                                    <div className="table-responsive">
-                                        <div className="col-lg-4 col-md-4 col-12 col-sm-6"
-                                           
-                                        >
-                                            {
-                                                wishlist?.items?.map((item, i) => {
-                                                    return <SingleProduct  key={i} product={item} />
-                                                })
-                                            }
+                        <div className="row product-grid-4">
+                                    {wishlistItems?.length == 0 && (
+                                        <div className="no-products-found">
+                                            <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
+                                            {/* <h3> No Products Found </h3> */}
                                         </div>
+                                    )}
 
-
-                                        <div colSpan="6" className="text-end mt-15 mb-15">
-                                            {wishlist.items.length > 0 && (
-                                                <a onClick={clearWishlist} className="text-muted">
-                                                    <i className="fi-rs-cross-small"></i>
-                                                    Clear Wishist
-                                                </a>
-                                            )}
+                                    {wishlistItems?.map((item, i) => {
+                                        
+                                            return <div className="col-lg-3 col-md-4 col-12 col-sm-6"
+                                            key={item.id}
+                                            >
+                                            <SingleProduct product={item} deleteWishList={true} />
                                         </div>
-                                    </div>
-                                ) : (
-                                    <div className="empty-cart">
-                                        <h1>Your Wishlist is empty</h1>
-                                        <ShoppingBag />
-                                        <div className="cart-action text-center">
-                                            <div className="btn" onClick={() => router.push('/products')}>
-                                                <span>
-                                                    <i className="fi-rs-shopping-bag mr-10"></i>
-                                                    Continue Shopping
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                                    })}
+                                </div>
                     </div>
                 </section>
             </Layout>

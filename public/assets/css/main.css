@@ -11241,6 +11241,21 @@ span.fi-rs-apps {
   }
 }
 
+.product-cart-wrap .delete-icon{
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  /* background: red; */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+.product-cart-wrap .delete-icon i{
+  color: red;
+  font-size: 18px;
+}
   .login_container .login_wrap{
     position: relative;
     max-width: 400px;
@@ -12039,8 +12054,11 @@ input[type="checkbox"]:hover{
 .returnPeriod-base-returnItem {
   display: inline-flex;
   font-size: 12px;
+  margin-top: 5px;
 }.returnPeriod-base-returnIcon {
   padding-top: 2px;
+  display: flex;
+  align-items: flex-start;
 }.returnPeriod-base-returnText {
   margin-left: 6px;
   line-height: 1.5;

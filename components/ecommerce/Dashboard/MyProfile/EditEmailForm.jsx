@@ -22,9 +22,6 @@ export default function EditEmailForm({ close, setTempUser }) {
         resendOTPForEmail(Email)
             .then((response) => {
                 if (response?.code == 1) {
-                    setOtpTimer(true);
-                    startOTPTimer();
-                    setOtp(['', '', '', ''])
                     toast.success("OTP Sent Successfully !", {
                         position: "bottom-center",
                         autoClose: 1500,
@@ -36,6 +33,9 @@ export default function EditEmailForm({ close, setTempUser }) {
                         theme: "light",
                         transition: Bounce,
                     });
+                    setOtpTimer(true);
+                    startOTPTimer();
+                    setOtp(['', '', '', ''])
                 } else {
                     console.log('response', response)
                 }
@@ -98,10 +98,36 @@ export default function EditEmailForm({ close, setTempUser }) {
                         transition: Bounce,
                     });
                 } else {
-                    setError(prev => ({ ...prev, email: res.msg }));
+                    if(res?.msg=="Email already verified"){
+                        setError(prev => ({ ...prev, email: false }));
+                        toast.success(`${res?.msg}`, {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    }else{
+                        setError(prev => ({ ...prev, email: res.msg }));
+                        toast.error(`Error! ${res?.msg}`, {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    }
                 }
             } catch (error) {
-
+                console.error('Error resending OTP:', error);
             }
         } else {
             setError((prev) => ({ ...prev, email: 'Please enter a valid email.' }));

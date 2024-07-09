@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdClose } from 'react-icons/md';
-import { reverseDateOrder } from '../../../../util/util';
+import { priceOffPercentage, reverseDateOrder } from '../../../../util/util';
 import { fetchCart, removeItemFromCart } from '../../../../redux/Slices/cartSlice';
 import { useDispatch } from 'react-redux';
 import { deleteFromCart } from '../../../../util/api';
@@ -35,7 +35,7 @@ export default function CartItem({item}) {
                                 <a className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
                                 {`${item.name}`}
                                 {/* {item.color? ` - ${item.color}`: ''}  */}
-                                {item.option_value_1? ` - ${item.option_value_1}`: ''}
+                                {(item.option_value_1 && item.product_type =='1')? ` - ${item.option_value_1}`: ''}
                                 </a>
                             </div>
                             <div className="itemComponents-base-sellerContainer">
@@ -81,12 +81,7 @@ export default function CartItem({item}) {
                                         <span className="itemComponents-base-price itemComponents-base-strike itemContainer-base-strikedAmount">
                                             ₹{item.mrp}
                                         </span>
-                                        {(() => {
-                                        const discount = Math.round((item.mrp - item.selling_price) / item.mrp * 100);
-                                        return (
-                                            <span className="itemComponents-base-itemDiscount">{discount}% OFF</span>
-                                        );
-                                        })()}
+                                        <span className="itemComponents-base-itemDiscount">{priceOffPercentage(item?.mrp, item?.selling_price)}% OFF</span>
                                     </span>
                                 </div>}
                             </div>
