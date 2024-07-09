@@ -84,7 +84,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                             <label className="mb-0 text-dark fw-bold">Gender</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                            {user?.gender == "1" ? "Male" :user?.gender =="2"? "Female":user?.gender =="3"? "Other":''}{user.gender}
+                            {user?.gender == "1" ? "Male" :user?.gender =="2"? "Female":user?.gender =="3"? "Other":''}
                         </div>
                     </div>
                     <hr />

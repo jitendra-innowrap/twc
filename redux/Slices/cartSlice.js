@@ -27,7 +27,6 @@ export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (produ
     transition: Bounce,
   });
   return response.data;
-  
 });
 
 export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (product) => {
@@ -53,6 +52,9 @@ const cartSlice = createSlice({
     cartItems: [],
     cartCount: 0,
     cartDetails: {},
+    defaultAddress:null,
+    shippingAddress:null,
+    billingAddress:null,
     status: 'idle',
     error: null,
   },
@@ -80,6 +82,18 @@ const cartSlice = createSlice({
         state.cartItems = action.payload.cart_product || [];
         state.cartCount = action.payload.cart_product_count || 0;
         state.cartDetails = action.payload.bill_details || {};
+        state.defaultAddress = action.payload.user_address?.[0] || {};
+        if(action.payload.billing_address?.[0]){
+          state.billingAddress = action.payload.billing_address?.[0] || {};
+        }else{
+          state.billingAddress = action.payload.user_address?.[0] || {};
+        }
+        if(action.payload.shipping_address?.[0]){
+          state.shippingAddress = action.payload.shipping_address?.[0] || {};
+        }else{
+          state.shippingAddress = action.payload.user_address?.[0] || {};
+        }
+        
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = 'failed';

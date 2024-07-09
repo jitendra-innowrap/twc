@@ -109,8 +109,22 @@ export default function EditPhoneForm({ close, setTempUser }) {
                         transition: Bounce,
                     });
                 } else {
+                    if(res?.msg=="Mobile already verified"){
+                        setError(prev => ({ ...prev, mobile: false }));
+                        toast.success(`${res?.msg}`, {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                    }else{
                     setError(prev => ({ ...prev, mobile: res.msg }));
-                    toast.error(`Error! ${error?.msg}`, {
+                    toast.error(`Error! ${res?.msg}`, {
                         position: "bottom-center",
                         autoClose: 1500,
                         hideProgressBar: false,
@@ -121,7 +135,7 @@ export default function EditPhoneForm({ close, setTempUser }) {
                         theme: "light",
                         transition: Bounce,
                     });
-
+                    }
                 }
             } catch (error) {
                 console.error('Error resending OTP:', error);

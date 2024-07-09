@@ -21,6 +21,12 @@ export function getYouTubeThumbnail(videoUrl) {
   // Construct the thumbnail URL
   return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 }
+export const priceOffPercentage = (mrp, price) => {
+  const offPercentage = ((mrp - price) / mrp) * 100;
+
+  // Round the result to two decimal places
+  return Math.round(offPercentage);
+}
 
 export const isLoggedIn =()=>{
   const token = storage.get("auth_token");

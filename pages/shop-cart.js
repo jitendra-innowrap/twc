@@ -18,14 +18,17 @@ import { MdClose } from "react-icons/md";
 
 
 const Cart = () => {
-    const cartItems = useSelector((state) => state.cart.cartItems);
-    const cartCount = useSelector((state) => state.cart.cartCount);
-    const cartDetails = useSelector((state) => state.cart.cartDetails);
     const [billingAsDelivery, setBillingAsDelivery] = useState(true)
     const [addressList, setAddressList] = useState([]);
     const [deliveredTo, setDeliveredTo] = useState();
     const [billingTo, setBillingTo] = useState();
-
+    
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const cartCount = useSelector((state) => state.cart.cartCount);
+    const cartDetails = useSelector((state) => state.cart.cartDetails);
+    const defaultAddress = useSelector((state) => state.cart.defaultAddress);
+    const shippingAddress = useSelector((state) => state.cart.shippingAddress);
+    const billingAddress = useSelector((state) => state.cart.billingAddress);
     const dispatch = useDispatch();
 
     const handleSelectAddress = (id) => {
@@ -39,9 +42,6 @@ const Cart = () => {
         try {
             const res = await getAddressList();
             setAddressList(res?.result);
-            let defaultAddress = res.result.find(address => address.is_default == 1);
-            setDeliveredTo(defaultAddress ? defaultAddress.id : res?.result?.[0].id)
-            setBillingTo(defaultAddress ? defaultAddress.id : res?.result?.[0].id)
             console.log('cart address', res)
         } catch (error) {
             console.log(error)
@@ -49,11 +49,14 @@ const Cart = () => {
     }
     const billingToggle =()=>{
         setBillingAsDelivery(!billingAsDelivery)
-
     }
     useEffect(() => {
         dispatch(fetchCart());
         fetchAddressList();
+        
+        // setDeliveredTo(shippingAddress ? shippingAddress : defaultAddress)
+        setDeliveredTo(defaultAddress?.[0]?.id)
+        setBillingTo(billingAddress ? billingAddress : defaultAddress)
     }, [])
 
     return (
@@ -70,19 +73,22 @@ const Cart = () => {
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock pt-0">
                                         <div className="coupons-base-header">Delivery Address</div>
-                                        <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `${addressList?.length > 0 ? '' : 'end'}` }}>
+                                        {/* <div onClick={()=> console.log(shippingAddress)}>
+                                        {JSON.stringify(defaultAddress)}
+                                        {JSON.stringify(shippingAddress)}
+                                        {JSON.stringify(billingAddress)}
+                                        </div> */}
+                                        <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
                                             {
-                                                addressList?.filter((address) => address.id == deliveredTo).map((address) => (
-                                                    <div className="addressStripV2-base-title">
+                                                Object.keys(shippingAddress).length > 0 && <div className="addressStripV2-base-title">
                                                         <div className="addressStripV2-base-addressName">
-                                                            Deliver to: <span className="addressStripV2-base-highlight">{address.name}</span>,
-                                                            <div className="addressStripV2-base-highlight"> {address.pincode}</div>
+                                                            Deliver to: <span className="addressStripV2-base-highlight">{shippingAddress?.name}</span>,
+                                                            <div className="addressStripV2-base-highlight"> {shippingAddress?.pincode}</div>
                                                         </div>
                                                         <div className="addressStripV2-base-subText">
-                                                            {`${address.address_line_1 || address?.addressLine1}, ${address.address_line_2 || address?.addressLine2}`}
+                                                        {`${billingAddress?.address_line_1}`} {` , ${billingAddress?.address_line_2}`}
                                                         </div>
                                                     </div>
-                                                ))
                                             }
                                             {auth_token ? <Popup
                                                 trigger={<div>
@@ -136,19 +142,17 @@ const Cart = () => {
                                                 </div>
                                                 {!billingAsDelivery && <div className="">
                                                     <div className="coupons-base-header">Billing Address</div>
-                                                    <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `${addressList?.length > 0 ? '' : 'end'}` }}>
+                                                    <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
                                                         {
-                                                            addressList?.filter((address) => address.id == billingTo).map((address) => (
-                                                                <div className="addressStripV2-base-title">
+                                                            Object.keys(billingAddress).length > 0 && <div className="addressStripV2-base-title">
                                                                     <div className="addressStripV2-base-addressName">
-                                                                        Billing to: <span className="addressStripV2-base-highlight">{address.name}</span>,
-                                                                        <div className="addressStripV2-base-highlight"> {address.pincode}</div>
+                                                                        Deliver to: <span className="addressStripV2-base-highlight">{billingAddress?.name}</span>,
+                                                                        <div className="addressStripV2-base-highlight"> {billingAddress?.pincode}</div>
                                                                     </div>
                                                                     <div className="addressStripV2-base-subText">
-                                                                        {`${address.address_line_1 || address?.addressLine1}, ${address.address_line_2 || address?.addressLine2}`}
+                                                                        {`${billingAddress?.address_line_1}`} {` ,${billingAddress?.address_line_2}`}
                                                                     </div>
                                                                 </div>
-                                                            ))
                                                         }
                                                         <Popup
                                                             trigger={<div>

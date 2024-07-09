@@ -665,7 +665,7 @@ export const getOrderList = async (page) => {
 export const getCartList = async (page) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
-
+  
   try {
     const response = await axios.get(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/cartProductList',
@@ -673,6 +673,30 @@ export const getCartList = async (page) => {
         headers: {
           // 'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
           ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const getWishlistList = async (page) => {
+  const auth_token = getToken();
+
+  const formData = new FormData();
+  formData.append('page', page || 1);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Product/getUserWishlistProducts',
+      formData,
+      {
+        headers: {
+          // 'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
+          'auth_token': auth_token,
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
@@ -729,16 +753,14 @@ rental_end_date
     throw error;
   }
 }
-export const addToWishlist = async ({
-  product_id
-}) => {
+export const addToWishlist = async (product_id) => {
   const auth_token = getToken();
   // Create a new FormData object
   const formData = new FormData();
   formData.append('product_id', product_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/addToWishlist',
+      'https://innowrap.co.in/clients/twc/App/V1/Product/addToWishlist',
       formData,
       {
         headers: {
@@ -748,7 +770,6 @@ export const addToWishlist = async ({
         }
       }
     );
-    console.log(auth_token ,web_token)
     return response;
   } catch (error) {
     console.error('Failed to login', error);
@@ -758,15 +779,7 @@ export const addToWishlist = async ({
 
 export const deleteFromCart = async (
   {product_id,
-    cart_id,
-qty,
-mrp,
-selling_price,
-// web_token,
-deposit_amount,
-rental_start_date,
-deduction_from_deposit_per_day,
-rental_end_date}
+    cart_id,}
 ) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
@@ -774,16 +787,6 @@ rental_end_date}
   const formData = new FormData();
   formData.append('product_id', product_id);
   formData.append('cart_id', cart_id);
-  // formData.append('qty', qty);
-  // formData.append('mrp', mrp);
-  // formData.append('selling_price', selling_price);
-  // formData.append('action', "2");
-  // formData.append('flag', "1");
-  // !auth_token && (formData.append('web_token', web_token));
-  // formData.append('deposit_amount', deposit_amount);
-  // formData.append('rental_start_date', rental_start_date);
-  // formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
-  // formData.append('rental_end_date', rental_end_date);
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
@@ -804,16 +807,7 @@ rental_end_date}
 }
 
 export const deleteFromWishlist = async (
-  {product_id,
-    cart_id,
-qty,
-mrp,
-selling_price,
-// web_token,
-deposit_amount,
-rental_start_date,
-deduction_from_deposit_per_day,
-rental_end_date}
+  {product_id}
 ) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
@@ -821,19 +815,9 @@ rental_end_date}
   const formData = new FormData();
   formData.append('product_id', product_id);
   formData.append('cart_id', cart_id);
-  // formData.append('qty', qty);
-  // formData.append('mrp', mrp);
-  // formData.append('selling_price', selling_price);
-  // formData.append('action', "2");
-  // formData.append('flag', "1");
-  // !auth_token && (formData.append('web_token', web_token));
-  // formData.append('deposit_amount', deposit_amount);
-  // formData.append('rental_start_date', rental_start_date);
-  // formData.append('deduction_from_deposit_per_day', deduction_from_deposit_per_day);
-  // formData.append('rental_end_date', rental_end_date);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeWishlistProduct',
       formData,
       {
         headers: {
@@ -845,7 +829,7 @@ rental_end_date}
     );
     return response;
   } catch (error) {
-    console.error('Failed to login', error);
+    console.error('Error: ', error);
     throw error;
   }
 }

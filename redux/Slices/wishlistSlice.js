@@ -1,31 +1,104 @@
-import { createSlice } from '@reduxjs/toolkit'
+// wishlistSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { addToWishlist, getWishlistList } from '../../util/api';
+import { Bounce, toast } from 'react-toastify';
 
-const initialState = {
-    wishlist: [],
+const INIT_LOCALSTORAGE = 'wishlist/INIT_LOCALSTORAGE';
+
+// Async thunks for API calls
+export const fetchWishlist = createAsyncThunk('wishlist/fetchWishlist', async () => {
+  const response = await getWishlistList();
+  console.log('response from thunk', response)
+  return response;
+});
+
+export const addItemToWishlist = createAsyncThunk('wishlist/addItemToWishlist', async (product) => {
+  const response = await addToWishlist(product);
+  console.log('response from thunk add wishlist', response)
+  if(response?.msg=="Add to wishlist successfully"){
+    toast.success("Added to Wishlist!", {
+      position: "bottom-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  }
+  if(response?.msg=="Remove to wishlist successfully"){
+    toast.success("Removed from Wishlist!", {
+      position: "bottom-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  }
+ 
+  return response;
+  
+});
+
+
+const wishlistSlice = createSlice({
+  name: 'wishlist',
+  initialState: {
+    wishlistItems: [],
     wishlistCount: 0,
-}
+    wishlistDetails: {},
+    status: 'idle',
+    error: null,
+  },
+  reducers: {
+    initLocalStorage: (state, action) => {
+      const { wishlist } = action.payload;
+      state.wishlistItems = wishlist.wishlist_product || [{},{},{}];
+      state.wishlistCount = wishlist.wishlist_product_count || 0;
+      state.wishlistDetails = wishlist.bill_details || {};
+    },
+    emptyWishlist: (state) => {
+      state.wishlistItems = [];
+      state.wishlistCount = 0;
+      state.wishlistDetails = {};
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // fetchWishlist
+      .addCase(fetchWishlist.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchWishlist.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.wishlistItems = action.payload.result || [];
+        state.wishlistCount = action.payload.result?.length;
+      })
+      .addCase(fetchWishlist.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      // addItemToWishlist
+      .addCase(addItemToWishlist.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addItemToWishlist.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.wishlistItems = action.payload.wishlist_product_list || [];
+        state.wishlistCount = action.payload.wishlist_product_list?.length || 0;
+      })
+      .addCase(addItemToWishlist.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+  },
+});
 
-export const wishlistSlice = createSlice({
-    name: "wishlist",
-    initialState,
-    reducers: {
-        addToWishlist: (state, action) => {
-            state.wishlist.push(action.payload);
-            state.wishlistCount++;
-        },
-        deleteFromWishlist: (state, action) => {
-            const itemIndex = state.wishlist.findIndex(item => item.id === action.payload.id);
-            if (itemIndex !== -1) {
-                state.wishlist.splice(itemIndex, 1);
-                state.wishlistCount--;
-            }
-        },
-        wishlistCount: (state) => {
-            state.wishlistCount = state.wishlist.length;
-        }
-    }
-})
-
-export const { addToWishlist, deleteFromWishlist, wishlistCount } = wishlistSlice.actions
-
-export default wishlistSlice.reducer
+export const { initLocalStorage, emptyWishlist } = wishlistSlice.actions;
+export default wishlistSlice.reducer;
