@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { forwardRef, useEffect, useState } from "react";
 import CategoryProduct from "../../../components/ecommerce/CategoryProduct";
 import Pagination1 from "../../../components/ecommerce/Pagination";
-import Pagination from "react-js-pagination";
 import PriceRangeSlider from "../../../components/ecommerce/PriceRangeSlider";
 import SingleProduct from "../../../components/ecommerce/SingleProduct";
 import SingleProductList from "../../../components/ecommerce/SingleProductList";
