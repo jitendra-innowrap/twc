@@ -10961,6 +10961,7 @@ span.fi-rs-apps {
 .detail-info .attr-size .list-filter {
   gap: 10px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .detail-info .attr-size .list-filter li {
