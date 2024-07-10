@@ -1,6 +1,5 @@
-// cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addToCart, deleteFromCart, getCartList } from '../../util/api';
+import { addToCart, deleteFromCart, getCartList, selectShippingAddress, selectBillingAddress } from '../../util/api';
 import { Bounce, toast } from 'react-toastify';
 
 const INIT_LOCALSTORAGE = 'cart/INIT_LOCALSTORAGE';
@@ -32,7 +31,41 @@ export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (produ
 export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (product) => {
   const response = await deleteFromCart(product);
   console.log('response from thunk remove', response.data)
-  toast.success("Removed to Cart!", {
+  toast.success("Removed from Cart!", {
+    position: "bottom-center",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
+  return response.data;
+});
+
+export const setShippingAddress = createAsyncThunk('cart/setShippingAddress', async (address) => {
+  const response = await selectShippingAddress(address);
+  console.log('response from thunk setShippingAddress', response.data)
+  toast.success("Shipping Address Updated!", {
+    position: "bottom-center",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
+  return response.data;
+});
+
+export const setBillingAddress = createAsyncThunk('cart/setBillingAddress', async (address) => {
+  const response = await selectBillingAddress(address);
+  console.log('response from thunk setBillingAddress', response.data)
+  toast.success("Billing Address Updated!", {
     position: "bottom-center",
     autoClose: 1500,
     hideProgressBar: false,
@@ -52,16 +85,16 @@ const cartSlice = createSlice({
     cartItems: [],
     cartCount: 0,
     cartDetails: {},
-    defaultAddress:null,
-    shippingAddress:null,
-    billingAddress:null,
+    defaultAddress: null,
+    shippingAddress: null,
+    billingAddress: null,
     status: 'idle',
     error: null,
   },
   reducers: {
     initLocalStorage: (state, action) => {
       const { cart } = action.payload;
-      state.cartItems = cart.cart_product || [{},{},{}];
+      state.cartItems = cart.cart_product || [];
       state.cartCount = cart.cart_product_count || 0;
       state.cartDetails = cart.bill_details || {};
     },
@@ -83,17 +116,8 @@ const cartSlice = createSlice({
         state.cartCount = action.payload.cart_product_count || 0;
         state.cartDetails = action.payload.bill_details || {};
         state.defaultAddress = action.payload.user_address?.[0] || {};
-        if(action.payload.billing_address?.[0]){
-          state.billingAddress = action.payload.billing_address?.[0] || {};
-        }else{
-          state.billingAddress = action.payload.user_address?.[0] || {};
-        }
-        if(action.payload.shipping_address?.[0]){
-          state.shippingAddress = action.payload.shipping_address?.[0] || {};
-        }else{
-          state.shippingAddress = action.payload.user_address?.[0] || {};
-        }
-        
+        state.shippingAddress = action.payload.shipping_address?.[0] || state.defaultAddress;
+        state.billingAddress = action.payload.billing_address?.[0] || state.defaultAddress;
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = 'failed';
@@ -124,6 +148,30 @@ const cartSlice = createSlice({
         state.cartDetails = action.payload.bill_details || {};
       })
       .addCase(removeItemFromCart.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      // setShippingAddress
+      .addCase(setShippingAddress.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(setShippingAddress.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.shippingAddress = action.payload.shipping_address?.[0] || {};
+      })
+      .addCase(setShippingAddress.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      // setBillingAddress
+      .addCase(setBillingAddress.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(setBillingAddress.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.billingAddress = action.payload.billing_address?.[0] || {};
+      })
+      .addCase(setBillingAddress.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

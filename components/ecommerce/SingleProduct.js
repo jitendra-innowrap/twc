@@ -51,7 +51,7 @@ const SingleProduct = ({product, deleteWishList}) => {
                     <div className="product-badges product-badges-position product-badges-mrg">
                         {
                             product?.product_tags?.map((tag,i)=>(
-                                <><span className="hot" style={{background:tag?.color_code}}>{tag?.name}</span></>
+                                <span key={i} className="hot" style={{background:tag?.color_code}}>{tag?.name}</span>
                             ))
                         }
                     </div>

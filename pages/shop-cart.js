@@ -11,7 +11,7 @@ import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddres
 import { useEffect } from "react";
 import { getAddressList, getCartList } from "../util/api";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../redux/Slices/cartSlice";
+import { fetchCart, setBillingAddress, setShippingAddress } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
 import LoginRegister from "../components/ecommerce/LoginRegister";
 import { MdClose } from "react-icons/md";
@@ -22,7 +22,7 @@ const Cart = () => {
     const [addressList, setAddressList] = useState([]);
     const [deliveredTo, setDeliveredTo] = useState();
     const [billingTo, setBillingTo] = useState();
-    
+    const [couponDiscount, setCouponDiscount] = useState(false)
     const cartItems = useSelector((state) => state.cart.cartItems);
     const cartCount = useSelector((state) => state.cart.cartCount);
     const cartDetails = useSelector((state) => state.cart.cartDetails);
@@ -32,10 +32,13 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const handleSelectAddress = (id) => {
-        setDeliveredTo(id)
+        let address = { cart_id:cartItems?.[0]?.cart_id, address_id:id, billing_address_id : billingAddress?.id || defaultAddress?.id};
+        dispatch(setShippingAddress(address))
     }
     const handleSelectBilling = (id) => {
-        setBillingTo(id)
+        let address = { cart_id:cartItems?.[0]?.cart_id, billing_address_id:id}
+        address.address_id = shippingAddress?.id || defaultAddress?.id
+        dispatch(setBillingAddress(address))
     }
     const auth_token = storage.get("auth_token");
     const fetchAddressList = async () => {
@@ -86,7 +89,7 @@ const Cart = () => {
                                                             <div className="addressStripV2-base-highlight"> {shippingAddress?.pincode}</div>
                                                         </div>
                                                         <div className="addressStripV2-base-subText">
-                                                        {`${billingAddress?.address_line_1}`} {` , ${billingAddress?.address_line_2}`}
+                                                        {`${shippingAddress?.address_line_1}`} {` , ${shippingAddress?.address_line_2}`}
                                                         </div>
                                                     </div>
                                             }
@@ -104,7 +107,7 @@ const Cart = () => {
                                             >
                                                 {
                                                     (close) => (
-                                                        <ChangeAddress handleSelectAddress={handleSelectAddress} deliveredTo={deliveredTo} addressList={addressList} setAddressList={setAddressList} close={close} />
+                                                        <ChangeAddress handleSelectAddress={handleSelectAddress} deliveredTo={deliveredTo} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
                                                     )
                                                 }
                                             </Popup>
@@ -168,7 +171,7 @@ const Cart = () => {
                                                         >
                                                             {
                                                                 (close) => (
-                                                                    <ChangeAddress handleSelectAddress={handleSelectBilling} deliveredTo={billingTo} addressList={addressList} setAddressList={setAddressList} close={close} />
+                                                                    <ChangeAddress handleSelectAddress={handleSelectBilling} deliveredTo={billingTo} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
                                                                 )
                                                             }
                                                         </Popup>
@@ -190,35 +193,56 @@ const Cart = () => {
                                             <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartCount} Item)</div>
                                             <div className="priceBreakUp-base-orderSummary" id="priceBlock">
                                                 <div className="priceDetail-base-row" >
-                                                    <span className>Total MRP</span>
+                                                    <span className>MRP</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
                                                         <span> <span className>₹</span>{(cartDetails?.mrp)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Discount on MRP</span>
+                                                    <span className>Our Price</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{(cartDetails.dicount_on_mrp)}</span>
+                                                    </span>
+                                                </div>
+                                                {couponDiscount && <div className="priceDetail-base-row">
+                                                    <span className>Coupon Discount</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
                                                         <span> <span className>₹</span>{(cartDetails.dicount_on_mrp)}</span>
                                                     </span>
-                                                </div>
+                                                </div>}
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Total Price</span>
+                                                    <span className>Sub Total</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails.items_total)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails.sub_total)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Refundable Deposit</span>
+                                                    <span className>Taxes (18%)</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{(cartDetails.tax_amount)}</span>
+                                                    </span>
+                                                </div>
+                                                <div className="priceDetail-base-row">
+                                                    <span className>Amount To Be Paid</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{(cartDetails.amount_to_be_paid)}</span>
+                                                    </span>
+                                                </div>
+                                                <div className="priceDetail-base-row">
+                                                    <span className>Deposit</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
                                                         <span> <span className>₹</span>{(cartDetails.deposit_amount)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-total">
-                                                    <span className>Total Amount</span>
+                                                    <span className>Final Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
                                                         <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(cartDetails.total_payable)}</span>

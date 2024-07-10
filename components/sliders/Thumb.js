@@ -84,10 +84,10 @@ const ThumbSlider = ({ product }) => {
                     {product?.map((item, i) => (
                         <SwiperSlide key={i}>
                             {item?.file_type == "1" ?
-                                <img src={item.file} draggable={false} alt="evara" />
+                                <img src={item.file} draggable={false} alt="the party cafe" />
                                 :
                                 <div className="gallary-video">
-                                    <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="evara" />
+                                    <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="the party cafe" />
                                     <BiPlayCircle fontSize={28}  color="#fff" />
                                 </div>
                             }

@@ -26,9 +26,9 @@ function Privacy() {
                                         <ol start="1">
                                             <li>
                                                 Hi there, we’re The Party CafePty Ltd (ABN 11 119 159 741) of Level 1, 121 King Street Melbourne, 3000, Australia (“
-                                                <strong>Evara</strong>”) and welcome to our privacy policy which also applies to our Affiliate Companies. This policy sets out how we handle your personal information if you’re an The Party Cafeuser or visitor to our Sites. It applies across The Party CafeElements, The Party CafeMarket, The Party CafeTwenty20, The Party CafeStudio, The Party CafeSites, The Party CafeTuts+ and Placeit (the “<strong>Sites</strong>”).
+                                                <strong>The Party Cafe</strong>”) and welcome to our privacy policy which also applies to our Affiliate Companies. This policy sets out how we handle your personal information if you’re an The Party Cafeuser or visitor to our Sites. It applies across The Party CafeElements, The Party CafeMarket, The Party CafeTwenty20, The Party CafeStudio, The Party CafeSites, The Party CafeTuts+ and Placeit (the “<strong>Sites</strong>”).
                                             </li>
-                                            <li>When we say ‘we’, ‘us’ or ‘Evara’ it’s because that’s who we are and we own and run the Sites.</li>
+                                            <li>When we say ‘we’, ‘us’ or The Party Cafe it’s because that’s who we are and we own and run the Sites.</li>
                                             <li>If we say ‘policy’ we’re talking about this privacy policy. If we say ‘user terms’ we’re talking about the rules for using each of the Sites. The rules vary by product and each product makes them separately available and seeks consent to them separately to this policy.</li>
                                         </ol>
                                         <h4>The type of personal information we collect</h4>
@@ -81,7 +81,7 @@ function Privacy() {
                                                             <li>improving our products and services;</li>
                                                             <li>providing general administrative and performance functions and activities; and</li>
                                                             <li>verifying your identity by comparing a selfie taken by you against your Photo ID document using facial recognition technology (as is necessary for the establishment, exercise or defense of legal claims); and</li>
-                                                            <li>processing your job application to Evara.</li>
+                                                            <li>processing your job application to thepartycafe.</li>
                                                         </ol>
                                                     </li>
                                                     <li>
@@ -138,7 +138,7 @@ function Privacy() {
                                         <ol start="17">
                                             <li>
                                                 For more information about how we use cookies, web beacons and similar technologies see our cookie policy
-                                                <a href="https://Evara.com/cookies/">here</a>
+                                                <a href="https://thepartycafe.com/cookies/">here</a>
                                                 and for more general information on cookies, see
                                                 <a href="http://www.allaboutcookies.org/" rel="noopener noreferrer">
                                                     http://www.allaboutcookies.org
@@ -163,7 +163,7 @@ function Privacy() {
                                             </li>
                                             <li>
                                                 Occasionally, we will use third party advertising companies to serve ads based on prior visits to our Sites. For example, if you visit our Sites, you may later see an add for our products and services when you visit a different Site. Read more about your options in our
-                                                <a href="https://Evara.com/cookies/">cookie policy</a>.
+                                                <a href="https://thepartycafe.com/cookies/">cookie policy</a>.
                                             </li>
                                         </ol>
                                         <h4>Information about children</h4>
@@ -193,7 +193,7 @@ function Privacy() {
                                         <ol start="25">
                                             <li>
                                                 If you have any questions about our privacy practices or the way in which we have been managing your personal information, please contact our privacy champion in writing at PO Box 16122 Collins Street West Victoria 8007 Australia or
-                                                <a href="mailto:privacy.champion@Evara.com">privacy.champion@Evara.com</a>.
+                                                <a href="mailto:privacy.champion@thepartycafe.com">privacy.champion@thepartycafe.com</a>.
                                             </li>
                                             <li>We’re really glad you made it to the end of the privacy policy, because knowing this stuff is the best way to understand how your personal information is used and how to best manage it!</li>
                                         </ol>

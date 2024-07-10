@@ -215,7 +215,7 @@ const Header = ({
                                                 <a>
                                                     <img
                                                         className="svgInject"
-                                                        alt="Evara"
+                                                        alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-profile.svg"
                                                     />
                                                     <span className="header-action-name">Profile</span>
@@ -227,7 +227,7 @@ const Header = ({
                                                 <a>
                                                     <img
                                                         className="svgInject"
-                                                        alt="Evara"
+                                                        alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-heart.svg"
                                                     />
                                                     <span className="pro-count blue">
@@ -241,7 +241,7 @@ const Header = ({
                                             <Link href="/shop-cart">
                                                 <a className="mini-cart-icon">
                                                     <img
-                                                        alt="Evara"
+                                                        alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-cart.svg"
                                                     />
                                                     <span className="pro-count blue">
@@ -260,7 +260,7 @@ const Header = ({
                                         <Link href={!user?'/page-login-register':'/shop-wishlist'}>
                                             <a>
                                                 <img
-                                                    alt="Evara"
+                                                    alt="The Party Cafe"
                                                     src="/assets/imgs/theme/icons/icon-heart.svg"
                                                 />
                                                 <span className="pro-count white">
@@ -273,7 +273,7 @@ const Header = ({
                                         <Link href="/shop-cart">
                                             <a className="mini-cart-icon">
                                                 <img
-                                                    alt="Evara"
+                                                    alt="The Party Cafe"
                                                     src="/assets/imgs/theme/icons/icon-cart.svg"
                                                 />
                                                 <span className="pro-count white">
@@ -288,7 +288,7 @@ const Header = ({
                                                         <Link href="/products/">
                                                             <a>
                                                                 <img
-                                                                    alt="Evara"
+                                                                    alt="The Party Cafe"
                                                                     src="/assets/imgs/shop/thumbnail-3.jpg"
                                                                 />
                                                             </a>
@@ -322,7 +322,7 @@ const Header = ({
                                                         <Link href="/products/">
                                                             <a>
                                                                 <img
-                                                                    alt="Evara"
+                                                                    alt="The Party Cafe"
                                                                     src="/assets/imgs/shop/thumbnail-4.jpg"
                                                                 />
                                                             </a>
@@ -373,7 +373,7 @@ const Header = ({
                                         <Link href="/my-profile" className="mr-0">
                                             <a className="mr-0">
                                                 <img
-                                                    alt="Evara"
+                                                    alt="The Party Cafe"
                                                     src="/assets/imgs/theme/icons/icon-profile.svg"
                                                 />
                                             </a>
