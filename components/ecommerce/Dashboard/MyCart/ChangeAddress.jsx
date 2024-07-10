@@ -157,7 +157,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                                 <div className={`addressStripV2-base-desktopContainer ${deliveredTo == address?.id? 'selected':''}`}>
                                     <div className="addressStripV2-base-title">
                                         <div className="addressStripV2-base-addressName">
-                                            {address.id}Deliver to:<span className="addressStripV2-base-highlight">{address?.name}</span>,
+                                            Deliver to:<span className="addressStripV2-base-highlight">{address?.name}</span>,
                                             <div className="addressStripV2-base-highlight">{address?.pincode}</div>
                                         </div>
                                         <div className="addressStripV2-base-subText">
