@@ -107,9 +107,7 @@ const ProductDetails = ({
         if(!auth_token){
             router.push('/page-login-register')
         }else{
-            dispatch(addItemToWishlist(product || 1));
-            dispatch(fetchWishlist())
-            
+            dispatch(addItemToWishlist(product));            
         }
 
     };
@@ -296,7 +294,7 @@ const ProductDetails = ({
                                                         Connect with us
                                                         <img
                                                             className="icon"
-                                                            alt="Evara"
+                                                            alt="The Party Cafe"
                                                             src="/assets/imgs/theme/icons/whatsapp-icon.svg"
                                                         />
                                                     </a>
@@ -336,7 +334,7 @@ const ProductDetails = ({
                                                     {
                                                         productDetails?.brand_assurity?.map((item,i)=>(
                                                             <li className="mb-10">
-                                                                <img alt="Evara" src={item?.file} />
+                                                                <img alt="the party cafe" src={item?.file} />
                                                                 <span>{item?.name}</span>
                                                             </li>
                                                         ))

@@ -4,7 +4,7 @@ import { generateRandomId } from '../../../../util/util';
 import { useEffect } from 'react';
 import { addAddress } from '../../../../util/api';
 
-export default function ChangeAddress({ close , handleSelectAddress, deliveredTo, setAddressList, addressList}) {
+export default function ChangeAddress({ close , handleSelectAddress, fetchAddressList, deliveredTo, addressList}) {
     const [addNew, setAddNew] = useState(false)
     const [isSumbitting, setIsSumbitting] = useState(false)
     let id = generateRandomId(6);
@@ -12,8 +12,8 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
         id: id,
         name: '',
         mobile: '',
-        addressLine1: '',
-        addressLine2: '',
+        address_line_1: '',
+        address_line_2: '',
         landmark: '',
         pincode: '',
         state: '',
@@ -27,8 +27,8 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
         id: id,
         name: '',
         mobile: '',
-        addressLine1: '',
-        addressLine2: '',
+        address_line_1: '',
+        address_line_2: '',
         landmark: '',
         pincode: '',
         state: '',
@@ -41,7 +41,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
   const [error, setError] = useState({
     name: false,
     mobile: false,
-    addressLine1: false,
+    address_line_1: false,
     pincode: false,
     state: false,
     city: false,
@@ -76,8 +76,8 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
       hasError = true;
     }
 
-    if (!address.addressLine1) {
-      setError((prev) => ({ ...prev, addressLine1: true }));
+    if (!address.address_line_1) {
+      setError((prev) => ({ ...prev, address_line_1: true }));
       hasError = true;
     }
 
@@ -102,19 +102,6 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
     }
 
     if (!hasError) {
-      // Save the address
-      if(address.isDefault==true){
-        const updatedAddresses = addressList?.map((address) => {
-              return { ...address, isDefault: false };
-          });
-          if(updatedAddresses?.length>0){
-              setAddressList([address,...updatedAddresses]);
-          }else{
-            setAddressList([address]);
-          }
-      }else{
-        setAddressList(prevList => [address, ...prevList])
-      }
 
     try {
         let body = {
@@ -122,8 +109,8 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
           city:address.city,
           state_name:address.state,
           mobile:address.mobile,
-          address_line_1:address.addressLine1,
-          address_line_2:address.addressLine2,
+          address_line_1:address.address_line_1,
+          address_line_2:address.address_line_2,
           landmark:address.landmark,
           is_default:address.isDefault,
           address_type:address.addressType,
@@ -131,6 +118,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
           pincode:address.pincode
         }
         const res = await addAddress(body);
+        fetchAddressList();
         console.log(res)
       } catch (error) {
         
@@ -173,7 +161,7 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                                             <div className="addressStripV2-base-highlight">{address?.pincode}</div>
                                         </div>
                                         <div className="addressStripV2-base-subText">
-                                            {`${address?.address_line_1 || address?.addressLine1}, ${address?.address_line_2 || address?.addressLine2}`}
+                                            {`${address?.address_line_1 || address?.address_line_1}, ${address?.address_line_2 || address?.address_line_2}`}
                                         </div>
                                     </div>
                                     <div onClick={()=>{handleSelectAddress(address?.id)}} className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop">
@@ -234,20 +222,20 @@ export default function ChangeAddress({ close , handleSelectAddress, deliveredTo
                         <input
                             required
                             className={`form-control square`}
-                            name="addressLine1"
+                            name="address_line_1"
                             type="text"
-                            value={address?.addressLine1}
+                            value={address?.address_line_1}
                             onChange={handleInputChange}
                         />
-                        {error.addressLine1 && <div className="errorContainer">Address is required</div>}
+                        {error.address_line_1 && <div className="errorContainer">Address is required</div>}
                     </div>
                     <div className="form-group col-md-12">
                         <label>Address Line 2 (optional)</label>
                         <input
                             className="form-control square"
-                            name="addressLine2"
+                            name="address_line_2"
                             type="text"
-                            value={address?.addressLine2}
+                            value={address?.address_line_2}
                             onChange={handleInputChange}
                         />
                     </div>

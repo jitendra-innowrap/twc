@@ -98,22 +98,22 @@ const Footer = () => {
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
                                     <li>
-                                        <a href="#">About Us</a>
+                                        <Link href="/page-about">About Us</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Media/ Press Release</a>
+                                        <Link href="#">Media/ Press Release</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Contact Us</a>
+                                        <Link href="/page-contact">Contact Us</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Disclaimer</a>
+                                        <Link href="#">Disclaimer</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Terms &amp; Conditions</a>
+                                        <Link href="/page-terms">Terms &amp; Conditions</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Privacy Policies</a>
+                                        <Link href="/page-privacy-policy">Privacy Policies</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -123,16 +123,16 @@ const Footer = () => {
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated">
                                     <li>
-                                        <a href="#">Sign In</a>
+                                        <Link href="/page-login-register">Sign In</Link>
                                     </li>
                                     <li>
-                                        <a href="#">My Profile</a>
+                                        <Link href="/my-profile">My Profile</Link>
                                     </li>
                                     <li>
-                                        <a href="#">View Cart</a>
+                                        <Link href="/shop-cart">View Cart</Link>
                                     </li>
                                     <li>
-                                        <a href="#">My Wishlist</a>
+                                        <Link href="/shop-wishlist">My Wishlist</Link>
                                     </li>
                                 </ul>
                             </div>

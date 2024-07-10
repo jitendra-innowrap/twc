@@ -4,6 +4,7 @@ import { priceOffPercentage, reverseDateOrder } from '../../../../util/util';
 import { fetchCart, removeItemFromCart } from '../../../../redux/Slices/cartSlice';
 import { useDispatch } from 'react-redux';
 import { deleteFromCart } from '../../../../util/api';
+import Link from 'next/link';
 
 export default function CartItem({item}) {
     const dispatch = useDispatch();
@@ -20,23 +21,25 @@ export default function CartItem({item}) {
                 <div className="item-base-item">
                 <div className="itemContainer-base-item">
                     <div className="itemContainer-base-itemLeft">
-                        <a href="/Shirts/KETCH/KETCH-Men-Blue-Slim-Fit-Cotton-Casual-Shirt/15767156/buy?mini=true&skuId=50561314&sellerPartnerId=4036">
+                        <Link href={`/products/${item.handle}`}>
                             <div className style={{ background: 'rgb(255, 237, 243)', height: 148, width: 111 }}>
                                 <picture className="image-base-imgResponsive" style={{ width: '100%' }}>
                                     <img src={item.product_images[0].file} 
                                     className="image-base-imgResponsive" alt={item?.name} fetchpriority="high" loading="eager" style={{ height: 148, width: 111, objectFit:"cover", objectPosition:'top' }} /></picture>
                             </div>
-                        </a>
+                        </Link>
                     </div>
                     <div className="itemContainer-base-itemRight">
                         <div className="itemContainer-base-details">
                             <div>
                                 <div className="itemContainer-base-brand">{item.category_name}</div>
-                                <a className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
-                                {`${item.name}`}
-                                {/* {item.color? ` - ${item.color}`: ''}  */}
-                                {(item.option_value_1 && item.product_type =='1')? ` - ${item.option_value_1}`: ''}
-                                </a>
+                                <Link className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
+                                    <a>
+                                    {`${item.name}`}
+                                    {(item.option_value_1 && item.product_type =='1')? ` - ${item.option_value_1}`: ''}
+                                    {(item.color && item.product_type =='1')? ` , ${item.color}`: ''}
+                                    </a>
+                                </Link>
                             </div>
                             <div className="itemComponents-base-sellerContainer">
                                 <div className="itemComponents-base-sellerData">

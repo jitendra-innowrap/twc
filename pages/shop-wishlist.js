@@ -27,12 +27,19 @@ const Wishlist = () => {
                     <div className="container">
                         <div className="row product-grid-4">
                                     {wishlistItems?.length == 0 && (
-                                        <div className="no-products-found">
-                                            <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
-                                            {/* <h3> No Products Found </h3> */}
+                                        <div className="empty-cart">
+                                            <h1>Your Wishlist is empty</h1>
+                                            <ShoppingBag />
+                                            <div className="cart-action text-center">
+                                                <div className="btn" onClick={() => router.push('/')}>
+                                                    <span>
+                                                        <i className="fi-rs-shopping-bag mr-10"></i>
+                                                        Continue Shopping
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     )}
-
                                     {wishlistItems?.map((item, i) => {
                                         
                                             return <div className="col-lg-3 col-md-4 col-12 col-sm-6"

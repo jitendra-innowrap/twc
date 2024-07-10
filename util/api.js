@@ -833,3 +833,61 @@ export const deleteFromWishlist = async (
     throw error;
   }
 }
+
+
+export const selectShippingAddress = async (
+  {address_id, billing_address_id, cart_id}
+) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('billing_address_id', billing_address_id);
+  formData.append('address_id', address_id);
+  formData.append('cart_id', cart_id);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}
+export const selectBillingAddress = async (
+  {address_id,billing_address_id,cart_id}
+) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('address_id', address_id);
+  formData.append('billing_address_id', billing_address_id);
+  formData.append('cart_id', cart_id);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}

@@ -51,7 +51,7 @@ function Contact() {
                                 <abbr title="Phone">Phone:</abbr> (123) 456-7890
                                 <br />
                                 <abbr title="Email">Email: </abbr>
-                                contact@Evara.com
+                                contact@Thepartycafe.com
                                 <br />
                                 <a className="btn btn-outline btn-sm btn-brand-outline font-weight-bold text-brand bg-white text-hover-white mt-20 border-radius-5 btn-shadow-brand hover-up">
                                     <i className="fi-rs-marker mr-10"></i>View
@@ -67,7 +67,7 @@ function Contact() {
                                 <abbr title="Phone">Phone:</abbr> (123) 456-7890
                                 <br />
                                 <abbr title="Email">Email: </abbr>
-                                contact@Evara.com
+                                contact@Thepartycafe.com
                                 <br />
                                 <a className="btn btn-outline btn-sm btn-brand-outline font-weight-bold text-brand bg-white text-hover-white mt-20 border-radius-5 btn-shadow-brand hover-up">
                                     <i className="fi-rs-marker mr-10"></i>View
@@ -83,7 +83,7 @@ function Contact() {
                                 <abbr title="Phone">Phone:</abbr> (123) 456-7890
                                 <br />
                                 <abbr title="Email">Email: </abbr>
-                                contact@Evara.com
+                                contact@Thepartycafe.com
                                 <br />
                                 <a className="btn btn-outline btn-sm btn-brand-outline font-weight-bold text-brand bg-white text-hover-white mt-20 border-radius-5 btn-shadow-brand hover-up">
                                     {" "}

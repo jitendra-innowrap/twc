@@ -15,7 +15,7 @@ export const fetchWishlist = createAsyncThunk('wishlist/fetchWishlist', async ()
 export const addItemToWishlist = createAsyncThunk('wishlist/addItemToWishlist', async (product) => {
   const response = await addToWishlist(product);
   console.log('response from thunk add wishlist', response)
-  if(response?.msg=="Add to wishlist successfully"){
+  if(response?.data?.msg=="Add to wishlist successfully"){
     toast.success("Added to Wishlist!", {
       position: "bottom-center",
       autoClose: 1500,
@@ -28,7 +28,7 @@ export const addItemToWishlist = createAsyncThunk('wishlist/addItemToWishlist', 
       transition: Bounce,
     });
   }
-  if(response?.msg=="Remove to wishlist successfully"){
+  if(response?.data?.msg=="Remove to wishlist successfully"){
     toast.success("Removed from Wishlist!", {
       position: "bottom-center",
       autoClose: 1500,
@@ -42,7 +42,7 @@ export const addItemToWishlist = createAsyncThunk('wishlist/addItemToWishlist', 
     });
   }
  
-  return response;
+  return response.data;
   
 });
 
@@ -52,7 +52,6 @@ const wishlistSlice = createSlice({
   initialState: {
     wishlistItems: [],
     wishlistCount: 0,
-    wishlistDetails: {},
     status: 'idle',
     error: null,
   },
@@ -61,12 +60,10 @@ const wishlistSlice = createSlice({
       const { wishlist } = action.payload;
       state.wishlistItems = wishlist.wishlist_product || [{},{},{}];
       state.wishlistCount = wishlist.wishlist_product_count || 0;
-      state.wishlistDetails = wishlist.bill_details || {};
     },
     emptyWishlist: (state) => {
       state.wishlistItems = [];
       state.wishlistCount = 0;
-      state.wishlistDetails = {};
     },
   },
   extraReducers: (builder) => {
@@ -78,7 +75,7 @@ const wishlistSlice = createSlice({
       .addCase(fetchWishlist.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.wishlistItems = action.payload.result || [];
-        state.wishlistCount = action.payload.result?.length;
+        state.wishlistCount = action.payload.result?.length || 0;
       })
       .addCase(fetchWishlist.rejected, (state, action) => {
         state.status = 'failed';
@@ -90,8 +87,8 @@ const wishlistSlice = createSlice({
       })
       .addCase(addItemToWishlist.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.wishlistItems = action.payload.wishlist_product_list || [];
-        state.wishlistCount = action.payload.wishlist_product_list?.length || 0;
+        state.wishlistItems = action.payload.wishlist_product_list;
+        state.wishlistCount = action.payload.wishlist_product_list?.length;
       })
       .addCase(addItemToWishlist.rejected, (state, action) => {
         state.status = 'failed';
