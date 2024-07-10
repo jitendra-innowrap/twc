@@ -96,12 +96,14 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
           other_address_type_name:"",
           pincode:address.pincode
         }
+        setIsSumbitting(true)
         const res = await addAddress(body);
         // make all other address isDefault false edited address index will not change
         fetchAddressList();
       } catch (error) {
         console.log(error)
       }
+      setIsSumbitting(false)
       close();
       }
   };

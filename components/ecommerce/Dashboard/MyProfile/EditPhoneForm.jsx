@@ -7,6 +7,7 @@ import { Bounce, toast } from 'react-toastify';
 
 export default function EditPhoneForm({ close, setTempUser }) {
     const [Mobile, setMobile] = useState("");
+    const [isSumbitting, setIsSumbitting] = useState(false);
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
     let tempOtp = "1234"
@@ -93,6 +94,7 @@ export default function EditPhoneForm({ close, setTempUser }) {
 
     const handleMobile = async () => {
         if (Mobile.length === 10) {
+            setIsSumbitting(true)
             try {
                 const res = await editPhoneNumber(Mobile)
                 if (res.code === 1) {
@@ -140,6 +142,7 @@ export default function EditPhoneForm({ close, setTempUser }) {
             } catch (error) {
                 console.error('Error resending OTP:', error);
             }
+            setIsSumbitting(false)
         } else {
             setError(prev => ({ ...prev, mobile: "Please enter a valid mobile number (10 digits)" }));
         }
@@ -236,7 +239,7 @@ export default function EditPhoneForm({ close, setTempUser }) {
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div className="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
+                            <button className="submitBottomOption btn w-100 rounded-0" disabled={isSumbitting} onClick={handleMobile}>{isSumbitting?'Please Wait...':'CONTINUE'}</button>
                         </div>
                         <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
