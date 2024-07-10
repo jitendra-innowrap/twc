@@ -891,3 +891,47 @@ export const selectBillingAddress = async (
     throw error;
   }
 }
+export const applyCouponApi = async (coupon) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('coupon_code', coupon);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/applyCoupon',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}
+export const removeCouponApi = async (coupon) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCoupon',
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}

@@ -88,6 +88,7 @@ const cartSlice = createSlice({
     defaultAddress: null,
     shippingAddress: null,
     billingAddress: null,
+    couponCode:"",
     status: 'idle',
     error: null,
   },
@@ -118,6 +119,7 @@ const cartSlice = createSlice({
         state.defaultAddress = action.payload.user_address?.[0] || {};
         state.shippingAddress = action.payload.shipping_address?.[0] || state.defaultAddress;
         state.billingAddress = action.payload.billing_address?.[0] || state.defaultAddress;
+        state.couponCode = action.payload?.coupon_data?.code || "";
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = 'failed';
