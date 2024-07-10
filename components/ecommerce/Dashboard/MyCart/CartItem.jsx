@@ -21,7 +21,7 @@ export default function CartItem({item}) {
                 <div className="item-base-item">
                 <div className="itemContainer-base-item">
                     <div className="itemContainer-base-itemLeft">
-                        <Link href={`/products/${item.handle}`}>
+                        <Link href={`/products/detail/${item.handle}`}>
                             <div className style={{ background: 'rgb(255, 237, 243)', height: 148, width: 111 }}>
                                 <picture className="image-base-imgResponsive" style={{ width: '100%' }}>
                                     <img src={item.product_images[0].file} 
@@ -33,7 +33,7 @@ export default function CartItem({item}) {
                         <div className="itemContainer-base-details">
                             <div>
                                 <div className="itemContainer-base-brand">{item.category_name}</div>
-                                <Link className="itemContainer-base-itemLink" href={`/products/${item.handle}`}>
+                                <Link className="itemContainer-base-itemLink" href={`/products/detail/${item.handle}`}>
                                     <a>
                                     {`${item.name}`}
                                     {(item.option_value_1 && item.product_type =='1')? ` - ${item.option_value_1}`: ''}
