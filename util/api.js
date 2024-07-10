@@ -68,10 +68,14 @@ export const getAllCategory = async () => {
 export const getPriceRange = async ({ flag, sub_category, category, collection }) => {
   // Create a new FormData object
   const formData = new FormData();
-  formData.append('flag', flag || 1);
-  formData.append('handle_category', category || "wedding");
-  formData.append('handle_sub_category', sub_category || "outfits");
-  // formData.append('handle_collection', collection || "");
+  if(collection){
+    formData.append('handle_collection', collection || "");
+    formData.append('flag', 2);
+  }else{
+    formData.append('flag', 1);
+    formData.append('handle_category', category);
+    formData.append('handle_sub_category', sub_category);
+  }
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Product/getPriceRange',
@@ -119,18 +123,72 @@ export const getAllCategoryProducts = async ({ handle_sub_category, handle_categ
       // Append the date-only string to the form data
       formData.append('check_available_date', dateOnly);
     }
+    
+        formData.append('handle_sub_category', handle_sub_category);
+        formData.append('handle_category', handle_category);
+        formData.append('page', page);
+        formData.append('from_price', from_price || "");
+        formData.append('to_price', to_price || "");
+        formData.append('flag', JSON.stringify(flag));
 
 
 
-    formData.append('handle_sub_category', handle_sub_category);
-    formData.append('handle_category', handle_category);
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts',
+      formData,
+      {
+        headers: {
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch data', error);
+    throw error;
+  }
+};
+
+export const getAllCollectionProducts = async ({ handle, sort, page = 1, from_price, to_price, availabilityDate }) => {
+  try {
+    // Create a new FormData object
+    const formData = new FormData();
+
+    let flag = [];
+    if(sort){
+      flag.push(sort)
+    }
+    if (from_price || to_price) {
+      flag.push("6");
+    }
+    formData.append('handle', handle);
     formData.append('page', page);
     formData.append('from_price', from_price || "");
     formData.append('to_price', to_price || "");
     formData.append('flag', JSON.stringify(flag));
+    formData.append('check_available_date', "");
+    if (availabilityDate) {
+      flag.push("7");
+      // Assuming you have a datetime string like '"2024-07-18T18:30:00.000Z"'
+      const datetimeString = availabilityDate;
 
+      // Remove extra quotes if they exist
+      const cleanedDatetimeString = datetimeString.replace(/^"|"$/g, '');
+
+      // Create a new Date object from the cleaned datetime string
+      const tempdate = new Date(cleanedDatetimeString);
+
+      // Extract only the date part in 'YYYY-MM-DD' format
+      const dateOnly = tempdate.toISOString().split('T')[0];
+
+      // Append the date-only string to the form data
+      formData.append('check_available_date', dateOnly || "");
+    }
+    
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts',
+      'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCollectionProducts',
       formData,
       {
         headers: {

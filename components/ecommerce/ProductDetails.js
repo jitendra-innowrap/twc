@@ -358,8 +358,9 @@ const ProductDetails = ({
                                                 </div>
                                             </div>
                                         </div>}
-                                        {product?.product_bottom_collections?.length>0 &&<div className="banner-img banner-big wow fadeIn f-none animated mt-50">
-                                            <img
+                                        {product?.product_bottom_collections?.length>0 &&<Link href={`/collection/${collectionBanner?.collection_handle}`}>
+                                            <div className="banner-img banner-big wow fadeIn f-none animated mt-50">
+                                                <img
                                                 className="border-radius-10"
                                                 src={collectionBanner?.collection_image}
                                                 alt=""
@@ -372,7 +373,8 @@ const ProductDetails = ({
                                                    {collectionBanner?.title}
                                                 </h2>
                                             </div>
-                                        </div>}
+                                            </div>
+                                        </Link>}
                                     </>
                             </div>
                         </div>

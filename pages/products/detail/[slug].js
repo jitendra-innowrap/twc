@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ProductDetails from "../../components/ecommerce/ProductDetails";
-import Layout from '../../components/layout/Layout';
-import { server } from "../../config/index";
-import { findProductIndex } from "../../util/util";
-import { getProductDetails } from "../../util/api";
+import Layout from '../../../components/layout/Layout';
+import { getProductDetails } from "../../../util/api";
 import { useRouter } from "next/router";
 import axios from "axios";
+import ProductDetails from "../../../components/ecommerce/ProductDetails";
 
 const ProductId = ({ product }) => {
     const router = useRouter();

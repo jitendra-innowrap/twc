@@ -11,8 +11,8 @@ import Layout from "../../components/layout/Layout";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { getAllCategoryProducts } from "../../util/api";
 import Preloader from "../../components/elements/Preloader";
+import { getAllCollectionProducts } from "../../util/api";
 
 const Products = () => {
     let today = new Date();
@@ -20,13 +20,13 @@ const Products = () => {
     searchTerm = Router.query.search,
     showLimit =3,
     showPagination = 4;
-    const { category, sub_category, page, from_price, to_price, sort, availabilityDate } = Router.query;
+    const { slug, page, from_price, to_price, sort, availabilityDate } = Router.query;
     const [totalProducts, setTotalProducts] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
-    const [sub_categories, setSub_categories] = useState([]);
+    const [title, setTitle] = useState("");
     let formattedDate
     if(availabilityDate){
         const parsedDate = new Date(JSON.parse(availabilityDate));
@@ -53,8 +53,10 @@ const Products = () => {
 
 
     useEffect(() => {
+        if(slug){
         fetchProductList();
         setCurrentPage(page||1);
+        }
     }, [Router.query]);
 
     useEffect(() => {
@@ -63,15 +65,16 @@ const Products = () => {
 
     const fetchProductList = async () => {
         // Create the request body
-        let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price, availabilityDate  };
+        let body = { handle: slug || "", sort, page, from_price, to_price, availabilityDate  };
         try {
-            const response = await getAllCategoryProducts(body);
+            const response = await getAllCollectionProducts(body);
             console.log('fetch products success: ', response)
             if (response.code == 0) {
                 Router.push('/404')
             }
             setProductList(response?.result);
-            setSub_categories(response?.sub_categories);
+            setTitle(response?.collections_info?.[0]?.title);
+            console.log('title',response?.collections_info?.title)
             setTotalProducts(response?.total_products);
             setIsLoading(false);
         } catch (error) {
@@ -98,26 +101,10 @@ const Products = () => {
 
     const startIndex = currentPage * limit - limit;
     const endIndex = startIndex + limit;
-    const getPaginatedProducts = productList?.slice(startIndex, endIndex);
 
     let start = Math.floor((currentPage - 1) / showPagination) * showPagination;
     let end = start + showPagination;
     const getPaginationGroup = pagination?.slice(start, end);
-
-    const next = () => {
-        setCurrentPage((page) => page + 1);
-        Router.replace({
-            query: { ...Router.query, page:parseInt(currentPage)+1 },
-            });
-            console.clear()
-    };
-
-    const prev = () => {
-        setCurrentPage((page) => page - 1);
-        Router.replace({
-            query: { ...Router.query, page:parseInt(currentPage)-1 },
-            });
-    };
 
     const handleActive = (item) => {
         setCurrentPage(item);
@@ -136,7 +123,7 @@ const Products = () => {
     
     return (
         <>
-            <Layout parent="Home" sub={category} subChild={sub_category}>
+            <Layout parent="Home" sub={"collection"} subChild={title}>
                 <section className="mt-50 mb-50">
                     <div className="container">
                         {isLoading?
@@ -144,13 +131,6 @@ const Products = () => {
                         :
                         <div className="row">
                             <div className="col-lg-3 primary-sidebar sticky-sidebar">
-                                <div className="widget-category mb-30">
-                                    <h5 className="section-title style-1 mb-30 wow fadeIn animated">
-                                        Category
-                                    </h5>
-                                    <CategoryProduct sub_categories={sub_categories} />
-                                </div>
-
                                 <div className="sidebar-widget price_range range mb-30">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
@@ -172,11 +152,11 @@ const Products = () => {
 
                                     <div className="list-group">
                                         <div className="list-group-item mb-10">
-                                            <label className="fw-900 mt-20 mb-15">
+                                            {/* <label className="fw-900 mt-20 mb-15">
                                                 Size
                                             </label>
-                                            <SizeFilter />
-                                            <label className="fw-900 mt-35 mb-15">
+                                            <SizeFilter /> */}
+                                            <label className="fw-900 mb-15">
                                                 Availablity Date
                                             </label>
                                             <div className="date-filter">
@@ -241,7 +221,6 @@ const Products = () => {
                                     {productList?.length === 0 && (
                                         <div className="no-products-found">
                                             <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
-                                            {/* <h3> No Products Found </h3> */}
                                         </div>
                                     )}
 
@@ -270,8 +249,6 @@ const Products = () => {
                                             }
                                             currentPage={currentPage}
                                             pages={pages}
-                                            next={next}
-                                            prev={prev}
                                             handleActive={handleActive}
                                         />
                                     </nav>

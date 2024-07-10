@@ -30,8 +30,8 @@ const SingleProduct = ({product, deleteWishList}) => {
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link
-                            href="/products/[slug]"
-                            as={`/products/${product?.handle}`}
+                            href="/products/detail/[slug]"
+                            as={`/products/detail/${product?.handle}`}
                         >
                             <a>
                                 <img
@@ -63,7 +63,7 @@ const SingleProduct = ({product, deleteWishList}) => {
                 }
                 <div className="product-content-wrap">
                     <div className="product-category">
-                    <Link href={`/${product?.category_handle}/${product?.sub_category_handle}`}>
+                    <Link href={`/products/${product?.category_handle}/${product?.sub_category_handle}`}>
                         <a>
                             {product?.sub_category_name}
                         </a>
@@ -71,8 +71,8 @@ const SingleProduct = ({product, deleteWishList}) => {
                     </div>
                     <h2>
                     <Link
-                            href="/products/[slug]"
-                            as={`/products/${product?.handle}`}
+                            href="/products/detail/[slug]"
+                            as={`/products/detail/${product?.handle}`}
                         >
                             <a>{product.name}</a>
                             </Link>
