@@ -22,7 +22,8 @@ const Cart = () => {
     const [addressList, setAddressList] = useState([]);
     const [deliveredTo, setDeliveredTo] = useState();
     const [billingTo, setBillingTo] = useState();
-    const [couponDiscount, setCouponDiscount] = useState(false)
+
+    const couponDiscount = useSelector((state) => state.cart.couponCode);
     const cartItems = useSelector((state) => state.cart.cartItems);
     const cartCount = useSelector((state) => state.cart.cartCount);
     const cartDetails = useSelector((state) => state.cart.cartDetails);
@@ -203,49 +204,49 @@ const Cart = () => {
                                                     <span className>Our Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails.dicount_on_mrp)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.dicount_on_mrp)}</span>
                                                     </span>
                                                 </div>
                                                 {couponDiscount && <div className="priceDetail-base-row">
                                                     <span className>Coupon Discount</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
-                                                        <span> <span className>₹</span>{(cartDetails.dicount_on_mrp)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.total_coupon_discount)}</span>
                                                     </span>
                                                 </div>}
                                                 <div className="priceDetail-base-row">
                                                     <span className>Sub Total</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails.sub_total)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.sub_total)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Taxes (18%)</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails.tax_amount)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.tax_amount)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Amount To Be Paid</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails.amount_to_be_paid)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.amount_to_be_paid)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
                                                     <span className>Deposit</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails.deposit_amount)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.deposit_amount)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-total">
                                                     <span className>Final Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(cartDetails.total_payable)}</span>
+                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(cartDetails?.total_payable)}</span>
                                                     </span>
                                                 </div>
                                             </div>

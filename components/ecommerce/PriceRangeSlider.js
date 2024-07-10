@@ -7,7 +7,7 @@ import { getPriceRange } from "../../util/api";
 const PriceRangeSlider = () => {
     
     const router = useRouter();
-    const { from_price, to_price } = router.query;
+    const { from_price, to_price,  category, sub_category, slug } = router.query;
     const [price, setPrice] = useState({ value: { min: from_price || 0, max: to_price || 25000 } });
     const [priceRange, setPriceRange] = useState({min:0,max:0})
     useEffect(() => {
@@ -15,7 +15,8 @@ const PriceRangeSlider = () => {
     }, [router.query]);
 
     const fetchPriceRange= async()=>{
-        const res = await getPriceRange({})
+        let params = {collection:slug, sub_category, category}
+        const res = await getPriceRange(params)
         const min = parseInt(res?.data?.result?.[0].price_min) || 0;
         const max = parseInt(res?.data?.result?.[0].price_max) || 25000;
         setPriceRange({min,max})

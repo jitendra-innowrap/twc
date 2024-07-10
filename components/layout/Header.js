@@ -177,7 +177,7 @@ const Header = ({
                                                                                 // category?.sub_categories?.slice(0, 5)?.map((sub_categorie, i) => (
                                                                                     category?.sub_categories?.map((sub_categorie, i) => (
                                                                                     <li key={sub_categorie?.id}>
-                                                                                        <Link href={`/${category?.handle}/${sub_categorie?.handle}`}>
+                                                                                        <Link href={`/products/${category?.handle}/${sub_categorie?.handle}`}>
                                                                                             <a>
                                                                                                 {sub_categorie?.name}
                                                                                             </a>
