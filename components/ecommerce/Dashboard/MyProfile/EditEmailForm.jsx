@@ -17,6 +17,7 @@ export default function EditEmailForm({ close, setTempUser }) {
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
+    const [isSumbitting, setIsSumbitting] = useState(false)
 
     const handleResendOTP = () => {
         resendOTPForEmail(Email)
@@ -82,6 +83,7 @@ export default function EditEmailForm({ close, setTempUser }) {
     const handleEmail = async () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(Email)) {
+            setIsSumbitting(true)
             try {
                 const res = await editEmail(Email)
                 if (res.code === 1) {
@@ -129,6 +131,7 @@ export default function EditEmailForm({ close, setTempUser }) {
             } catch (error) {
                 console.error('Error resending OTP:', error);
             }
+            setIsSumbitting(false)
         } else {
             setError((prev) => ({ ...prev, email: 'Please enter a valid email.' }));
         }
@@ -223,7 +226,7 @@ export default function EditEmailForm({ close, setTempUser }) {
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div className="submitBottomOption" onClick={handleEmail}>CONTINUE</div>
+                            <button className="submitBottomOption btn w-100 rounded-0" disabled={isSumbitting} onClick={handleEmail}>{isSumbitting?'Please Wait...':'CONTINUE'}</button>
                         </div>
                         <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>

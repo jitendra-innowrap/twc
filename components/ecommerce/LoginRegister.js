@@ -8,6 +8,7 @@ import { refreshToken } from '../../redux/Slices/authSlice';
 import { useDispatch } from 'react-redux';
 
 function LoginRegister({logIN}) {
+    const [isSumbitting, setIsSumbitting] = useState(false);
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
@@ -71,6 +72,7 @@ function LoginRegister({logIN}) {
 
     const handleMobile = async () => {
         if (Mobile.length === 10) {
+                setIsSumbitting(true)
                 loginApi(Mobile)
                 .then((res) => {
                     if(res?.code==1){
@@ -116,6 +118,7 @@ function LoginRegister({logIN}) {
                         transition: Bounce,
                     });
                 });
+                setIsSumbitting(false)
         } else {
             setError((prev) => ({ ...prev, mobile: true }));
         }
@@ -266,7 +269,7 @@ function LoginRegister({logIN}) {
                                 By continuing, I agree to the
                                 <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
                             </div>
-                            <div className="submitBottomOption" onClick={handleMobile}>CONTINUE</div>
+                            <button className="submitBottomOption btn w-100 rounded-0" disabled={isSumbitting} onClick={handleMobile}>{isSumbitting?'Please Wait...':'CONTINUE'}</button>
                         </div>
                         <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>

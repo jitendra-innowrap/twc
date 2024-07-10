@@ -117,14 +117,15 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
           other_address_type_name:"",
           pincode:address.pincode
         }
+        setIsSumbitting(false)
         const res = await addAddress(body);
         fetchAddressList();
         console.log(res)
       } catch (error) {
-        
+        console.log('Error !', error)
       }
+      setIsSumbitting(false)
       setAddNew(false)
-      
       }
   };
 

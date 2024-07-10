@@ -97,11 +97,13 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
           pincode:address.pincode,
           address_id:address.id
         }
+        setIsSumbitting(true)
         const res = await editAddress(body);
         fetchAddressList();
       } catch (error) {
         console.log(error)
       }
+      setIsSumbitting(false)
       close();
     }
     
