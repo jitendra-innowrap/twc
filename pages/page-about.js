@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 function About() {
     return (
         <>
-            <Layout parent="Home" sub="Pages" subChild="About">
+            <Layout parent="Home" sub="About" subChild="">
                 <section className="section-padding">
                     <div className="container pt-25">
                         <div className="row">
@@ -231,7 +231,7 @@ function About() {
                         </div>
                     </div>
                 </section>
-                <section id="work" className="mt-40 pt-50 pb-50 section-border">
+                {/* <section id="work" className="mt-40 pt-50 pb-50 section-border">
                     <div className="container">
                         <div className="row mb-50">
                             <div className="col-lg-12 col-md-12 text-center">
@@ -297,23 +297,21 @@ function About() {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
                 <section id="testimonials" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
                             <div className="col-lg-12 col-md-12 text-center">
                                 <h6 className="mt-0 mb-10 text-uppercase  text-brand font-sm wow fadeIn animated">
-                                    some facts
+                                    AWARDS & RECOGNITION
                                 </h6>
                                 <h2 className="mb-15 text-grey-1 wow fadeIn animated">
-                                    Take a look what
-                                    <br /> our clients say about us
+                                Take a look at our 
+
+                                    <br /> achievements
                                 </h2>
                                 <p className="w-50 m-auto text-grey-3 wow fadeIn animated">
-                                    At vero eos et accusamus et iusto odio
-                                    dignissimos ducimus quiblanditiis
-                                    praesentium. ebitis nesciunt voluptatum
-                                    dicta reprehenderit accusamus
+                                We are proud to have received numerous awards and recognition for our outstanding work. These accolades are a testament to our commitment to excellence and dedication to our clients.
                                 </p>
                             </div>
                         </div>
@@ -462,6 +460,7 @@ function About() {
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                         <div className="row mt-30">
                             <div className="col-12 text-center">

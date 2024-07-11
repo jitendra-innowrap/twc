@@ -9,22 +9,11 @@ function Terms() {
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-9">
+                            <div className="col-lg-12">
                                 <div className="single-page pr-30 mb-lg-0 mb-sm-5">
                                     <div className="single-header style-2">
                                         <h2>Terms of Service</h2>
-                                        <div className="entry-meta meta-1 font-xs mt-15 mb-15">
-                                            <span className="post-by">
-                                                By <a href="#">Jonh</a>
-                                            </span>
-                                            <span className="post-on has-dot">9 April 2020</span>
-                                            <span className="time-reading has-dot">8 mins read</span>
-                                            <span className="hit-count has-dot">69k Views</span>
-                                        </div>
                                     </div>
-                                    <figure className="single-thumbnail">
-                                        <img src="assets/imgs/blog/blog-10.jpg" alt="" />
-                                    </figure>
                                     <div className="single-content">
                                         <p> Please read these Terms of Service (“Terms”, “Terms of Service”) carefully before using the https://thepartycafe.com website (the “Service”) operated by The Party Cafe(“us”, “we”, or “our”).</p>
                                         <p>Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
@@ -60,9 +49,6 @@ function Terms() {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-lg-3 primary-sidebar sticky-sidebar">
-                                <BlogSidebar />
                             </div>
                         </div>
                     </div>
