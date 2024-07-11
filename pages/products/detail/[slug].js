@@ -23,7 +23,7 @@ const ProductId = ({ product }) => {
     return (
         <>
         <Layout parent="Home" sub={details?.result?.[0]?.sub_category_name} subChild={details?.result?.[0]?.name}>
-            <div className="container" onClick={()=> {console.log("clicked", details)}}>
+            <div className="container">
                 <ProductDetails product={details} />
             </div>
         </Layout>

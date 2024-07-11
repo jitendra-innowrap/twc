@@ -6,7 +6,7 @@ import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import { BiInfoCircle } from "react-icons/bi";
@@ -48,9 +48,10 @@ const ProductDetails = ({
     const collectionBanner = product?.product_bottom_collections?.[0];
     const [heighLightDate, setHeighLightDate] = useState(false)
     const [isInCart, setIsInCart] = useState(false)
-    const cartItems = useSelector((state) => state.cart.cartItems);
-
     const [isInWishlist, setIsInWishlist] = useState(false)
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
+
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [deliveryDate, setDeliveryDate] = useState();
@@ -62,10 +63,13 @@ const ProductDetails = ({
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
-      let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
-      console.log('already in cart',inCart.length)
-      setIsInCart(inCart.length?true:false);
+      setIsInWishlist(product?.result?.[0]?.is_user_wishlist=='1'?true:false);
     }, [slug])  
+    
+    
+    
+    useEffect(() => {
+    }, [router.query])
     
     const handleCart = async (product) => {
         if(isInCart && productDetails?.product_type=="1"){
@@ -75,17 +79,18 @@ const ProductDetails = ({
                 dispatch(addItemToCart(product));
                 setIsInCart(true)
               }else{
-                setHeighLightDate(true)
-              }
-        }
-    };
-    useEffect(() => {
+                  setHeighLightDate(true)
+                }
+            }
+        };
+        
+        useEffect(() => {
         let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
-        console.log('already in cart',inCart.length)
+        let inWishlist = wishlistItems.filter(item => item.id == product?.result?.[0]?.id);
         setIsInCart(inCart.length?true:false);
-    }, [router.query, handleCart])
-    
-    
+        setIsInWishlist(inWishlist.length?true:false);
+        }, [router.query, handleCart])
+        
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if(value)
             return(<button className="custom-date-input" onClick={onClick} ref={ref}>
@@ -107,7 +112,8 @@ const ProductDetails = ({
         if(!auth_token){
             router.push('/page-login-register')
         }else{
-            dispatch(addItemToWishlist(product));            
+            dispatch(addItemToWishlist(product));
+            // setIsInWishlist(!isInWishlist);           
         }
 
     };
@@ -156,12 +162,6 @@ const ProductDetails = ({
                                                         <FaXTwitter size={18} color="#606060" />
                                                     </a>
                                                 </li>
-                                                {/* <li className="social-instagram">
-                                                    <a href={`https://www.instagram.com/?url=http://65.2.106.71:8001/products/${productDetails?.handle}`} 
-                                                        target="_blank">
-                                                        <FaInstagram size={18} color="#606060"/>
-                                                    </a>
-                                                </li> */}
                                                 <li className="social-whatsapp">
                                                     <a href={`https://wa.me/send?text=Check out this product: http://65.2.106.71:8001/products/${productDetails?.handle}`} 
                                                         data-action="share/whatsapp/share"
@@ -234,10 +234,10 @@ const ProductDetails = ({
                                                 <strong className="mr-10">
                                                     Color
                                                 </strong>
-                                                <ul className="list-filter color-filter">
+                                                <ul className="list-filter">
                                                     {colorsVariants.map(
                                                         (clr, i) => (
-                                                            <li key={i}>
+                                                            <li key={i} className={clr === color ? 'active' : ''}>
                                                                 <a href="#" onClick={(e) => {
                                                                     e.preventDefault();
                                                                     setColor(clr);
@@ -256,7 +256,7 @@ const ProductDetails = ({
                                                 <ul className="list-filter">
                                                     {productSizes.map(
                                                         (s, i) => (
-                                                            <li className={s === size ? 'active' : ''}>
+                                                            <li key={i} className={s === size ? 'active' : ''}>
                                                                 <a href="#" onClick={(e) => {
                                                                     e.preventDefault();
                                                                     setSize(s);
@@ -306,6 +306,8 @@ const ProductDetails = ({
                                                                 selling_price: productDetails?.selling_price,
                                                                 qty: quantity,
                                                                 flag: 1,
+                                                                size,
+                                                                color,
                                                                 deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
                                                                 deposit_amount:productDetails?.deposit_amount,
                                                                 rental_start_date: deliveryDate,
@@ -318,14 +320,15 @@ const ProductDetails = ({
                                                     </button>
                                                     <a
                                                         aria-label="Add To Wishlist"
-                                                        className="action-btn add-to-wishlist"
+                                                        className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist=='1'?'isInWishlist':''}`}
                                                         onClick={(e) =>
                                                             handleWishlist(
                                                                 productDetails?.id
                                                             )
                                                         }
                                                     >
-                                                        <i className="fi-rs-heart"></i>
+                                                        {isInWishlist?<FaHeart fill="#088178" />
+                                                        :<FaRegHeart fill="#088178" />}
                                                     </a>
                                                 </div>
                                             </div>
@@ -333,7 +336,7 @@ const ProductDetails = ({
                                                 <ul>
                                                     {
                                                         productDetails?.brand_assurity?.map((item,i)=>(
-                                                            <li className="mb-10">
+                                                            <li className="mb-10" key={i}>
                                                                 <img alt="the party cafe" src={item?.file} />
                                                                 <span>{item?.name}</span>
                                                             </li>

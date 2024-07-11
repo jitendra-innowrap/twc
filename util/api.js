@@ -212,10 +212,18 @@ export const getProductDetails = async ({ handle }) => {
     // Create a new FormData object
     const formData = new FormData();
     formData.append('handle', handle);
-
-    const response = await api.post(
-      '/Product/getProductDetails',
-      formData);
+    
+    const auth_token = getToken();
+    const web_token = storage.get("web_token")
+    const response = await axios.post('https://innowrap.co.in/clients/twc/App/V1/Product/getProductDetails',
+      formData,
+      {
+        headers: {
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data',
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+        }
+      });
 
     return response.data;
   } catch (error) {
@@ -223,6 +231,7 @@ export const getProductDetails = async ({ handle }) => {
     throw error;
   }
 };
+
 
 // login and auth api's endpoints
 export const logOutApi = async (mobile) => {
@@ -771,8 +780,9 @@ export const addToCart = async ({
 qty,
 mrp,
 selling_price,
-// web_token,
 deposit_amount,
+size,
+color,
 rental_start_date,
 deduction_from_deposit_per_day,
 rental_end_date
@@ -784,6 +794,8 @@ rental_end_date
   formData.append('product_id', product_id);
   formData.append('qty', qty);
   formData.append('mrp', mrp);
+  formData.append('size', size);
+  formData.append('color', color);
   formData.append('selling_price', selling_price);
   formData.append('action', '1');
   formData.append('flag', '1');
@@ -982,6 +994,34 @@ export const removeCouponApi = async (coupon) => {
       {
         headers: {
           ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}
+export const placeOrder = async ({address_id, billing_address_id, payment_type, transaction_id}) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('flag', '1');
+  formData.append('address_id', address_id);
+  formData.append('billing_address_id', billing_address_id);
+  formData.append('payment_type', payment_type);
+  formData.append('transaction_id', transaction_id);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/placeOrder',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }

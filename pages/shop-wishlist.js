@@ -15,7 +15,7 @@ const Wishlist = () => {
     const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
     useEffect(() => {
         if(!isLoggedIn){
-            router.push('/')
+            router.push('/page-login-register')
         }
     }, [])
 

@@ -179,33 +179,14 @@ const Products = () => {
                                     <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
-                                {/* <div className="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                                    <img
-                                        src="/assets/imgs/banner/banner-offer.webp"
-                                        alt=""
-                                    />
-                                    <div className="banner-text">
-                                        <span>Women Zone</span>
-                                        <h4>
-                                            Save 17% on <br />
-                                            Office Dress
-                                        </h4>
-                                        <Link href="/products">
-                                            <a>
-                                                Shop Now
-                                                <i className="fi-rs-arrow-right"></i>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </div> */}
                             </div>
                             <div className="col-lg-9">
-                                {productList?.length > 0 && <div className="shop-product-fillter">
+                                <div className="shop-product-fillter">
                                     <div className="totall-product">
                                         <p>
                                             We found
                                             <strong className="text-brand">
-                                                {totalProducts}
+                                                {totalProducts || 0}
                                             </strong>
                                             items for you!
                                         </p>
@@ -220,7 +201,7 @@ const Products = () => {
                                             </span>
                                         </div> */}
                                     </div>
-                                </div>}
+                                </div>
                                 <div className="row product-grid-3">
                                     {productList?.length === 0 && (
                                         <div className="no-products-found">
