@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
 import { addAddress } from '../../../../util/api';
 
@@ -107,7 +107,12 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
       close();
       }
   };
+  const inputRef = useRef(null);
 
+    useEffect(() => {
+        // Focus the first OTP input field when the step is set to 2
+            inputRef.current?.focus()
+    }, []);
   const handleBack = () => {
     close();
   };
@@ -137,6 +142,7 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
                 type="text"
                 value={address.name}
                 onChange={handleInputChange}
+                ref={inputRef}
               />
             {error.name && <div className="errorContainer">Name is required</div>}
 

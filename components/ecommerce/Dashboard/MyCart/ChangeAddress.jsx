@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
 import { generateRandomId } from '../../../../util/util';
 import { useEffect } from 'react';
@@ -8,6 +8,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
     const [addNew, setAddNew] = useState(false)
     const [isSumbitting, setIsSumbitting] = useState(false)
     let id = generateRandomId(6);
+    
     const [address, setAddress] = useState({
         id: id,
         name: '',
@@ -39,14 +40,23 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
   }, [addNew])
   
   const [error, setError] = useState({
-    name: false,
-    mobile: false,
-    address_line_1: false,
-    pincode: false,
-    state: false,
-    city: false,
-    addressType: false,
-  });
+      name: false,
+      mobile: false,
+      address_line_1: false,
+      pincode: false,
+      state: false,
+      city: false,
+      addressType: false,
+    });
+    
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        // Focus the first OTP input field when the step is set to 2
+        if (addNew===true) {
+            inputRef.current?.focus()
+         }
+    }, [addNew]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -129,6 +139,9 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
       }
   };
 
+  const openAddNewForm =()=>{
+    setAddNew(true);
+  }
   const handleBack = () => {
     close();
   };
@@ -148,7 +161,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                 <div className="change_address_list">
                     <div className="heading_s2">
                         <h4>Saved Address</h4>
-                        <div className="add_new_btn" role='button' onClick={()=>{setAddNew(true)}}>
+                        <div className="add_new_btn" role='button' onClick={openAddNewForm}>
                             <i className='fi-rs-plus'></i> <span>Add New</span>
                         </div>
                     </div>
@@ -184,7 +197,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                 </div>
                 <div className="mobileInputContainer">
                     <div className="form-group col-md-12">
-                        <label>
+                        <label onClick={()=> {inputRef.current.focus();}}>
                             Full Name
                             <span className={`text-danger`}>*</span>
                         </label>
@@ -195,6 +208,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                             type="text"
                             value={address?.name}
                             onChange={handleInputChange}
+                            ref={inputRef}
                         />
                         {error.name && <div className="errorContainer">Name is required</div>}
 

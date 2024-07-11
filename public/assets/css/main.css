@@ -10972,6 +10972,7 @@ span.fi-rs-apps {
   padding: 6px 0.75rem;
   border-radius: 32px;
   min-width: 24px;
+  text-transform: capitalize;
 }
 
 .detail-info .attr-size .list-filter li.active {
@@ -11009,6 +11010,10 @@ span.fi-rs-apps {
 
 .detail-info .detail-extralink .product-extra-link2 a.add-to-wishlist {
   border-radius: 0;
+}
+.detail-info .detail-extralink .product-extra-link2 a.add-to-wishlist:hover svg{
+  color: #fff;
+  fill: #fff;
 }
 
 .detail-info .detail-extralink .product-extra-link2 button.button-add-to-cart {

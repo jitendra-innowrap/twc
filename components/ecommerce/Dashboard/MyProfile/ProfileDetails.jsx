@@ -48,7 +48,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                         </div>
                         {user?.email && <div className="col-sm-9 text-secondary">
                             {user?.email}
-                            {user?.isEmailVerified ? (
+                            {user?.isEmailVerified =='1' ? (
                                 <FaCheckCircle className="text-success ms-2" />
                             ) : (
                                 <FaTimesCircle className="text-danger ms-2" />

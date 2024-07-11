@@ -14,11 +14,28 @@ export default function EditPhoneForm({ close, setTempUser }) {
     const [otp, setOtp] = useState(['', '', '', '']);
     const [error, setError] = useState({ mobile: "", otp: "" })
     const inputRefs = useRef([]);
+    const phoneRef = useRef(null)
+
     const router = useRouter()
     let referrer = "/"
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
+
+    useEffect(() => {
+        // Focus the first OTP input field when the step is set to 2
+        if (step === 1) {
+            phoneRef.current?.focus()
+         }
+         // Focus the first OTP input field when the step is set to 2
+        if (step === 2) {
+            inputRefs.current[0].focus();
+          }
+        return () => {
+            // Clean up the timer when the component unmounts
+            clearInterval(interval);
+        };
+    }, [step]);
 
     const handleResendOTP = async () => {
         try {
@@ -83,12 +100,6 @@ export default function EditPhoneForm({ close, setTempUser }) {
         setError({ mobile: false, otp: false })
     }
 
-    useEffect(() => {
-        return () => {
-            // Clean up the timer when the component unmounts
-            clearInterval(interval);
-        };
-    }, []);
 
 
 
@@ -227,7 +238,7 @@ export default function EditPhoneForm({ close, setTempUser }) {
                         </div>
                         <div className="mobileInputContainer">
                             <div className="form-group ">
-                                <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxLength="10" value={Mobile} />
+                                <input ref={phoneRef} autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxLength="10" value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
