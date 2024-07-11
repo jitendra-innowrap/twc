@@ -9,7 +9,7 @@ import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useEffect } from "react";
-import { getAddressList, getCartList } from "../util/api";
+import { getAddressList, getCartList, placeOrder } from "../util/api";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart, setBillingAddress, setShippingAddress } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
@@ -54,6 +54,31 @@ const Cart = () => {
     const billingToggle =()=>{
         setBillingAsDelivery(!billingAsDelivery)
     }
+    const handlePlaceOrder = async () => {
+        // Generate a random transaction ID
+        const transactionId = generateRandomTransactionId();
+      
+        // Generate a transaction type of 1
+        const transactionType = 1;
+      
+        let body = {
+          address_id: shippingAddress.id,
+          billing_address_id: billingAsDelivery ? shippingAddress.id : billingAddress.id,
+          payment_type,
+          transaction_id: transactionId,
+          transaction_type: transactionType,
+        };
+      
+        try {
+          const res = await placeOrder(body);
+        } catch (error) {
+          // Handle error
+        }
+      };
+      function generateRandomTransactionId() {
+        // Generate a random 16-digit transaction ID
+        return Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
+      }
     useEffect(() => {
         dispatch(fetchCart());
         fetchAddressList();

@@ -2,16 +2,16 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from 'react-icons/md';
-import { editEmail, editPhoneNumber, resendOTPForEmail, resendOTPForPhone, verifyOTPforEmail, verifyOTPforPhone } from '../../../../util/api';
+import { editEmail, resendOTPForEmail, verifyOTPforEmail } from '../../../../util/api';
 import { Bounce, toast } from 'react-toastify';
 export default function EditEmailForm({ close, setTempUser }) {
     const [Email, setEmail] = useState("");
-    const [name, setName] = useState("");
     const [step, setStep] = useState(1);
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
     const [error, setError] = useState({ email: false, otp: false })
     const inputRefs = useRef([]);
+    const emailRef = useRef(null)
     const router = useRouter()
     let referrer = "/";
     const [otpTimer, setOtpTimer] = useState(false);
@@ -74,11 +74,20 @@ export default function EditEmailForm({ close, setTempUser }) {
     }
 
     useEffect(() => {
+        // Focus the first OTP input field when the step is set to 2
+        if (step === 1) {
+            emailRef.current?.focus()
+         }
+         // Focus the first OTP input field when the step is set to 2
+        if (step === 2) {
+            inputRefs.current[0].focus();
+          }
         return () => {
             // Clean up the timer when the component unmounts
             clearInterval(interval);
         };
-    }, []);
+    }, [step]);
+
 
     const handleEmail = async () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -215,7 +224,7 @@ export default function EditEmailForm({ close, setTempUser }) {
                         </div>
                         <div className="mobileInputContainer">
                             <div className="form-group ">
-                                <input autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" className="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
+                                <input ref={emailRef} autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleEmail }} id="" type="text" className="form-control mobileNumberInput email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" value={Email} />
                                 <span className="placeholderAlternative mobileNumber">
 
                                     {!Email && <span className="mobileNumberPlacholder">Email<span style={{ color: 'rgb(255, 87, 34)' }}>*</span></span>}

@@ -107,7 +107,7 @@ const Footer = () => {
                                         <Link href="/page-contact">Contact Us</Link>
                                     </li>
                                     <li>
-                                        <Link href="#">Disclaimer</Link>
+                                        <Link href="/page-disclaimer">Disclaimer</Link>
                                     </li>
                                     <li>
                                         <Link href="/page-terms">Terms &amp; Conditions</Link>

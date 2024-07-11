@@ -17,13 +17,15 @@ function LoginRegister({logIN}) {
     const [otp, setOtp] = useState(['', '', '', '']);
     const [error, setError] = useState({ mobile: false, otp: false, name: false })
     const inputRefs = useRef([]);
+    const phoneRef = useRef(null);
+
     const router = useRouter()
     let referrer = "/"
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
     const dispatch = useDispatch();
-
+    
     const handleResendOTP = () => {
             resendOTPApi(auth_token)
                 .then(() => {
@@ -64,11 +66,19 @@ function LoginRegister({logIN}) {
     }
     
     useEffect(() => {
+        // Focus the first OTP input field when the step is set to 2
+        if (step === 1) {
+            phoneRef.current?.focus()
+         }
+         // Focus the first OTP input field when the step is set to 2
+        if (step === 2) {
+            inputRefs.current[0].focus();
+          }
         return () => {
             // Clean up the timer when the component unmounts
             clearInterval(interval);
         };
-    }, []);
+    }, [step]);
 
     const handleMobile = async () => {
         if (Mobile.length === 10) {
@@ -257,7 +267,7 @@ function LoginRegister({logIN}) {
                         </div>
                         <div className="mobileInputContainer">
                             <div className="form-group ">
-                                <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <input ref={phoneRef} autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 

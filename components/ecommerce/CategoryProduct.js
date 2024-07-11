@@ -8,7 +8,7 @@ const CategoryProduct = ({ sub_categories }) => {
   const selectCategory = (e, sub_category) => {
     e.preventDefault();
     const { category } = router.query;
-    router.push(`/${category}/${sub_category}`);
+    router.push(`/products/${category}/${sub_category}`);
   };
 
   const handleSeeMore = () => {
