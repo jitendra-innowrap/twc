@@ -17,14 +17,14 @@ export default function Home() {
                     <Intro1 />
                 </section>
 
-                <section className="popular-categories section-padding mt-md-15 mb-md-25">
+                <section className="popular-categories section-padding mt-md-3 mb-md-4">
                     <div className="container wow fadeIn animated">
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Events Category
                         </h3>
                         <div className="carausel-6-columns-cover position-relative">
                             <div
-                                className="carausel-6-columns"
+                                className=""
                                 id="carausel-6-columns"
                             >
                                 <CategorySlider />
@@ -33,12 +33,12 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding mt-md-15 mb-md-25">
+                <section className="section-padding mt-md-3 mb-md-4">
                     <div className="container wow fadeIn animated">
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Rental Category
                         </h3>
-                        <div className="mt-md-70">
+                        <div className="mt-md-5">
                             <div className="rental-category">
                                 <div className="rental-category-card">
                                     <div
@@ -79,12 +79,12 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding mt-md-15 mb-md-25">
+                <section className="section-padding mt-md-3 mb-md-4">
                     <div className="container wow fadeIn animated">
                         <h3 className="section-title text-center mb-20 title-underline">
                             Browse Rental Collections
                         </h3>
-                        <div className="rental-banner mt-15 mt-md-70">
+                        <div className="rental-banner mt-15 mt-md-5">
                             <div
                                 className="rental-category-card-full image-press wow fadeIn animated"
                             >
@@ -206,7 +206,7 @@ export default function Home() {
 
                 <section className="section-padding success-stories-section">
 
-                    <div className="container pt-md-25 pb-md-25">
+                    <div className="container pt-md-25 pb-md-5">
                         <div className="head d-flex justify-content-between align-items-end mb-50">
                             <div className="left">
                                 <p>The inspiring tales of our exceptional achievements.</p>
@@ -221,7 +221,7 @@ export default function Home() {
 
                 <section className="section-padding usp-section">
 
-                    <div className="container pt-md-25 pb-25">
+                    <div className="container pt-md-5 pb-25">
                         <div className="head d-flex justify-content-between align-items-start mb-50">
                             <div className="left">
                                 <h3 className="section-title title-rightline">

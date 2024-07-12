@@ -98,22 +98,22 @@ const Footer = () => {
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
                                     <li>
-                                        <Link href="/page-about">About Us</Link>
+                                        <Link href="/about-us">About Us</Link>
                                     </li>
                                     <li>
-                                        <Link href="#">Media/ Press Release</Link>
+                                        <Link href="/media-and-press-release">Media/ Press Release</Link>
                                     </li>
                                     <li>
-                                        <Link href="/page-contact">Contact Us</Link>
+                                        <Link href="/contact-us">Contact Us</Link>
                                     </li>
                                     <li>
-                                        <Link href="/page-disclaimer">Disclaimer</Link>
+                                        <Link href="/disclaimer">Disclaimer</Link>
                                     </li>
                                     <li>
-                                        <Link href="/page-terms">Terms &amp; Conditions</Link>
+                                        <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
                                     </li>
                                     <li>
-                                        <Link href="/page-privacy-policy">Privacy Policies</Link>
+                                        <Link href="/privacy-policy">Privacy Policies</Link>
                                     </li>
                                 </ul>
                             </div>

@@ -1015,6 +1015,7 @@ export const placeOrder = async ({address_id, billing_address_id, payment_type, 
   formData.append('billing_address_id', billing_address_id);
   formData.append('payment_type', payment_type);
   formData.append('transaction_id', transaction_id);
+  // formData.append('delivery_date', '12-07-2024');
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/placeOrder',
@@ -1027,7 +1028,7 @@ export const placeOrder = async ({address_id, billing_address_id, payment_type, 
         }
       }
     );
-    return response;
+    return response.data;
   } catch (error) {
     console.error('Error!', error);
     throw error;

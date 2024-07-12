@@ -15,13 +15,17 @@ import { fetchCart, setBillingAddress, setShippingAddress } from "../redux/Slice
 import storage from "../util/localStorage";
 import LoginRegister from "../components/ecommerce/LoginRegister";
 import { MdClose } from "react-icons/md";
+import AddGst from "../components/ecommerce/Dashboard/MyCart/AddGst";
 
 
 const Cart = () => {
+    const router = useRouter();
     const [billingAsDelivery, setBillingAsDelivery] = useState(true)
     const [addressList, setAddressList] = useState([]);
     const [deliveredTo, setDeliveredTo] = useState();
     const [billingTo, setBillingTo] = useState();
+    const [gstNumber, setGstNumber] = useState("");
+    const [isGST, setIsGST] = useState(false)
 
     const couponDiscount = useSelector((state) => state.cart.couponCode);
     const cartItems = useSelector((state) => state.cart.cartItems);
@@ -46,13 +50,19 @@ const Cart = () => {
         try {
             const res = await getAddressList();
             setAddressList(res?.result);
-            console.log('cart address', res)
         } catch (error) {
             console.log(error)
         }
     }
+
     const billingToggle =()=>{
         setBillingAsDelivery(!billingAsDelivery)
+    }
+    const GSTToggle =()=>{
+        setIsGST(!isGST)
+    }
+    const handleAddGst =(gstNumber)=>{
+        setGstNumber(gstNumber)
     }
     const handlePlaceOrder = async () => {
         // Generate a random transaction ID
@@ -62,15 +72,21 @@ const Cart = () => {
         const transactionType = 1;
       
         let body = {
-          address_id: shippingAddress.id,
-          billing_address_id: billingAsDelivery ? shippingAddress.id : billingAddress.id,
-          payment_type,
+          address_id: shippingAddress?.id,
+          billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
+          payment_type: 1,
           transaction_id: transactionId,
           transaction_type: transactionType,
         };
       
         try {
           const res = await placeOrder(body);
+          if(res.code==1){
+            router.push('/checkout-success')
+          }else{
+            router.push('//checkout-fail')
+          }
+          console.log(res);
         } catch (error) {
           // Handle error
         }
@@ -102,17 +118,11 @@ const Cart = () => {
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock pt-0">
                                         <div className="coupons-base-header">Delivery Address</div>
-                                        {/* <div onClick={()=> console.log(shippingAddress)}>
-                                        {JSON.stringify(defaultAddress)}
-                                        {JSON.stringify(shippingAddress)}
-                                        {JSON.stringify(billingAddress)}
-                                        </div> */}
                                         <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
                                             {
                                                 Object.keys(shippingAddress).length > 0 && <div className="addressStripV2-base-title">
                                                         <div className="addressStripV2-base-addressName">
-                                                            Deliver to: <span className="addressStripV2-base-highlight">{shippingAddress?.name}</span>,
-                                                            <div className="addressStripV2-base-highlight"> {shippingAddress?.pincode}</div>
+                                                            Deliver to: <span className="addressStripV2-base-highlight">{`${shippingAddress?.name} , ${shippingAddress?.pincode}`}</span>
                                                         </div>
                                                         <div className="addressStripV2-base-subText">
                                                         {`${shippingAddress?.address_line_1}`} {` , ${shippingAddress?.address_line_2}`}
@@ -133,7 +143,7 @@ const Cart = () => {
                                             >
                                                 {
                                                     (close) => (
-                                                        <ChangeAddress handleSelectAddress={handleSelectAddress} deliveredTo={deliveredTo} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
+                                                        <ChangeAddress handleSelectAddress={handleSelectAddress} deliveredTo={shippingAddress?.id} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
                                                     )
                                                 }
                                             </Popup>
@@ -166,8 +176,8 @@ const Cart = () => {
                                             auth_token && <div className="billing_address">
                                                 <hr />
                                                 <div className="billing_address_check d-flex">
-                                                    <input type="checkbox" checked={billingAsDelivery} onClick={billingToggle} name="billing_address" id="billing_address" />
-                                                    <label htmlFor="billing_address" className="mb-0"> Billing Address Same as Delivery Address</label>
+                                                    <input type="checkbox" className="cursor_pointer" checked={billingAsDelivery} onClick={billingToggle} name="billing_address" id="billing_address" />
+                                                    <label htmlFor="billing_address" className="mb-0 cursor_pointer"> Billing Address Same as Delivery Address</label>
                                                 </div>
                                                 {!billingAsDelivery && <div className="">
                                                     <div className="coupons-base-header">Billing Address</div>
@@ -175,8 +185,8 @@ const Cart = () => {
                                                         {
                                                             Object.keys(billingAddress).length > 0 && <div className="addressStripV2-base-title">
                                                                     <div className="addressStripV2-base-addressName">
-                                                                        Deliver to: <span className="addressStripV2-base-highlight">{billingAddress?.name}</span>,
-                                                                        <div className="addressStripV2-base-highlight"> {billingAddress?.pincode}</div>
+                                                                    Deliver to: <span className="addressStripV2-base-highlight">{`${billingAddress?.name} , ${billingAddress?.pincode}`}</span>
+
                                                                     </div>
                                                                     <div className="addressStripV2-base-subText">
                                                                         {`${billingAddress?.address_line_1}`} {` ,${billingAddress?.address_line_2}`}
@@ -188,20 +198,48 @@ const Cart = () => {
                                                                 <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
                                                                     {addressList?.length > 0 ? 'CHANGE ADDRESS' : 'ADD ADDRESS'}
                                                                 </div>
-                                                                <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup mobile">
-                                                                    CHANGE
-                                                                </div>
                                                             </div>}
                                                             modal
                                                             position="right center"
                                                         >
                                                             {
                                                                 (close) => (
-                                                                    <ChangeAddress handleSelectAddress={handleSelectBilling} deliveredTo={billingTo} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
+                                                                    <ChangeAddress handleSelectAddress={handleSelectBilling} deliveredTo={billingAddress?.id} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
                                                                 )
                                                             }
                                                         </Popup>
                                                     </div>
+                                                </div>}
+                                            </div>
+                                        }
+                                                <hr className="mt-0" />
+                                        {
+                                            auth_token && <div className="billing_address gst_number_container">
+                                                <div className="billing_address_check d-flex">
+                                                    <input type="checkbox" className="cursor_pointer" checked={isGST} onClick={GSTToggle} name="gstNumber" id="gstNumber" />
+                                                    <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You H   ave A GST Number.</label>
+                                                </div>
+                                                {isGST &&<div className="gst_number_wrapper">
+                                                            <div className="">{gstNumber?gstNumber:'Add'}</div>
+                                                            <Popup
+                                                            trigger={
+                                                                <div>
+                                                                {
+                                                                    gstNumber?
+                                                                    <i className="fi-rs-pencil cursor_pointer"></i>:
+                                                                    <i className="fi-rs-plus cursor_pointer"></i>
+                                                                }
+                                                                </div>
+                                                            }
+                                                            modal
+                                                            position="right center"
+                                                        >
+                                                            {
+                                                                (close) => (
+                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gstNumber} close={close} />
+                                                                )
+                                                            }
+                                                        </Popup>
                                                 </div>}
                                             </div>
                                         }
@@ -277,11 +315,11 @@ const Cart = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            {auth_token ? <Link href={'/checkout-success'}>
-                                                <button width="100%" letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
+                                            {auth_token ? 
+                                                <button width="100%" onClick={handlePlaceOrder} letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
                                                     <div className="css-xjhrni">PLACE ORDER</div>
                                                 </button>
-                                            </Link>:
+                                            :
                                                 <Popup
                                                 trigger={<button width="100%" letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
                                                     <div className="css-xjhrni">PLACE ORDER</div>

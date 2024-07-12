@@ -42,7 +42,7 @@ function Terms() {
                                         <h4>Contact Us</h4>
                                         <p>
                                             If you have any questions about these Terms, please{" "}
-                                            <Link href="/page-contact">
+                                            <Link href="/contact-us">
                                                 <a>contact us</a>
                                             </Link>
                                             .
