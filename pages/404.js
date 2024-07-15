@@ -24,7 +24,7 @@ function Custom404() {
                                     </a>
                                 </Link>
                                 or
-                                <Link href="/page-contact">
+                                <Link href="/contact-us">
                                     <a>
                                         <span>Contact us</span>
                                     </a>

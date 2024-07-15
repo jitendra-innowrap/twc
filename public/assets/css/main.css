@@ -314,7 +314,9 @@ input[type=number]:focus,
   transition: transform .5s, -webkit-transform .5s;
   transition: transform .5s, -webkit-transform .5s;
 }
-
+.cursor_pointer{
+  cursor: pointer;
+}
 .hover-up {
   -webkit-transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
@@ -10104,7 +10106,7 @@ span.fi-rs-apps {
 
   .carausel-6-columns,
   .carausel-4-columns {
-    max-width: 375px;
+    max-width:100%;
     overflow: hidden;
   }
 
@@ -11742,10 +11744,21 @@ input[type="checkbox"]:hover{
   align-items: center;
   padding-bottom: 15px;
 }
-.billing_address .billing_address_check input#billing_address{
+.billing_address .billing_address_check input#billing_address, .billing_address .billing_address_check input#gstNumber{
   width: 15px;
   height: 15px;
   margin-right: 10px;
+}
+.billing_address.gst_number_container{
+  display: flex;
+  justify-content: space-between;
+}
+.billing_address.gst_number_container .gst_number_wrapper{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 15px;
+  padding-right: 16px;
 }
 /* Cart item */
 .itemContainer-base-itemMargin {
@@ -12073,11 +12086,6 @@ input[type="checkbox"]:hover{
   .itemBlock-base-rightBlock {
     padding: 16px;
 }
-.addressStripV2-base-changeBtnDesktop.openPopup {
-  display: none;
-}.addressStripV2-base-changeBtnDesktop.openPopup.mobile {
-  display: block;
-}
 
 }
 .order-sucess-container{
@@ -12110,6 +12118,18 @@ input[type="checkbox"]:hover{
 @media (max-width:440px){
   .order-sucess-container .actions{
     display: flex;
+    flex-direction: column;
+  }
+  .addressStripV2-base-desktopContainer{
+    display: block
+  }
+  .addressStripV2-base-desktopContainer .addressStripV2-base-title{
+    margin-bottom: 15px;
+  }
+  .addressStripV2-base-desktopContainer .addressStripV2-base-changeBtn {
+    text-align: center;
+  }
+  .billing_address.gst_number_container{
     flex-direction: column;
   }
 }
@@ -12690,12 +12710,46 @@ main.login_page{
   .product-detail .section-title.style-1{
     font-size: 16px;
   }
+    
+.rental-category{
+  height: auto;
+}
+.rental-category-card{
+  overflow: hidden;
+}
+.rental-category-card-img{
+  width: 100%;
+  height: auto;
+}
+.rental-category-card-img span{
+  width: 100% !important;
+  height: auto !important;
+  overflow: unset !important;
+  position: inherit !important;
+}
+.rental-category-card-img span img{ 
+  width: 100% !important;
+  height: auto !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  position: inherit !important;
+}
 }
 
 @media only screen and (max-width: 768px) {
   .dashboard-menu{
     margin-bottom: 40px;
   }
+  h3.section-title {
+    font-size: 16px;
+}
+.card-1 h5{
+  font-size: 12px;
+}
+.title-underline::after,.title-rightline::after {
+  bottom: -10px;
+  height: 4px;
+}
 }
 
 @media only screen and (max-width: 575px) {
@@ -12716,26 +12770,6 @@ main.login_page{
 }
 .carausel-6-columns-cover .carausel-6-columns .card-1{
   margin-inline: 0;
-}
-.rental-category{
-  height: auto;
-}
-.rental-category-card-img{
-  width: 100%;
-  height: auto;
-}
-.rental-category-card-img span{
-  width: 100% !important;
-  height: auto !important;
-  overflow: unset !important;
-  position: inherit !important;
-}
-.rental-category-card-img span img{ 
-  width: 100% !important;
-  height: auto !important;
-  min-height: unset !important;
-  max-height: unset !important;
-  position: inherit !important;
 }
 p{
   font-size: 12px;

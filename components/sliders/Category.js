@@ -50,11 +50,14 @@ const CategorySlider = () => {
       const isPhone = useMediaQuery({
           query: '(max-width: 575px)'
         })
+        const isSmallPhone = useMediaQuery({
+            query: '(max-width: 380px)'
+          })
     
     return (
         <>
             <Swiper
-                slidesPerView={isPhone?3.2:isTab?4:6}
+                slidesPerView={isSmallPhone?2.5:isPhone?3.5:isTab?4:6}
                 spaceBetween={20}
                 // autoplay={{
                 //     delay: 2500,
@@ -81,9 +84,7 @@ const CategorySlider = () => {
                                 </Link>
                             </figure>
                             <h5>
-                               <Link href="/products">
-                                    <a>{item.title}</a>
-                                </Link>
+                                    {item.title}
                             </h5>
                         </div>
                     </SwiperSlide>

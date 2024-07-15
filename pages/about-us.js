@@ -231,73 +231,6 @@ function About() {
                         </div>
                     </div>
                 </section>
-                {/* <section id="work" className="mt-40 pt-50 pb-50 section-border">
-                    <div className="container">
-                        <div className="row mb-50">
-                            <div className="col-lg-12 col-md-12 text-center">
-                                <h6 className="mt-0 mb-5 text-uppercase  text-brand font-sm wow fadeIn animated">
-                                    The Party CafeCoporation
-                                </h6>
-                                <h2 className="mb-15 text-grey-1 wow fadeIn animated">
-                                    Our main branches
-                                    <br /> around the world
-                                </h2>
-                                <p className="w-50 m-auto text-grey-3 wow fadeIn animated">
-                                    At vero eos et accusamus et iusto odio
-                                    dignissimos ducimus quiblanditiis
-                                    praesentium. ebitis nesciunt voluptatum
-                                    dicta reprehenderit accusamus
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-4 text-center mb-md-0 mb-4">
-                                <img
-                                    className="btn-shadow-brand hover-up border-radius-10 bg-brand-muted wow fadeIn animated"
-                                    src="assets/imgs/page/company-1.jpg"
-                                    alt=""
-                                />
-                                <h4 className="mt-30 mb-15 wow fadeIn animated">
-                                    New York, USA
-                                </h4>
-                                <p className="text-grey-3 wow fadeIn animated">
-                                    27 Division St, New York
-                                    <br />
-                                    NY 10002, USA
-                                </p>
-                            </div>
-                            <div className="col-md-4 text-center mb-md-0 mb-4">
-                                <img
-                                    className="btn-shadow-brand hover-up border-radius-10 bg-brand-muted wow fadeIn animated"
-                                    src="assets/imgs/page/company-2.jpg"
-                                    alt=""
-                                />
-                                <h4 className="mt-30 mb-15 wow fadeIn animated">
-                                    Paris, France
-                                </h4>
-                                <p className="text-grey-3 wow fadeIn animated">
-                                    22 Rue des Carmes
-                                    <br /> 75005 Paris
-                                </p>
-                            </div>
-                            <div className="col-md-4 text-center">
-                                <img
-                                    className="btn-shadow-brand hover-up border-radius-10 bg-brand-muted wow fadeIn animated"
-                                    src="assets/imgs/page/company-3.jpg"
-                                    alt=""
-                                />
-                                <h4 className="mt-30 mb-15 wow fadeIn animated">
-                                    Jakarta, Indonesia
-                                </h4>
-                                <p className="text-grey-3 wow fadeIn animated">
-                                    2476 Raya Yogyakarta,
-                                    <br />
-                                    89090 Indonesia
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section> */}
                 <section id="testimonials" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
@@ -326,9 +259,10 @@ function About() {
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">J. Bezos</h5>
+                                        <h5 className="mb-5 fw-500">Best Product of the Year
+                                        </h5>
                                         <p className="font-sm text-grey-5">
-                                            Adobe Jsc
+                                        Gratifi
                                         </p>
                                         <p className="text-grey-3">
                                             "Lorem ipsum dolor sit amet
@@ -350,9 +284,10 @@ function About() {
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">B.Gates</h5>
+                                        <h5 className="mb-5 fw-500">Top Employer of the Year
+                                        </h5>
                                         <p className="font-sm text-grey-5">
-                                            Adobe Jsc
+                                            Edenred India
                                         </p>
                                         <p className="text-grey-3">
                                             "Lorem ipsum dolor sit amet
@@ -374,9 +309,10 @@ function About() {
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">B. Meyers</h5>
+                                        <h5 className="mb-5 fw-500">Sustainability Leader
+                                        </h5>
                                         <p className="font-sm text-grey-5">
-                                            Adobe Jsc
+                                        Vantage Circle
                                         </p>
                                         <p className="text-grey-3">
                                             "Lorem ipsum dolor sit amet
@@ -398,9 +334,10 @@ function About() {
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">J. Bezos</h5>
+                                        <h5 className="mb-5 fw-500">Innovation Award
+                                        </h5>
                                         <p className="font-sm text-grey-5">
-                                            Adobe Jsc
+                                        HiFives
                                         </p>
                                         <p className="text-grey-3">
                                             "Lorem ipsum dolor sit amet
@@ -422,9 +359,10 @@ function About() {
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">B.Gates</h5>
+                                        <h5 className="mb-5 fw-500">Excellence in Customer Satisfaction
+                                        </h5>
                                         <p className="font-sm text-grey-5">
-                                            Adobe Jsc
+                                            Edenred India
                                         </p>
                                         <p className="text-grey-3">
                                             "Lorem ipsum dolor sit amet
@@ -446,7 +384,8 @@ function About() {
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">B. Meyers</h5>
+                                        <h5 className="mb-5 fw-500">Customer's Choice Award
+                                        </h5>
                                         <p className="font-sm text-grey-5">
                                             Adobe Jsc
                                         </p>
