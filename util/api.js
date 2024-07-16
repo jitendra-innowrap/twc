@@ -234,18 +234,20 @@ export const getProductDetails = async ({ handle }) => {
 
 
 // login and auth api's endpoints
-export const logOutApi = async (mobile) => {
-  try {
-    // Create a new FormData object
-    const formData = new FormData();
-    formData.append('mobile', mobile);
+export const logOutApi = async () => {
+  
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  const formData = new FormData();
+  formData.append('device', 'web');
 
+  try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/Login',
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/logout',
       formData,
       {
         headers: {
-          'auth_token': 'Qw9lMNjXYVQqKqzTwAzR0L==',
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
@@ -285,6 +287,33 @@ export const loginApi = async (mobile) => {
     throw error;
   }
 }
+export const updateTokenApi = async () => {
+  try {
+    // Create a new FormData object
+    const formData = new FormData();
+    
+  const auth_token = getToken();
+    formData.append('token', 'HJDIWUR4354K');
+    formData.append('device', 'web');
+
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/updateToken',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to upadte token: ', error);
+    throw error;
+  }
+}
 export const registerApi = async ({ auth_token, name }) => {
   try {
     // Create a new FormData object
@@ -315,10 +344,6 @@ export const verifyOTPApi = async ({ auth_token, otp }) => {
     // Create a new FormData object
     const formData = new FormData();
     formData.append('otp', otp);
-    
-  // const auth_token = storage.get("auth_token")
-  // const web_token = storage.get("web_token")
-  // const auth_token = getToken();
   const web_token = storage.get("web_token")
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
@@ -729,6 +754,52 @@ export const getOrderList = async (page) => {
     throw error;
   }
 }
+export const getOrderDetails = async (order_id) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('order_id', order_id);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/getOrderDetails',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get order details', error);
+    throw error;
+  }
+}
+
+export const getFaqs = async () => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/getFaq',
+      {
+        headers: {
+          // 'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch', error);
+    throw error;
+  }
+}
 export const getCartList = async (page) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
@@ -961,6 +1032,35 @@ export const selectBillingAddress = async (
     throw error;
   }
 }
+export const setGst = async (
+  {gst_number,cart_id}
+) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('gst_number', gst_number?gst_number:"");
+  formData.append('cart_id', cart_id);
+  formData.append('is_gst_add', 1);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}
+
 export const applyCouponApi = async (coupon) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
