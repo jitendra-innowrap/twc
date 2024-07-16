@@ -10264,10 +10264,10 @@ span.fi-rs-apps {
     margin-bottom: 15px;
   }
 
-  .table td {
-    display: block;
-    width: 100%;
-    text-align: center;
+  .my-orders table {
+    /* display: block; */
+    /* width: 100%; */
+    /* text-align: center; */
   }
 
   .table td::before {
@@ -10279,7 +10279,7 @@ span.fi-rs-apps {
   }
 
   .table thead {
-    display: none;
+    /* display: none; */
   }
 
   .loop-grid.pr-30 {
@@ -11587,11 +11587,14 @@ span.fi-rs-apps {
   border: none;
   border-bottom: 1px solid #e2e9e1;
   border-bottom-color: #dee2e6 !important;
+  text-wrap: nowrap;
 }
 .table-hover>tbody>tr:hover {
   --bs-table-accent-bg: #f7f8f9;
 }
-
+.my-orders table{
+  overflow: auto;
+}
 
 
 /* My Address */
@@ -12574,6 +12577,83 @@ input[type="checkbox"]:hover{
   object-fit: contain; 
 } */
 
+/* FAQ section */
+
+.faq-wrapper{
+  max-width: 800px;
+  margin-inline: auto;
+}
+.faq-wrapper .szh-accordion button{
+  width: 100%;
+  background: transparent;
+  text-align: left;
+  color: #088178;
+  border: none;
+}
+.faq-wrapper {
+  /* border-top: 1px solid #ccc;
+  margin-top: 1rem; */
+}
+
+
+.faq-wrapper .item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.faq-wrapper .itemBtn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: left;
+  color: #007bff;
+  background-color: transparent;
+  font-weight: 500;
+  border: none;
+}
+
+.faq-wrapper .itemBtn:hover {
+  color: #000;
+}
+
+.faq-wrapper .szh-accordion button.itemBtnExpanded {
+  border-bottom: 1.5px solid #088178;
+  /* margin-top: 1rem;
+  background: #04817a; */
+  color: #000 !important;
+  
+}
+
+.faq-wrapper .itemContent {
+  /* border: 1px solid #ccc; */
+  border-top: none;
+  transition: height 0.25s cubic-bezier(0, 0, 0, 1);
+
+}
+
+.faq-wrapper .itemPanel {
+  padding: 1rem;
+}
+
+.faq-wrapper .chevron {
+  margin-left: auto;
+  transition: transform 0.25s cubic-bezier(0, 0, 0, 1);
+}
+.faq-wrapper .itemBtn .minus{
+  display: none;
+}
+.faq-wrapper .itemBtnExpanded .plus {
+  display: none;
+}
+.faq-wrapper .itemBtnExpanded .minus {
+  display: block;
+}
+
+
 
 /* Pop Up sign in */
 .popUpContainer.login img.login-banner-image{
@@ -12749,6 +12829,10 @@ main.login_page{
 .title-underline::after,.title-rightline::after {
   bottom: -10px;
   height: 4px;
+}
+.lottie-gif.animation{
+  width: 200px !important;
+  left: 200px !important;
 }
 }
 

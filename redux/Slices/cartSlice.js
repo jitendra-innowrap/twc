@@ -88,6 +88,7 @@ const cartSlice = createSlice({
     defaultAddress: null,
     shippingAddress: null,
     billingAddress: null,
+    gst_number:"",
     couponCode:"",
     status: 'idle',
     error: null,
@@ -104,6 +105,9 @@ const cartSlice = createSlice({
       state.cartCount = 0;
       state.cartDetails = {};
     },
+    updateGst:(state, action) =>{
+      state.gst_number = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -120,6 +124,7 @@ const cartSlice = createSlice({
         state.shippingAddress = action.payload.shipping_address?.[0] || state.defaultAddress;
         state.billingAddress = action.payload.billing_address?.[0] || state.defaultAddress;
         state.couponCode = action.payload?.coupon_data?.code || "";
+        state.gst_number = action.payload?.gst_number || "";
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = 'failed';
@@ -180,5 +185,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { initLocalStorage, emptyCart } = cartSlice.actions;
+export const { initLocalStorage, emptyCart, updateGst } = cartSlice.actions;
 export default cartSlice.reducer;

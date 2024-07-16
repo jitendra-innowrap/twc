@@ -8,18 +8,33 @@ import { useRouter } from "next/router";
 import storage from "../util/localStorage";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "../redux/Slices/cartSlice";
+import { loginApi, logOutApi } from "../util/api";
+import { Bounce, toast } from "react-toastify";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
-    const tab = router.query.tab;
+    const {tab} = router.query;
     const auth_token = storage.get("auth_token");
+    const [breadCrumTitle, setBreadCrumTitle] = useState('')
 
     useEffect(() => {
-        handleOnClick(tab ? parseInt(tab, 10) : 1);
         if(!auth_token){
             router.push('/page-login-register')
         }
-    }, [])
+        let index = parseInt(tab);
+        setActiveIndex(index);
+        if(index===3){
+            setActiveIndex(index)
+            setBreadCrumTitle('My Address');
+        }else if(index===2){
+            setActiveIndex(index);
+            setBreadCrumTitle('My Orders');
+        }else{
+            setActiveIndex(1);
+            setBreadCrumTitle('My Profile')
+        }
+    }, [router.query])
+    
     const dispatch = useDispatch();
 
     const handleEmptyCart = () => {
@@ -27,21 +42,50 @@ function Account() {
     };
 
     const handleOnClick = (index) => {
-        setActiveIndex(index); // remove the curly braces
+        router.replace({
+            query: { tab:index },
+            });
     };
 
-    const handleLogout = () =>{
-        const randomString = Math.random().toString(36).substring(2);
-        const token = btoa(randomString);
-        storage.set("web_token", token);
-        storage.set("auth_token", null);
-        handleEmptyCart();
-        router.push('/page-login-register')
+    const handleLogout = async () =>{
+        const res = await logOutApi();
+        if(res.code==1){
+            handleEmptyCart();
+            router.push('/page-login-register');
+            const randomString = Math.random().toString(36).substring(2);
+            const token = btoa(randomString);
+            storage.set("web_token", token);
+            storage.set("auth_token", null);
+            toast.success("logged Out Successfully!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+        }else{
+            console.log(res.msg)
+            toast.error("Something went wrong!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+        }
     }
 
     return (
         <>
-            {<Layout parent="Home" sub="Pages" subChild="Account">
+            {<Layout parent="Home" sub="Account" subChild={breadCrumTitle}>
                 <section className="pt-70 pb-150">
                     <div className="container">
                         <div className="row">

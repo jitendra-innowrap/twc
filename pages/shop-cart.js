@@ -9,9 +9,9 @@ import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useEffect } from "react";
-import { getAddressList, getCartList, placeOrder } from "../util/api";
+import { getAddressList, getCartList, placeOrder, setGst } from "../util/api";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, setBillingAddress, setShippingAddress } from "../redux/Slices/cartSlice";
+import { fetchCart, setBillingAddress, setShippingAddress, updateGst } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
 import LoginRegister from "../components/ecommerce/LoginRegister";
 import { MdClose } from "react-icons/md";
@@ -34,6 +34,7 @@ const Cart = () => {
     const defaultAddress = useSelector((state) => state.cart.defaultAddress);
     const shippingAddress = useSelector((state) => state.cart.shippingAddress);
     const billingAddress = useSelector((state) => state.cart.billingAddress);
+    const gst_number = useSelector((state) => state.cart.gst_number);
     const dispatch = useDispatch();
 
     const handleSelectAddress = (id) => {
@@ -46,6 +47,7 @@ const Cart = () => {
         dispatch(setBillingAddress(address))
     }
     const auth_token = storage.get("auth_token");
+
     const fetchAddressList = async () => {
         try {
             const res = await getAddressList();
@@ -56,13 +58,66 @@ const Cart = () => {
     }
 
     const billingToggle =()=>{
+        if(!billingAsDelivery){
+            let address = { cart_id:cartItems?.[0]?.cart_id, billing_address_id:shippingAddress?.id || defaultAddress?.id}
+            address.address_id = shippingAddress?.id || defaultAddress?.id
+            dispatch(setBillingAddress(address)) 
+        }
         setBillingAsDelivery(!billingAsDelivery)
     }
     const GSTToggle =()=>{
+        if(isGST){
+            handleAddGst();
+        }
         setIsGST(!isGST)
+
+        
     }
-    const handleAddGst =(gstNumber)=>{
-        setGstNumber(gstNumber)
+    const handleAddGst = async (gst_number)=>{
+        try {
+            const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number});
+            if(res.code == 1){
+                setGstNumber(res.gst_number);
+                dispatch(updateGst(res.gst_number));
+
+                toast.success("GST Updated Successfully!", {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
+            }else{
+                toast.error("Something Went Wrong!", {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Something Went Wrong!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+        }
     }
     const handlePlaceOrder = async () => {
         // Generate a random transaction ID
@@ -98,11 +153,18 @@ const Cart = () => {
     useEffect(() => {
         dispatch(fetchCart());
         fetchAddressList();
-        
         // setDeliveredTo(shippingAddress ? shippingAddress : defaultAddress)
         setDeliveredTo(defaultAddress?.[0]?.id)
         setBillingTo(billingAddress ? billingAddress : defaultAddress)
     }, [])
+
+    useEffect(() => {
+      if(gst_number){
+        setIsGST(true);
+      }
+    
+    }, [gst_number])
+    
 
     return (
         <>
@@ -220,12 +282,12 @@ const Cart = () => {
                                                     <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You H   ave A GST Number.</label>
                                                 </div>
                                                 {isGST &&<div className="gst_number_wrapper">
-                                                            <div className="">{gstNumber?gstNumber:'Add'}</div>
+                                                            <div className="">{gst_number?gst_number:'Add'}</div>
                                                             <Popup
                                                             trigger={
                                                                 <div>
                                                                 {
-                                                                    gstNumber?
+                                                                    gst_number?
                                                                     <i className="fi-rs-pencil cursor_pointer"></i>:
                                                                     <i className="fi-rs-plus cursor_pointer"></i>
                                                                 }
@@ -236,7 +298,7 @@ const Cart = () => {
                                                         >
                                                             {
                                                                 (close) => (
-                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gstNumber} close={close} />
+                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gst_number} close={close} />
                                                                 )
                                                             }
                                                         </Popup>
@@ -267,7 +329,7 @@ const Cart = () => {
                                                     <span className>Our Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(cartDetails?.dicount_on_mrp)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.items_total)}</span>
                                                     </span>
                                                 </div>
                                                 {couponDiscount && <div className="priceDetail-base-row">

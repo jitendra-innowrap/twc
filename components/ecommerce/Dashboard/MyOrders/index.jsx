@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getOrderList } from '../../../../util/api';
+import { getOrderDetails, getOrderList } from '../../../../util/api';
 import Link from 'next/link';
 import Lottie from "lottie-web";
 import success from "../../../../public/assets/Lottie/no-orders.json"
+import { getDateFromString } from '../../../../util/util';
 export default function index() {
     const [orderList, setOrderList] = useState([]);
     useEffect(() => {
@@ -20,8 +21,11 @@ export default function index() {
     
     const fetchOrderList = async () =>{
         try {
+            // const res = await getOrderDetails(4);
             const res = await getOrderList();
-            setOrderList(res?.result)
+            if(res?.code==1){
+                setOrderList(res?.order_data)
+            }
             console.log(res)
         } catch (error) {
             
@@ -52,47 +56,26 @@ export default function index() {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>Order</th>
+                                <th>Order Id</th>
                                 <th>Date</th>
                                 <th>Qty</th>
                                 <th>Total</th>
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>#4135</td>
-                                <td>18 Jun, 2024</td>
-                                <td>2</td>
-                                <td>₹1250.00</td>
-                                <td>Processing</td>
-                                <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>#4296</td>
-                                <td>08 Jun, 2024</td>
-                                <td>5</td>
-                                <td>₹3640.00</td>
-                                <td>Pending</td>
-                                <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>#4239</td>
-                                <td>06 Jun, 2024</td>
-                                <td>3</td>
-                                <td>₹2800.00</td>
-                                <td>Placed</td>
-                                <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>#4236</td>
-                                <td>20 May, 2024</td>
-                                <td>3</td>
-                                <td>₹2800.00</td>
-                                <td>Delivered</td>
-                                <td><a href="/download/invoice" target='_blank' className="btn-small d-block">View</a></td>
-                            </tr>
+                        {
+                                orderList.map((order, i)=>{
+                                    return<tr>
+                                            <td>{order.id}</td>
+                                            <td>{getDateFromString(order.order_date)}</td>
+                                            <td>{order.order_items_count}</td>
+                                            <td>{order.order_amount}</td>
+                                            <td><Link href={`/my-orders/order-detail?orderId=${order.id}`} className="btn-small d-block">View</Link></td>
+                                        </tr>
+                                    
+                                })
+                            }
                         </tbody>
                     </table>
                 </div>
