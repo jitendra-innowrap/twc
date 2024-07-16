@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-import { loginApi, registerApi, resendOTPApi, verifyOTPApi } from '../../util/api';
+import { loginApi, registerApi, resendOTPApi, updateTokenApi, verifyOTPApi } from '../../util/api';
 import storage from '../../util/localStorage';
 import { Bounce, toast } from 'react-toastify';
 import { refreshToken } from '../../redux/Slices/authSlice';
@@ -235,6 +235,7 @@ function LoginRegister({logIN}) {
                                 theme: "light",
                                 transition: Bounce,
                             });
+                            handleUpdateToken();
                         }
                     } else {
                         console.error('Error verifying OTP:', error);
@@ -248,6 +249,14 @@ function LoginRegister({logIN}) {
         }
     };
 
+    const handleUpdateToken = async ()=>{
+        try {
+            const res = await updateTokenApi();
+            console.log(res);
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     const handleKeyDown = (index, event) => {
         if (event.key === 'Backspace' && index > 0 && !otp[index]) {

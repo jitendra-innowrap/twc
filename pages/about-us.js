@@ -1,3 +1,4 @@
+import FAQSection from "../components/ecommerce/FAQSection";
 import Layout from "../components/layout/Layout";
 
 function About() {
@@ -409,6 +410,26 @@ function About() {
                                     </a>
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="faqs" className="section-padding">
+                    <div className="container pt-25">
+                        <div className="row mb-50">
+                            <div className="col-lg-12 col-md-12 text-center">
+                                <h6 className="mt-0 mb-10 text-uppercase  text-brand font-sm wow fadeIn animated">
+                                    FAQ
+                                </h6>
+                                <h2 className="mb-15 text-grey-1 wow fadeIn animated">
+                                Frequently Asked Questions
+                                </h2>
+                                <p className="w-50 m-auto text-grey-3 wow fadeIn animated">
+                                We understand that you may have questions about our renting and booking services. Below are some of the most frequently asked questions to help you better understand our process
+                                </p>
+                            </div>
+                        </div>
+                        <div className="row align-items-center">
+                            <FAQSection />
                         </div>
                     </div>
                 </section>
