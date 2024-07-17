@@ -3,8 +3,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import useClickOutside from "../../util/outsideClick";
 import { getAllCategory } from "../../util/api";
+import { useRouter } from "next/router";
+import { SlSocialFacebook } from "react-icons/sl";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
+    const router = useRouter();
     const [isActive, setIsActive] = useState({
         status: false,
         key: "",
@@ -35,6 +40,10 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             });
         }
     };
+    const handleCategory =(url)=>{
+        router.push(url);
+        toggleClick();
+    }
 
     let domNode = useClickOutside(() => {
         setIsActive({
@@ -51,7 +60,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                         <div className="mobile-header-logo">
                             <Link href="/index">
                                 <a>
-                                    <img src="/assets/imgs/theme/logo.svg" alt="logo" />
+                                    <img src="/assets/imgs/theme/the-party-cafe-logo.png" alt="the-party-cafe-logo" />
                                 </a>
                             </Link>
                         </div>
@@ -63,41 +72,33 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                         </div>
                     </div>
                     <div className="mobile-header-content-area">
-                        <div className="mobile-search search-style-3 mobile-header-border">
-                            <form action="#">
-                                <input type="text" placeholder="Search for items…" />
-                                <button type="submit">
-                                    <i className="fi-rs-search"></i>
-                                </button>
-                            </form>
-                        </div>
                         <div className="mobile-menu-wrap mobile-header-border">
                             <nav>
                                 <ul className="mobile-menu" ref={domNode}>
                                     {
                                         result?.map((menu, i) => (
                                             <li key={menu?.id} className={isActive.key == i ? "menu-item-has-children active" : "menu-item-has-children"}>
-                                                <span className="menu-expand" onClick={() => handleToggle(i)}>
-                                                    <i className="fi-rs-angle-small-down"></i>
-                                                </span>
-                                                <Link href="#">
-                                                    {menu?.name}
-                                                </Link>
+                                                <div onClick={() => handleToggle(i)}>
+                                                    <span className="menu-expand">
+                                                        <i className="fi-rs-angle-small-down"></i>
+                                                    </span>
+                                                    <a style={{color:`${isActive.key == i ? '#088178':'#000'}`}}>
+                                                        {menu?.name}
+                                                    </a>
+                                                </div>
                                                 <ul className={isActive.key == i ? "dropdown" : "d-none"}>
                                                     {
                                                         menu?.categories?.map((category, i) => (
                                                             <li className="menu-item-has-children" key={category?.id}>
                                                                 <span className="menu-expand"></span>
-                                                                <Link href={`/${category?.handle}`}>
-                                                                    <a>{category?.name}</a>
-                                                                </Link>
+                                                                {/* <Link href={`/${category?.handle}`}> */}
+                                                                    <a className="fw-bold">{category?.name}</a>
+                                                                {/* </Link> */}
                                                                 <ul className="dropdown">
                                                                     {
                                                                         category?.sub_categories?.map((sub_categorie, i) => (
                                                                             <li key={sub_categorie?.id}>
-                                                                                <Link href={`/${category?.handle}/${sub_categorie?.handle}`}>
-                                                                                    <a>{sub_categorie?.name}</a>
-                                                                                </Link>
+                                                                                    <a onClick={()=>{handleCategory(`/products/${category?.handle}/${sub_categorie?.handle}`)}}>{sub_categorie?.name}</a>
                                                                             </li>
                                                                         ))
                                                                     }
@@ -133,31 +134,19 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                         </div>
                         <div className="mobile-social-icon">
                             <h5 className="mb-15 text-grey-4">Follow Us</h5>
-                            <Link href="#">
-                                <a>
-                                    <img src="/assets/imgs/theme/icons/icon-facebook.svg" alt="" />
+                                <a href={`https://www.facebook.com/`}
+                                    target="_blank">
+                                    <SlSocialFacebook size={18} color="#606060" />
                                 </a>
-                            </Link>
-                            <Link href="#">
-                                <a>
-                                    <img src="/assets/imgs/theme/icons/icon-twitter.svg" alt="" />
+                                <a href={`https://twitter.com/`}
+                                    target="_blank">
+                                    <FaXTwitter size={18} color="#606060" />
                                 </a>
-                            </Link>
-                            <Link href="#">
-                                <a>
-                                    <img src="/assets/imgs/theme/icons/icon-instagram.svg" alt="" />
+                                <a href={`https://wa.me/`}
+                                    data-action="share/whatsapp/share"
+                                    target="_blank">
+                                    <FaWhatsapp size={18} color="#606060" />
                                 </a>
-                            </Link>
-                            <Link href="#">
-                                <a>
-                                    <img src="/assets/imgs/theme/icons/icon-pinterest.svg" alt="" />
-                                </a>
-                            </Link>
-                            <Link href="#">
-                                <a>
-                                    <img src="/assets/imgs/theme/icons/icon-youtube.svg" alt="" />
-                                </a>
-                            </Link>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import MobileMenu from "./MobileMenu";
 
-const Layout = ({ children, parent, sub, subChild, noBreadcrumb, headerStyle }) => {
+const Layout = ({ children, parent, sub, subChild, noBreadcrumb, noFooter, headerStyle }) => {
     const [isToggled, setToggled] = useState(false);
     const toggleClick = () => {
         setToggled(!isToggled);
@@ -29,7 +29,7 @@ const Layout = ({ children, parent, sub, subChild, noBreadcrumb, headerStyle }) 
                 <Breadcrumb parent={parent} sub={sub} subChild={subChild} noBreadcrumb={noBreadcrumb} />
                 {children}
             </main>
-            <Footer />
+            {!noFooter && <Footer />}
         </>
     );
 };
