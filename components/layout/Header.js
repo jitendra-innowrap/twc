@@ -4,6 +4,8 @@ import Search from "../ecommerce/Search";
 import { getAllCategory } from "../../util/api";
 import { useSelector } from "react-redux";
 import storage from "../../util/localStorage";
+import { BiSearch } from "react-icons/bi";
+import { BsArrowLeft } from "react-icons/bs";
 
 const Header = ({
     toggleClick,
@@ -15,6 +17,7 @@ const Header = ({
     const [headerData, setheaderData] = useState([]);
     const { cartCount } = useSelector((state) => state.cart);
     const { wishlistCount } = useSelector((state) => state.wishlist);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     useEffect(() => {
         fetchHeaderData()
@@ -26,6 +29,9 @@ const Header = ({
         });
     },[]);       
     
+    const toggleSearch =()=>{
+        setIsSearchOpen(!isSearchOpen);
+    }
     const fetchHeaderData =async ()=>{
         try {
             const response = await getAllCategory();
@@ -141,13 +147,13 @@ const Header = ({
                     }
                 >
                     <div className="container">
-                        <div className="header-wrap header-space-between position-relative">
+                        {!isSearchOpen?<div className="header-wrap header-space-between position-relative">
                             <div className="logo logo-width-1">
                                 <Link href="/">
                                     <a>
                                         <img
                                             src="/assets/imgs/theme/the-party-cafe-logo.png"
-                                            alt="logo"
+                                            alt="the-party-cafe-logo"
                                         />
                                     </a>
                                 </Link>
@@ -204,7 +210,7 @@ const Header = ({
                                     </nav>
                                 </div>
                             </div>
-                            <div className="header-right">
+                            <div className="header-right d-none d-lg-flex">
                                 <div className="search-style-2">
                                     <Search />
                                 </div>
@@ -256,6 +262,9 @@ const Header = ({
                             </div>
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2 gap-1">
+                                    <div className="header-action-icon-2" onClick={toggleSearch}>
+                                        <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
+                                    </div>
                                     <div className="header-action-icon-2">
                                         <Link href={!user?'/page-login-register':'/shop-wishlist'}>
                                             <a>
@@ -296,6 +305,7 @@ const Header = ({
                                         <div
                                             className="burger-icon burger-icon-white"
                                             onClick={toggleClick}
+                                            data={`${JSON.stringify(toggleClick?toggleClick:'ok')}`}
                                         >
                                             <span className="burger-icon-top"></span>
                                             <span className="burger-icon-mid"></span>
@@ -305,6 +315,17 @@ const Header = ({
                                 </div>
                             </div>
                         </div>
+                        :
+                        <div className="mobile-search search-style-3 mobile-header-border" style={{paddingBottom:'7px'}}>
+                            <form action="#" onSubmit={(e)=>{e.preventDefault();}}>
+                                <button type="button" style={{left:'0', width:'min-content'}} onClick={toggleSearch}><BsArrowLeft /></button>
+                                <input type="text" placeholder="Search for items…" style={{paddingLeft:'40px'}} />
+                                <button type="submit">
+                                    <i className="fi-rs-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        }
                     </div>
                 </div>
             </header>

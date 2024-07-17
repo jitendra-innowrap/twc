@@ -15,7 +15,7 @@ const OrderSucess = () => {
       }, []);
     return (
         <>
-            <Layout parent="Home" sub="Order" subChild="Sucess">
+            <Layout parent="Home" sub="Order" subChild="Fail">
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="order-sucess-container mb-20">

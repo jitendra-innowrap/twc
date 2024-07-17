@@ -10,13 +10,22 @@ import { useDispatch } from "react-redux";
 import { emptyCart } from "../redux/Slices/cartSlice";
 import { loginApi, logOutApi } from "../util/api";
 import { Bounce, toast } from "react-toastify";
+import { RiMenuFoldFill } from "react-icons/ri";
+import { useMediaQuery } from "react-responsive";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
     const {tab} = router.query;
     const auth_token = storage.get("auth_token");
     const [breadCrumTitle, setBreadCrumTitle] = useState('')
+    const [menuOpen, setMenuOpen] = useState(false);
 
+    const toggleMenu =()=>{
+        setMenuOpen(!menuOpen);
+    }
+    const isPhone = useMediaQuery({
+        query: '(max-width: 768px)'
+      })
     useEffect(() => {
         if(!auth_token){
             router.push('/page-login-register')
@@ -45,6 +54,7 @@ function Account() {
         router.replace({
             query: { tab:index },
             });
+            toggleMenu();
     };
 
     const handleLogout = async () =>{
@@ -91,13 +101,22 @@ function Account() {
                         <div className="row">
                             <div className="col-lg-10 m-auto">
                                 <div className="row">
-                                    <div className="col-md-4">
-                                        <div className="dashboard-menu">
+                                    <div className="col-md-4 position-relative">
+                                        <div className={`dashboard-menu ${menuOpen?'dashboard-menu-active':''}`}>
                                             <ul
                                                 className="nav flex-column"
                                                 role="tablist"
                                             >
-                                                <li className="nav-item" onClick={() => handleOnClick(1)}>
+                                                {isPhone &&<li className="nav-item mb-20">
+                                                    <a
+                                                        className={"nav-link active"}
+                                                        
+                                                    >
+                                                        Dashboard
+                                                        <span onClick={toggleMenu}><RiMenuFoldFill  style={{position:'absolute', right:'10px', fontSize:'25px'}}/></span>
+                                                    </a>
+                                                </li>}
+                                                <li className="nav-item"  onClick={() => handleOnClick(1)}>
                                                     <a
                                                         className={activeIndex === 1 ? "nav-link active" : "nav-link"}
                                                         

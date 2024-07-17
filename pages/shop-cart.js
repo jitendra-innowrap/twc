@@ -279,7 +279,7 @@ const Cart = () => {
                                             auth_token && <div className="billing_address gst_number_container">
                                                 <div className="billing_address_check d-flex">
                                                     <input type="checkbox" className="cursor_pointer" checked={isGST} onClick={GSTToggle} name="gstNumber" id="gstNumber" />
-                                                    <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You H   ave A GST Number.</label>
+                                                    <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You Have A GST Number.</label>
                                                 </div>
                                                 {isGST &&<div className="gst_number_wrapper">
                                                             <div className="">{gst_number?gst_number:'Add'}</div>

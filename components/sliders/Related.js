@@ -15,9 +15,9 @@ const RelatedSlider = ({related}) => {
                 //loop={false}
                 breakpoints={{
                     0: {
-                      slidesPerView: 1,
+                      slidesPerView: 2,
                     },
-                    420: {
+                    575: {
                       slidesPerView: 2,
                     },
                     768: {

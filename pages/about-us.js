@@ -63,12 +63,12 @@ function About() {
                         </div>
                         <div className="position-relative">
                             <div className="row wow fadeIn animated">
-                                <div className="col-lg-3 col-md-6">
+                                <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
                                             src="assets/imgs/page/avatar-1.jpg"
                                             alt=""
-                                            className="border-radius-10 mb-30 hover-up"
+                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
                                         <h4 className="fw-500 mb-0">
                                             Patric Adams
@@ -76,41 +76,15 @@ function About() {
                                         <p className="fw-400 text-brand mb-10">
                                             CEO & Co-Founder
                                         </p>
-                                        <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0 animated">
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-facebook.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-twitter.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-instagram.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-pinterest.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="col-lg-3 col-md-6">
+                                <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
                                             src="assets/imgs/page/avatar-2.jpg"
                                             alt=""
-                                            className="border-radius-10 mb-30 hover-up"
+                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
                                         <h4 className="fw-500 mb-0">
                                             Dilan Specter
@@ -118,81 +92,29 @@ function About() {
                                         <p className="fw-400 text-brand mb-10">
                                             Head Engineer
                                         </p>
-                                        <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0 animated">
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-facebook.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-twitter.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-instagram.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-pinterest.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="col-lg-3 col-md-6">
+                                <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
                                             src="assets/imgs/page/avatar-3.jpg"
                                             alt=""
-                                            className="border-radius-10 mb-30 hover-up"
+                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
                                         <h4 className="fw-500 mb-0">Tomas Baker</h4>
                                         <p className="fw-400 text-brand mb-10">
                                             Senior Planner
                                         </p>
-                                        <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0 animated">
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-facebook.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-twitter.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-instagram.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-pinterest.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="col-lg-3 col-md-6">
+                                <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
                                             src="assets/imgs/page/avatar-4.jpg"
                                             alt=""
-                                            className="border-radius-10 mb-30 hover-up"
+                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
                                         <h4 className="fw-500 mb-0">
                                             Norton Mendos
@@ -200,32 +122,6 @@ function About() {
                                         <p className="fw-400 text-brand mb-10">
                                             Project Manager
                                         </p>
-                                        <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0 animated">
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-facebook.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-twitter.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-instagram.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#">
-                                                <img
-                                                    src="assets/imgs/theme/icons/icon-pinterest.svg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +161,7 @@ function About() {
                                         <p className="font-sm text-grey-5">
                                         Gratifi
                                         </p>
-                                        <p className="text-grey-3">
+                                        <p className="text-grey-3 truncate-3">
                                             "Lorem ipsum dolor sit amet
                                             consectetur adipisicing elit.
                                             Debitis nesciunt voluptatum dicta
@@ -290,7 +186,7 @@ function About() {
                                         <p className="font-sm text-grey-5">
                                             Edenred India
                                         </p>
-                                        <p className="text-grey-3">
+                                        <p className="text-grey-3 truncate-3">
                                             "Lorem ipsum dolor sit amet
                                             consectetur adipisicing elit.
                                             Debitis nesciunt voluptatum dicta
@@ -315,7 +211,7 @@ function About() {
                                         <p className="font-sm text-grey-5">
                                         Vantage Circle
                                         </p>
-                                        <p className="text-grey-3">
+                                        <p className="text-grey-3 truncate-3">
                                             "Lorem ipsum dolor sit amet
                                             consectetur adipisicing elit.
                                             Debitis nesciunt voluptatum dicta
@@ -340,7 +236,7 @@ function About() {
                                         <p className="font-sm text-grey-5">
                                         HiFives
                                         </p>
-                                        <p className="text-grey-3">
+                                        <p className="text-grey-3 truncate-3">
                                             "Lorem ipsum dolor sit amet
                                             consectetur adipisicing elit.
                                             Debitis nesciunt voluptatum dicta
@@ -365,7 +261,7 @@ function About() {
                                         <p className="font-sm text-grey-5">
                                             Edenred India
                                         </p>
-                                        <p className="text-grey-3">
+                                        <p className="text-grey-3 truncate-3">
                                             "Lorem ipsum dolor sit amet
                                             consectetur adipisicing elit.
                                             Debitis nesciunt voluptatum dicta
@@ -390,7 +286,7 @@ function About() {
                                         <p className="font-sm text-grey-5">
                                             Adobe Jsc
                                         </p>
-                                        <p className="text-grey-3">
+                                        <p className="text-grey-3 truncate-3">
                                             "Lorem ipsum dolor sit amet
                                             consectetur adipisicing elit.
                                             Debitis nesciunt voluptatum dicta

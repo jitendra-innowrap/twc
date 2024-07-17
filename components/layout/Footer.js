@@ -139,7 +139,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </section>
-                <div className="container pb-20 wow fadeIn animated">
+                <div className="container pb-20 wow fadeIn animated footer-copyright">
                     <div className="row">
                         <div className="col-12 mb-20">
                             <div className="footer-bottom"></div>
