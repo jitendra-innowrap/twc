@@ -3,6 +3,7 @@ import Link from "next/link"
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
+import NewsletterFrom from "../elements/NewletterForm";
 
 const Footer = () => {
     return (
@@ -29,19 +30,7 @@ const Footer = () => {
                                 </div>
                             </div>
                             <div className="col-lg-5">
-                                <form className="form-subcriber d-flex wow fadeIn animated">
-                                    <input
-                                        type="email"
-                                        className="form-control bg-white font-small"
-                                        placeholder="Enter your email"
-                                    />
-                                    <button
-                                        className="btn bg-dark text-white"
-                                        type="submit"
-                                    >
-                                        Subscribe
-                                    </button>
-                                </form>
+                                <NewsletterFrom />
                             </div>
                         </div>
                     </div>

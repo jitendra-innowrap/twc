@@ -10963,6 +10963,10 @@ span.fi-rs-apps {
   border-radius: 0;
   padding: 9px 40px;
   background-color: transparent;
+  width: 160px;
+}
+.custom-date-input .lds-ellipsis{
+  transform: translate(15px, -4px);
 }
 
 .detail-info .attr-detail {
@@ -11805,6 +11809,7 @@ input[type="checkbox"]:hover{
   padding: 12px 12px 0;
 }.itemContainer-base-itemLeft {
   position: absolute;
+  cursor: pointer;
 }.itemContainer-base-itemRight {
   padding-left: 12px;
   position: relative;
@@ -11988,6 +11993,10 @@ input[type="checkbox"]:hover{
   -webkit-box-pack: center;
   justify-content: center;
   display: flex;
+  width: fit-content;
+  margin-inline: auto;
+}.css-xjhrni .lds-ellipsis{
+  transform: translateX(-16px);
 }.priceDetail-base-convenienceCalloutText {
   color: #686b79;
   font-size: 12px;
@@ -12010,6 +12019,7 @@ input[type="checkbox"]:hover{
   border-width: 0px;
   background-color: #088178;
   color: #fff;
+  height: 45px;
   cursor: pointer;
 }
 

@@ -13,7 +13,7 @@ import { BiInfoCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../redux/Slices/authSlice";
-import { addToCart } from "../../util/api";
+import { addToCart, checkRentalAvailability } from "../../util/api";
 import { addItemToCart, fetchCart } from "../../redux/Slices/cartSlice";
 import Popup from "reactjs-popup";
 import { MdClose } from "react-icons/md";
@@ -51,7 +51,9 @@ const ProductDetails = ({
     const [isInWishlist, setIsInWishlist] = useState(false)
     const cartItems = useSelector((state) => state.cart.cartItems);
     const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
-
+    const [rentalAvailable, setRentalAvailable] = useState({
+        isLoading:false, isAvailable:true, isError:""
+    });
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [deliveryDate, setDeliveryDate] = useState();
@@ -98,14 +100,60 @@ const ProductDetails = ({
             </button>)
             else{
             return<div onClick={onClick} className={`custom-date-input ${heighLightDate?'shake-and-highlight':''}`}>
-                <span>Select Date</span> <i></i>
+                <span>{rentalAvailable.isLoading?<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>:'Select Date'}</span> <i></i>
             </div>
             }
     });
 
-    const handleDeliveryDateChange = (date) => {
-        setDeliveryDate(date);
-        setReturnByDate(new Date(date.getTime() + (5 * 24 * 60 * 60 * 1000)));
+    const handleDeliveryDateChange = async (date) => {
+        let returnDate = new Date(date.getTime() + (product?.rental_for_days * 24 * 60 * 60 * 1000));
+        if (productDetails?.product_type == '1') {
+            let params = { qty:1, end_date:returnDate, start_date:date, product_id:productDetails?.id }
+            setRentalAvailable((prevState) => ({
+                ...prevState,
+                isLoading: true,
+                isError: "",
+            }));
+            setDeliveryDate();
+            try {
+                // Call the product availability API
+                const response = await checkRentalAvailability(params)
+                // const isAvailable = response.data.isAvailable;
+                console.log(response)
+
+                if (response?.code==1) {
+                    setRentalAvailable((prevState) => ({
+                        ...prevState,
+                        isLoading: false,
+                        isAvailable: true,
+                      }));
+                    setDeliveryDate(date);
+                    setReturnByDate(returnDate);
+                    
+                } else {
+                    setDeliveryDate();
+                    setReturnByDate();
+                    setRentalAvailable((prevState) => ({
+                        ...prevState,
+                        isLoading: false,
+                        isAvailable: false,
+                        isError: "The product is not available for the selected date. Please choose a different date.",
+                      }));
+                }
+            } catch (error) {
+                console.log(error)
+                setRentalAvailable((prevState) => ({
+                    ...prevState,
+                    isLoading: false,
+                    isAvailable: false,
+                    isError: "An error occurred while checking product availability. Please try again later.",
+                  }));
+            }
+
+        } else {
+            setDeliveryDate(date);
+            setReturnByDate(returnDate);
+        }
     };
 
     const handleWishlist = async (product) => {
@@ -281,6 +329,7 @@ const ProductDetails = ({
                                                     maxDate={calendarEndDate}
                                                 />
                                             </div>
+                                                <p className="text-danger">{rentalAvailable.isError}</p>
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
 
                                             <div className="detail-extralink">
