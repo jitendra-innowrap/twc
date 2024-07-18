@@ -28,6 +28,11 @@ export const priceOffPercentage = (mrp, price) => {
   return Math.round(offPercentage);
 }
 
+export function generateRandomTransactionId() {
+  // Generate a random 16-digit transaction ID
+  return Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
+}
+
 export const isLoggedIn =()=>{
   const token = storage.get("auth_token");
   if(token){

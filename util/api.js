@@ -777,6 +777,57 @@ export const getOrderDetails = async (order_id) => {
     throw error;
   }
 }
+export const addNewsletter = async (email) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('email', email);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/addNewsletter',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get order details', error);
+    throw error;
+  }
+}
+
+export const checkRentalAvailability = async ({qty,end_date,start_date,product_id}) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('product_id', product_id);
+  formData.append('start_date', clipDateOnly(start_date));
+  formData.append('end_date', clipDateOnly(end_date));
+  formData.append('qty', qty);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Transaction/checkRentalAvailability',
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get order details', error);
+    throw error;
+  }
+}
 
 export const getFaqs = async () => {
   const auth_token = getToken();
@@ -809,7 +860,6 @@ export const getCartList = async (page) => {
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/cartProductList',
       {
         headers: {
-          // 'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
           ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly

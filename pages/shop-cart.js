@@ -16,6 +16,7 @@ import storage from "../util/localStorage";
 import LoginRegister from "../components/ecommerce/LoginRegister";
 import { MdClose } from "react-icons/md";
 import AddGst from "../components/ecommerce/Dashboard/MyCart/AddGst";
+import { generateRandomTransactionId } from "../util/util";
 
 
 const Cart = () => {
@@ -25,8 +26,8 @@ const Cart = () => {
     const [deliveredTo, setDeliveredTo] = useState();
     const [billingTo, setBillingTo] = useState();
     const [gstNumber, setGstNumber] = useState("");
-    const [isGST, setIsGST] = useState(false)
-
+    const [isGST, setIsGST] = useState(false);
+    const [errorSetAddressFirst, setErrorSetAddressFirst] = useState(false);
     const couponDiscount = useSelector((state) => state.cart.couponCode);
     const cartItems = useSelector((state) => state.cart.cartItems);
     const cartCount = useSelector((state) => state.cart.cartCount);
@@ -36,6 +37,7 @@ const Cart = () => {
     const billingAddress = useSelector((state) => state.cart.billingAddress);
     const gst_number = useSelector((state) => state.cart.gst_number);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSelectAddress = (id) => {
         let address = { cart_id:cartItems?.[0]?.cart_id, address_id:id, billing_address_id : billingAddress?.id || defaultAddress?.id};
@@ -58,7 +60,7 @@ const Cart = () => {
     }
 
     const billingToggle =()=>{
-        if(!billingAsDelivery){
+        if(!billingAsDelivery && shippingAddress?.id){
             let address = { cart_id:cartItems?.[0]?.cart_id, billing_address_id:shippingAddress?.id || defaultAddress?.id}
             address.address_id = shippingAddress?.id || defaultAddress?.id
             dispatch(setBillingAddress(address)) 
@@ -120,6 +122,22 @@ const Cart = () => {
         }
     }
     const handlePlaceOrder = async () => {
+        if(!shippingAddress?.id){
+            setErrorSetAddressFirst(true);
+            toast.warn("Please Add Delivery Address!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+            return
+        }
+        setIsLoading(true);
         // Generate a random transaction ID
         const transactionId = generateRandomTransactionId();
       
@@ -133,23 +151,21 @@ const Cart = () => {
           transaction_id: transactionId,
           transaction_type: transactionType,
         };
-      
         try {
           const res = await placeOrder(body);
           if(res.code==1){
             router.push('/checkout-success')
           }else{
-            router.push('//checkout-fail')
+            router.push('/checkout-fail')
           }
+          setIsLoading(false);
           console.log(res);
         } catch (error) {
-          // Handle error
+            console.log(error);
+            setIsLoading(false);
         }
       };
-      function generateRandomTransactionId() {
-        // Generate a random 16-digit transaction ID
-        return Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
-      }
+      
     useEffect(() => {
         dispatch(fetchCart());
         fetchAddressList();
@@ -234,11 +250,12 @@ const Cart = () => {
                                                 </div>
                                             }
                                         </div>
+                                        {(errorSetAddressFirst || !shippingAddress?.id) &&<p className="text-danger">Please select a delivery address</p>}
                                         {
                                             auth_token && <div className="billing_address">
                                                 <hr />
                                                 <div className="billing_address_check d-flex">
-                                                    <input type="checkbox" className="cursor_pointer" checked={billingAsDelivery} onClick={billingToggle} name="billing_address" id="billing_address" />
+                                                    <input type="checkbox" className="cursor_pointer" defaultChecked={billingAsDelivery} onChange={billingToggle} name="billing_address" id="billing_address" />
                                                     <label htmlFor="billing_address" className="mb-0 cursor_pointer"> Billing Address Same as Delivery Address</label>
                                                 </div>
                                                 {!billingAsDelivery && <div className="">
@@ -247,7 +264,7 @@ const Cart = () => {
                                                         {
                                                             Object.keys(billingAddress).length > 0 && <div className="addressStripV2-base-title">
                                                                     <div className="addressStripV2-base-addressName">
-                                                                    Deliver to: <span className="addressStripV2-base-highlight">{`${billingAddress?.name} , ${billingAddress?.pincode}`}</span>
+                                                                    Billing to: <span className="addressStripV2-base-highlight">{`${billingAddress?.name} , ${billingAddress?.pincode}`}</span>
 
                                                                     </div>
                                                                     <div className="addressStripV2-base-subText">
@@ -378,12 +395,14 @@ const Cart = () => {
                                         </div>
                                         <div>
                                             {auth_token ? 
-                                                <button width="100%" onClick={handlePlaceOrder} letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
-                                                    <div className="css-xjhrni">PLACE ORDER</div>
+                                                <button width="100%" onClick={handlePlaceOrder} disabled={isLoading} letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
+                                                    <div className="css-xjhrni">{isLoading? 
+                                                        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                                         :'PLACE ORDER'}</div>
                                                 </button>
                                             :
                                                 <Popup
-                                                trigger={<button width="100%" letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
+                                                trigger={<button width="100%" letterSpacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
                                                     <div className="css-xjhrni">PLACE ORDER</div>
                                                 </button>}
                                                 modal

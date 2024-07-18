@@ -30,7 +30,6 @@ function Account() {
                 setOrderDetail(res)
             }
             setLoading(false)
-            console.log(res)
         } catch (error) {
             setLoading(false)
             console.error(error);
@@ -86,13 +85,12 @@ function Account() {
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-4 mb-40">
                                     <div className="order-address h-100">
-                                        <div className={`card-body border mb-0 address d-block h-100`} >
-                                            <div className="card-head mb-10">
-                                                <div className="name">More Action</div>
-                                            </div>
+                                        <div className={`  mb-0 address d-block h-100`}>
                                             <div className="d-flex justify-content-between">
-                                                <div className="name">{'Download Invoice'} </div>
-                                                <a href={`https://innowrap.co.in/clients/twc/App/V1/Invoice?order_id=${orderId}`} target="_blank" style={{color:'#fff'}}><button className="btn">Download</button></a>
+                                                <a href={`https://innowrap.co.in/clients/twc/App/V1/Invoice?order_id=${orderId}`} target="_blank" style={{color:'#fff'}}>
+                                                    <button className="btn">
+                                                        Download Invoice
+                                                    </button></a>
                                             </div>
                                         </div>
                                     </div>
