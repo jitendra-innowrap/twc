@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Timer from "./Timer";
@@ -9,7 +9,19 @@ const IntroPopup = () => {
         setOpenClass(!openClass);
     };
     const fixDate = new Date();
-    return (
+    const [showIntro, setShowIntro] = useState(false);
+
+    useEffect(() => {
+        // Check if the user has already seen the intro popup
+        const hasSeenIntro = localStorage.getItem('hasSeenIntro');
+        
+        if (!hasSeenIntro) {
+            setShowIntro(true);
+            // Set the flag in local storage
+            localStorage.setItem('hasSeenIntro', 'true');
+        }
+    }, []);
+    return ( showIntro &&
         <>
             <div
                 className={

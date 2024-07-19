@@ -843,8 +843,10 @@ export const addNewsletter = async (email) => {
 }
 
 export const checkRentalAvailability = async ({qty,end_date,start_date,product_id}) => {
+
   const auth_token = getToken();
-  // Create a new FormData object
+  const web_token = storage.get("web_token")
+    // Create a new FormData object
   const formData = new FormData();
   formData.append('product_id', product_id);
   formData.append('start_date', clipDateOnly(start_date));
@@ -856,7 +858,7 @@ export const checkRentalAvailability = async ({qty,end_date,start_date,product_i
       formData,
       {
         headers: {
-          'auth_token': auth_token,
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }

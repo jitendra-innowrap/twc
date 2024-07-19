@@ -24,7 +24,7 @@ const Header = ({
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY >= 100;
             if (scrollCheck !== scroll) {
-                setScroll(scrollCheck);
+                // setScroll(scrollCheck);
             }
         });
     },[]);       
