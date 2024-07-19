@@ -274,7 +274,7 @@ function LoginRegister({logIN}) {
                                 Login <span className="welcome_header_small">or</span> Signup
                             </h3>
                         </div>
-                        <div className="mobileInputContainer">
+                        <div className="mobileInputContainer mt-0">
                             <div className="form-group ">
                                 <input ref={phoneRef} autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
@@ -286,11 +286,10 @@ function LoginRegister({logIN}) {
                             </div>
                             <div className="midLinks">
                                 By continuing, I agree to the
-                                <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
+                                <a href="/terms-and-conditions"> Terms of Use</a> &amp; <a href="/privacy-policy">Privacy Policy</a>
                             </div>
                             <button className="submitBottomOption btn w-100 rounded-0" disabled={isSumbitting} onClick={handleMobile}>{isSumbitting?'Please Wait...':'CONTINUE'}</button>
                         </div>
-                        <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
                 </div>
                 :

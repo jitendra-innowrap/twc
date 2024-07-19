@@ -79,7 +79,7 @@ const ProductDetails = ({
         }else{
             if (deliveryDate) {
                 dispatch(addItemToCart(product));
-                setIsInCart(true)
+                // setIsInCart(true)
               }else{
                   setHeighLightDate(true)
                 }
@@ -106,6 +106,7 @@ const ProductDetails = ({
     });
 
     const handleDeliveryDateChange = async (date) => {
+        setHeighLightDate(false);
         let returnDate = new Date(date.getTime() + (product?.rental_for_days * 24 * 60 * 60 * 1000));
         if (productDetails?.product_type == '1') {
             let params = { qty:1, end_date:returnDate, start_date:date, product_id:productDetails?.id }

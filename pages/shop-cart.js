@@ -28,6 +28,7 @@ const Cart = () => {
     const [gstNumber, setGstNumber] = useState("");
     const [isGST, setIsGST] = useState(false);
     const [errorSetAddressFirst, setErrorSetAddressFirst] = useState(false);
+    const [errorNoGst, setErrorNoGst] = useState(false);
     const couponDiscount = useSelector((state) => state.cart.couponCode);
     const cartItems = useSelector((state) => state.cart.cartItems);
     const cartCount = useSelector((state) => state.cart.cartCount);
@@ -68,11 +69,11 @@ const Cart = () => {
         setBillingAsDelivery(!billingAsDelivery)
     }
     const GSTToggle =()=>{
-        if(isGST){
+        if(isGST && gst_number){
             handleAddGst();
         }
-        setIsGST(!isGST)
-
+        setIsGST(!isGST);
+        setErrorNoGst(false);
         
     }
     const handleAddGst = async (gst_number)=>{
@@ -136,6 +137,21 @@ const Cart = () => {
                 transition: Bounce,
               });
             return
+        }
+        if(isGST && !gst_number){
+            setErrorNoGst(true);
+            toast.warn("Please Uncheck Or Add GST Number!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+              return
         }
         setIsLoading(true);
         // Generate a random transaction ID
@@ -250,7 +266,7 @@ const Cart = () => {
                                                 </div>
                                             }
                                         </div>
-                                        {(errorSetAddressFirst || !shippingAddress?.id) &&<p className="text-danger">Please select a delivery address</p>}
+                                        {errorSetAddressFirst &&<p className="text-danger">Please select a delivery address</p>}
                                         {
                                             auth_token && <div className="billing_address">
                                                 <hr />
@@ -291,11 +307,11 @@ const Cart = () => {
                                                 </div>}
                                             </div>
                                         }
-                                                <hr className="mt-0" />
+                                                <hr className={auth_token && 'mt-0'} />
                                         {
                                             auth_token && <div className="billing_address gst_number_container">
                                                 <div className="billing_address_check d-flex">
-                                                    <input type="checkbox" className="cursor_pointer" checked={isGST} onClick={GSTToggle} name="gstNumber" id="gstNumber" />
+                                                    <input type="checkbox" className="cursor_pointer" defaultChecked={isGST} onChange={GSTToggle} name="gstNumber" id="gstNumber" />
                                                     <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You Have A GST Number.</label>
                                                 </div>
                                                 {isGST &&<div className="gst_number_wrapper">
@@ -322,6 +338,8 @@ const Cart = () => {
                                                 </div>}
                                             </div>
                                         }
+                                        {errorNoGst &&<p className="text-danger">Please Add A GST Number</p>}
+                                        
                                         <div id="cartItemsList">
                                             {
                                                 cartItems.map((item) => {

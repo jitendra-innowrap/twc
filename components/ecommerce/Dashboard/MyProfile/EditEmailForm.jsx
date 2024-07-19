@@ -19,6 +19,19 @@ export default function EditEmailForm({ close, setTempUser }) {
     let [interval, updateInterval] = useState(null);
     const [isSumbitting, setIsSumbitting] = useState(false)
 
+    useEffect(() => {
+        if (step === 3) {
+            // Setting timeout to collapse the toast after 3 seconds
+            const timer = setTimeout(() => {
+                close();
+            }, 3000); // 3000 milliseconds = 3 seconds
+
+            // Cleanup function to clear the timeout if the component unmounts or step changes
+            return () => clearTimeout(timer);
+        }
+    }, [step])
+    
+
     const handleResendOTP = () => {
         resendOTPForEmail(Email)
             .then((response) => {
@@ -90,6 +103,7 @@ export default function EditEmailForm({ close, setTempUser }) {
 
 
     const handleEmail = async () => {
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(Email)) {
             setIsSumbitting(true)
@@ -97,6 +111,10 @@ export default function EditEmailForm({ close, setTempUser }) {
                 const res = await editEmail(Email)
                 if (res.code === 1) {
                     setStep(2);
+                    setTempUser(prevTempUser => ({
+                        ...prevTempUser,
+                        email: Email,
+                    }));
                     toast.success("OTP Sent Successfully !", {
                         position: "bottom-center",
                         autoClose: 1500,
@@ -209,7 +227,7 @@ export default function EditEmailForm({ close, setTempUser }) {
     };
 
     return (
-        <div className='popUpContainer'>
+        <div className='popUpContainer' style={{height:`${step===3?'240px':''}`}}>
             <button onClick={close} className='close_popUp'><MdClose fontSize={22} /></button>
             {step === 1 ?
                 <div className="login_wrap w-100">
@@ -233,11 +251,10 @@ export default function EditEmailForm({ close, setTempUser }) {
                             </div>
                             <div className="midLinks">
                                 By continuing, I agree to the
-                                <a href="/termsofuse">Terms of Use</a> &amp; <a href="/privacypolicy">Privacy Policy</a>
+                                <a href="/terms-and-conditions"> Terms of Use</a> &amp; <a href="/privacy-policy">Privacy Policy</a>
                             </div>
                             <button className="submitBottomOption btn w-100 rounded-0" disabled={isSumbitting} onClick={handleEmail}>{isSumbitting?'Please Wait...':'CONTINUE'}</button>
                         </div>
-                        <div className="get-help">Have trouble logging in? <span>Get help</span></div>
                     </div>
                 </div>
                 :
@@ -301,14 +318,14 @@ export default function EditEmailForm({ close, setTempUser }) {
                                     ></path>
                                 </g>
                             </svg>
-                            <div className="welcomeText">Successfull</div>
-                            <div className="accountCreated">Your Email Number is updated Successfully.</div>
+                            <div className="welcomeText">successful</div>
+                            <div className="accountCreated">Your Email Id Is Updated Successfully.</div>
                         </div>
-                        <div className="padding_eight_all bg-white w-100 p-30">
+                        {/* <div className="padding_eight_all bg-white w-100 p-30">
                             <div className="nameInputContainer w-100">
                                 <div className="submitBottomOption" onClick={close}>CONTINUE</div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
             }
         </div>

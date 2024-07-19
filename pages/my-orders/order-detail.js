@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import storage from "../../util/localStorage";
 import { useDispatch } from "react-redux";
-import { getOrderDetails } from "../../util/api";
+import { downloadInvoice, getOrderDetails } from "../../util/api";
 import { Bounce, toast } from "react-toastify";
 import CartItem from "../../components/ecommerce/Dashboard/MyCart/CartItem";
 import Link from "next/link";
@@ -35,7 +35,15 @@ function Account() {
             console.error(error);
             
         }
+    }
 
+    const handleDownloadInvoice = async()=>{
+        try {
+            let res = downloadInvoice(orderId);
+            console.log(res);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -87,7 +95,7 @@ function Account() {
                                     <div className="order-address h-100">
                                         <div className={`  mb-0 address d-block h-100`}>
                                             <div className="d-flex justify-content-between">
-                                                <a href={`https://innowrap.co.in/clients/twc/App/V1/Invoice?order_id=${orderId}`} target="_blank" style={{color:'#fff'}}>
+                                                <a onClick={handleDownloadInvoice} target="_blank" style={{color:'#fff'}}>
                                                     <button className="btn">
                                                         Download Invoice
                                                     </button></a>

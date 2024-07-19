@@ -406,6 +406,46 @@ export const getProfileDetails = async (auth_token) => {
     throw error;
   }
 }
+export const downloadInvoice = async (orderId) => {
+  const auth_token = getToken();
+  try {
+    const response = await axios.get(
+      `https://innowrap.co.in/clients/twc/App/V1/Invoice?order_id=${orderId}`,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Accept': 'application/pdf' // Set the Accept header to 'application/pdf'
+        },
+        responseType: 'blob' // Set the responseType to 'blob'
+      }
+    );
+
+    // Create a temporary URL for the PDF blob
+    const pdfUrl = URL.createObjectURL(response.data);
+
+    // Create a temporary anchor element
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.setAttribute('download', `invoice_${orderId}.pdf`); // Set the download attribute with the desired file name
+
+    // Append the anchor element to the document body
+    document.body.appendChild(link);
+
+    // Click the anchor element to initiate the download
+    link.click();
+
+    // Remove the anchor element from the document body
+    document.body.removeChild(link);
+
+    // Revoke the temporary URL to prevent memory leaks
+    URL.revokeObjectURL(pdfUrl);
+  } catch (error) {
+    console.error('Failed to download invoice', error);
+    throw error;
+  }
+};
+
 export const editProfileDetails = async ({ fullname, mobile, email, gender, dob, alternateMobile }) => {
   const auth_token = getToken();
   // Create a new FormData object
@@ -803,8 +843,10 @@ export const addNewsletter = async (email) => {
 }
 
 export const checkRentalAvailability = async ({qty,end_date,start_date,product_id}) => {
+
   const auth_token = getToken();
-  // Create a new FormData object
+  const web_token = storage.get("web_token")
+    // Create a new FormData object
   const formData = new FormData();
   formData.append('product_id', product_id);
   formData.append('start_date', clipDateOnly(start_date));
@@ -816,7 +858,7 @@ export const checkRentalAvailability = async ({qty,end_date,start_date,product_i
       formData,
       {
         headers: {
-          'auth_token': auth_token,
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
           'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
         }
