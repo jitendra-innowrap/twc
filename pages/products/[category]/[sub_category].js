@@ -212,7 +212,7 @@ const Products = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row product-grid-3">
+                                <div className="row product-grid-3 mobile_product_list">
                                     {productList?.length === 0 && (
                                         <div className="no-products-found">
                                             <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
@@ -227,7 +227,7 @@ const Products = () => {
                                             <SingleProductList product={item}/>
                                         </div>                                        
                                         }else{
-                                            return <div className="col-lg-4 col-md-4 col-6"
+                                            return <div className="col-lg-4 col-md-4 col-6 product_card"
                                             key={i}
                                             >
                                             <SingleProduct product={item} />
