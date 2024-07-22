@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { getSearchProducts } from "../../util/api";
 import Image from "next/image";
 import Link from "next/link";
+import { BsArrowLeft } from "react-icons/bs";
 
-const Search = () => {
+const SearchMobile = ({toggleSearch}) => {
     const [searchTerm, setSearchTerm] = useState("");
     const router = useRouter();
     const [highlightedIndex, setHighlightedIndex] = useState(-1); // Track the highlighted index
@@ -18,10 +19,7 @@ const Search = () => {
         }
         fetchSearchlist();
         if (e.key === "Enter") {
-            e.preventDefault();     
-            router.replace({
-                query: { ...router.query, keyword:searchTerm },
-            });
+            e.preventDefault(); 
             // handleSearch();
         }else if (e.key === "ArrowDown") {
             // Move down the list
@@ -40,7 +38,8 @@ const Search = () => {
         router.push({
             pathname: `/products/detail/${handle}`,
         });
-        setSearchTerm("")
+        toggleSearch();
+        // setSearchTerm("")
         setOpenSearchList(false)
     }
 
@@ -57,19 +56,29 @@ const Search = () => {
     useEffect(() => {
       fetchSearchlist(searchTerm);
         
-    }, [searchTerm])
+      router.replace({
+        query: { ...router.query, keyword:searchTerm },
+        });
+    }, [searchTerm]);
+
+    
     
     return (
         <>
-            <form>  
-                <input
-                    value={searchTerm}
-                    // onKeyDown={handleInput}
-                    onChange={(e) => handleInput(e)}
-                    type="text"
-                    placeholder="Search for products, events or more"
-                />
-                {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'}`}>
+            <div className="mobile-search search-style-3 mobile-header-border" style={{paddingBottom:'7px'}}>
+                            <form action="#" onSubmit={(e)=>{e.preventDefault();}}>
+                                <button type="button" style={{left:'0', width:'min-content'}} onClick={toggleSearch}><BsArrowLeft /></button>
+                                <input 
+                                    value={searchTerm}
+                                    onChange={(e) => handleInput(e)}
+                                    type="text" placeholder="Search for items…" 
+                                    style={{paddingLeft:'40px'}} 
+                                />
+                                <button type="submit">
+                                    <i className="fi-rs-search"></i>
+                                </button>
+                            </form>
+                            {searchTerm.length > 0 &&<ul className={`${openSearchList?'open':""}`}>
                     {searchList?.map((item, index)=>{
                         return<li onClick={()=>{handleSearch(item?.handle)}}>
                         <div className={`search-item $ ${highlightedIndex===index?'highlighted':''}`}>
@@ -87,9 +96,9 @@ const Search = () => {
                     </li>
                     })}
                 </ul>}
-            </form>
+                        </div>
         </>
     );
 };
 
-export default Search;
+export default SearchMobile;

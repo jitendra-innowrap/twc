@@ -180,6 +180,42 @@ const ProductDetails = ({
             <section className="mt-15 mt-md-5 mb-50">
                 <div className="container">
                     <div className="row flex-row-reverse">
+                        <div className="detail-extralink mobile-buttons-style">
+                            <div className="product-extra-link2">
+                                <button
+                                    onClick={(e) =>
+                                        handleCart({
+                                            product_id: productDetails?.id,
+                                            mrp: productDetails?.mrp,
+                                            selling_price: productDetails?.selling_price,
+                                            qty: quantity,
+                                            flag: 1,
+                                            size,
+                                            color,
+                                            deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
+                                            deposit_amount: productDetails?.deposit_amount,
+                                            rental_start_date: deliveryDate,
+                                            rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
+                                        })
+                                    }
+                                    className="button button-add-to-cart"
+                                >
+                                    {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
+                                </button>
+                                <a
+                                    aria-label="Add To Wishlist"
+                                    className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
+                                    onClick={(e) =>
+                                        handleWishlist(
+                                            productDetails?.id
+                                        )
+                                    }
+                                >
+                                    {isInWishlist ? <FaHeart fill="#088178" />
+                                        : <FaRegHeart fill="#088178" />} Add To Wishlist
+                                </a>
+                            </div>
+                        </div>
                         <div className="col-lg-12">
                             <div className="product-detail accordion-detail">
                                 <div className="row mb-50">

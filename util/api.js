@@ -204,6 +204,31 @@ export const getAllCollectionProducts = async ({ handle, sort, page = 1, from_pr
     throw error;
   }
 };
+export const getSearchProducts = async (search_keyword) => {
+  try {
+    const auth_token = getToken();
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('search_keyword', search_keyword);
+    
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Product/searchProduct',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch data', error);
+    throw error;
+  }
+};
 
 
 // Product details page api's endpoints
@@ -384,6 +409,7 @@ export const resendOTPApi = async (auth_token) => {
     throw error;
   }
 }
+
 
 // Profile page api's endpoints
 

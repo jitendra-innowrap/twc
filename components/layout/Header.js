@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import storage from "../../util/localStorage";
 import { BiSearch } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
+import SearchMobile from "../ecommerce/SearchMobile";
 
 const Header = ({
     toggleClick,
@@ -316,15 +317,7 @@ const Header = ({
                             </div>
                         </div>
                         :
-                        <div className="mobile-search search-style-3 mobile-header-border" style={{paddingBottom:'7px'}}>
-                            <form action="#" onSubmit={(e)=>{e.preventDefault();}}>
-                                <button type="button" style={{left:'0', width:'min-content'}} onClick={toggleSearch}><BsArrowLeft /></button>
-                                <input type="text" placeholder="Search for items…" style={{paddingLeft:'40px'}} />
-                                <button type="submit">
-                                    <i className="fi-rs-search"></i>
-                                </button>
-                            </form>
-                        </div>
+                        <SearchMobile toggleSearch={toggleSearch} />
                         }
                     </div>
                 </div>
