@@ -38,8 +38,9 @@ const SearchMobile = ({toggleSearch}) => {
         router.push({
             pathname: `/products/detail/${handle}`,
         });
+        toggleSearch();
         // setSearchTerm("")
-        // setOpenSearchList(false)
+        setOpenSearchList(false)
     }
 
     const fetchSearchlist = async (keyword)=>{
@@ -77,7 +78,7 @@ const SearchMobile = ({toggleSearch}) => {
                                     <i className="fi-rs-search"></i>
                                 </button>
                             </form>
-                            {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'}`}>
+                            {searchTerm.length > 0 &&<ul className={`${openSearchList?'open':""}`}>
                     {searchList?.map((item, index)=>{
                         return<li onClick={()=>{handleSearch(item?.handle)}}>
                         <div className={`search-item $ ${highlightedIndex===index?'highlighted':''}`}>

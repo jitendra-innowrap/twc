@@ -12,6 +12,7 @@ const Search = () => {
     const [openSearchList, setOpenSearchList] = useState(false)
 
     const handleInput = (e) => {
+        setSearchTerm(e.target.value)
         if(!openSearchList){
             setOpenSearchList(true);
         }
@@ -63,8 +64,8 @@ const Search = () => {
             <form>  
                 <input
                     value={searchTerm}
-                    onKeyDown={handleInput}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    // onKeyDown={handleInput}
+                    onChange={(e) => handleInput(e)}
                     type="text"
                     placeholder="Search for products, events or more"
                 />

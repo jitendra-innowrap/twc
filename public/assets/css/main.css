@@ -12804,12 +12804,13 @@ main.login_page{
   /* overflow: hidden; */
 }
 .search-style-2 ul {
-  /* display: none; */
+  display: none;
 }
-
-.search-style-2:focus-within ul {
+.search-style-2 ul.open {
   display: block;
 }
+
+
 
 .search-style-2{
   position: relative;
@@ -13008,7 +13009,11 @@ main.login_page{
   text-align: center !important;
 }
 
-.search-style-3:focus-within ul {
+.search-style-3 ul {
+  display: none;
+}
+
+.search-style-3 ul.open {
   display: block;
 }
 
