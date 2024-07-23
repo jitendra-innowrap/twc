@@ -13461,7 +13461,9 @@ display: none;
   left: 32px;
   animation: lds-ellipsis3 0.6s infinite;
 }
-
+body.mobile-menu-active{
+  overflow: hidden;
+}
 @media (min-width: 768px) {
   .mb-md-5 {
       margin-bottom: 3rem !important;

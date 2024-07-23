@@ -148,6 +148,53 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     <FaWhatsapp size={18} color="#606060" />
                                 </a>
                         </div>
+                        <div className="header-info header-info-left mt-20">
+                            <ul>
+                                <li>
+                                    <Link href="/#">
+                                        <a className="language-dropdown-active">
+                                            <i className="fi-rs-marker"></i>
+                                            {headerData?.region_data?.[0]?.region_name}
+                                            <i className="fi-rs-angle-small-down"></i>
+                                        </a>
+                                    </Link>
+                                    <ul className="language-dropdown">
+                                        {
+                                            headerData?.region_data?.map((region, i) => (
+                                                <li>
+                                                    <Link href="/">
+                                                        <a>
+                                                            {/* <img
+                                                                        src="/assets/imgs/theme/flag-fr.png"
+                                                                        alt=""
+                                                                    /> */}
+                                                            {region?.region_name}
+                                                        </a>
+                                                    </Link>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-12 mt-20">
+                            <div className="text-center">
+                                <div
+                                    id="news-flash"
+                                    className="d-inline-block"
+                                >
+                                    <ul>
+                                        <li className="">
+                                            {headerData?.announcement_notes?.[0]?.title} &nbsp;
+                                            <Link href={headerData?.announcement_notes?.[0]?.redirect_url || ""}>
+                                                <a className="d-block"> View details</a>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
