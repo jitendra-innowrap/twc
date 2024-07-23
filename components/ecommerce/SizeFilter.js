@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-const SizeFilter = () => {
+const SizeFilter = ({mobile, setFilters}) => {
     const router = useRouter();
     const { size } = router.query;
     const [active, setActive] = useState(size?size:"all");
@@ -15,15 +15,25 @@ const SizeFilter = () => {
     ];
 
     useEffect(() => {
-      setActive(size)
+        if(!mobile){
+            setActive(size)
+        }
     }, [router.query])
     
 
     const handleClick = (size) => {
-        setActive(prev => active == prev ? "all" : size);
-        router.replace({
-            query: { ...router.query, size: size === active ? "all" : size, page:1 },
-        });
+        if (mobile) {
+            setActive(size)
+            setFilters(prev => ({
+                ...prev,
+                size: size === active ? "all" : size
+            }));            
+        } else {
+            setActive(prev => active == prev ? "all" : size);
+            router.replace({
+                query: { ...router.query, size: size === active ? "all" : size, page:1 },
+            });
+        }
     };
 
     return (

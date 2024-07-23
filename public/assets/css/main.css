@@ -4757,7 +4757,7 @@ table .product-thumbnail img {
 .product-extra-link2 a {
   background: #fff none repeat scroll 0 0;
   border: 1px solid #e5e5e5;
-  color: #333;
+  color: #555;
   border-radius: 4px;
   display: inline-block;
   height: 44px;
@@ -9935,8 +9935,11 @@ span.fi-rs-apps {
 
   .header-bottom {
     padding: 10px 0 3px 0;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
+  .header-wrap .header-right .search-style-2 {
+    display: none;
+}
 
   .header-height-1 {
     min-height: 50px;
@@ -10840,9 +10843,6 @@ span.fi-rs-apps {
   width: 320px;
 }
 @media (max-width:992px){
-  .header-wrap .header-right .search-style-2{
-    display: none;
-  }
   .header-wrap .logo.logo-width-1{
     width: 55px !important;
   }
@@ -11244,8 +11244,9 @@ span.fi-rs-apps {
 .sidebar-widget  .date-filter .react-datepicker-wrapper, .sidebar-widget  .date-filter .react-datepicker-wrapper button{
   width: 100%;
 }
-.sidebar-widget  .date-filter .react-datepicker-wrapper .custom-date-input{
+.sidebar-widget .date-filter .react-datepicker-wrapper .custom-date-input{
   text-align: center;
+  width: 100% !important;
 }
 
 
@@ -12585,16 +12586,25 @@ input[type="checkbox"]:hover{
 .action-btn.add-to-wishlist{
   display: none;
 }
-.detail-extralink.mobile-buttons-style{
+
+.detail-extralink.mobile-buttons-style.fixed-buttons{
   position: fixed;
+  width: 100vw;
+  padding: 10px;
+  padding-block: 15px;
+  border-bottom: none;
+}
+.detail-extralink.mobile-buttons-style{
+  position: static;
   bottom: 0;
   display: block;
   background: #fff;
   z-index: 10;
-  width: 100vw;
   left: 0;
-  padding-block: 10px;
+  padding-block: 15px;
+  margin-top: 20px;
   border-top: 1px solid #00132529;
+  border-bottom: 1px solid #00132529;
 }
 .detail-extralink.mobile-buttons-style .product-extra-link2{
   width: 100%;
@@ -12612,6 +12622,50 @@ input[type="checkbox"]:hover{
   display: block;
   width: 48%;
 }
+
+.detail-info .product-price ins{
+  font-size: 20px;
+}
+.detail-info .product-price-cover .product-price span.text-brand{
+  font-size: 18px;
+}
+.detail-info .attr-detail.attr-size{
+  margin-top: 15px;
+}
+.detail-info .react-datepicker-wrapper, .detail-info .custom-date-input{
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+.detail-info .custom-date-input span{
+  /* width: ; */
+  display: flex;
+  justify-content: center;
+  /* width: 50px; */
+  height: 22px;
+  margin-inline: auto;
+}
+.detail-info .custom-date-input .lds-ellipsis{
+  transform: none;
+}
+
+.detail-info .detail-extralink .product-extra-link2 a.connect {
+  font-size: 18px;
+}
+.detail-info .detail-extralink .product-extra-link2 a.connect img{
+  width: 20px;
+  margin-left: 10px;
+}
+.attr-date .react-datepicker__triangle{
+  left: 112px !important;
+}
+.attr-date .react-datepicker-popper{
+  left: 0 !important;
+}
+.detail-info .brand-assurity-icons ul li{
+  width: calc(33.33% - 12px);
+}
+
 }
 
 
@@ -12898,6 +12952,97 @@ main.login_page{
     margin-block: 15px;
   }
   }
+@media only screen and (max-width: 991px) {
+  
+.filter-sidebar{
+  position: fixed;
+    top: 0;
+    width: 360px;
+    height: 100vh;
+    overflow-y: auto;
+    bottom: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform: translate(200px, 0);
+    background-color: #ffffff;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
+    z-index: 99999;
+}
+.filter-sidebar.active-sidebar{
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+    width: 100vw;
+  }
+.filter-sidebar .filters-Wrapper{
+    position: relative;
+    height: 100vh;
+    overflow: auto;
+}
+
+ .filter-sidebar.active-sidebar .filter-close-btn{
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px;
+  padding-block: 15px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.filters-Wrapper .widget-category{
+  margin-top: 70px;
+}
+.filters-Wrapper .sidebar-widget.price_range{
+  margin-bottom: 90px !important;
+}
+.filters-Wrapper .custom-date-input{
+  width: 100%;
+}
+.filters-Wrapper .widget-category ul>li.active{
+  color: #088178;
+  font-weight: 700;
+}
+.filter-close-btn .title{
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+}
+.filter-actions-btns{
+  justify-content: space-between;
+  gap: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+  border-top: 1px solid #e8e8e8;
+}
+.filter-actions-btns .button{
+  flex: 1;
+}
+.shop-product-fillter{
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+}
+.shop-product-fillter .sort-by-product-area{
+  width: 100%;
+  justify-content: space-between;
+}
+.change-List-layout{
+  display: block;
+}
+
+}
+
 
 @media only screen and (max-width: 992px) {
   .logo.logo-width-1 a img{
@@ -13101,51 +13246,6 @@ main.login_page{
   height: auto;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-.filter-sidebar{
-  position: fixed;
-    top: 0;
-    width: 360px;
-    height: 100vh;
-    overflow-y: auto;
-    bottom: 0;
-    right: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transform: translate(200px, 0);
-    background-color: #ffffff;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
-    z-index: 99999;
-}
-.filter-sidebar.active-sidebar{
-  visibility: visible;
-    opacity: 1;
-    transform: translate(0, 0);
-    width: 320px;
-}
-.filter-close-btn{
-  padding-block: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-.filter-close-btn .title{
-  font-size: 20px;
-  font-weight: 600;
-  color: #000;
-}
-.shop-product-fillter{
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: start;
-  gap: 20px;
-}
-.shop-product-fillter .sort-by-product-area{
-  width: 100%;
-  justify-content: space-between;
-}
-.change-List-layout{
-  display: block;
-}
 .tab-style3 .nav-tabs li{
   display: flex;
   align-items: flex-end;
@@ -13293,7 +13393,9 @@ p{
   width: 200px;
   height: 200px;
 }
-
+.newsletter{
+  padding-inline: 0px !important;
+}
 }
 
 .itemComponents-base-sellerContainer .from-to-date-mobile{
@@ -13360,6 +13462,18 @@ display: none;
   left: 32px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+body.mobile-menu-active{
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .mb-md-5 {
+      margin-bottom: 3rem !important;
+  }
+  .mt-md-5 {
+      margin-top: 3rem !important;
+  }
+}
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);

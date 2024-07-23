@@ -64,44 +64,26 @@ const Header = ({
                                             <Link href="/#">
                                                 <a className="language-dropdown-active">
                                                     <i className="fi-rs-marker"></i>
-                                                    Mumbai
+                                                    {headerData?.region_data?.[0]?.region_name}
                                                     <i className="fi-rs-angle-small-down"></i>
                                                 </a>
                                             </Link>
                                             <ul className="language-dropdown">
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            {/* <img
-                                                                src="/assets/imgs/theme/flag-fr.png"
-                                                                alt=""
-                                                            /> */}
-                                                            Banglore
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            {/* <img
-                                                                src="/assets/imgs/theme/flag-dt.png"
-                                                                alt=""
-                                                            /> */}
-                                                            Pune
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            {/* <img
-                                                                src="/assets/imgs/theme/flag-ru.png"
-                                                                alt=""
-                                                            /> */}
-                                                            Delhi
-                                                        </a>
-                                                    </Link>
-                                                </li>
+                                                {
+                                                    headerData?.region_data?.map((region,i)=>(
+                                                        <li>
+                                                            <Link href="/">
+                                                                <a>
+                                                                    {/* <img
+                                                                        src="/assets/imgs/theme/flag-fr.png"
+                                                                        alt=""
+                                                                    /> */}
+                                                                    {region?.region_name}
+                                                                </a>
+                                                            </Link>
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
                                         </li>
                                     </ul>
@@ -114,7 +96,7 @@ const Header = ({
                                         className="d-inline-block"
                                     >
                                         <ul>
-                                            <li onClick={()=> console.log(headerData)}>
+                                            <li>
                                                 {title} &nbsp;
                                                 <Link href={url}>
                                                     <a> View details</a>

@@ -14,8 +14,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getAllCategoryProducts } from "../../../util/api";
 import Preloader from "../../../components/elements/Preloader";
 import { MdOutlineClose } from "react-icons/md";
+import { useMediaQuery } from "react-responsive";
+import FiltersMobile from "../../../components/ecommerce/FiltersMobile";
 
 const Products = () => {
+    const isTab = useMediaQuery({
+        query: '(max-width: 992px)'
+      })
     let today = new Date();
     let Router = useRouter(),
     searchTerm = Router.query.search,
@@ -28,18 +33,18 @@ const Products = () => {
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [productList, setProductList] = useState([]);
     const [sub_categories, setSub_categories] = useState([]);
-    let formattedDate
-    if(availabilityDate){
-        const parsedDate = new Date(JSON.parse(availabilityDate));
-         formattedDate = parsedDate.toISOString().split('T')[0]; // Format to YYYY-MM-DD
-    }
-    const [deliveryDate, setDeliveryDate] = useState(availabilityDate?formattedDate:"");
+    const [deliveryDate, setDeliveryDate] = useState("");
     const [listLayout, setListLayout] = useState(false)
     let [pagination, setPagination] = useState([]);
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(totalProducts / limit));
     let [currentPage, setCurrentPage] = useState(1);
     const [filterOpen, SetfilterOpen] = useState(false);
+    let formattedDate
+    
+    useEffect(() => {
+    }, [])
+
     const toggleFilter=()=>{
         SetfilterOpen(!filterOpen);
     }
@@ -60,6 +65,11 @@ const Products = () => {
     useEffect(() => {
         fetchProductList();
         setCurrentPage(page||1);
+        if(availabilityDate){
+            const parsedDate = new Date(JSON.parse(availabilityDate));
+             formattedDate = parsedDate.toISOString().split('T')[0]; // Format to YYYY-MM-DD
+        }
+        setDeliveryDate(availabilityDate?formattedDate:"")
     }, [Router.query]);
 
     useEffect(() => {
@@ -117,11 +127,16 @@ const Products = () => {
 
     const handleDateFilter = (date) =>{
         setDeliveryDate(date);
+        let realDate = date;
+        if(!availabilityDate){
+            realDate = new Date(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+        }
         Router.replace({
-            query: { ...Router.query, availabilityDate: JSON.stringify(date), page:1 },
+            query: { ...Router.query, availabilityDate: JSON.stringify(realDate), page:1 },
             });
     }
 
+    
     
     return (
         <>
@@ -133,11 +148,7 @@ const Products = () => {
                         <Preloader />
                         :
                         <div className="row">
-                            <div className={`col-lg-3 primary-sidebar sticky-sidebar ${filterOpen?'filter-sidebar active-sidebar':'filter-sidebar'}`}>
-                                <div className="filter-close-btn">
-                                        <div className="title">Filters</div>
-                                        <span onClick={toggleFilter}><MdOutlineClose color="#000" fontSize={24}/></span>
-                                </div>
+                            {!isTab?<div className={`col-lg-3 primary-sidebar sticky-sidebar`}>
                                 <div className="widget-category mb-30">
                                     <h5 className="section-title style-1 mb-30 wow fadeIn animated">
                                         Category
@@ -186,10 +197,15 @@ const Products = () => {
                                         </div>
                                     </div>
 
-                                    <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
+                                    <div onClick={handleClearFilters} className="button d-flex align-items-center justify-content-center p-3"><i className="fi-rs-cross"></i> <span className="ml-15">Clear Filters</span></div>
                                 </div>
 
                             </div>
+                            :
+                            <>
+                                {filterOpen && <FiltersMobile filterOpen={filterOpen} handleClearFilters={handleClearFilters} deliveryDate={deliveryDate} toggleFilter={toggleFilter} sub_categories={sub_categories} handleDateFilter={handleDateFilter} calendarStartDate={calendarStartDate} calendarEndDate={calendarEndDate} />    }
+                            </>
+                        }
                             <div className="col-lg-9">
                                 <div className="shop-product-fillter">
                                     <div className="totall-product">

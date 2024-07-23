@@ -4,6 +4,7 @@ import { getSearchProducts } from "../../util/api";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
+import useClickOutside from "../../util/outsideClick";
 
 const SearchMobile = ({toggleSearch}) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -61,11 +62,14 @@ const SearchMobile = ({toggleSearch}) => {
         });
     }, [searchTerm]);
 
-    
+    let domNode = useClickOutside(() => {
+        toggleSearch();
+        console.log('search out')
+    });
     
     return (
         <>
-            <div className="mobile-search search-style-3 mobile-header-border" style={{paddingBottom:'7px'}}>
+            <div className="mobile-search search-style-3 mobile-header-border" style={{paddingBottom:'7px'}} ref={domNode}>
                             <form action="#" onSubmit={(e)=>{e.preventDefault();}}>
                                 <button type="button" style={{left:'0', width:'min-content'}} onClick={toggleSearch}><BsArrowLeft /></button>
                                 <input 
@@ -85,7 +89,7 @@ const SearchMobile = ({toggleSearch}) => {
                             <img 
                                 width={32}
                                 height={32}
-                                src={item?.product_images?.[0]?.file}
+                                src={item?.product_images?.file}
                                 quality={100}
                             />
                             <div className="right">
