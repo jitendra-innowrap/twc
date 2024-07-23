@@ -11244,8 +11244,9 @@ span.fi-rs-apps {
 .sidebar-widget  .date-filter .react-datepicker-wrapper, .sidebar-widget  .date-filter .react-datepicker-wrapper button{
   width: 100%;
 }
-.sidebar-widget  .date-filter .react-datepicker-wrapper .custom-date-input{
+.sidebar-widget .date-filter .react-datepicker-wrapper .custom-date-input{
   text-align: center;
+  width: 100% !important;
 }
 
 
