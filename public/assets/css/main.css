@@ -12951,6 +12951,97 @@ main.login_page{
     margin-block: 15px;
   }
   }
+@media only screen and (max-width: 991px) {
+  
+.filter-sidebar{
+  position: fixed;
+    top: 0;
+    width: 360px;
+    height: 100vh;
+    overflow-y: auto;
+    bottom: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform: translate(200px, 0);
+    background-color: #ffffff;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
+    z-index: 99999;
+}
+.filter-sidebar.active-sidebar{
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+    width: 100vw;
+  }
+.filter-sidebar .filters-Wrapper{
+    position: relative;
+    height: 100vh;
+    overflow: auto;
+}
+
+ .filter-sidebar.active-sidebar .filter-close-btn{
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px;
+  padding-block: 15px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.filters-Wrapper .widget-category{
+  margin-top: 70px;
+}
+.filters-Wrapper .sidebar-widget.price_range{
+  margin-bottom: 90px !important;
+}
+.filters-Wrapper .custom-date-input{
+  width: 100%;
+}
+.filters-Wrapper .widget-category ul>li.active{
+  color: #088178;
+  font-weight: 700;
+}
+.filter-close-btn .title{
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+}
+.filter-actions-btns{
+  justify-content: space-between;
+  gap: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+  border-top: 1px solid #e8e8e8;
+}
+.filter-actions-btns .button{
+  flex: 1;
+}
+.shop-product-fillter{
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+}
+.shop-product-fillter .sort-by-product-area{
+  width: 100%;
+  justify-content: space-between;
+}
+.change-List-layout{
+  display: block;
+}
+
+}
+
 
 @media only screen and (max-width: 992px) {
   .logo.logo-width-1 a img{
@@ -13154,51 +13245,6 @@ main.login_page{
   height: auto;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-.filter-sidebar{
-  position: fixed;
-    top: 0;
-    width: 360px;
-    height: 100vh;
-    overflow-y: auto;
-    bottom: 0;
-    right: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transform: translate(200px, 0);
-    background-color: #ffffff;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
-    z-index: 99999;
-}
-.filter-sidebar.active-sidebar{
-  visibility: visible;
-    opacity: 1;
-    transform: translate(0, 0);
-    width: 320px;
-}
-.filter-close-btn{
-  padding-block: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-.filter-close-btn .title{
-  font-size: 20px;
-  font-weight: 600;
-  color: #000;
-}
-.shop-product-fillter{
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: start;
-  gap: 20px;
-}
-.shop-product-fillter .sort-by-product-area{
-  width: 100%;
-  justify-content: space-between;
-}
-.change-List-layout{
-  display: block;
-}
 .tab-style3 .nav-tabs li{
   display: flex;
   align-items: flex-end;
@@ -13346,7 +13392,9 @@ p{
   width: 200px;
   height: 200px;
 }
-
+.newsletter{
+  padding-inline: 0px !important;
+}
 }
 
 .itemComponents-base-sellerContainer .from-to-date-mobile{

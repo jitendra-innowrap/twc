@@ -4,7 +4,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { getPriceRange } from "../../util/api";
 
-const PriceRangeSlider = () => {
+const PriceRangeSlider = ({mobile, setFilters}) => {
     
     const router = useRouter();
     const { from_price, to_price,  category, sub_category, slug } = router.query;
@@ -24,9 +24,17 @@ const PriceRangeSlider = () => {
     }
 
     const handleChange =(value)=>{
-        router.replace({
-            query: { ...router.query, from_price: value[0], to_price: value[1], page:1 },
-            });
+        if (mobile) {
+            setFilters(prev => ({
+                ...prev,
+                from_price: value[0],
+                to_price: value[1]
+            }));                
+        } else {
+            router.replace({
+                query: { ...router.query, from_price: value[0], to_price: value[1], page:1 },
+                });
+        }
     }
     return (
         <div className="evara_price_slider_amount">
