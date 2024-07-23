@@ -1,5 +1,5 @@
     import Link from "next/link";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { Bounce, toast } from "react-toastify";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
@@ -62,6 +62,28 @@ const ProductDetails = ({
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState("red");
     const [size, setSize] = useState("S");
+    const [FixedButtons, setFixedButtons] = useState(true);
+    const relatedProductsRef = useRef();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (relatedProductsRef.current) {
+                const rect = relatedProductsRef.current.getBoundingClientRect();
+                // Check if the related products are in the viewport
+                if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+                    setFixedButtons(false); // Change to static when related products enter the viewport
+                } else {
+                    setFixedButtons(true); // Keep fixed otherwise
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
@@ -177,48 +199,13 @@ const ProductDetails = ({
     
     return (
         <>
-            <section className="mt-15 mt-md-5 mb-50">
+            <section className="mt-15 mt-md-5 mb-15 mb-md-5">
                 <div className="container">
                     <div className="row flex-row-reverse">
-                        <div className="detail-extralink mobile-buttons-style">
-                            <div className="product-extra-link2">
-                                <button
-                                    onClick={(e) =>
-                                        handleCart({
-                                            product_id: productDetails?.id,
-                                            mrp: productDetails?.mrp,
-                                            selling_price: productDetails?.selling_price,
-                                            qty: quantity,
-                                            flag: 1,
-                                            size,
-                                            color,
-                                            deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
-                                            deposit_amount: productDetails?.deposit_amount,
-                                            rental_start_date: deliveryDate,
-                                            rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
-                                        })
-                                    }
-                                    className="button button-add-to-cart"
-                                >
-                                    {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
-                                </button>
-                                <a
-                                    aria-label="Add To Wishlist"
-                                    className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
-                                    onClick={(e) =>
-                                        handleWishlist(
-                                            productDetails?.id
-                                        )
-                                    }
-                                >
-                                    {isInWishlist ? <FaHeart fill="#088178" />
-                                        : <FaRegHeart fill="#088178" />} Add To Wishlist
-                                </a>
-                            </div>
-                        </div>
+                        
                         <div className="col-lg-12">
                             <div className="product-detail accordion-detail">
-                                <div className="row mb-50">
+                                <div className="row mb-15 mb-md-5">
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-left">
                                         <div className="detail-gallery">
                                             <div className="product-image-slider">
@@ -377,7 +364,7 @@ const ProductDetails = ({
                                                         className="connect"
                                                         target="_blank"
                                                     >
-                                                        Connect with us
+                                                        Connect With Us
                                                         <img
                                                             className="icon"
                                                             alt="The Party Cafe"
@@ -435,7 +422,43 @@ const ProductDetails = ({
                                 </div>
                                     <>
                                         <ProductTab productDetails={productDetails} />
-                                        {relatedProducts?.length > 0 &&<div className="row mt-60">
+                                        <div className={`detail-extralink mobile-buttons-style ${FixedButtons?'fixed-buttons':''}`}>
+                                            <div className="product-extra-link2">
+                                                <button
+                                                    onClick={(e) =>
+                                                        handleCart({
+                                                            product_id: productDetails?.id,
+                                                            mrp: productDetails?.mrp,
+                                                            selling_price: productDetails?.selling_price,
+                                                            qty: quantity,
+                                                            flag: 1,
+                                                            size,
+                                                            color,
+                                                            deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
+                                                            deposit_amount: productDetails?.deposit_amount,
+                                                            rental_start_date: deliveryDate,
+                                                            rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
+                                                        })
+                                                    }
+                                                    className="button button-add-to-cart"
+                                                >
+                                                    {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
+                                                </button>
+                                                <a
+                                                    aria-label="Add To Wishlist"
+                                                    className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
+                                                    onClick={(e) =>
+                                                        handleWishlist(
+                                                            productDetails?.id
+                                                        )
+                                                    }
+                                                >
+                                                    {isInWishlist ? <FaHeart fill="#088178" />
+                                                        : <FaRegHeart fill="#088178" />} Add To Wishlist
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {relatedProducts?.length > 0 &&<div className="row mt-30 mt-md-5" ref={relatedProductsRef}>
                                             <div className="col-12">
                                                 <h3 className="section-title style-1 mb-30">
                                                     Related Products

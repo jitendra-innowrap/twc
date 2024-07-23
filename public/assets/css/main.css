@@ -4757,7 +4757,7 @@ table .product-thumbnail img {
 .product-extra-link2 a {
   background: #fff none repeat scroll 0 0;
   border: 1px solid #e5e5e5;
-  color: #333;
+  color: #555;
   border-radius: 4px;
   display: inline-block;
   height: 44px;
@@ -9935,8 +9935,11 @@ span.fi-rs-apps {
 
   .header-bottom {
     padding: 10px 0 3px 0;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
+  .header-wrap .header-right .search-style-2 {
+    display: none;
+}
 
   .header-height-1 {
     min-height: 50px;
@@ -10840,9 +10843,6 @@ span.fi-rs-apps {
   width: 320px;
 }
 @media (max-width:992px){
-  .header-wrap .header-right .search-style-2{
-    display: none;
-  }
   .header-wrap .logo.logo-width-1{
     width: 55px !important;
   }
@@ -12585,16 +12585,25 @@ input[type="checkbox"]:hover{
 .action-btn.add-to-wishlist{
   display: none;
 }
-.detail-extralink.mobile-buttons-style{
+
+.detail-extralink.mobile-buttons-style.fixed-buttons{
   position: fixed;
+  width: 100vw;
+  padding: 10px;
+  padding-block: 15px;
+  border-bottom: none;
+}
+.detail-extralink.mobile-buttons-style{
+  position: static;
   bottom: 0;
   display: block;
   background: #fff;
   z-index: 10;
-  width: 100vw;
   left: 0;
-  padding-block: 10px;
+  padding-block: 15px;
+  margin-top: 20px;
   border-top: 1px solid #00132529;
+  border-bottom: 1px solid #00132529;
 }
 .detail-extralink.mobile-buttons-style .product-extra-link2{
   width: 100%;
@@ -12612,6 +12621,50 @@ input[type="checkbox"]:hover{
   display: block;
   width: 48%;
 }
+
+.detail-info .product-price ins{
+  font-size: 20px;
+}
+.detail-info .product-price-cover .product-price span.text-brand{
+  font-size: 18px;
+}
+.detail-info .attr-detail.attr-size{
+  margin-top: 15px;
+}
+.detail-info .react-datepicker-wrapper, .detail-info .custom-date-input{
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+.detail-info .custom-date-input span{
+  /* width: ; */
+  display: flex;
+  justify-content: center;
+  /* width: 50px; */
+  height: 22px;
+  margin-inline: auto;
+}
+.detail-info .custom-date-input .lds-ellipsis{
+  transform: none;
+}
+
+.detail-info .detail-extralink .product-extra-link2 a.connect {
+  font-size: 18px;
+}
+.detail-info .detail-extralink .product-extra-link2 a.connect img{
+  width: 20px;
+  margin-left: 10px;
+}
+.attr-date .react-datepicker__triangle{
+  left: 112px !important;
+}
+.attr-date .react-datepicker-popper{
+  left: 0 !important;
+}
+.detail-info .brand-assurity-icons ul li{
+  width: calc(33.33% - 12px);
+}
+
 }
 
 
@@ -13360,6 +13413,16 @@ display: none;
   left: 32px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
+@media (min-width: 768px) {
+  .mb-md-5 {
+      margin-bottom: 3rem !important;
+  }
+  .mt-md-5 {
+      margin-top: 3rem !important;
+  }
+}
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);

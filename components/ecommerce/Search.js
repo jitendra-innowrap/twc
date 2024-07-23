@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getSearchProducts } from "../../util/api";
 import Image from "next/image";
 import Link from "next/link";
+import useClickOutside from "../../util/outsideClick";
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -47,8 +48,8 @@ const Search = () => {
     const fetchSearchlist = async (keyword)=>{
         try {
             const res = await getSearchProducts(keyword);
-            console.log(res);
             setsearchList(res.result)
+            console.log(res.result)
         } catch (error) {
             console.log(error);
         }
@@ -59,9 +60,13 @@ const Search = () => {
         
     }, [searchTerm])
     
+    let domNode = useClickOutside(() => {
+        setOpenSearchList(false);
+    });
+
     return (
         <>
-            <form>  
+            <form ref={domNode}>  
                 <input
                     value={searchTerm}
                     // onKeyDown={handleInput}
@@ -76,7 +81,7 @@ const Search = () => {
                             <img 
                                 width={32}
                                 height={32}
-                                src={item?.product_images?.[0]?.file}
+                                src={item?.product_images?.file}
                                 quality={100}
                             />
                             <div className="right">
