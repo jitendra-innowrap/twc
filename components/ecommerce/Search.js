@@ -13,28 +13,27 @@ const Search = () => {
     const [openSearchList, setOpenSearchList] = useState(false)
 
     const handleInput = (e) => {
+        e.preventDefault();
         setSearchTerm(e.target.value)
         if(!openSearchList){
             setOpenSearchList(true);
         }
-        fetchSearchlist();
-        if (e.key === "Enter") {
-            e.preventDefault();     
-            router.replace({
-                query: { ...router.query, keyword:searchTerm },
-            });
-            // handleSearch();
-        }else if (e.key === "ArrowDown") {
-            // Move down the list
-            setHighlightedIndex((prevIndex) => 
-                prevIndex < searchList?.length - 1 ? prevIndex + 1 : prevIndex
-            );
-        } else if (e.key === "ArrowUp") {
-            // Move up the list
-            setHighlightedIndex((prevIndex) => 
-                prevIndex > 0 ? prevIndex - 1 : prevIndex
-            );
-        }
+        // if (e.key === "Enter") {
+        //     e.preventDefault();     
+        //     router.replace({
+        //         query: { ...router.query, keyword:searchTerm },
+        //     });
+        // }else if (e.key === "ArrowDown") {
+        //     // Move down the list
+        //     setHighlightedIndex((prevIndex) => 
+        //         prevIndex < searchList?.length - 1 ? prevIndex + 1 : prevIndex
+        //     );
+        // } else if (e.key === "ArrowUp") {
+        //     // Move up the list
+        //     setHighlightedIndex((prevIndex) => 
+        //         prevIndex > 0 ? prevIndex - 1 : prevIndex
+        //     );
+        // }
     };
 
     const handleSearch=(handle)=>{
@@ -57,7 +56,6 @@ const Search = () => {
 
     useEffect(() => {
       fetchSearchlist(searchTerm);
-        
     }, [searchTerm])
     
     let domNode = useClickOutside(() => {
@@ -66,15 +64,15 @@ const Search = () => {
 
     return (
         <>
-            <form ref={domNode}>  
+            <form ref={domNode} onSubmit={(e)=> e.preventDefault()}>  
                 <input
                     value={searchTerm}
-                    // onKeyDown={handleInput}
+                    onClick={()=>setOpenSearchList(true)}
                     onChange={(e) => handleInput(e)}
                     type="text"
                     placeholder="Search for products, events or more"
                 />
-                {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'}`}>
+                {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'} custom-scrollbar`}>
                     {searchList?.map((item, index)=>{
                         return<li onClick={()=>{handleSearch(item?.handle)}}>
                         <div className={`search-item $ ${highlightedIndex===index?'highlighted':''}`}>

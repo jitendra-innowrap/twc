@@ -62,38 +62,45 @@ const ProductDetails = ({
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState("red");
     const [size, setSize] = useState("S");
-    const [FixedButtons, setFixedButtons] = useState(true);
+    // const [FixedButtons, setFixedButtons] = useState(true);
     const relatedProductsRef = useRef();
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (relatedProductsRef.current) {
-                const rect = relatedProductsRef.current.getBoundingClientRect();
-                // Check if the related products are in the viewport
-                if (rect.top <= window.innerHeight && rect.bottom >= 0) {
-                    setFixedButtons(false); // Change to static when related products enter the viewport
-                } else {
-                    setFixedButtons(true); // Keep fixed otherwise
-                }
-            }
-        };
+    const FixedButtons = useRef();
 
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+useEffect(() => {
+    const handleScroll = () => {
+        if (relatedProductsRef.current && FixedButtons.current) {
+            const rect = relatedProductsRef.current.getBoundingClientRect();
+            const fixedButtonsHeight = FixedButtons.current.offsetHeight; // Get the height of the FixedButtons element
+
+            // Check if the FixedButtons has the 'fixed-buttons' class
+            const isFixed = FixedButtons.current.classList.contains("fixed-buttons");
+            // Adjust the top position check based on whether the fixed class is applied
+            if (rect.top > window.innerHeight + (isFixed ? 0 : fixedButtonsHeight+20)) {
+                FixedButtons.current.classList.add("fixed-buttons"); // Add class when related products enter the viewport
+            } else {
+                FixedButtons.current.classList.remove("fixed-buttons"); // Remove class when related products leave the viewport
+            }
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+}, []);
+
+
 
     useEffect(() => {
       setDeliveryDate()
       setHeighLightDate(false)
       setIsInWishlist(product?.result?.[0]?.is_user_wishlist=='1'?true:false);
+      setRentalAvailable({
+          isLoading:false, isAvailable:true, isError:""
+      })
     }, [slug])  
     
-    
-    
-    useEffect(() => {
-    }, [router.query])
     
     const handleCart = async (product) => {
         if(isInCart && productDetails?.product_type=="1"){
@@ -201,8 +208,7 @@ const ProductDetails = ({
         <>
             <section className="mt-15 mt-md-5 mb-15 mb-md-5">
                 <div className="container">
-                    <div className="row flex-row-reverse">
-                        
+                    {productDetails?<div className="row flex-row-reverse">
                         <div className="col-lg-12">
                             <div className="product-detail accordion-detail">
                                 <div className="row mb-15 mb-md-5">
@@ -353,7 +359,7 @@ const ProductDetails = ({
                                                     maxDate={calendarEndDate}
                                                 />
                                             </div>
-                                                <p className="text-danger">{rentalAvailable.isError}</p>
+                                                {!rentalAvailable.isAvailable &&<p className="text-danger">{rentalAvailable.isError}</p>}
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
 
                                             <div className="detail-extralink">
@@ -422,7 +428,7 @@ const ProductDetails = ({
                                 </div>
                                     <>
                                         <ProductTab productDetails={productDetails} />
-                                        <div className={`detail-extralink mobile-buttons-style ${FixedButtons?'fixed-buttons':''}`}>
+                                        <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
                                             <div className="product-extra-link2">
                                                 <button
                                                     onClick={(e) =>
@@ -490,7 +496,11 @@ const ProductDetails = ({
                                     </>
                             </div>
                         </div>
+                    </div>:
+                    <div className="loading-view">
+                        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                     </div>
+                    }
                 </div>
             </section>
         </>

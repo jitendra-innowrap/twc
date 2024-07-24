@@ -58,7 +58,7 @@ export default function index() {
                             <tr>
                                 <th>Order Id</th>
                                 <th>Date</th>
-                                <th>Qty</th>
+                                <th>Quantity</th>
                                 <th>Total</th>
                                 <th>Actions</th>
                             </tr>

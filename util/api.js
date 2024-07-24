@@ -312,12 +312,11 @@ export const loginApi = async (mobile) => {
     throw error;
   }
 }
-export const updateTokenApi = async () => {
+export const updateTokenApi = async (auth_token) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
     
-  const auth_token = getToken();
     formData.append('token', 'HJDIWUR4354K');
     formData.append('device', 'web');
 

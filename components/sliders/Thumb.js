@@ -46,8 +46,8 @@ const ThumbSlider = ({ product }) => {
                             <InnerImageZoom
                                 zoomType="hover"
                                 hideHint={true}
-                                src={item.file}
-                                zoomSrc={item.file}
+                                src={item?.file ? item.file : '/assets/imgs/theme/product-placeholder-image.png' }
+                                zoomSrc={item?.file ? item.file : '/assets/imgs/theme/product-placeholder-image.png'}
                                 width="100%"
                                 height="100%"
                                 zoomScale={1.3} // Adjust this value to control the zoom level
@@ -84,10 +84,19 @@ const ThumbSlider = ({ product }) => {
                     {product?.map((item, i) => (
                         <SwiperSlide key={i}>
                             {item?.file_type == "1" ?
+                            <>
+                            {
+                                item?.file ?
                                 <img src={item.file} draggable={false} alt="the party cafe" />
                                 :
+                                <img src="/assets/imgs/theme/product-placeholder-image.png" style={{border:'1px solid gray', objectPosition:'center'}} draggable={false} alt="the party cafe" />
+                            }
+                            </>
+                                :
                                 <div className="gallary-video">
-                                    <img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="the party cafe" />
+                                    {!item?.file ? <img src="/assets/imgs/theme/product-placeholder-image.png" style={{border:'1px solid gray', objectPosition:'center'}} draggable={false} alt="the party cafe" />
+                                    :<img src={getYouTubeThumbnail(item?.file)} draggable={false} alt="the party cafe" />
+                                    }
                                     <BiPlayCircle fontSize={28}  color="#fff" />
                                 </div>
                             }
