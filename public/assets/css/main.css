@@ -11295,6 +11295,7 @@ span.fi-rs-apps {
   .login_container .login_wrap{
     position: relative;
     max-width: 400px;
+    width: calc( 100% - 30px) !important;
     background: #fff;
     margin-block: 30px;
     height: auto;
@@ -11390,17 +11391,23 @@ span.fi-rs-apps {
 
 .verificationContainer {
   width: 100%;
-  padding: 60px;
+  padding: 20px;
   color: #282c3f;
   background: #fff;
+  
 }
-
+.otpTopImage{
+  width: fit-content;
+  margin-bottom: 20px;
+}
 .otpTopImage .image {
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
 }
 .verificationContainer .mobContainer {
   margin-top: 20px;
+  width: fit-content;
+  margin-inline: auto;
 }
 .verificationContainer .mobContainer h3 {
   font-weight: 700;
@@ -11442,6 +11449,8 @@ span.fi-rs-apps {
   cursor: pointer;
   margin-top: 30px;
   font-size: 12px;
+  width: fit-content;
+  margin-inline: auto;
 }
 .bottomeLink a, .bottomeLink span {
   font-weight: 600;

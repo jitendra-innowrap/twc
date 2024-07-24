@@ -15,17 +15,28 @@ export default function AddGst({ close , handleAddGst, gstNumber}) {
             inputRef.current?.focus()
     }, []);
     const handleInputChange =(e)=>{
-        setTempGst(e.target.value)
+        // Get the input value and convert it to uppercase
+        const upperCaseValue = e.target.value.toUpperCase();
+        setTempGst(upperCaseValue);
+        setError("");
     }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!tempGst) {
-        setError("Please Enter Your GST Number");
-    }else{
-        handleAddGst(tempGst);
-        close();
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        // GST validation regex
+        const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9A-Z]{1}$/;
+    
+        if (!tempGst) {
+            setError("Please Enter Your GST Number");
+        } else if (!gstRegex.test(tempGst)) {
+            setError("Please Enter a Valid GST Number");
+        } else {
+            setError(""); // Clear any previous error messages
+            handleAddGst(tempGst);
+            close();
+        }
+    };
+    
 
   const handleBack = () => {
     close();
@@ -56,7 +67,7 @@ export default function AddGst({ close , handleAddGst, gstNumber}) {
                             onChange={handleInputChange}
                             ref={inputRef}
                         />
-                        {(error && !tempGst) && <div className="errorContainer">{error}</div>}
+                        {(error || !tempGst) && <div className="errorContainer">{error}</div>}
 
                     </div>
                     <div className="form-group col-md-12 text-right mb-0">

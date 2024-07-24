@@ -294,19 +294,21 @@ function LoginRegister({logIN}) {
                 </div>
                 :
                 step === 2 ?
-                    <div className="login_wrap">
+                    <div className="login_wrap w-100">
                         <div className="verificationContainer">
-                            <div className="otpTopImage">
-                                <div className="image">
-                                    <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%', background: 'rgb(255, 237, 243)' }}>
-                                        <picture className="img-responsive" style={{ width: '100%' }}>
-                                            <source srcSet="//constant.myntassets.com/pwa/assets/img/3a438cb4-c9bf-4316-b60c-c63e40a1a96d1548071106233-mobile-verification.jpg" type="image/webp" />
-                                            <img src className="img-responsive preLoad loaded" alt="otp screen vector image" title="otp screen" style={{ width: '100%' }} />
-                                        </picture>
+                            <div className="mobContainer">
+                                <div className="otpTopImage">
+                                    <div className="image">
+                                        <div className="LazyLoad  is-visible" style={{ height: 'auto', width: '100%'}}>
+                                                <img src="/assets/imgs/theme/otp-screen.png"  
+                                                className="img-responsive preLoad loaded" 
+                                                alt="otp screen" 
+                                                title="otp screen" 
+                                                style={{ width: '100%' }} 
+                                                />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="mobContainer">
                                 <h3>Verify with OTP</h3><h4>Sent to {Mobile}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
                                 <div className="otpContainer">
                                     {otp.map((digit, index) => (
@@ -330,7 +332,7 @@ function LoginRegister({logIN}) {
                                     {otpTimer && <span style={{float:'right', color:'#046963', marginTop:'30px'}}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
                                 </div>
                             </div>
-                            <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
+                            {/* <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div> */}
                         </div>
                     </div>
                     :

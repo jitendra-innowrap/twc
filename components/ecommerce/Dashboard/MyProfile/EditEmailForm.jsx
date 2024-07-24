@@ -295,7 +295,7 @@ export default function EditEmailForm({ close, setTempUser }) {
                                     {otpTimer && <span style={{ float: 'right', color: '#046963', marginTop: '30px' }}>{Math.floor(timerValue / 60)}:{String(timerValue % 60).padStart(2, '0')}</span>}
                                 </div>
                             </div>
-                            <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div>
+                            {/* <div className="bottomeLink"> Having trouble logging in? <span> Get help </span> </div> */}
                         </div>
                     </div>
                     :
