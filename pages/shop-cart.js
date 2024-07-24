@@ -136,6 +136,7 @@ const Cart = () => {
                 theme: "light",
                 transition: Bounce,
               });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             return
         }
         if(isGST && !gst_number){
@@ -151,6 +152,7 @@ const Cart = () => {
                 theme: "light",
                 transition: Bounce,
               });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
               return
         }
         setIsLoading(true);

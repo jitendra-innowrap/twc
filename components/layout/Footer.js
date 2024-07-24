@@ -135,15 +135,15 @@ const Footer = () => {
                         </div>
                         <div className="col-lg-6">
                             <p className="float-md-left font-sm text-muted mb-0">
-                                &copy; {new Date().getFullYear()},
-                                Copyright © 2024<strong className="text-brand"> Party House</strong> . All Rights Reserved
+                            Copyright &copy; {new Date().getFullYear()},
+                                <strong className="text-brand"> The Party Cafe</strong> . All Rights Reserved
                             </p>
                              
                         </div>
                         <div className="col-lg-6">
                             <p className="text-lg-end text-start font-sm text-muted mb-0">
                                 Designed by 
-                                <a href="https://innowrap.com/" target="_blank"> Innowrap Technologies.</a>
+                                <strong><a href="https://innowrap.com/" target="_blank"> Innowrap Technologies.</a></strong>
                             </p>
                         </div>
                     </div>

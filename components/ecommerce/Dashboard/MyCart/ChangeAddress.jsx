@@ -154,7 +154,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
             <div className="padding_eight_all bg-white p-30">
                 <div className="heading_s1">
                     <h3 className="welcome_header">Change Address</h3>
-                    <button onClick={handleBack} className="close_popUp">
+                    <button onClick={handleBack} type='button' className="close_popUp">
                         <MdClose fontSize={22} />
                     </button>
                 </div>

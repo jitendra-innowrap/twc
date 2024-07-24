@@ -12,6 +12,8 @@ import { loginApi, logOutApi } from "../util/api";
 import { Bounce, toast } from "react-toastify";
 import { RiMenuFoldFill } from "react-icons/ri";
 import { useMediaQuery } from "react-responsive";
+import Logout from "../components/ecommerce/Dashboard/Logout/Logout";
+import Popup from "reactjs-popup";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
@@ -144,13 +146,23 @@ function Account() {
                                                     </a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a
-                                                        className="nav-link"
-                                                        onClick={handleLogout}
-                                                    >
-                                                        <i className="fi-rs-sign-out mr-10"></i>
-                                                        Logout
-                                                    </a>
+                                                    
+                                                    <Popup
+                                                trigger={<a
+                                                    className="nav-link"
+                                                >
+                                                    <i className="fi-rs-sign-out mr-10"></i>
+                                                    Logout
+                                                </a>}
+                                                modal
+                                                position="right center"
+                                            >
+                                                {
+                                                    (close) => (
+                                                        <Logout close={close} handleLogout={handleLogout} />
+                                                    )
+                                                }
+                                            </Popup>
                                                 </li>
                                             </ul>
                                         </div>

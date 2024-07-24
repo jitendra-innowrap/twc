@@ -235,8 +235,10 @@ function LoginRegister({logIN}) {
                                 theme: "light",
                                 transition: Bounce,
                             });
-                            handleUpdateToken();
                         }
+                        handleUpdateToken({
+                            auth_token // Assuming you have the auth_token available
+                        });
                     } else {
                         console.error('Error verifying OTP:', error);
                         setError({ ...error, otp: true });
@@ -337,7 +339,7 @@ function LoginRegister({logIN}) {
                     </div>
                     :
                     <div className="login_wrap w-100">
-                        <div className="backButton" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div>
+                        {/* <div className="backButton" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div> */}
                         <div className="greenBox">
                             <svg
                                 width="24"

@@ -29,6 +29,7 @@ function Account() {
             if(res?.code==1){
                 setOrderDetail(res)
             }
+            console.log(res)
             setLoading(false)
         } catch (error) {
             setLoading(false)
@@ -55,7 +56,10 @@ function Account() {
                         <div className="">Loading...</div>
                         :<div className="row">
                         <div className="">
-                            <div className="coupons-base-header">Order ID : {orderId}</div>
+                            <div className="row">
+                                <div className="coupons-base-header col-12 col-md-6 col-lg-4">Order ID : {orderId}</div>
+                                {orderDetail?.bill_details?.gst_number && <div className="coupons-base-header col-12 col-md-6 col-lg-4 text-right">Order ID : {orderDetail?.bill_details?.gst_number}</div>}
+                            </div>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-4 mb-40">
                                     <div className="order-address">
@@ -188,7 +192,7 @@ function Account() {
                                                                                 </svg>
                                                                             </div>
                                                                             <div className="returnPeriod-base-returnText">
-                                                                                <span className="returnPeriod-base-returnDays">₹{item.deposit_amount || 0}</span> Refundable deposite for 5 days rental
+                                                                                <span className="returnPeriod-base-returnDays">₹{item.p_deposit_amount || 0}</span> Refundable deposite for 5 days rental
                                                                             </div>
                                                                         </div>}
                                                                     </div>

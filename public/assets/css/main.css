@@ -470,6 +470,36 @@ input[type=number]:focus,
   box-shadow: 0 5px 16px 0 rgba(118, 126, 173, 0.09);
 }
 
+
+/*****************************
+*********  Scroll bar  *****
+******************************/
+
+
+
+
+.custom-scrollbar {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #088178;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #088178;
+  border-radius: 4px;
+}
+
+
 /*****************************
 *********  BORDER  *****
 ******************************/
@@ -1117,6 +1147,11 @@ button[type='submit']:hover {
 .tags .button {
   border-radius: 4px;
   float: left;
+}
+
+.border-btn{
+  background: #fff;
+  color: #088178;
 }
 
 /*COMPONENTS -> FORM*/
@@ -2616,6 +2651,23 @@ label {
 
 .preloader img.jump {
   max-height: 100px;
+}
+
+/* Loading View */
+
+.loading-view{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc( 100vh - 260px);
+}
+.loading-view .lds-ellipsis{
+  width: 0px;
+}
+.loading-view .lds-ellipsis div{
+  width: 10px;
+  height: 10px;
 }
 
 /*custom amine*/
@@ -11615,6 +11667,30 @@ span.fi-rs-apps {
  cursor: pointer;
  color: #088178;
  margin-left: 10px;
+}
+
+/************************** Logout Popup **************************************/
+.logout_wrap{
+  width: 90vw;
+  /* height: 50vh; */
+  max-width: 450px;
+  /* max-height: 200px; */
+  background: #fff;
+  padding: 30px;
+  border-radius: 5px;
+}
+.logout_wrap h2{
+  font-size: 18px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.logout_wrap .actions_btns button{
+  flex: 1;
+  padding-inline: 10px;
+}
+.logout_wrap .actions_btns{
+  display: flex;
+  gap: 10px;
 }
 
 /* pop overlay */
