@@ -45,12 +45,6 @@ function Account() {
             setBreadCrumTitle('My Profile')
         }
     }, [router.query])
-    
-    const dispatch = useDispatch();
-
-    const handleEmptyCart = () => {
-        dispatch(emptyCart());
-    };
 
     const handleOnClick = (index) => {
         router.replace({
@@ -58,42 +52,6 @@ function Account() {
             });
             toggleMenu();
     };
-
-    const handleLogout = async () =>{
-        const res = await logOutApi();
-        if(res.code==1){
-            handleEmptyCart();
-            router.push('/page-login-register');
-            const randomString = Math.random().toString(36).substring(2);
-            const token = btoa(randomString);
-            storage.set("web_token", token);
-            storage.set("auth_token", null);
-            toast.success("logged Out Successfully!", {
-                position: "bottom-center",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-              });
-        }else{
-            console.log(res.msg)
-            toast.error("Something went wrong!", {
-                position: "bottom-center",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-              });
-        }
-    }
 
     return (
         <>
@@ -155,11 +113,12 @@ function Account() {
                                                     Logout
                                                 </a>}
                                                 modal
+                                                lockScroll
                                                 position="right center"
                                             >
                                                 {
                                                     (close) => (
-                                                        <Logout close={close} handleLogout={handleLogout} />
+                                                        <Logout close={close} />
                                                     )
                                                 }
                                             </Popup>
