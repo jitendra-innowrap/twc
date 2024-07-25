@@ -1,34 +1,34 @@
 [
     {
-        "title": "Colorful Pattern Shirts",
-        "slug": "colorful_pattern_shirts",
+        "title": "Maroon Embroidered Lehenga Set",
+        "slug": "maroon-embroidered-lehenga-set",
         "moreLove": true,
         "id": "1",
-        "price": 238.85,
-        "oldPrice": 245.8,
+        "price": 2380,
+        "oldPrice": 2450,
         "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
             {
-                "img": "/assets/imgs/shop/product-1-1.jpg"
+                "img": "/assets/imgs/shop/product-1-1.png"
             },
             {
-                "img": "/assets/imgs/shop/product-1-2.jpg"
+                "img": "/assets/imgs/shop/product-1-2.png"
             }
         ],
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-1-1.jpg",
+                "thumb": "/assets/imgs/shop/product-1-1.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg",
+                "thumb": "/assets/imgs/shop/product-1-2.png",
                 "type": "video",
                 "url":"https://www.youtube.com/watch?v=ldT_K1x9RHg"
             },
             {
-                "thumb": "/assets/imgs/shop/product-1-1.jpg",
+                "thumb": "/assets/imgs/shop/product-1-1.png",
                 "type": "image"
             }
         ],
@@ -36,6 +36,7 @@
         "color": "blue",
         "brand": "armani",
         "category": "clothing",
+        "subCategory": "Lehenga",
         "featured": false,
         "trending": true,
         "discount": {
@@ -130,49 +131,50 @@
         "created": "2021-02-03T06:48:07"
     },
     {
-        "title": "Birthday Party Decor",
-        "slug": "Birthday-party-decor",
+        "title": "Dark Maroon Embroidered Lehenga",
+        "slug": "dark-maroon-embroidered-lehenga",
         "moreLove": true,
-        "id": "3",
-        "price": 20000,
-        "oldPrice": 24990,
+        "id": "5",
+        "price": 2000,
+        "oldPrice": 2499,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "purchase",
+        "type": "rent",
         "images": [
             {
-                "img": "/assets/imgs/shop/birthday decor-1.jpg"
+                "img": "/assets/imgs/shop/rental-3-1.png"
             },
             {
-                "img": "/assets/imgs/shop/birthday decor-2.jpg"
+                "img": "/assets/imgs/shop/rental-3-2.png"
             }
         ],
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/birthday decor-1.jpg",
+                "thumb": "/assets/imgs/shop/rental-3-1.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/birthday decor-2.jpg",
+                "thumb": "/assets/imgs/shop/rental-3-2.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/birthday decor-3.jpg",
+                "thumb": "/assets/imgs/shop/rental-3-3.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/birthday decor-4.jpg",
+                "thumb": "/assets/imgs/shop/rental-3-1.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/birthday decor-5.jpg",
+                "thumb": "/assets/imgs/shop/rental-3-2.png",
                 "type": "image"
             }
         ],
         "condition": "refurbished",
         "color": "blue",
         "brand": "TWC",
-        "category": "Decor",
+        "category": "Clothing",
+        "subCategory": "Lehenga",
         "featured": true,
         "trending": false,
         "discount": {
@@ -278,7 +280,6 @@
                 "img": "/assets/imgs/shop/anivarsary decor-2.jpg"
             }
         ],
-        "totalSell": 27,
         "gallery": [
             {
                 "thumb": "/assets/imgs/shop/anivarsary decor-1.jpg",
@@ -297,6 +298,7 @@
                 "type": "image"
             }
         ],
+        "totalSell": 27,
         "condition": "refurbished",
         "color": "blue",
         "brand": "TWC",
@@ -326,38 +328,38 @@
         "created": "2021-02-03T06:48:07"
     },
     {
-        "title": "Cartoon Astronaut T-Shirts",
-        "slug": "cartoon_astronaut_t-Shirts",
+        "title": "Georgette Printed & Embroidered Kurta",
+        "slug": "georgette-printed-and-embroidered-kurta",
         "moreLove": true,
         "id": "2",
-        "price": 78,
-        "oldPrice": 245.8,
+        "price": 780,
+        "oldPrice": 950,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
             {
-                "img": "/assets/imgs/shop/product-2-1.jpg"
+                "img": "/assets/imgs/shop/rental-2-1.png"
             },
             {
-                "img": "/assets/imgs/shop/product-2-2.jpg"
+                "img": "/assets/imgs/shop/rental-2-2.png"
             }
         ],
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/haldi mehandi decor-1.jpg",
+                "thumb": "/assets/imgs/shop/rental-2-1.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/haldi mehandi decor-2.jpg",
+                "thumb": "/assets/imgs/shop/rental-2-2.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/haldi mehandi decor-3.jpg",
+                "thumb": "/assets/imgs/shop/rental-2-3.png",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/haldi mehandi decor-4.jpg",
+                "thumb": "/assets/imgs/shop/rental-2-1.png",
                 "type": "image"
             },
             {
@@ -368,7 +370,8 @@
         "condition": "refurbished",
         "color": "blue",
         "brand": "TWC",
-        "category": "Decor",
+        "category": "Clothing",
+        "subCategory": "Kurta",
         "featured": true,
         "trending": false,
         "discount": {
@@ -394,33 +397,37 @@
         "created": "2021-02-03T06:48:07"
     },
     {
-        "title": "Plain Striola Shirts",
-        "slug": "plain_striola_shirts",
+        "title": "Anivarsary Party Decor",
+        "slug": "Anivarsary-party-decor",
         "moreLove": true,
         "id": "3",
-        "price": 35,
+        "price": 35000,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
-        "type": "rent",
+        "type": "purchase",
         "images": [
             {
-                "img": "/assets/imgs/shop/product-3-1.jpg"
+                "img": "/assets/imgs/shop/anivarsary decor-1.jpg"
             },
             {
-                "img": "/assets/imgs/shop/product-3-2.jpg"
+                "img": "/assets/imgs/shop/anivarsary decor-2.jpg"
             }
         ],
         "totalSell": 27,
         "gallery": [
             {
-                "thumb": "/assets/imgs/shop/product-3-1.jpg",
+                "thumb": "/assets/imgs/shop/anivarsary decor-1.jpg",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-3-2.jpg",
+                "thumb": "/assets/imgs/shop/anivarsary decor-2.jpg",
                 "type": "image"
             },
             {
-                "thumb": "/assets/imgs/shop/product-3-1.jpg",
+                "thumb": "/assets/imgs/shop/anivarsary decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-4.jpg",
                 "type": "image"
             }
         ],
@@ -453,36 +460,41 @@
         "created": ""
     },
     {
-        "title": "Landscape Painting Shirt",
-        "slug": "landscape_painting_shirt",
+        "title": "Anivarsary Party Decor",
+        "slug": "Anivarsary-party-decor",
         "moreLove": true,
         "id": "4",
-        "price": 55,
+        "price": 35000,
+        "oldPrice": 39990,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
             {
-                "img": "/assets/imgs/shop/product-4-1.jpg"
+                "img": "/assets/imgs/shop/anivarsary decor-1.jpg"
             },
             {
-                "img": "/assets/imgs/shop/product-4-2.jpg"
+                "img": "/assets/imgs/shop/anivarsary decor-2.jpg"
+            }
+        ],
+        "gallery": [
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-1.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-2.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-3.jpg",
+                "type": "image"
+            },
+            {
+                "thumb": "/assets/imgs/shop/anivarsary decor-4.jpg",
+                "type": "image"
             }
         ],
         "totalSell": 27,
-        "gallery": [
-            {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg",
-                "type": "image"
-            },
-            {
-                "thumb": "/assets/imgs/shop/product-4-2.jpg",
-                "type": "image"
-            },
-            {
-                "thumb": "/assets/imgs/shop/product-4-1.jpg",
-                "type": "image"
-            }
-        ],
         "condition": "used",
         "color": "blue",
         "brand": "armani",
@@ -516,7 +528,7 @@
         "slug": "letter_print_t-Shirt",
         "moreLove": true,
         "id": "5",
-        "price": 110,
+        "price": 310,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -575,7 +587,7 @@
         "slug": "element_pattern_print_shirts",
         "moreLove": true,
         "id": "6",
-        "price": 150,
+        "price": 450,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -633,7 +645,7 @@
         "title": "Vintage Shirt",
         "moreLove": true,
         "id": "7",
-        "price": 98,
+        "price": 908,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -692,7 +704,7 @@
         "slug": "henley_shirt",
         "moreLove": true,
         "id": "8",
-        "price": 24,
+        "price": 724,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -751,7 +763,7 @@
         "slug": "cotton_leaf_printed",
         "moreLove": true,
         "id": "9",
-        "price": 146,
+        "price": 460,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -810,7 +822,7 @@
         "slug": "chen_cardigan",
         "moreLove": true,
         "id": "10",
-        "price": 67,
+        "price": 670,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -869,7 +881,7 @@
         "slug": "chen_sweater",
         "moreLove": true,
         "id": "11",
-        "price": 116,
+        "price": 516,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -928,7 +940,7 @@
         "slug": "colorful_jacket",
         "moreLove": true,
         "id": "12",
-        "price": 73,
+        "price": 730,
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "type": "rent",
         "images": [
@@ -987,8 +999,8 @@
         "slug": "mens_porcelain_shirt",
         "moreLove": true,
         "id": "13",
-        "price": 238.85,
-        "oldPrice": 245.8,
+        "price": 738,
+        "oldPrice": 945,
         "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
@@ -1048,8 +1060,8 @@
         "slug": "ethnic_floral_casual_shirts",
         "moreLove": true,
         "id": "14",
-        "price": 238.85,
-        "oldPrice": 245.8,
+        "price": 938.85,
+        "oldPrice": 945.8,
         "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
@@ -1109,8 +1121,8 @@
         "slug": "flowers_sleeve_lapel_shirt",
         "moreLove": true,
         "id": "15",
-        "price": 238.85,
-        "oldPrice": 245.8,
+        "price": 938.85,
+        "oldPrice": 945.8,
         "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [
@@ -1170,8 +1182,8 @@
         "slug": "maecenas_eget",
         "moreLove": true,
         "id": "16",
-        "price": 238.85,
-        "oldPrice": 245.8,
+        "price": 988,
+        "oldPrice": 1240,
         "type": "rent",
         "desc": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!",
         "images": [

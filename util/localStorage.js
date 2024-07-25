@@ -6,7 +6,8 @@ class storage {
     }
 
     static get(key) {
-        const data = localStorage.getItem(key);
+        if (typeof window !== 'undefined') {
+        const data = localStorage?.getItem(key);
         if (data && data !== 'null') {
             try {
                 return JSON.parse(data);
@@ -15,6 +16,7 @@ class storage {
                 return null;
             }
         }
+    }
         return null;
     }
 }

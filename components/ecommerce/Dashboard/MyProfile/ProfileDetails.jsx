@@ -1,14 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
+import { getProfileDetails } from '../../../../util/api';
+import storage from '../../../../util/localStorage';
+import { reverseDateOrder } from '../../../../util/util';
 
-export default function ProfileDetails({ user, setEdit }) {
+export default function ProfileDetails({ user, setEdit, setUser }) {
+    const auth_token = storage.get("auth_token");
+
+    useEffect(() => {
+        if(auth_token){
+            fetchProfileDetails();
+        }
+    }, [setEdit])
+    
+
+    const fetchProfileDetails = async()=>{
+        const response = await getProfileDetails(auth_token || "");
+        let tempUser = response.result?.[0];
+        console.log('tempuser',tempUser)
+        setUser({
+            fullname: tempUser?.f_name,
+        mobile: tempUser?.mobile,
+        email: tempUser?.email,
+        gender: tempUser?.gender,
+        dob: tempUser?.dob,
+        alternateMobile: tempUser?.alternate_mobile,
+        isMobileVerified: tempUser?.is_mobile_verified,
+        isEmailVerified: tempUser?.is_email_verified,
+        })
+    }
     return (
         <div className="profile-details">
             <div className="mb-3">
                 <div>
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Full Name</h6>
+                            <label className="mb-0 text-dark fw-bold">Full Name</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
                             {user?.fullname}
@@ -17,35 +44,35 @@ export default function ProfileDetails({ user, setEdit }) {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Email</h6>
+                            <label className="mb-0 text-dark fw-bold">Email</label>
                         </div>
-                        <div className="col-sm-9 text-secondary">
+                        {user?.email && <div className="col-sm-9 text-secondary">
                             {user?.email}
-                            {user?.isEmailVerified ? (
+                            {user?.isEmailVerified =='1' ? (
                                 <FaCheckCircle className="text-success ms-2" />
                             ) : (
                                 <FaTimesCircle className="text-danger ms-2" />
                             )}
-                        </div>
+                        </div>}
                     </div>
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Mobile</h6>
+                            <label className="mb-0 text-dark fw-bold">Mobile</label>
                         </div>
-                        <div className="col-sm-9 text-secondary">
+                        {user?.mobile && <div className="col-sm-9 text-secondary">
                             {user?.mobile}
                             {user?.isMobileVerified ? (
                                 <FaCheckCircle className="text-success ms-2" />
                             ) : (
                                 <FaTimesCircle className="text-danger ms-2" />
                             )}
-                        </div>
+                        </div>}
                     </div>
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Alternate Mobile</h6>
+                            <label className="mb-0 text-dark fw-bold">Alternate Mobile</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
                             {user?.alternateMobile}
@@ -54,19 +81,19 @@ export default function ProfileDetails({ user, setEdit }) {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Gender</h6>
+                            <label className="mb-0 text-dark fw-bold">Gender</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                            {user?.gender === "1" ? "Male" : "Female"}
+                            {user?.gender == "1" ? "Male" :user?.gender =="2"? "Female":user?.gender =="3"? "Other":''}
                         </div>
                     </div>
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
-                            <h6 className="mb-0">Date of Birth</h6>
+                            <label className="mb-0 text-dark fw-bold">Date of Birth</label>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                            {user?.dob?.toLocaleDateString()}
+                            {user?.dob ? reverseDateOrder(user?.dob): ""}
                         </div>
                     </div>
                     <hr />
@@ -76,7 +103,7 @@ export default function ProfileDetails({ user, setEdit }) {
                                 className="btn btn-info"
                                 onClick={() => setEdit(true)}
                             >
-                                Edit
+                                Update
                             </button>
                         </div>
                     </div>

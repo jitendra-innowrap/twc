@@ -2,19 +2,17 @@ import React from "react";
 // import "./styles.css";
 
 function Pagination({
-    prev,
     currentPage,
     getPaginationGroup,
-    next,
     pages,
     handleActive,
 }) {
     return (
         <>
-            <ul className="pagination justify-content-start">
-                {getPaginationGroup.length <= 0 ? null : (
-                    <li onClick={prev} className="page-item">
-                        {currentPage === 1 ? null : (
+            {pages > 1 && <ul className="pagination justify-content-start">
+                {getPaginationGroup?.length <= 0 ? null : (
+                    <li onClick={() => handleActive(parseInt(currentPage)-1)} className="page-item">
+                        {currentPage == 1 ? null : (
                             <a className="page-link">
                                 <i className="fi-rs-angle-double-small-left"></i>
                             </a>
@@ -22,13 +20,13 @@ function Pagination({
                     </li>
                 )}
 
-                {getPaginationGroup.map((item, index) => {
+                {getPaginationGroup?.map((item, index) => {
                     return (
                         <li
                             onClick={() => handleActive(item)}
                             key={index}
                             className={
-                                currentPage === item
+                                currentPage == item
                                     ? "page-item active"
                                     : "page-item"
                             }
@@ -38,8 +36,8 @@ function Pagination({
                     );
                 })}
 
-                {getPaginationGroup.length <= 0 ? null : (
-                    <li onClick={next} className="page-item">
+                {getPaginationGroup?.length <= 0 ? null : (
+                    <li onClick={() => handleActive(parseInt(currentPage)+1)} className="page-item">
                         {currentPage >= pages ? null : (
                             <a className="page-link">
                                 <i className="fi-rs-angle-double-small-right"></i>
@@ -47,11 +45,11 @@ function Pagination({
                         )}
                     </li>
                 )}
-            </ul>
+            </ul>}
 
-            {getPaginationGroup.length <= 0 ? null : (
+            {pages <= 1 ? null : (
                 <p>
-                    show {currentPage} of {pages}
+                    Showing {currentPage} of {pages}
                 </p>
             )}
         </>

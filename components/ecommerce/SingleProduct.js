@@ -1,76 +1,26 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Bounce, toast } from "react-toastify";
-import { addToCart } from "../../redux/action/cart";
-import { addToCompare } from "../../redux/action/compareAction";
-import { openQuickView } from "../../redux/action/quickViewAction";
-import { addToWishlist } from "../../redux/action/wishlistAction";
 import Loader from './../elements/Loader';
+import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
 
 
-const SingleProduct = ({
-    product,
-    addToCart,
-    addToCompare,
-    addToWishlist,
-    openQuickView,
-}) => {
-    let today = new Date();
+const SingleProduct = ({product, deleteWishList}) => {
     const [loading, setLoading] = useState(false);
-    const [deliveryDate, setDeliveryDate] = useState(today);
-    const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));
+    const dispatch = useDispatch();
+
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 500);
     }, []);
 
-    const handleCart = (product) => {
-        addToCart(product);
-        toast.success("Added to Cart !",{
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
-    const handleCompare = (product) => {
-        addToCompare(product);
-        toast.success("Add to Compare !",{
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
-    const handleWishlist = (product) => {
-        addToWishlist(product);
-        toast.success("Added to Wishlist !",{
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
+    const handleRemoveWishlist = async (product_id)=>{
+            dispatch(addItemToWishlist(product_id));
+            dispatch(fetchWishlist())
+    }
     return (
         <>
 
@@ -80,75 +30,56 @@ const SingleProduct = ({
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link
-                            href="/products/[slug]"
-                            as={`/products/${product.slug}`}
+                            href="/products/detail/[slug]"
+                            as={`/products/detail/${product?.handle}`}
                         >
                             <a>
                                 <img
                                     className="default-img"
-                                    src={product.images[0].img}
-                                    alt=""
+                                    src={product?.product_images?.[0]?.file}
+                                    alt={product?.name}
                                 />
                                 <img
                                     className="hover-img"
-                                    src={product.images[1].img}
-                                    alt=""
+                                    src={product?.product_images?.[1]?.file}
+                                    alt={product?.name}
                                 />
                             </a>
                         </Link>
                     </div>
-                    {/* <div className="product-action-1">
-                        <a
-                            aria-label="Quick view"
-                            className="action-btn hover-up"
-                            data-bs-toggle="modal"
-                            onClick={(e) => openQuickView(product)}
-                        >
-                            <i className="fi-rs-eye"></i>
-                        </a>
-                        <a
-                            aria-label="Add To Wishlist"
-                            className="action-btn hover-up"
-                            onClick={(e) => handleWishlist(product)}
-                        >
-                            <i className="fi-rs-heart"></i>
-                        </a>
-                        <a
-                            aria-label="Compare"
-                            className="action-btn hover-up"
-                            onClick={(e) => handleCompare(product)}
-                        >
-                            <i className="fi-rs-shuffle"></i>
-                        </a>
-                    </div> */}
 
                     <div className="product-badges product-badges-position product-badges-mrg">
-                        {product.trending ? <span className="hot">Hot</span>:null }
-                        {product.created ? <span className="new">New</span>:null }
-                        {product.totalSell > 100 ? <span className="best">Best Sell</span>:null }
-                        {product.discount.isActive ? <span className="sale">Sale</span>:null }
-                        {product.discount.percentage >= 5 ? <span className="hot">{product.discount.percentage}%</span>:null }
+                        {
+                            product?.product_tags?.map((tag,i)=>(
+                                <span key={i} className="hot" style={{background:tag?.color_code}}>{tag?.name}</span>
+                            ))
+                        }
                     </div>
                 </div>
+                {
+                    deleteWishList && <div className="delete-icon" onClick={()=>handleRemoveWishlist(product?.id)}>
+                        <i className="fi-rs-trash"></i>
+                    </div>
+                }
                 <div className="product-content-wrap">
                     <div className="product-category">
-                    <Link href="/products">
-                                                            <a>
-                                                                {product.category}
-                                                            </a>
-                                                        </Link>
+                    <Link href={`/products/${product?.category_handle}/${product?.sub_category_handle}`}>
+                        <a>
+                            {product?.sub_category_name}
+                        </a>
+                    </Link>
                     </div>
                     <h2>
                     <Link
-                            href="/products/[slug]"
-                            as={`/products/${product.slug}`}
+                            href="/products/detail/[slug]"
+                            as={`/products/detail/${product?.handle}`}
                         >
-                            <a>{product.title}</a>
+                            <a>{product.name}</a>
                             </Link>
                     </h2>
                     <div className="product-price">
-                        <span>₹{product.price} </span>
-                        <span className="old-price">{product.oldPrice ? `₹ ${product.oldPrice}`:null}</span>
+                        <span>₹{product.selling_price} </span>
+                        <span className="old-price">{product?.mrp ? `₹ ${product?.mrp}`:null}</span>
                     </div>
                 </div>
             </div>
@@ -161,11 +92,4 @@ const SingleProduct = ({
     );
 };
 
-const mapDispatchToProps = {
-    addToCart,
-    addToCompare,
-    addToWishlist,
-    openQuickView,
-};
-
-export default connect(null, mapDispatchToProps)(SingleProduct);
+export default SingleProduct;

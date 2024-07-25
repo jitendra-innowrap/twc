@@ -1,33 +1,40 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 
 const SortSelect = ({ updateProductFilters }) => {
-    const Router = useRouter();
-    const searchTerm = Router.query.search;
-    const [featured, setFeatured] = useState("default");
-    const [selectedOption, setSelectedOption] = useState("Price: High to Low");
+    const router = useRouter();
+    const searchTerm = router.query.search;
+    const [featured, setFeatured] = useState("Default");
+    const [selectedOption, setSelectedOption] = useState("");
     const [showOptions, setShowOptions] = useState(false)
     const options = [
-        { value: "Price: High to Low", text: "Price: High to Low" },
-        { value: "Price: Low to High", text: "Price: Low to High" },
-        { value: "What's New", text: "What's New" },
-        { value: "Trending", text: "Trending" },
-        { value: "Best Seller", text: "Best Seller" },
+        { value: "", text: "Default" },
+        { value: "1", text: "Price: Low to High" },
+        { value: "2", text: "Price: High to Low" },
+        { value: "3", text: "What's New" },
+        { value: "4", text: "Trending" },
+        { value: "5", text: "Best Seller" },
     ];
+
     useEffect(() => {
-        const filters = {
-            featured,
-        };
-
-        // updateProductFilters(filters);
-    }, [searchTerm, featured]);
-
+        const { sort } = router.query;
+        const selectedOption = options.find((item) => item.value === sort);
+        setFeatured(selectedOption?.text || "Default");
+        setSelectedOption(sort || "");
+      }, [router.query, options]);
+    
     const handleChange = (e) => {
-        setFeatured(e.target.value);
-        setShowOptions(false)
-    };
+        const flag = e.currentTarget.getAttribute('flag');
+        const data = e.currentTarget.getAttribute('data');
+        setFeatured(data);
+        setSelectedOption(flag);
+        setShowOptions(false);
+
+        router.replace({
+        query: { ...router.query, sort: flag, page:1 },
+        });
+
+      };
 
     return (
         <>
@@ -45,13 +52,14 @@ const SortSelect = ({ updateProductFilters }) => {
                     {options.map((option) => (
                             <li
                                 key={option.value}
-                                onChange={handleChange}
-                                value={option.value}
-                                className={selectedOption === option.value ? "selected" : ""}
+                                onClick={handleChange}
+                                flag={option.value}
+                                data={option.text}
+                                className={selectedOption == option.value ? "selected" : ""}
                             >
                                 {option.text}
                                 <span>
-                                    {selectedOption === option.value && <i className="fi-rs-check ml-0"></i>}
+                                    {selectedOption == option.value && <i className="fi-rs-check ml-0"></i>}
                                 </span>
                             </li>
                     ))}    
@@ -62,12 +70,5 @@ const SortSelect = ({ updateProductFilters }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    products: state.products.items,
-});
 
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
-
-export default connect(mapStateToProps, mapDidpatchToProps)(SortSelect);
+export default SortSelect;

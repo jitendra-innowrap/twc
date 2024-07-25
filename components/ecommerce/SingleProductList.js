@@ -2,20 +2,11 @@ import Link from "next/link";
 import React from "react";
 import { connect } from "react-redux";
 import { Bounce, toast } from "react-toastify";
-// import { useToasts } from "react-toast-notifications";
-import { addToCart } from "../../redux/action/cart";
-import { addToCompare } from "../../redux/action/compareAction";
-import { openQuickView } from "../../redux/action/quickViewAction";
-import { addToWishlist } from "../../redux/action/wishlistAction";
 import { useState } from "react";
 // 
 
 const SingleProductList = ({
-    product,
-    addToCart,
-    addToCompare,
-    addToWishlist,
-    openQuickView,
+    product
 }) => {
     // console.log(product);
     let today = new Date();
@@ -74,49 +65,23 @@ const SingleProductList = ({
                             <div className="product-img-inner">
                                 <Link
                                     href="/products/[slug]"
-                                    as={`/products/${product.slug}`}
+                                    as={`/products/${product?.slug}`}
                                 >
                                     <a>
                                         <img
                                             className="default-img"
-                                            src={product.images[0].img}
+                                            src={product?.images[0].img}
                                             alt=""
                                         />
                                         <img
                                             className="hover-img"
-                                            src={product.images[1].img}
+                                            src={product?.images[1].img}
                                             alt=""
                                         />
                                     </a>
                                 </Link>
                             </div>
                         </div>
-                        {/* <div className="product-action-1">
-                            <a
-                                aria-label="Quick view"
-                                className="action-btn hover-up"
-                                data-bs-toggle="modal"
-                                // data-bs-target="#quickViewModal"
-                                onClick={(e) => openQuickView(product)}
-                            >
-                                <i className="fi-rs-eye"></i>
-                            </a>
-                            <a
-                                aria-label="Add To Wishlist"
-                                className="action-btn hover-up"
-                                onClick={(e) => handleWishlist(product)}
-                            >
-                                <i className="fi-rs-heart"></i>
-                            </a>
-                            <a
-                                aria-label="Compare"
-                                className="action-btn hover-up"
-                                onClick={(e) => handleCompare(product)}
-                            >
-                                <i className="fi-rs-shuffle"></i>
-                            </a>
-                        </div> */}
-
                         <div className="product-badges product-badges-position product-badges-mrg">
                             {product.trending ? (
                                 <span className="hot">Hot</span>
@@ -175,12 +140,4 @@ const SingleProductList = ({
         </>
     );
 };
-
-const mapDispatchToProps = {
-    addToCart,
-    addToCompare,
-    addToWishlist,
-    openQuickView,
-};
-
-export default connect(null, mapDispatchToProps)(SingleProductList);
+export default SingleProductList;

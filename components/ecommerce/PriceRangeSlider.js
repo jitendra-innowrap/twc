@@ -1,34 +1,50 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { updateProductFilters } from "../../redux/action/productFiltersAction";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { getPriceRange } from "../../util/api";
 
-const PriceRangeSlider = ({ updateProductFilters }) => {
+const PriceRangeSlider = ({mobile, setFilters}) => {
     
-    const Router = useRouter();
-    const searchTerm = Router.query.search;
-
-    const [price, setPrice] = useState({ value: { min: 0, max: 500 } });
-
+    const router = useRouter();
+    const { from_price, to_price,  category, sub_category, slug } = router.query;
+    const [price, setPrice] = useState({ value: { min: from_price || 0, max: to_price || 25000 } });
+    const [priceRange, setPriceRange] = useState({min:0,max:0})
     useEffect(() => {
-        const filters = {
-            price: price.value,
-        };
+        fetchPriceRange();
+    }, [router.query]);
 
-        updateProductFilters(filters);
-    }, [price, searchTerm]);
+    const fetchPriceRange= async()=>{
+        let params = {collection:slug, sub_category, category}
+        const res = await getPriceRange(params)
+        const min = parseInt(res?.data?.result?.[0].price_min) || 0;
+        const max = parseInt(res?.data?.result?.[0].price_max) || 25000;
+        setPriceRange({min,max})
+        setPrice({ value: { min: from_price || min, max: to_price || max } })
+    }
 
+    const handleChange =(value)=>{
+        if (mobile) {
+            setFilters(prev => ({
+                ...prev,
+                from_price: value[0],
+                to_price: value[1]
+            }));                
+        } else {
+            router.replace({
+                query: { ...router.query, from_price: value[0], to_price: value[1], page:1 },
+                });
+        }
+    }
     return (
         <div className="evara_price_slider_amount">
             <Slider
                 range
                 allowCross={false}
-                defaultValue={[0, 100]}
-                min={0}
-                max={500}
-                // onChange={(value) => console.log(value[0], value[1])} 
+                value={[price.value.min, price.value.max]}
+                min={priceRange.min}
+                max={priceRange.max}
+                onAfterChange={(value) => handleChange(value)} 
                 onChange={(value) => setPrice({ value: { min: value[0], max: value[1] } })}
             />
 
@@ -44,12 +60,4 @@ const PriceRangeSlider = ({ updateProductFilters }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    products: state.products.items,
-});
-
-const mapDidpatchToProps = {
-    updateProductFilters,
-};
-
-export default connect(mapStateToProps, mapDidpatchToProps)(PriceRangeSlider);
+export default PriceRangeSlider;

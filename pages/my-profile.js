@@ -5,33 +5,120 @@ import MyProfile from "../components/ecommerce/Dashboard/MyProfile";
 import MyOrders from "../components/ecommerce/Dashboard/MyOrders";
 import MyAddress from "../components/ecommerce/Dashboard/MyAddress";
 import { useRouter } from "next/router";
+import storage from "../util/localStorage";
+import { useDispatch } from "react-redux";
+import { emptyCart } from "../redux/Slices/cartSlice";
+import { loginApi, logOutApi } from "../util/api";
+import { Bounce, toast } from "react-toastify";
+import { RiMenuFoldFill } from "react-icons/ri";
+import { useMediaQuery } from "react-responsive";
+import Logout from "../components/ecommerce/Dashboard/Logout/Logout";
+import Popup from "reactjs-popup";
 function Account() {
     const [activeIndex, setActiveIndex] = useState(1);
     const router = useRouter();
-    const tab = router.query.tab;
+    const {tab} = router.query;
+    const auth_token = storage.get("auth_token");
+    const [breadCrumTitle, setBreadCrumTitle] = useState('')
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu =()=>{
+        setMenuOpen(!menuOpen);
+    }
+    const isPhone = useMediaQuery({
+        query: '(max-width: 768px)'
+      })
     useEffect(() => {
-        handleOnClick(tab ? parseInt(tab, 10) : 1);
-    }, [])
+        if(!auth_token){
+            router.push('/page-login-register')
+        }
+        let index = parseInt(tab);
+        setActiveIndex(index);
+        if(index===3){
+            setActiveIndex(index)
+            setBreadCrumTitle('My Address');
+        }else if(index===2){
+            setActiveIndex(index);
+            setBreadCrumTitle('My Orders');
+        }else{
+            setActiveIndex(1);
+            setBreadCrumTitle('My Profile')
+        }
+    }, [router.query])
     
-    const handleOnClick = (index) => {
-        setActiveIndex(index); // remove the curly braces
+    const dispatch = useDispatch();
+
+    const handleEmptyCart = () => {
+        dispatch(emptyCart());
     };
+
+    const handleOnClick = (index) => {
+        router.replace({
+            query: { tab:index },
+            });
+            toggleMenu();
+    };
+
+    const handleLogout = async () =>{
+        const res = await logOutApi();
+        if(res.code==1){
+            handleEmptyCart();
+            router.push('/page-login-register');
+            const randomString = Math.random().toString(36).substring(2);
+            const token = btoa(randomString);
+            storage.set("web_token", token);
+            storage.set("auth_token", null);
+            toast.success("logged Out Successfully!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+        }else{
+            console.log(res.msg)
+            toast.error("Something went wrong!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+        }
+    }
+
     return (
         <>
-            <Layout parent="Home" sub="Pages" subChild="Account">
-                <section className="pt-150 pb-150">
+            {<Layout parent="Home" sub="Account" subChild={breadCrumTitle}>
+                <section className="pt-70 pb-150">
                     <div className="container">
-                        {JSON.stringify(tab)}
                         <div className="row">
                             <div className="col-lg-10 m-auto">
                                 <div className="row">
-                                    <div className="col-md-4">
-                                        <div className="dashboard-menu">
+                                    <div className="col-md-4 position-relative">
+                                        <div className={`dashboard-menu ${menuOpen?'dashboard-menu-active':''}`}>
                                             <ul
                                                 className="nav flex-column"
                                                 role="tablist"
                                             >
-                                                <li className="nav-item" onClick={() => handleOnClick(1)}>
+                                                {isPhone &&<li className="nav-item mb-20">
+                                                    <a
+                                                        className={"nav-link active"}
+                                                        
+                                                    >
+                                                        Dashboard
+                                                        <span onClick={toggleMenu}><RiMenuFoldFill  style={{position:'absolute', right:'10px', fontSize:'25px'}}/></span>
+                                                    </a>
+                                                </li>}
+                                                <li className="nav-item"  onClick={() => handleOnClick(1)}>
                                                     <a
                                                         className={activeIndex === 1 ? "nav-link active" : "nav-link"}
                                                         
@@ -59,15 +146,23 @@ function Account() {
                                                     </a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <Link href="/page-login-register">
-                                                    <a
-                                                        className="nav-link"
-                                                        
-                                                    >
-                                                        <i className="fi-rs-sign-out mr-10"></i>
-                                                        Logout
-                                                    </a>
-                                                    </Link>
+                                                    
+                                                    <Popup
+                                                trigger={<a
+                                                    className="nav-link"
+                                                >
+                                                    <i className="fi-rs-sign-out mr-10"></i>
+                                                    Logout
+                                                </a>}
+                                                modal
+                                                position="right center"
+                                            >
+                                                {
+                                                    (close) => (
+                                                        <Logout close={close} handleLogout={handleLogout} />
+                                                    )
+                                                }
+                                            </Popup>
                                                 </li>
                                             </ul>
                                         </div>
@@ -80,7 +175,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="account-detail-tab"
                                             >
-                                                <MyProfile />
+                                               {activeIndex === 1 && <MyProfile />}
                                             </div>
                                             <div
                                                 className={activeIndex === 2 ? "tab-pane fade show active" : "tab-pane fade"}
@@ -88,7 +183,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="orders-tab"
                                             >
-                                                <MyOrders />
+                                                {activeIndex === 2 && <MyOrders />}
                                             </div>
                                             <div
                                                 className={activeIndex === 3 ? "tab-pane fade show active" : "tab-pane fade"}
@@ -96,7 +191,7 @@ function Account() {
                                                 role="tabpanel"
                                                 aria-labelledby="address-tab"
                                             >
-                                                <MyAddress />
+                                                {activeIndex === 3 && <MyAddress />}
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +200,7 @@ function Account() {
                         </div>
                     </div>
                 </section>
-            </Layout>
+            </Layout>}
         </>
     );
 }

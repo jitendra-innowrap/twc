@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
+import { editAddress } from '../../../../util/api';
 
-export default function EditAddress({ close , setAddressList, currentAddress, addressList}) {
+export default function EditAddress({ close , currentAddress, fetchAddressList}) {
     const [isSumbitting, setIsSumbitting] = useState(false)
   const [address, setAddress] = useState({
     name: currentAddress.name,
     mobile: currentAddress.mobile,
-    addressLine1: currentAddress.addressLine1,
-    addressLine2: currentAddress.addressLine2,
+    addressLine1: currentAddress.address_line_1,
+    addressLine2: currentAddress.address_line_2,
     landmark: currentAddress.landmark,
     pincode: currentAddress.pincode,
-    state: currentAddress.state,
+    state: currentAddress.state_name,
     city: currentAddress.city,
-    addressType: currentAddress.addressType,
-    isDefault: currentAddress.isDefault,
+    addressType: currentAddress.address_type,
+    isDefault: currentAddress.is_default,
+    id: currentAddress.id,
   });
   const [error, setError] = useState({
     name: false,
@@ -37,10 +39,10 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
   };
 
   const handleDefaultChange = (e) => {
-    setAddress((prev) => ({ ...prev, isDefault: e.target.checked }));
+    setAddress((prev) => ({ ...prev, isDefault: e.target.checked? 1:0 }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let hasError = false;
 
     if (!address.name) {
@@ -79,31 +81,39 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
     }
 
     if (!hasError) {
-      // Edit the address of id check if the edited addess is set to default 
-      // make all other address isDefault false edited address index will not change
-      if(address.isDefault==true){
-        const updatedAddresses = addressList.map((item) => {
-          if (item.id === currentAddress.id) {
-            return address
-          }else{
-            return { ...item, isDefault: false };
-          }
-          });
-          setAddressList(updatedAddresses);
-      }else{
-        const updatedAddresses = addressList.map((item) => {
-          if (item.id === currentAddress.id) {
-            return address
-          }else{
-            return item;
-          }
-          });
-          setAddressList(updatedAddresses);
+      // Edit address
+      try {
+        let body = {
+          name:address.name,
+          city:address.city,
+          state_name:address.state,
+          mobile:address.mobile,
+          address_line_1:address.addressLine1,
+          address_line_2:address.addressLine2,
+          landmark:address.landmark,
+          is_default:address.isDefault,
+          address_type:address.addressType,
+          other_address_type_name:"",
+          pincode:address.pincode,
+          address_id:address.id
+        }
+        setIsSumbitting(true)
+        const res = await editAddress(body);
+        fetchAddressList();
+      } catch (error) {
+        console.log(error)
       }
+      setIsSumbitting(false)
       close();
     }
     
   };
+  const inputRef = useRef(null);
+
+    useEffect(() => {
+        // Focus the first OTP input field when the step is set to 2
+            inputRef.current?.focus()
+    }, []);
 
   const handleBack = () => {
     close();
@@ -134,6 +144,7 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
                 type="text"
                 value={address.name}
                 onChange={handleInputChange}
+                ref={inputRef}
               />
             {error.name && <div className="errorContainer">Name is required</div>}
 
@@ -199,6 +210,7 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
                 className={`form-control square`}
                 name="pincode"
                 type="text"
+                maxLength={6}
                 value={address.pincode}
                 onChange={handleInputChange}
                 />
@@ -242,30 +254,31 @@ export default function EditAddress({ close , setAddressList, currentAddress, ad
               </label>
               <div className="address-type-buttons">
                 <button
-                  className={`${address.addressType === 'home' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('home')}
+                  className={`${address.addressType === '0' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('0')}
                   >
                   Home
                 </button>
                 <button
-                  className={`${address.addressType === 'office' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('office')}
+                  className={`${address.addressType === '1' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('1')}
                   >
                   Office
                 </button>
               </div>
                     {error.addressType && <div className="errorContainer">Select address type</div>}
             </div>
-            <div className="form-group col-md-12 d-flex align-items-center">
+            <div  className="form-group col-md-12 d-flex align-items-center">
                 <input
                 type="checkbox"
                 name='setDefault'
+                role='button'
                 id='setDefault'
-                checked={address?.isDefault}
+                checked={address?.isDefault==1 ? true: false}
                 onChange={handleDefaultChange}
                 className='checkbox'
                 />
-                <label htmlFor='setDefault' className='ml-10'>
+                <label role='button' htmlFor='setDefault' className='ml-10 mb-0 cursor-pointer'>
                     Make this default address
                 </label>
             </div>

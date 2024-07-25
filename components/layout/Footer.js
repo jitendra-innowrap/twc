@@ -3,6 +3,7 @@ import Link from "next/link"
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
+import NewsletterFrom from "../elements/NewletterForm";
 
 const Footer = () => {
     return (
@@ -12,7 +13,7 @@ const Footer = () => {
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-lg-7 mb-md-3 mb-lg-0">
-                                <div className="row align-items-center">
+                                <div className="align-items-center">
                                     <div className="col flex-horizontal-center">
                                         <img
                                             className="icon-email"
@@ -24,29 +25,12 @@ const Footer = () => {
                                         </h4>
                                     </div>
                                     <div className="col my-4 my-md-0 des">
-                                        <h5 className="font-size-15 ml-4 mb-0">
-                                            ...and receive
-                                            <strong>
-                                                $25 coupon for first shopping.
-                                            </strong>
-                                        </h5>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-5">
-                                <form className="form-subcriber d-flex wow fadeIn animated">
-                                    <input
-                                        type="email"
-                                        className="form-control bg-white font-small"
-                                        placeholder="Enter your email"
-                                    />
-                                    <button
-                                        className="btn bg-dark text-white"
-                                        type="submit"
-                                    >
-                                        Subscribe
-                                    </button>
-                                </form>
+                                <NewsletterFrom />
                             </div>
                         </div>
                     </div>
@@ -54,12 +38,12 @@ const Footer = () => {
                 <section className="section-padding footer-mid">
                     <div className="container pt-15 pb-20">
                         <div className="row">
-                            <div className="col-lg-4 col-md-6">
+                            <div className="col-md-6">
                                 <div className="widget-about font-md mb-md-5 mb-lg-0">
                                     <div className="logo logo-width-1 wow fadeIn animated">
                                         <Link href="/"><a>
                                             <img
-                                                src="/assets/imgs/theme/logo.svg"
+                                                src="/assets/imgs/theme/the-party-cafe-logo.png"
                                                 alt="logo"
                                             />
                                         </a>
@@ -69,16 +53,14 @@ const Footer = () => {
                                         Contact
                                     </h5>
                                     <p className="wow fadeIn animated">
-                                        <strong>Address: </strong>562 Wellington
-                                        Road, Street 32, San Francisco
+                                        <strong>Address: </strong>301, 3rd Floor, Raheja Point 1,near,<br /> 
+                                        Pandit Jawaharlal Nehru Rd, P and T Colony, <br />
+                                        Vakola, Santacruz East, Mumbai, <br />
+                                        Maharashtra 400055.
                                     </p>
                                     <p className="wow fadeIn animated">
                                         <strong>Phone: </strong>+01 2222 365
                                         /(+91) 01 2345 6789
-                                    </p>
-                                    <p className="wow fadeIn animated">
-                                        <strong>Hours: </strong>10:00 - 18:00,
-                                        Mon - Sat
                                     </p>
                                     <h5 className="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">
                                         Follow Us
@@ -99,116 +81,69 @@ const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-2 col-md-3">
+                            <div className="col-md-3">
                                 <h5 className="widget-title wow fadeIn animated">
                                     About
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
                                     <li>
-                                        <a href="#">About Us</a>
+                                        <Link href="/about-us">About Us</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Delivery Information</a>
+                                        <Link href="/media-and-press-release">Media/ Press Release</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Privacy Policy</a>
+                                        <Link href="/contact-us">Contact Us</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Terms &amp; Conditions</a>
+                                        <Link href="/disclaimer">Disclaimer</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Contact Us</a>
+                                        <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Support Center</a>
+                                        <Link href="/privacy-policy">Privacy Policies</Link>
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-lg-2  col-md-3">
+                            <div className=" col-md-3">
                                 <h5 className="widget-title wow fadeIn animated">
                                     My Account
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated">
                                     <li>
-                                        <a href="#">Sign In</a>
+                                        <Link href="/page-login-register">Sign In</Link>
                                     </li>
                                     <li>
-                                        <a href="#">View Cart</a>
+                                        <Link href="/my-profile">My Profile</Link>
                                     </li>
                                     <li>
-                                        <a href="#">My Wishlist</a>
+                                        <Link href="/shop-cart">View Cart</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Track My Order</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Help</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Order</a>
+                                        <Link href="/shop-wishlist">My Wishlist</Link>
                                     </li>
                                 </ul>
-                            </div>
-                            <div className="col-lg-4">
-                                <h5 className="widget-title wow fadeIn animated">
-                                    Install App
-                                </h5>
-                                <div className="row">
-                                    <div className="col-md-8 col-lg-12">
-                                        <p className="wow fadeIn animated">
-                                            From App Store or Google Play
-                                        </p>
-                                        <div className="download-app wow fadeIn animated">
-                                            <a
-                                                href="#"
-                                                className="hover-up mb-sm-4 mb-lg-0"
-                                            >
-                                                <img
-                                                    className="active"
-                                                    src="/assets/imgs/theme/app-store.jpg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                            <a href="#" className="hover-up">
-                                                <img
-                                                    src="/assets/imgs/theme/google-play.jpg"
-                                                    alt=""
-                                                />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
-                                        <p className="mb-20 wow fadeIn animated">
-                                            Secured Payment Gateways
-                                        </p>
-                                        <img
-                                            className="wow fadeIn animated"
-                                            src="/assets/imgs/theme/payment-method.png"
-                                            alt=""
-                                        />
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <div className="container pb-20 wow fadeIn animated">
+                <div className="container pb-20 wow fadeIn animated footer-copyright">
                     <div className="row">
                         <div className="col-12 mb-20">
                             <div className="footer-bottom"></div>
                         </div>
                         <div className="col-lg-6">
                             <p className="float-md-left font-sm text-muted mb-0">
-                                &copy; {new Date().getFullYear()},
-                                <strong className="text-brand"> Evara</strong> - React Redux Nextjs
-                                Ecommerce Template
+                            Copyright &copy; {new Date().getFullYear()},
+                                <strong className="text-brand"> The Party Cafe</strong> . All Rights Reserved
                             </p>
+                             
                         </div>
                         <div className="col-lg-6">
                             <p className="text-lg-end text-start font-sm text-muted mb-0">
                                 Designed by 
-                                <a href="http://alithemes.com" target="_blank"> Alithemes.com</a>
-                                . All rights reserved
+                                <strong><a href="https://innowrap.com/" target="_blank"> Innowrap Technologies.</a></strong>
                             </p>
                         </div>
                     </div>

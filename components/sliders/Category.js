@@ -9,44 +9,39 @@ SwiperCore.use([Navigation]);
 const CategorySlider = () => {
     var data = [
         {
-            id: 1,
-            title: "Balloon Decor",
-            img: "category-thumb-1.jpg",
+            id: 6,
+            title: "Wedding Planning",
+            img: "event-category-2.svg",
         },
         {
-            id: 2,
-            title: "Venues",
-            img: "category-thumb-2.jpg",
+            id: 1,
+            title: "Balloon Decor",
+            img: "event-category-4.svg",
         },
         {
             id: 3,
             title: "Kids Entertainment",
-            img: "category-thumb-3.jpg",
-        },
-        {
-            id: 4,
-            title: "Photography",
-            img: "category-thumb-4.jpg",
+            img: "event-category-3.svg",
         },
         {
             id: 5,
             title: "Catering",
-            img: "category-thumb-5.jpg",
-        },
-        {
-            id: 6,
-            title: "Wedding Planning",
-            img: "category-thumb-6.jpg",
+            img: "event-category-6.svg",
         },
         {
             id: 7,
             title: "DJ Services",
-            img: "category-thumb-7.jpg",
+            img: "event-category-5.svg",
         },
         {
-            id: 8,
-            title: "Event Lighting",
-            img: "category-thumb-8.jpg",
+            id: 4,
+            title: "Photography",
+            img: "event-category-1.svg",
+        },
+        {
+            id: 2,
+            title: "Venues",
+            img: "event-category-7.svg",
         },
     ];
     const isTab = useMediaQuery({
@@ -55,11 +50,14 @@ const CategorySlider = () => {
       const isPhone = useMediaQuery({
           query: '(max-width: 575px)'
         })
+        const isSmallPhone = useMediaQuery({
+            query: '(max-width: 380px)'
+          })
     
     return (
         <>
             <Swiper
-                slidesPerView={isPhone?3:isTab?4:6}
+                slidesPerView={isSmallPhone?2.5:isPhone?3.5:isTab?4:6}
                 spaceBetween={20}
                 // autoplay={{
                 //     delay: 2500,
@@ -76,7 +74,7 @@ const CategorySlider = () => {
                     <SwiperSlide key={i}>
                         <div className="card-1">
                             <figure className=" img-hover-scale overflow-hidden">
-                               <Link href="/products/shop-grid-right">
+                               <Link href="/products">
                                     <a>
                                         <img
                                             src={`assets/imgs/shop/${item.img}`}
@@ -86,9 +84,7 @@ const CategorySlider = () => {
                                 </Link>
                             </figure>
                             <h5>
-                               <Link href="/products/shop-grid-right">
-                                    <a>{item.title}</a>
-                                </Link>
+                                    {item.title}
                             </h5>
                         </div>
                     </SwiperSlide>

@@ -1,32 +1,55 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import Search from "../ecommerce/Search";
+import { getAllCategory } from "../../util/api";
+import { useSelector } from "react-redux";
+import storage from "../../util/localStorage";
+import { BiSearch } from "react-icons/bi";
+import { BsArrowLeft } from "react-icons/bs";
+import SearchMobile from "../ecommerce/SearchMobile";
 
 const Header = ({
-    totalCartItems,
-    totalCompareItems,
     toggleClick,
-    totalWishlistItems,
     headerStyle,
 }) => {
+    const user = storage.get("auth_token");
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
-    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [headerData, setheaderData] = useState([]);
+    const { cartCount } = useSelector((state) => state.cart);
+    const { wishlistCount } = useSelector((state) => state.wishlist);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     useEffect(() => {
+        fetchHeaderData()
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY >= 100;
             if (scrollCheck !== scroll) {
-                setScroll(scrollCheck);
+                // setScroll(scrollCheck);
             }
         });
-    });                                                                             
+    },[]);       
     
+    const toggleSearch =()=>{
+        setIsSearchOpen(!isSearchOpen);
+    }
+    const fetchHeaderData =async ()=>{
+        try {
+            const response = await getAllCategory();
+            console.log('fetch success: ', response)
+            setheaderData(response.data)
+          } catch (error) {
+            console.error('there is an error: ',error);
+          }
+    }
+
     const handleNoUrlLink =(e)=>{
         e.preventDefault();
     }
     const handleToggle = () => setToggled(!isToggled);
+    const {announcement_notes, cart_count, result, user_wishlist_count} = headerData;
+    const title = announcement_notes?.[0]?.title;
+    const url = announcement_notes?.[0]?.redirect_url || "";
 
     return (
         <>
@@ -34,18 +57,6 @@ const Header = ({
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
-                            {/* <div className="col-xl-3 col-lg-4">
-                                <div className="header-info">
-                                    <ul>
-                                        <li>
-                                            <i className="fi-rs-smartphone"></i>
-                                            <Link href="/#">
-                                                <a>(+01) - 2345 - 6789</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> */}
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-left">
                                     <ul>
@@ -53,44 +64,26 @@ const Header = ({
                                             <Link href="/#">
                                                 <a className="language-dropdown-active">
                                                     <i className="fi-rs-marker"></i>
-                                                    Mumbai
+                                                    {headerData?.region_data?.[0]?.region_name}
                                                     <i className="fi-rs-angle-small-down"></i>
                                                 </a>
                                             </Link>
                                             <ul className="language-dropdown">
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            {/* <img
-                                                                src="/assets/imgs/theme/flag-fr.png"
-                                                                alt=""
-                                                            /> */}
-                                                            Banglore
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            {/* <img
-                                                                src="/assets/imgs/theme/flag-dt.png"
-                                                                alt=""
-                                                            /> */}
-                                                            Pune
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            {/* <img
-                                                                src="/assets/imgs/theme/flag-ru.png"
-                                                                alt=""
-                                                            /> */}
-                                                            Delhi
-                                                        </a>
-                                                    </Link>
-                                                </li>
+                                                {
+                                                    headerData?.region_data?.map((region,i)=>(
+                                                        <li>
+                                                            <Link href="/">
+                                                                <a>
+                                                                    {/* <img
+                                                                        src="/assets/imgs/theme/flag-fr.png"
+                                                                        alt=""
+                                                                    /> */}
+                                                                    {region?.region_name}
+                                                                </a>
+                                                            </Link>
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
                                         </li>
                                     </ul>
@@ -104,8 +97,8 @@ const Header = ({
                                     >
                                         <ul>
                                             <li>
-                                                Get great devices up to 50% off
-                                                <Link href="/products/">
+                                                {title} &nbsp;
+                                                <Link href={url}>
                                                     <a> View details</a>
                                                 </Link>
                                             </li>
@@ -117,10 +110,10 @@ const Header = ({
                                 <div className="header-info header-info-right">
                                     <ul>
                                         <li>
-                                            <i className="fi-rs-user"></i>
-                                            <Link href="/page-login-register">
-                                                <a>Log In / Sign Up</a>
-                                            </Link>
+                                            {/* <i className="fi-rs-user"></i> */}
+                                            {/* <Link href="/page-login-register"> */}
+                                                <a>1800 1800 1624 1423</a>
+                                            {/* </Link> */}
                                         </li>
                                     </ul>
                                 </div>
@@ -137,13 +130,13 @@ const Header = ({
                     }
                 >
                     <div className="container">
-                        <div className="header-wrap header-space-between position-relative">
+                        {!isSearchOpen?<div className="header-wrap header-space-between position-relative">
                             <div className="logo logo-width-1">
                                 <Link href="/">
                                     <a>
                                         <img
-                                            src="/assets/imgs/theme/logo.svg"
-                                            alt="logo"
+                                            src="/assets/imgs/theme/the-party-cafe-logo.png"
+                                            alt="the-party-cafe-logo"
                                         />
                                     </a>
                                 </Link>
@@ -152,643 +145,66 @@ const Header = ({
                                 <div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                                     <nav>
                                         <ul className="menu-links">
-                                            <li className="position-static">
-                                                    <a className="text-black">
-                                                        Rental For Men
-                                                        <i className="fi-rs-angle-down"></i>
-                                                    </a>
-                                                <ul className="mega-menu">
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
+                                            {
+                                                result?.map((menu, i)=>(
+                                                    <li className="position-static" key={menu?.id}>
                                                         <a className="text-black">
-                                                                Women's Fashion
+                                                            {menu?.name}
+                                                            <i className="fi-rs-angle-down"></i>
                                                         </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Blouses
-                                                                        & Shirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Hoodies
-                                                                        &
-                                                                        Sweatshirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Wedding
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Prom
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Cosplay
-                                                                        Costumes
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
+                                                        <ul className="mega-menu">
+                                                            {
+                                                                menu?.categories?.map((category, i)=>(
+                                                                    <li className="sub-mega-menu sub-mega-menu-width-22" key={category?.id}>
+                                                                        {/* <Link href={`/${category?.handle}`}> */}
+                                                                            <a className="menu-title">
+                                                                                {category?.name}
+                                                                            </a>
+                                                                        {/* </Link> */}
+                                                                        <ul>
+                                                                            {
+                                                                                // category?.sub_categories?.slice(0, 5)?.map((sub_categorie, i) => (
+                                                                                    category?.sub_categories?.map((sub_categorie, i) => (
+                                                                                    <li key={sub_categorie?.id}>
+                                                                                        <Link href={`/products/${category?.handle}/${sub_categorie?.handle}`}>
+                                                                                            <a>
+                                                                                                {sub_categorie?.name}
+                                                                                            </a>
+                                                                                        </Link>
+                                                                                    </li>
+                                                                                ))
+                                                                            }
+                                                                            {/* {category?.sub_categories?.length > 5 && (
+                                                                                <li>
+                                                                                    <Link href={`/${category?.handle}`}>
+                                                                                        <a>See more</a>
+                                                                                    </Link>
+                                                                                </li>
+                                                                            )} */}
+                                                                        </ul>
+                                                                    </li>
+                                                                ))
+                                                            }
                                                         </ul>
                                                     </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Men's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Jackets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Faux
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Genuine
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Sweatpants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Harem
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Technology
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Gaming
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Ultraslim
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Laptop
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablet
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-34">
-                                                        <div className="menu-banner-wrap">
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    <img
-                                                                        src="/assets/imgs/banner/menu-banner.jpg"
-                                                                        alt="Evara"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                            <div className="menu-banner-content">
-                                                                <h4>
-                                                                    Hot deals
-                                                                </h4>
-                                                                <h3>
-                                                                    Don't miss
-                                                                    <br />
-                                                                    Trending
-                                                                </h3>
-                                                                <div className="menu-banner-price">
-                                                                    <span className="new-price text-success">
-                                                                        Save to
-                                                                        50%
-                                                                    </span>
-                                                                </div>
-                                                                <div className="menu-banner-btn">
-                                                                    <Link href="/products/">
-                                                                        <a>
-                                                                            Shop
-                                                                            now
-                                                                        </a>
-                                                                    </Link>
-                                                                </div>
-                                                            </div>
-                                                            <div className="menu-banner-discount">
-                                                                <h3>
-                                                                    <span>
-                                                                        35%
-                                                                    </span>
-                                                                    off
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="position-static">
-                                                    <a className="text-black">
-                                                        Rental For Women
-                                                        <i className="fi-rs-angle-down"></i>
-                                                    </a>
-                                                <ul className="mega-menu">
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Women's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Blouses
-                                                                        & Shirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Hoodies
-                                                                        &
-                                                                        Sweatshirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Wedding
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Prom
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Cosplay
-                                                                        Costumes
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Men's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Jackets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Faux
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Genuine
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Sweatpants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Harem
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Technology
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Gaming
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Ultraslim
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Laptop
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablet
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-34">
-                                                        <div className="menu-banner-wrap">
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    <img
-                                                                        src="/assets/imgs/banner/menu-banner.jpg"
-                                                                        alt="Evara"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                            <div className="menu-banner-content">
-                                                                <h4>
-                                                                    Hot deals
-                                                                </h4>
-                                                                <h3>
-                                                                    Don't miss
-                                                                    <br />
-                                                                    Trending
-                                                                </h3>
-                                                                <div className="menu-banner-price">
-                                                                    <span className="new-price text-success">
-                                                                        Save to
-                                                                        50%
-                                                                    </span>
-                                                                </div>
-                                                                <div className="menu-banner-btn">
-                                                                    <Link href="/products/">
-                                                                        <a>
-                                                                            Shop
-                                                                            now
-                                                                        </a>
-                                                                    </Link>
-                                                                </div>
-                                                            </div>
-                                                            <div className="menu-banner-discount">
-                                                                <h3>
-                                                                    <span>
-                                                                        35%
-                                                                    </span>
-                                                                    off
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="position-static">
-                                                    <a className="text-black">
-                                                        Events
-                                                        <i className="fi-rs-angle-down"></i>
-                                                    </a>
-                                                <ul className="mega-menu">
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Women's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Blouses
-                                                                        & Shirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Hoodies
-                                                                        &
-                                                                        Sweatshirts
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Wedding
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Prom
-                                                                        Dresses
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Cosplay
-                                                                        Costumes
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Men's Fashion
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Jackets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Faux
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Genuine
-                                                                        Leather
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Casual
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Sweatpants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Harem
-                                                                        Pants
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-22">
-                                                            <a className="menu-title">
-                                                                Technology
-                                                            </a>
-                                                        <ul>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Gaming
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Ultraslim
-                                                                        Laptops
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablets
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Laptop
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link href="/products/">
-                                                                    <a>
-                                                                        Tablet
-                                                                        Accessories
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="sub-mega-menu sub-mega-menu-width-34">
-                                                        <div className="menu-banner-wrap">
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    <img
-                                                                        src="/assets/imgs/banner/menu-banner.jpg"
-                                                                        alt="Evara"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                            <div className="menu-banner-content">
-                                                                <h4>
-                                                                    Hot deals
-                                                                </h4>
-                                                                <h3>
-                                                                    Don't miss
-                                                                    <br />
-                                                                    Trending
-                                                                </h3>
-                                                                <div className="menu-banner-price">
-                                                                    <span className="new-price text-success">
-                                                                        Save to
-                                                                        50%
-                                                                    </span>
-                                                                </div>
-                                                                <div className="menu-banner-btn">
-                                                                    <Link href="/products/">
-                                                                        <a>
-                                                                            Shop
-                                                                            now
-                                                                        </a>
-                                                                    </Link>
-                                                                </div>
-                                                            </div>
-                                                            <div className="menu-banner-discount">
-                                                                <h3>
-                                                                    <span>
-                                                                        35%
-                                                                    </span>
-                                                                    off
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                                ))
+                                            }
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
-                            <div className="header-right">
+                            <div className="header-right d-none d-lg-flex">
                                 <div className="search-style-2">
                                     <Search />
                                 </div>
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href="/my-profile">
+                                            <Link href={!user?'/page-login-register':'/my-profile'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
-                                                        alt="Evara"
+                                                        alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-profile.svg"
                                                     />
                                                     <span className="header-action-name">Profile</span>
@@ -796,15 +212,15 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href="/shop-wishlist">
+                                            <Link href={!user?'/page-login-register':'/shop-wishlist'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
-                                                        alt="Evara"
+                                                        alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-heart.svg"
                                                     />
                                                     <span className="pro-count blue">
-                                                        {totalWishlistItems}
+                                                        {wishlistCount}
                                                     </span>
                                                     <span className="header-action-name">Wishlist</span>
                                                 </a>
@@ -814,11 +230,11 @@ const Header = ({
                                             <Link href="/shop-cart">
                                                 <a className="mini-cart-icon">
                                                     <img
-                                                        alt="Evara"
+                                                        alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-cart.svg"
                                                     />
                                                     <span className="pro-count blue">
-                                                        {totalCartItems}
+                                                        {cartCount}
                                                     </span>
                                                     <span className="header-action-name">Cart</span>
                                                 </a>
@@ -829,15 +245,18 @@ const Header = ({
                             </div>
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2 gap-1">
+                                    <div className="header-action-icon-2" onClick={toggleSearch}>
+                                        <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
+                                    </div>
                                     <div className="header-action-icon-2">
-                                        <Link href="/shop-wishlist">
+                                        <Link href={!user?'/page-login-register':'/shop-wishlist'}>
                                             <a>
                                                 <img
-                                                    alt="Evara"
+                                                    alt="The Party Cafe"
                                                     src="/assets/imgs/theme/icons/icon-heart.svg"
                                                 />
                                                 <span className="pro-count white">
-                                                    {totalWishlistItems}
+                                                    {wishlistCount}
                                                 </span>
                                             </a>
                                         </Link>
@@ -846,107 +265,20 @@ const Header = ({
                                         <Link href="/shop-cart">
                                             <a className="mini-cart-icon">
                                                 <img
-                                                    alt="Evara"
+                                                    alt="The Party Cafe"
                                                     src="/assets/imgs/theme/icons/icon-cart.svg"
                                                 />
                                                 <span className="pro-count white">
-                                                    {totalCartItems}
+                                                    {cartCount}
                                                 </span>
                                             </a>
                                         </Link>
-                                        <div className="cart-dropdown-wrap cart-dropdown-hm2">
-                                            <ul>
-                                                <li>
-                                                    <div className="shopping-cart-img">
-                                                        <Link href="/products/">
-                                                            <a>
-                                                                <img
-                                                                    alt="Evara"
-                                                                    src="/assets/imgs/shop/thumbnail-3.jpg"
-                                                                />
-                                                            </a>
-                                                        </Link>
-                                                    </div>
-                                                    <div className="shopping-cart-title">
-                                                        <h4>
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    Plain
-                                                                    Striola
-                                                                    Shirts
-                                                                </a>
-                                                            </Link>
-                                                        </h4>
-                                                        <h3>
-                                                            <span>1 × </span>
-                                                            $800.00
-                                                        </h3>
-                                                    </div>
-                                                    <div className="shopping-cart-delete">
-                                                        <Link href="/#">
-                                                            <a>
-                                                                <i className="fi-rs-cross-small"></i>
-                                                            </a>
-                                                        </Link>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="shopping-cart-img">
-                                                        <Link href="/products/">
-                                                            <a>
-                                                                <img
-                                                                    alt="Evara"
-                                                                    src="/assets/imgs/shop/thumbnail-4.jpg"
-                                                                />
-                                                            </a>
-                                                        </Link>
-                                                    </div>
-                                                    <div className="shopping-cart-title">
-                                                        <h4>
-                                                            <Link href="/products/">
-                                                                <a>
-                                                                    Macbook Pro
-                                                                    2022
-                                                                </a>
-                                                            </Link>
-                                                        </h4>
-                                                        <h3>
-                                                            <span>1 × </span>
-                                                            $3500.00
-                                                        </h3>
-                                                    </div>
-                                                    <div className="shopping-cart-delete">
-                                                        <Link href="/#">
-                                                            <a>
-                                                                <i className="fi-rs-cross-small"></i>
-                                                            </a>
-                                                        </Link>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div className="shopping-cart-footer">
-                                                <div className="shopping-cart-total">
-                                                    <h4>
-                                                        Total
-                                                        <span>$383.00</span>
-                                                    </h4>
-                                                </div>
-                                                <div className="shopping-cart-button">
-                                                    <Link href="/shop-cart">
-                                                        <a>View cart</a>
-                                                    </Link>
-                                                    <Link href="/shop-checkout">
-                                                        <a>Checkout</a>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div className="header-action-icon-2">
                                         <Link href="/my-profile" className="mr-0">
                                             <a className="mr-0">
                                                 <img
-                                                    alt="Evara"
+                                                    alt="The Party Cafe"
                                                     src="/assets/imgs/theme/icons/icon-profile.svg"
                                                 />
                                             </a>
@@ -956,6 +288,7 @@ const Header = ({
                                         <div
                                             className="burger-icon burger-icon-white"
                                             onClick={toggleClick}
+                                            data={`${JSON.stringify(toggleClick?toggleClick:'ok')}`}
                                         >
                                             <span className="burger-icon-top"></span>
                                             <span className="burger-icon-mid"></span>
@@ -965,17 +298,13 @@ const Header = ({
                                 </div>
                             </div>
                         </div>
+                        :
+                        <SearchMobile toggleSearch={toggleSearch} />
+                        }
                     </div>
                 </div>
             </header>
         </>
     );
 };
-
-const mapStateToProps = (state) => ({
-    totalCartItems: state.cart.length,
-    totalCompareItems: state.compare.items?.length,
-    totalWishlistItems: state.wishlist.items?.length,
-});
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

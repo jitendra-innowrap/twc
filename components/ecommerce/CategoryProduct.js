@@ -1,46 +1,58 @@
-import { useRouter } from "next/router";
-import { connect } from "react-redux";
-import { updateProductCategory } from "../../redux/action/productFiltersAction";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-const CategoryProduct = ({ updateProductCategory }) => {
-    const router = useRouter();
+const CategoryProduct = ({ sub_categories, mobile, setselectedSub_category, selectedSub_category }) => {
+  const router = useRouter();
+  const [visibleCategories, setVisibleCategories] = useState(5);
 
-    const removeSearchTerm = () => {
-        router.push({
-            pathname: "/products",
-        });
-    };
+  const selectCategory = (e, sub_category) => {
+    e.preventDefault();
+    const { category } = router.query;
+    if(mobile){
+      setselectedSub_category(sub_category);
+    }else{
+      router.push(`/products/${category}/${sub_category}`);
+    }
+  };
 
-    const selectCategory = (e, category) => {
-        e.preventDefault();
-        removeSearchTerm();
-        updateProductCategory(category);
-        // router.push('/')
-    };
-    return (
-        <>
-            <ul className="categories">
-                <li onClick={(e) => selectCategory(e, "")}>
-                    <a>All</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "jeans")}>
-                    <a>Jeans</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "shoe")}>
-                    <a>Shoe</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "jacket")}>
-                    <a>Jacket</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "trousers")}>
-                    <a>Trousers</a>
-                </li>
-                <li onClick={(e) => selectCategory(e, "accessories")}>
-                    <a>Accessories</a>
-                </li>
-            </ul>
-        </>
-    );
+  const handleSeeMore = () => {
+    setVisibleCategories((prevVisibleCategories) => prevVisibleCategories + 5);
+  };
+
+  const handleSeeLess = () => {
+    setVisibleCategories(5);
+  };
+
+  return (
+    <>
+      <ul className="categories">
+        {sub_categories?.slice(0, visibleCategories)?.map((sub_category, i) =>
+        
+        (
+          <li key={i} className={`${selectedSub_category == sub_category?.handle ? 'active' : ''}`}
+          data2={selectedSub_category}
+          data={sub_category?.name?.toLowerCase()}
+          onClick={(e) => selectCategory(e, `${sub_category.handle}`)}
+          >
+            <a>{sub_category.name}</a>
+          </li>
+        ))}
+      </ul>
+      {sub_categories?.length > 5 && (
+        <div className="see-more-container">
+          {visibleCategories < sub_categories.length ? (
+            <button className="see-more-btn" onClick={handleSeeMore}>
+              See More
+            </button>
+          ) : (
+            <button className="see-less-btn" onClick={handleSeeLess}>
+              See Less
+            </button>
+          )}
+        </div>
+      )}
+    </>
+  );
 };
 
-export default connect(null, { updateProductCategory })(CategoryProduct);
+export default CategoryProduct;

@@ -1,262 +1,445 @@
-import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
-const dummyAddresses = [
-    {
-      id: "1",
-      name: "John Doe",
-      mobile: "1234567890",
-      addressLine1: "3522 Interstate",
-      addressLine2: "75 Business Spur",
-      landmark: "Sault Ste. Marie",
-      pincode: "49783",
-      state: "MI",
-      city: "Sault Ste. Marie",
-      addressType: "home",
-      isDefault: true,
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      mobile: "2345678901",
-      addressLine1: "123 Main St",
-      addressLine2: "Anytown, USA",
-      landmark: "Corner of Main and Elm",
-      pincode: "12345",
-      state: "CA",
-      city: "Anytown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "3",
-      name: "Bob Johnson",
-      mobile: "3456789012",
-      addressLine1: "456 Elm St",
-      addressLine2: "Othertown, USA",
-      landmark: "Elm and Oak",
-      pincode: "67890",
-      state: "NY",
-      city: "Othertown",
-      addressType: "home",
-      isDefault: false,
-    },
-    {
-      id: "4",
-      name: "Alice Brown",
-      mobile: "4567890123",
-      addressLine1: "789 Oak St",
-      addressLine2: "Thistown, USA",
-      landmark: "Oak and Maple",
-      pincode: "34567",
-      state: "TX",
-      city: "Thistown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "5",
-      name: "Charlie Davis",
-      mobile: "5678901234",
-      addressLine1: "901 Maple St",
-      addressLine2: "Thattown, USA",
-      landmark: "Maple and Pine",
-      pincode: "90123",
-      state: "FL",
-      city: "Thattown",
-      addressType: "home",
-      isDefault: false,
-    },
-];
 import Link from "next/link";
 import React, { useState } from 'react'
-import { clearCart, closeCart, decreaseQuantity, deleteFromCart, increaseQuantity, openCart } from "../redux/action/cart";
 import { Bounce, toast } from "react-toastify";
-import { addToWishlist } from "../redux/action/wishlistAction";
 import { useRouter } from "next/router";
 import EmptyCart from "../components/ecommerce/Dashboard/MyCart/EmptyCart";
 import CartItem from "../components/ecommerce/Dashboard/MyCart/CartItem";
 import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
-import { useSyncExternalStore } from "react";
 import { useEffect } from "react";
+import { getAddressList, getCartList, placeOrder, setGst } from "../util/api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart, setBillingAddress, setShippingAddress, updateGst } from "../redux/Slices/cartSlice";
+import storage from "../util/localStorage";
+import LoginRegister from "../components/ecommerce/LoginRegister";
+import { MdClose } from "react-icons/md";
+import AddGst from "../components/ecommerce/Dashboard/MyCart/AddGst";
+import { generateRandomTransactionId } from "../util/util";
 
 
-const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, increaseQuantity, decreaseQuantity, deleteFromCart, clearCart }) => {
-    const [addressList, setAddressList] = useState(dummyAddresses);
-    const [deliveredTo, setDeliveredTo] = useState("1");
-    const [priceDetails, setPriceDetails] = useState({
-        totalMrp:0,
-        totalPrice:0,
-        totalDiscount:0,
-        totalDeposit:0,
-    })
-    
-    const handleSelectAddress = (id) =>{
-        setDeliveredTo(id)
+const Cart = () => {
+    const router = useRouter();
+    const [billingAsDelivery, setBillingAsDelivery] = useState(true)
+    const [addressList, setAddressList] = useState([]);
+    const [deliveredTo, setDeliveredTo] = useState();
+    const [billingTo, setBillingTo] = useState();
+    const [gstNumber, setGstNumber] = useState("");
+    const [isGST, setIsGST] = useState(false);
+    const [errorSetAddressFirst, setErrorSetAddressFirst] = useState(false);
+    const [errorNoGst, setErrorNoGst] = useState(false);
+    const couponDiscount = useSelector((state) => state.cart.couponCode);
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const cartCount = useSelector((state) => state.cart.cartCount);
+    const cartDetails = useSelector((state) => state.cart.cartDetails);
+    const defaultAddress = useSelector((state) => state.cart.defaultAddress);
+    const shippingAddress = useSelector((state) => state.cart.shippingAddress);
+    const billingAddress = useSelector((state) => state.cart.billingAddress);
+    const gst_number = useSelector((state) => state.cart.gst_number);
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSelectAddress = (id) => {
+        let address = { cart_id:cartItems?.[0]?.cart_id, address_id:id, billing_address_id : billingAddress?.id || defaultAddress?.id};
+        dispatch(setShippingAddress(address))
     }
-    const cartTotal = () => {
-        const priceDetails = { totalPrice: 0, totalDeposit: 0, totalDiscount: 0, totalMrp: 0 };
-        cartItems.forEach((item) => {
-            if (item.type === "rent") {
-                priceDetails.totalMrp += item.oldPrice * item.quantity;
-                priceDetails.totalPrice += item.price * item.quantity;
-                priceDetails.totalDeposit += item.price * item.quantity;
-                priceDetails.totalDiscount += (item.oldPrice - item.price) * item.quantity;
-            } else {
-                priceDetails.totalMrp += item.oldPrice * item.quantity;
-                priceDetails.totalPrice += item.price * item.quantity;
-                priceDetails.totalDiscount += (item.oldPrice - item.price) * item.quantity;
-            }
-        });
+    const handleSelectBilling = (id) => {
+        let address = { cart_id:cartItems?.[0]?.cart_id, billing_address_id:id}
+        address.address_id = shippingAddress?.id || defaultAddress?.id
+        dispatch(setBillingAddress(address))
+    }
+    const auth_token = storage.get("auth_token");
+
+    const fetchAddressList = async () => {
+        try {
+            const res = await getAddressList();
+            setAddressList(res?.result);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const billingToggle =()=>{
+        if(!billingAsDelivery && shippingAddress?.id){
+            let address = { cart_id:cartItems?.[0]?.cart_id, billing_address_id:shippingAddress?.id || defaultAddress?.id}
+            address.address_id = shippingAddress?.id || defaultAddress?.id
+            dispatch(setBillingAddress(address)) 
+        }
+        setBillingAsDelivery(!billingAsDelivery)
+    }
+    const GSTToggle =()=>{
+        if(isGST && gst_number){
+            handleAddGst();
+        }
+        setIsGST(!isGST);
+        setErrorNoGst(false);
         
-        setPriceDetails(priceDetails);
-    };
-    const router = useRouter()
+    }
+    const handleAddGst = async (gst_number)=>{
+        try {
+            const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number});
+            if(res.code == 1){
+                setGstNumber(res.gst_number);
+                dispatch(updateGst(res.gst_number));
 
-    const handleWishlist = (product) => {
-        addToWishlist(product);
-        toast.success("Added to Wishlist !", {
-            position: "bottom-center",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-    };
-
+                toast.success("GST Updated Successfully!", {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
+            }else{
+                toast.error("Something Went Wrong!", {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Something Went Wrong!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+        }
+    }
+    const handlePlaceOrder = async () => {
+        if(!shippingAddress?.id){
+            setErrorSetAddressFirst(true);
+            toast.warn("Please Add Delivery Address!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            return
+        }
+        if(isGST && !gst_number){
+            setErrorNoGst(true);
+            toast.warn("Please Uncheck Or Add GST Number!", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              return
+        }
+        setIsLoading(true);
+        // Generate a random transaction ID
+        const transactionId = generateRandomTransactionId();
+      
+        // Generate a transaction type of 1
+        const transactionType = 1;
+      
+        let body = {
+          address_id: shippingAddress?.id,
+          billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
+          payment_type: 1,
+          transaction_id: transactionId,
+          transaction_type: transactionType,
+        };
+        try {
+          const res = await placeOrder(body);
+          if(res.code==1){
+            router.push('/checkout-success')
+          }else{
+            router.push('/checkout-fail')
+          }
+          setIsLoading(false);
+          console.log(res);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+        }
+      };
+      
+    useEffect(() => {
+        dispatch(fetchCart());
+        fetchAddressList();
+        // setDeliveredTo(shippingAddress ? shippingAddress : defaultAddress)
+        setDeliveredTo(defaultAddress?.[0]?.id)
+        setBillingTo(billingAddress ? billingAddress : defaultAddress)
+    }, [])
 
     useEffect(() => {
-      
-        cartTotal();
-      
-    }, [cartItems])
+      if(gst_number){
+        setIsGST(true);
+      }
     
+    }, [gst_number])
+    
+
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Cart">
                 <section className="mt-50 mb-50">
                     <div className="container">
                         <div className="">
-                            {cartItems.length <= 0 ?
-                                <EmptyCart />
+                            {!cartItems.length ?
+                                <>
+                                    <EmptyCart />
+                                </>
                                 :
                                 <div className="row">
-                                    <div className="itemBlock-base-leftBlock">
-                                        <div className="addressStripV2-base-desktopContainer">
-                                        {
-                                            addressList.filter((address) => address.id === deliveredTo).map((address) => (
-                                                <div className="addressStripV2-base-title">
-                                                <div className="addressStripV2-base-addressName">
-                                                    Deliver to: <span className="addressStripV2-base-highlight">{address.name}</span>,
-                                                    <div className="addressStripV2-base-highlight">{address.pincode}</div>
-                                                </div>
-                                                <div className="addressStripV2-base-subText">
-                                                    {`${address.addressLine1}, ${address.addressLine2}`}
-                                                </div>
-                                                </div>
-                                            ))
+                                    <div className="itemBlock-base-leftBlock pt-0">
+                                        <div className="coupons-base-header">Delivery Address</div>
+                                        <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
+                                            {
+                                                Object.keys(shippingAddress).length > 0 && <div className="addressStripV2-base-title">
+                                                        <div className="addressStripV2-base-addressName">
+                                                            Deliver to: <span className="addressStripV2-base-highlight">{`${shippingAddress?.name} , ${shippingAddress?.pincode}`}</span>
+                                                        </div>
+                                                        <div className="addressStripV2-base-subText">
+                                                        {`${shippingAddress?.address_line_1}`} {` , ${shippingAddress?.address_line_2}`}
+                                                        </div>
+                                                    </div>
                                             }
-                                            <Popup
+                                            {auth_token ? <Popup
                                                 trigger={<div>
                                                     <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
-                                                        CHANGE ADDRESS
+                                                        {addressList?.length > 0 ? 'CHANGE ADDRESS' : 'ADD ADDRESS'}
                                                     </div>
                                                     <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup mobile">
                                                         CHANGE
                                                     </div>
-                                                </div>} 
-                                                modal 
+                                                </div>}
+                                                modal
                                                 position="right center"
-                                                >
-                                                    {
-                                                        (close)=>(
-                                                            <ChangeAddress handleSelectAddress={handleSelectAddress} deliveredTo={deliveredTo} addressList={addressList} setAddressList={setAddressList} close={close} />
-                                                        )
-                                                    }
+                                            >
+                                                {
+                                                    (close) => (
+                                                        <ChangeAddress handleSelectAddress={handleSelectAddress} deliveredTo={shippingAddress?.id} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
+                                                    )
+                                                }
                                             </Popup>
+                                                :
+                                                <div className="login_popUp">
+                                                    <Popup
+                                                        trigger={<div>
+                                                            <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop">
+                                                            ADD ADDRESS
+                                                            </div>
+                                                        </div>}
+                                                        modal
+                                                        position="right center"
+                                                    >
+                                                        {
+                                                            (close) => (
+                                                                <div className='popUpContainer login'>
+                                                                    <button onClick={close} className='close_popUp'>
+                                                                        <MdClose fontSize={22} />
+                                                                    </button>
+                                                                    <LoginRegister close={close} />
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </Popup>
+                                                </div>
+                                            }
                                         </div>
+                                        {errorSetAddressFirst &&<p className="text-danger">Please select a delivery address</p>}
+                                        {
+                                            auth_token && <div className="billing_address">
+                                                <hr />
+                                                <div className="billing_address_check d-flex">
+                                                    <input type="checkbox" className="cursor_pointer" defaultChecked={billingAsDelivery} onChange={billingToggle} name="billing_address" id="billing_address" />
+                                                    <label htmlFor="billing_address" className="mb-0 cursor_pointer"> Billing Address Same as Delivery Address</label>
+                                                </div>
+                                                {!billingAsDelivery && <div className="">
+                                                    <div className="coupons-base-header">Billing Address</div>
+                                                    <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
+                                                        {
+                                                            Object.keys(billingAddress).length > 0 && <div className="addressStripV2-base-title">
+                                                                    <div className="addressStripV2-base-addressName">
+                                                                    Billing to: <span className="addressStripV2-base-highlight">{`${billingAddress?.name} , ${billingAddress?.pincode}`}</span>
+
+                                                                    </div>
+                                                                    <div className="addressStripV2-base-subText">
+                                                                        {`${billingAddress?.address_line_1}`} {` ,${billingAddress?.address_line_2}`}
+                                                                    </div>
+                                                                </div>
+                                                        }
+                                                        <Popup
+                                                            trigger={<div>
+                                                                <div className="addressStripV2-base-changeBtn addressStripV2-base-changeBtnDesktop openPopup">
+                                                                    {addressList?.length > 0 ? 'CHANGE ADDRESS' : 'ADD ADDRESS'}
+                                                                </div>
+                                                            </div>}
+                                                            modal
+                                                            position="right center"
+                                                        >
+                                                            {
+                                                                (close) => (
+                                                                    <ChangeAddress handleSelectAddress={handleSelectBilling} deliveredTo={billingAddress?.id} addressList={addressList} fetchAddressList={fetchAddressList} close={close} />
+                                                                )
+                                                            }
+                                                        </Popup>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        }
+                                                <hr className={auth_token && 'mt-0'} />
+                                        {
+                                            auth_token && <div className="billing_address gst_number_container">
+                                                <div className="billing_address_check d-flex">
+                                                    <input type="checkbox" className="cursor_pointer" defaultChecked={isGST} onChange={GSTToggle} name="gstNumber" id="gstNumber" />
+                                                    <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You Have A GST Number.</label>
+                                                </div>
+                                                {isGST &&<div className="gst_number_wrapper">
+                                                            <div className="">{gst_number?gst_number:'Add'}</div>
+                                                            <Popup
+                                                            trigger={
+                                                                <div>
+                                                                {
+                                                                    gst_number?
+                                                                    <i className="fi-rs-pencil cursor_pointer"></i>:
+                                                                    <i className="fi-rs-plus cursor_pointer"></i>
+                                                                }
+                                                                </div>
+                                                            }
+                                                            modal
+                                                            position="right center"
+                                                        >
+                                                            {
+                                                                (close) => (
+                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gst_number} close={close} />
+                                                                )
+                                                            }
+                                                        </Popup>
+                                                </div>}
+                                            </div>
+                                        }
+                                        {errorNoGst &&<p className="text-danger">Please Add A GST Number</p>}
+                                        
                                         <div id="cartItemsList">
                                             {
-                                                cartItems.map((item, idx)=>{
-                                                    return <CartItem item={item} deleteFromCart={deleteFromCart} />
+                                                cartItems.map((item) => {
+                                                    return <CartItem item={item} key={item?.product_id} />
                                                 })
                                             }
                                         </div>
                                     </div>
-                                    <div className="itemBlock-base-rightBlock">
-                                        <ApplyCoupons/>
+                                    <div className="itemBlock-base-rightBlock pt-0">
+                                        <ApplyCoupons />
                                         <div className="priceBlock-base-container">
-                                            <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartItems.length} Item)</div>
+                                            <div className="priceBlock-base-priceHeader">PRICE DETAILS ({cartCount} Item)</div>
                                             <div className="priceBreakUp-base-orderSummary" id="priceBlock">
                                                 <div className="priceDetail-base-row" >
-                                                    <span className>Total MRP</span>
+                                                    <span className>MRP</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalMrp).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.mrp)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Discount on MRP</span>
+                                                    <span className>Our Price</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{(cartDetails?.items_total)}</span>
+                                                    </span>
+                                                </div>
+                                                {couponDiscount && <div className="priceDetail-base-row">
+                                                    <span className>Coupon Discount</span>
                                                     <span className="priceDetail-base-value priceDetail-base-discount">
                                                         <span>-</span>
-                                                        <span> <span className>₹</span>{(priceDetails.totalDiscount).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.total_coupon_discount)}</span>
                                                     </span>
-                                                </div>
+                                                </div>}
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Total Price</span>
+                                                    <span className>Sub Total</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalPrice).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.sub_total)}</span>
                                                     </span>
                                                 </div>
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Refundable Deposit</span>
+                                                    <span className>Taxes (18%)</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className>₹</span>{(priceDetails.totalDeposit).toFixed(2)}</span>
+                                                        <span> <span className>₹</span>{(cartDetails?.tax_amount)}</span>
                                                     </span>
                                                 </div>
-                                                {/* <div className="priceDetail-base-row">
-                                                    <span>Coupon Discount</span>
-                                                    <span className="priceDetail-base-value priceDetail-base-action">Apply Coupon</span>
-                                                </div>
                                                 <div className="priceDetail-base-row">
-                                                    <span className>Platform Fee<span className="priceDetail-base-knowMore">Know More</span></span>
-                                                    <span className="priceDetail-base-value">₹<span className>20</span></span>
-                                                </div>
-                                                <div className="priceDetail-base-row">
-                                                    <span>Shipping Fee
-                                                        <div className="priceDetail-base-infoTextContainer">
-                                                            <button fontWeight="bold" role="button" className="css-1pl9bms">
-                                                                <div className="css-xjhrni">Know More</div>
-                                                            </button>
-                                                        </div>
+                                                    <span className>Amount To Be Paid</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{(cartDetails?.amount_to_be_paid)}</span>
                                                     </span>
-                                                    <span className="priceDetail-base-value">₹<span className>79</span></span>
-                                                    <div className="priceDetail-base-convenienceCalloutText">
-                                                        Add items worth <span style={{ fontWeight: 'bold', color: '#03A685' }}>₹667</span> to get free shipping
-                                                    </div>
-                                                </div> */}
+                                                </div>
+                                                <div className="priceDetail-base-row">
+                                                    <span className>Deposit</span>
+                                                    <span className="priceDetail-base-value">
+                                                        <span />
+                                                        <span> <span className>₹</span>{(cartDetails?.deposit_amount)}</span>
+                                                    </span>
+                                                </div>
                                                 <div className="priceDetail-base-total">
-                                                    <span className>Total Amount</span>
+                                                    <span className>Final Price</span>
                                                     <span className="priceDetail-base-value">
                                                         <span />
-                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(priceDetails.totalPrice + priceDetails.totalDeposit).toFixed(2)}</span>
+                                                        <span> <span className="priceDetail-base-redesignRupeeTotalIcon">₹</span> {(cartDetails?.total_payable)}</span>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
-                                            <Link href={'/checkout-success'}>
-                                                <button width="100%" letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
-                                                    <div className="css-xjhrni">PLACE ORDER</div>
+                                            {auth_token ? 
+                                                <button width="100%" onClick={handlePlaceOrder} disabled={isLoading} letterspacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
+                                                    <div className="css-xjhrni">{isLoading? 
+                                                        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                                         :'PLACE ORDER'}</div>
                                                 </button>
-                                            </Link>
+                                            :
+                                                <Popup
+                                                trigger={<button width="100%" letterSpacing="1px" fontWeight="bold" role="button" className="css-ibwr57">
+                                                    <div className="css-xjhrni">PLACE ORDER</div>
+                                                </button>}
+                                                modal
+                                                position="right center"
+                                            >
+                                                {
+                                                    (close) => (
+                                                        <div className='popUpContainer login'>
+                                                            <button onClick={close} className='close_popUp'>
+                                                                <MdClose fontSize={22} />
+                                                            </button>
+                                                            <LoginRegister close={close} />
+                                                        </div>
+                                                    )
+                                                }
+                                            </Popup>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -269,19 +452,4 @@ const Cart = ({ openCart, addToWishlist, cartItems, activeCart, closeCart, incre
     );
 };
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart,
-    activeCart: state.counter
-});
-
-const mapDispatchToProps = {
-    closeCart,
-    increaseQuantity,
-    addToWishlist,
-    decreaseQuantity,
-    deleteFromCart,
-    openCart,
-    clearCart
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;

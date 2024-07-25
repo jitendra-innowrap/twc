@@ -1,6 +1,6 @@
 import Lottie from "lottie-web";
-import Layout from "../components/layout/Layout";
 import success from "../public/assets/Lottie/success.json"
+import Layout from "../components/layout/Layout";
 import { useEffect } from "react";
 import Link from "next/link";
 const OrderSucess = () => {
@@ -27,7 +27,7 @@ const OrderSucess = () => {
                                     <Link href={"/my-profile?tab=2"}>view order</Link>
                                 </button>
                                 <button className="btn">
-                                    <Link href={"/products"}>Continue Shopping</Link>
+                                    <Link href={"/"}>Continue Shopping</Link>
                                 </button>
                             </div>
                         </div>

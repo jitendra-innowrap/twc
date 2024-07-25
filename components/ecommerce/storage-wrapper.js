@@ -1,25 +1,50 @@
+// StorageWrapper.js
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import * as Types from "../../redux/constants/actionTypes";
-import storage from "../../util/localStorage";
+import { useDispatch } from 'react-redux';
+import storage from "../../util/localStorage"; // Adjust the import path accordingly
+import { fetchCart } from "../../redux/Slices/cartSlice";
+import { refreshToken, setWebToken } from "../../redux/Slices/authSlice"; // Adjust the import path accordingly
+import { fetchWishlist } from "../../redux/Slices/wishlistSlice";
 
-const saveStoredItems = (storedItems) => (dispatch) => {
-    dispatch({
-        type: Types.INIT_LOCALSTORAGE,
-        payload: { ...storedItems },
-    });
+const generateGuestToken = () => {
+  const randomString = Math.random().toString(36).substring(2);
+  const token = btoa(randomString);
+  return token;
 };
 
-const StorageWrapper = (props) => {
-    useEffect(() => {
-        const cart = storage.get("dokani_cart") || [];
-        const wishlist = storage.get("dokani_wishlist") || [];
-        const compare = storage.get("dokani_compare") || [];
+const StorageWrapper = ({ children }) => {
+  const dispatch = useDispatch();
 
-        props.saveStoredItems({ cart, wishlist, compare });
-    }, []);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Access localStorage only if window is defined
+      const auth_token = storage.get("auth_token");
+      const web_token = storage.get("web_token");
 
-    return <>{props.children}</>;
+      if (auth_token) {
+        // Token exists, refresh auth state
+        dispatch(refreshToken({ token: auth_token }));
+      } else if (web_token) {
+        // Web token exists, set auth state
+        dispatch(setWebToken({ token: web_token }));
+      } else {
+        // No token found, create guest web token
+        const token = generateGuestToken();
+
+        // Save guest web token to local storage
+        storage.set("web_token", token);
+
+        // Dispatch setWebToken action with guest web token
+        dispatch(setWebToken({ token }));
+      }
+
+      // Fetch cart data from server
+      dispatch(fetchCart());
+      dispatch(fetchWishlist());
+    }
+  }, [dispatch]);
+
+  return <>{children}</>;
 };
 
-export default connect(null, { saveStoredItems })(StorageWrapper);
+export default StorageWrapper;

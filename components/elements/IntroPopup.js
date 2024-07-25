@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Timer from "./Timer";
@@ -9,7 +9,19 @@ const IntroPopup = () => {
         setOpenClass(!openClass);
     };
     const fixDate = new Date();
-    return (
+    const [showIntro, setShowIntro] = useState(false);
+
+    useEffect(() => {
+        // Check if the user has already seen the intro popup
+        const hasSeenIntro = localStorage.getItem('hasSeenIntro');
+        
+        if (!hasSeenIntro) {
+            setShowIntro(true);
+            // Set the flag in local storage
+            localStorage.setItem('hasSeenIntro', 'true');
+        }
+    }, []);
+    return ( showIntro &&
         <>
             <div
                 className={
@@ -40,20 +52,13 @@ const IntroPopup = () => {
                                     <h5>Limited quantities.</h5>
                                 </div>
                                 <div className="deal-content">
-                                    <h6 className="product-title">
-                                        <Link href="/products/shop-grid-right">
-                                            <a>
-                                                Summer Collection New Morden
-                                                Design
-                                            </a>
-                                        </Link>
-                                    </h6>
+                                    
                                     <div className="product-price">
                                         <span className="new-price">
-                                            $139.00
+                                            ₹539.00
                                         </span>
                                         <span className="old-price">
-                                            $160.99
+                                            ₹960.99
                                         </span>
                                     </div>
                                 </div>

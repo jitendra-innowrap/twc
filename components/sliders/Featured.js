@@ -22,8 +22,25 @@ const FeaturedSlider = ({ products }) => {
     return (
         <>
             <Swiper
-                slidesPerView={isSmallPhone?1.8:isPhone?2.5:isTab?3:4}
+                slidesPerView={4}
                 spaceBetween={30}
+                breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                    },
+                    380: {
+                      slidesPerView: 1.5,
+                    },
+                    480: {
+                      slidesPerView: 2,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
                 navigation={{
                     prevEl: ".custom_prev_f",
                     nextEl: ".custom_next_f",
@@ -43,7 +60,7 @@ const FeaturedSlider = ({ products }) => {
                                                 >
                                                     {
                                                         (close)=>(
-                                                            <ReactPlayer className="player" url={"https://www.youtube.com/watch?v=ldT_K1x9RHg"} />
+                                                            <ReactPlayer className="player" url={"https://www.youtube.com/watch?v=XVwHLwZrIYk&pp=ygUWZXZlbnQgZGVjb3JhdGlvbiB2aWRlbw%3D%3D"} />
                                                         )
                                                     }
                                             </Popup>
