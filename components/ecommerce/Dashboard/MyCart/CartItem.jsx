@@ -31,7 +31,7 @@ export default function CartItem({item}) {
                     </div>
                     <div className="itemContainer-base-itemRight">
                         <div className="itemContainer-base-details">
-                            <div>
+                            <div className='' style={{maxWidth:'calc( 100% - 18px)'}}>
                                 <div className="itemContainer-base-brand">{item.category_name}</div>
                                 <Link className="itemContainer-base-itemLink" href={`/products/detail/${item.handle}`}>
                                     <a>

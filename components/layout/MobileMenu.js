@@ -7,8 +7,12 @@ import { useRouter } from "next/router";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
+import storage from "../../util/localStorage";
+import Popup from "reactjs-popup";
+import Logout from "../ecommerce/Dashboard/Logout/Logout";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
+    const user = storage.get("auth_token");
     const router = useRouter();
     const [isActive, setIsActive] = useState({
         status: false,
@@ -121,11 +125,32 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     <a>  </a>
                                 </Link>
                             </div>
+                            {user?<div className="single-mobile-header-info">
+                                {/* <Link href="/my-profile"> */}
+                                <Popup
+                                    trigger={<a
+                                        className="nav-link"
+                                    >
+                                        <i className="fi-rs-sign-out mr-10"></i>
+                                        Logout
+                                    </a>}
+                                    modal
+                                    lockScroll
+                                    position="right center"
+                                >
+                                    {
+                                        (close) => (
+                                            <Logout close={close} closeMenu={toggleClick} />
+                                        )
+                                    }
+                                </Popup>
+                                {/* </Link> */}
+                            </div>:
                             <div className="single-mobile-header-info">
                                 <Link href="/page-login-register">
                                     <a>Log In / Sign Up </a>
                                 </Link>
-                            </div>
+                            </div>}
                             <div className="single-mobile-header-info">
                                 <Link href="#">
                                     <a>1800 1800 1624 1423</a>

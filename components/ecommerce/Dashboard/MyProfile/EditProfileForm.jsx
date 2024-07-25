@@ -120,6 +120,7 @@ export default function EditProfileForm({ user, handleSubmit }) {
                                 >Change
                                 </button>}
                             modal
+                            lockScroll
                             position="right center"
                         >
                             {
@@ -155,6 +156,7 @@ export default function EditProfileForm({ user, handleSubmit }) {
                                 >Change
                                 </button>}
                             modal
+                            lockScroll
                             position="right center"
                         >
                             {

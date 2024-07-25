@@ -111,9 +111,6 @@ const Products = () => {
             });
     }
 
-    const startIndex = currentPage * limit - limit;
-    const endIndex = startIndex + limit;
-
     let start = Math.floor((currentPage - 1) / showPagination) * showPagination;
     let end = start + showPagination;
     const getPaginationGroup = pagination?.slice(start, end);

@@ -1,3 +1,4 @@
+import ContactForm from "../components/elements/ContactForm";
 import Layout from "../components/layout/Layout";
 
 import Link from "next/link"
@@ -40,65 +41,7 @@ function Contact() {
                                     <p className="text-muted mb-30 text-center font-sm">
                                         Lorem ipsum dolor sit amet consectetur.
                                     </p>
-                                    <form
-                                        className="contact-form-style text-center"
-                                        id="contact-form"
-                                        action="#"
-                                        method="post"
-                                    >
-                                        <div className="row">
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="input-style mb-20">
-                                                    <input
-                                                        name="name"
-                                                        placeholder="Full Name"
-                                                        type="text"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="input-style mb-20">
-                                                    <input
-                                                        name="email"
-                                                        placeholder="Your Email"
-                                                        type="email"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="input-style mb-20">
-                                                    <input
-                                                        name="telephone"
-                                                        placeholder="Your Phone"
-                                                        type="tel"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="input-style mb-20">
-                                                    <input
-                                                        name="subject"
-                                                        placeholder="Subject"
-                                                        type="text"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-12 col-md-12">
-                                                <div className="textarea-style mb-30">
-                                                    <textarea
-                                                        name="message"
-                                                        placeholder="Message"
-                                                    ></textarea>
-                                                </div>
-                                                <button
-                                                    className="submit submit-auto-width"
-                                                    type="submit"
-                                                >
-                                                    Send message
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <ContactForm />
                                     <p className="form-messege"></p>
                                 </div>
                             </div>

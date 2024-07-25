@@ -56,6 +56,7 @@ const FeaturedSlider = ({ products }) => {
                                         <Popup
                                                 trigger={<div><BiPlayCircle/></div>} 
                                                 modal 
+                                                lockScroll
                                                 position="right center"
                                                 >
                                                     {

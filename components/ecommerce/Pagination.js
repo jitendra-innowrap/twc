@@ -9,7 +9,7 @@ function Pagination({
 }) {
     return (
         <>
-            <ul className="pagination justify-content-start">
+            {pages > 1 && <ul className="pagination justify-content-start">
                 {getPaginationGroup?.length <= 0 ? null : (
                     <li onClick={() => handleActive(parseInt(currentPage)-1)} className="page-item">
                         {currentPage == 1 ? null : (
@@ -45,9 +45,9 @@ function Pagination({
                         )}
                     </li>
                 )}
-            </ul>
+            </ul>}
 
-            {getPaginationGroup?.length <= 0 ? null : (
+            {pages <= 1 ? null : (
                 <p>
                     Showing {currentPage} of {pages}
                 </p>

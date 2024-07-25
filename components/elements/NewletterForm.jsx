@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addNewsletter } from '../../util/api';
 import { Bounce, toast } from 'react-toastify';
+import { validateEmail } from '../../util/util';
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('');
@@ -10,12 +11,6 @@ export default function NewsletterForm() {
     const value = e.target.value;
     setIsEmailValid(true)
     setEmail(value);
-  };
-
-  const validateEmail = (email) => {
-    // Simple email validation regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
   };
 
   const handleSubscribe = async (e) => {

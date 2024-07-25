@@ -19,6 +19,21 @@ function MyApp({ Component, pageProps }) {
     const queryClient = new QueryClient()
 
     useEffect(() => {
+
+        // // Function to check if the device is iOS
+        const isIOS = () => {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+        };
+
+        // Disable zooming on iOS devices
+        if (isIOS()) {
+            const viewportMeta = document.createElement('meta');
+            viewportMeta.name = 'viewport';
+            viewportMeta.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
+            document.getElementsByTagName('head')[0].appendChild(viewportMeta);
+        }
+        
         setTimeout(() => {
             setLoading(false);
         }, 2000);

@@ -1372,7 +1372,7 @@ textarea:focus {
   border-radius: 5px;
 }
 
-.contact-from-area .contact-form-style button:hover {
+.contact-from-area .contact-form-style button:hover,.contact-from-area .contact-form-style button:focus {
   background-color: #046963 !important;
 }
 
@@ -1393,7 +1393,7 @@ textarea:focus {
   width: 100%;
 }
 
-.form-group input.form-control:focus, .form-group button:focus {
+.form-group input.form-control:focus, .form-group button:focus, .form-group textarea:focus {
   border: 1px solid #088178 !important;
   outline: none;
   box-shadow: 0 0 0 1px #088178 !important;
@@ -3855,6 +3855,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-badges.product-badges-mrg span {
+  box-shadow: 2px 3px 5px -1px rgba(0, 0, 0, .5);
   margin: 0 5px 0 0;
 }
 
@@ -7786,6 +7787,7 @@ span.fi-rs-apps {
   box-shadow: none;
   outline: 0;
   width: 34px;
+  min-width: fit-content;
   height: 34px;
   display: block;
   border-radius: 4px;
@@ -10174,6 +10176,13 @@ span.fi-rs-apps {
 
 /*small phone*/
 @media only screen and (max-width: 480px) {
+  .Toastify__toast-container{
+    bottom: 10px !important;
+  }
+  .Toastify__toast-container .Toastify__toast{
+    width: calc( 100% - 40px ) !important;
+    margin-inline: auto;
+  }
   .post-list .post-thumb {
     max-width: unset;
     margin-right: 0 !important;
@@ -11330,15 +11339,17 @@ span.fi-rs-apps {
 }
 
 .product-cart-wrap .delete-icon{
+  box-shadow: 2px 3px 5px -1px rgba(0, 0, 0, .5);
   position: absolute;
-  top: 20px;
-  right: 25px;
-  /* background: red; */
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
+    top: 20px;
+    right: 25px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 4px 2px;
+    cursor: pointer;
+    z-index: 10;
+    display: grid;
+    place-items: center;
 }
 .product-cart-wrap .delete-icon i{
   color: red;
@@ -13470,6 +13481,22 @@ p{
   height: 200px;
 }
 
+.product-cart-wrap .delete-icon{
+  position: absolute;
+    top: 14px;
+    right: 16px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 4px 2px;
+    cursor: pointer;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+}
+.product-cart-wrap .delete-icon i{
+  color: red;
+  font-size: 12px;
+}
 .card-body.address .card-actions{
   flex-direction: column;
   gap: 20px;
@@ -13548,7 +13575,7 @@ display: none;
   animation: lds-ellipsis3 0.6s infinite;
 }
 body.mobile-menu-active{
-  overflow: hidden;
+  overflow: hidden !important;
 }
 @media (min-width: 768px) {
   .mb-md-5 {

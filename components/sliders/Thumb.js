@@ -60,7 +60,9 @@ const ThumbSlider = ({ product }) => {
                                     <img src={getYouTubeThumbnail(item?.file)} style={{ width: '100%', height: '100%', objectFit: 'cover', }} alt="thumbnail-image" />
                                     <BiPlayCircle fontSize={52} color="#fff" />
                                 </div>
-                            } modal position="right center">
+                            } modal
+                            lockScroll
+                            position="right center">
                                 <ReactPlayer className="player" url={item.file} />
                             </Popup>
                         }
