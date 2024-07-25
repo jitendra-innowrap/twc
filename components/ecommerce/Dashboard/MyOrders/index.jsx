@@ -3,9 +3,16 @@ import { getOrderDetails, getOrderList } from '../../../../util/api';
 import Link from 'next/link';
 import Lottie from "lottie-web";
 import success from "../../../../public/assets/Lottie/no-orders.json"
+import Pagination1 from "../../../../components/ecommerce/Pagination";
+
 import { getDateFromString } from '../../../../util/util';
 export default function index() {
     const [orderList, setOrderList] = useState([]);
+    const [pageNo, setPageNo] = useState(1);
+    const [totalOrders, setTotalOrders] = useState();
+    let [pages, setPages] = useState();
+    let [pagination, setPagination] = useState([]);
+
     useEffect(() => {
         Lottie.loadAnimation({
           container: document.getElementById('animation'),
@@ -15,23 +22,47 @@ export default function index() {
           autoplay: true,
         });
       }, []);
+
+    let showLimit = 10,
+        showPagination = 4;
+    let start = Math.floor((pageNo - 1) / showPagination) * showPagination;
+    let end = start + showPagination;
+    const getPaginationGroup = pagination?.slice(start, end);
+
+    const cratePagination = () => {
+        // set pagination
+        let arr = Array.from({ length: Math.ceil(totalOrders / showLimit) }, (_, idx) => idx + 1);
+        
+        setPagination(arr);
+        setPages(Math.ceil(totalOrders / showLimit));
+    };
+
     useEffect(() => {
-      fetchOrderList();
-    }, [])
+      fetchOrderList(pageNo);
+    }, [pageNo])
+
+    useEffect(() => {
+        cratePagination();
+    }, [totalOrders])
     
-    const fetchOrderList = async () =>{
+    const handleActive = (item) => {
+        setPageNo(item);
+    };
+    const fetchOrderList = async (pageNo) =>{
         try {
             // const res = await getOrderDetails(4);
-            const res = await getOrderList();
+            const res = await getOrderList(pageNo);
             if(res?.code==1){
-                setOrderList(res?.order_data)
+                setOrderList(res?.order_data);
+                setTotalOrders(res.total_orders);
+                console.log(res)
             }
-            console.log(res)
         } catch (error) {
-            
+            console.log(error);
         }
-
     }
+
+
     return (
         <div className="card my-orders">
             <div className="card-header">
@@ -81,6 +112,18 @@ export default function index() {
                 </div>
                     )
                 }
+                {<div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                    <nav aria-label="Page navigation example">
+                        <Pagination1
+                            getPaginationGroup={
+                                getPaginationGroup
+                            }
+                            currentPage={pageNo}
+                            pages={pages}
+                            handleActive={handleActive}
+                        />
+                    </nav>
+                </div>}
             </div>
         </div>
     );

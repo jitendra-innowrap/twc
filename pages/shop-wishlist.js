@@ -18,14 +18,13 @@ const Wishlist = () => {
             router.push('/page-login-register')
         }
     }, [])
-
     
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Wishlist">
                 <section className="mt-50 mb-50">
                     <div className="container">
-                        <div className="row product-grid-4">
+                        <div className="row product-grid-4 mobile_product_list">
                                     {wishlistItems?.length == 0 && (
                                         <div className="empty-cart">
                                             <h1>Your Wishlist is empty</h1>
@@ -42,7 +41,7 @@ const Wishlist = () => {
                                     )}
                                     {wishlistItems?.map((item, i) => {
                                         
-                                            return <div className="col-lg-3 col-md-4 col-12 col-sm-6"
+                                            return <div className="col-lg-3 col-md-4 col-6 col-sm-6 product_card"
                                             key={item.id}
                                             >
                                             <SingleProduct product={item} deleteWishList={true} />

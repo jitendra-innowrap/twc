@@ -10,7 +10,7 @@ import Intro1 from "./../components/sliders/Intro1";
 export default function Home() {
     return (
         <>
-            <IntroPopup />
+            {/* <IntroPopup /> */}
 
             <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
                 <section className="home-slider position-relative pt-50">

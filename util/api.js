@@ -796,11 +796,11 @@ export const deleteAddress = async (address_id) => {
 }
 
 
-export const getOrderList = async (page) => {
+export const getOrderList = async (pageNo=1) => {
   const auth_token = getToken();
   // Create a new FormData object
   const formData = new FormData();
-  formData.append('page', 1);
+  formData.append('page', pageNo);
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/getOrderList',
@@ -851,6 +851,34 @@ export const addNewsletter = async (email) => {
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Auth/addNewsletter',
+      formData,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get order details', error);
+    throw error;
+  }
+}
+export const addContactUs = async ({email, name, mobile, subject, message}) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('name', name);
+  formData.append('mobile', mobile);
+  formData.append('subject', subject);
+  formData.append('message', message);
+  try {
+    const response = await axios.post(
+      'https://innowrap.co.in/clients/twc/App/V1/Auth/addContactUs',
       formData,
       {
         headers: {
