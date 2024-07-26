@@ -11487,13 +11487,16 @@ span.fi-rs-apps {
 }
 .otpContainer {
   margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 .otpContainer input {
   padding: 9px 0;
   border: 1px solid #d4d5d9;
   font-size: 14px;
   text-align: center;
-  margin: 0 16px 0 0;
+  /* margin: 0 16px 0 0; */
   width: 30px;
   border-radius: 2px;
   caret-color: #046963;
