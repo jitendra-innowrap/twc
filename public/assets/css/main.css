@@ -13575,7 +13575,7 @@ display: none;
   animation: lds-ellipsis3 0.6s infinite;
 }
 body.mobile-menu-active{
-  overflow: hidden;
+  overflow: hidden !important;
 }
 @media (min-width: 768px) {
   .mb-md-5 {

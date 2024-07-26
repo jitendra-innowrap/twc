@@ -33,8 +33,7 @@ function MyApp({ Component, pageProps }) {
             viewportMeta.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
             document.getElementsByTagName('head')[0].appendChild(viewportMeta);
         }
-
-
+        
         setTimeout(() => {
             setLoading(false);
         }, 2000);

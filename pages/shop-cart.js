@@ -76,9 +76,9 @@ const Cart = () => {
         setErrorNoGst(false);
         
     }
-    const handleAddGst = async (gst_number)=>{
+    const handleAddGst = async (gst_number, companyName)=>{
         try {
-            const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number});
+            const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number,companyName});
             if(res.code == 1){
                 setGstNumber(res.gst_number);
                 dispatch(updateGst(res.gst_number));
@@ -235,6 +235,7 @@ const Cart = () => {
                                                     </div>
                                                 </div>}
                                                 modal
+                                                lockScroll
                                                 position="right center"
                                             >
                                                 {
@@ -252,6 +253,7 @@ const Cart = () => {
                                                             </div>
                                                         </div>}
                                                         modal
+                                                        lockScroll
                                                         position="right center"
                                                     >
                                                         {
@@ -297,6 +299,7 @@ const Cart = () => {
                                                                 </div>
                                                             </div>}
                                                             modal
+                                                            lockScroll
                                                             position="right center"
                                                         >
                                                             {
@@ -329,6 +332,7 @@ const Cart = () => {
                                                                 </div>
                                                             }
                                                             modal
+                                                            lockScroll
                                                             position="right center"
                                                         >
                                                             {
@@ -426,6 +430,7 @@ const Cart = () => {
                                                     <div className="css-xjhrni">PLACE ORDER</div>
                                                 </button>}
                                                 modal
+                                                lockScroll
                                                 position="right center"
                                             >
                                                 {
