@@ -1178,7 +1178,7 @@ export const selectBillingAddress = async (
   }
 }
 export const setGst = async (
-  {gst_number,cart_id}
+  {gst_number,cart_id,companyName}
 ) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
@@ -1187,6 +1187,7 @@ export const setGst = async (
   formData.append('gst_number', gst_number?gst_number:"");
   formData.append('cart_id', cart_id);
   formData.append('is_gst_add', 1);
+  // formData.append('companyName', companyName);
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',

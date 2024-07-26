@@ -133,7 +133,8 @@ export default function index() {
                                 <button className="btn btn-sm d-flex align-items-center">
                                     Add New <i className="fi-rs-plus ml-10"></i>
                                 </button>} 
-                            modal 
+                            modal
+                            lockScroll 
                             position="right center"
                             >
                                 {
@@ -177,7 +178,8 @@ export default function index() {
                                                     {<div className="change">
                                                         <Popup
                                                             trigger={<button href="#" className="btn-small"><i className='fi-rs-pencil mr-5'></i>Update</button>} 
-                                                            modal 
+                                                            modal
+                                                            lockScroll
                                                             position="right center"
                                                             >
                                                                 {
