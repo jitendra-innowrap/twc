@@ -3,6 +3,8 @@ import { logOutApi } from '../../../../util/api';
 import { useDispatch } from 'react-redux';
 import storage from '../../../../util/localStorage';
 import { Bounce, toast } from 'react-toastify';
+import { emptyCart } from '../../../../redux/Slices/cartSlice';
+import { useRouter } from 'next/router';
 
 export default function Logout({close, closeMenu}) {
   useEffect(() => {
@@ -13,6 +15,7 @@ export default function Logout({close, closeMenu}) {
   }, [])
   
   const dispatch = useDispatch();
+  const router = useRouter();
 
     const handleEmptyCart = () => {
         dispatch(emptyCart());
