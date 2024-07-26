@@ -71,7 +71,7 @@ const Header = ({
                                             <ul className="language-dropdown">
                                                 {
                                                     headerData?.region_data?.map((region,i)=>(
-                                                        <li>
+                                                        <li key={i}>
                                                             <Link href="/">
                                                                 <a>
                                                                     {/* <img

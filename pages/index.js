@@ -5,16 +5,44 @@ import Layout from "./../components/layout/Layout";
 import BrandSlider from "./../components/sliders/Brand";
 import CategorySlider from "./../components/sliders/Category";
 import Intro1 from "./../components/sliders/Intro1";
+import { getHomeDetails } from "../util/api";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import RentalCategory from "../components/ecommerce/Home/RentalCategory";
+import RentalCollection from "../components/ecommerce/Home/RentalCollection";
+import Preloader from "../components/elements/Preloader";
 
 
 export default function Home() {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+      fetchHomeDetails();
+    }, [])
+
+    const fetchHomeDetails = async ()=>{
+        try {
+            const res  = await getHomeDetails();
+            if(res?.code===1){
+                setData(res.home_data_list);
+            }else{
+                console.error('Error !',res?.msg)
+            }
+            console.log(res.home_data_list)
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+    
     return (
         <>
             {/* <IntroPopup /> */}
 
+                {data ? 
             <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
-                <section className="home-slider position-relative pt-50">
-                    <Intro1 />
+                <>
+                <section className="home-slider position-relative">
+                    <Intro1 data={data.slider} />
                 </section>
 
                 <section className="popular-categories section-padding mt-md-3 mb-md-4">
@@ -27,106 +55,19 @@ export default function Home() {
                                 className=""
                                 id="carausel-6-columns"
                             >
-                                <CategorySlider />
+                                <CategorySlider data={data?.browse_events_category} />
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <section className="section-padding mt-md-3 mb-md-4">
-                    <div className="container wow fadeIn animated">
-                        <h3 className="section-title text-center mb-20 title-underline">
-                            Browse Rental Category
-                        </h3>
-                        <div className="mt-md-5">
-                            <div className="rental-category">
-                                <div className="rental-category-card">
-                                    <div
-                                        className="rental-category-card-img wow fadeIn animated"
-                                    >
-                                        <Image
-                                            src={'/assets/imgs/banner/For_Her.jpg'}
-                                            layout="fill"
-                                            alt="rent-for-women"
-                                            quality={100}
-                                            objectFit="cover"
-                                            className="image"
-                                        />
-                                        <div className="">
-                                            {/* <h5>For Her</h5> */}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="rental-category-card">
-                                    <div
-                                        className="rental-category-card-img wow fadeIn animated"
-                                    >
-                                        <Image
-                                            src={'/assets/imgs/banner/For_Him.jpg'}
-                                            layout="fill"
-                                            className="image"
-                                            alt="rent-for-women"
-                                            quality={100}
-                                            objectFit="cover"
-                                        />
-                                        <div className="deal-top">
-                                            {/* <h5>For him</h5> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <RentalCategory forHim={data?.rental_2?.[0]} forHer={data?.rental_1?.[0]} />
                 </section>
 
                 <section className="section-padding mt-md-3 mb-md-4">
-                    <div className="container wow fadeIn animated">
-                        <h3 className="section-title text-center mb-20 title-underline">
-                            Browse Rental Collections
-                        </h3>
-                        <div className="rental-banner mt-15 mt-md-5">
-                            <div
-                                className="rental-category-card-full image-press wow fadeIn animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-banner-2.jpg" alt="" />
-                            </div>
-                        </div>
-                        <div className="rental-collection-grid mt-20">
-                            <div
-                                className="rental-collection-card-img wow fadeIn image-press animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-collection-1.jpeg" alt="" />
-                            </div>
-                            <div
-                                className="rental-collection-card-img wow fadeIn image-press animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-collection-2.jpeg" alt="" />
-                            </div>
-                            <div
-                                className="rental-collection-card-img wow fadeIn image-press animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-collection-3.jpeg" alt="" />
-                            </div>
-                            <div
-                                className="rental-collection-card-img wow fadeIn image-press animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-collection-4.jpeg" alt="" />
-                            </div>
-                            <div
-                                className="rental-collection-card-img wow fadeIn image-press animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-collection-5.jpeg" alt="" />
-                            </div>
-                            <div
-                                className="rental-collection-card-img wow fadeIn image-press animated"
-                            >
-                                <img src="/assets/imgs/banner/rental-collection-6.jpeg" alt="" />
-                            </div>
-                        </div>
-                    </div>
+                    <RentalCollection data={data} />
                 </section>
-
-
 
                 <section className="section-padding events-section">
                     <div className="container wow fadeIn animated">
@@ -142,48 +83,25 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="events-collection-grid">
-                            <div
-                                className="events-collection-card wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0"
-                            >
-                                <div className="image">
-                                    <Image
-                                        src={'/assets/imgs/banner/events-collection-1.jpg'}
-                                        layout="fill"
-                                        alt="rent-for-women"
-                                    />
-                                </div>
-                                <div className="">
-                                    <h5 className="text-center mt-20">Catering & Entertainment</h5>
-                                </div>
-                            </div>
-                            <div
-                                className="events-collection-card wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0"
-                            >
-                                <div className="image">
-                                    <Image
-                                        src={'/assets/imgs/banner/events-collection-2.jpg'}
-                                        layout="fill"
-                                        alt="rent-for-women"
-                                    />
-                                </div>
-                                <div className="">
-                                    <h5 className="text-center mt-20">Equipments & Furniture</h5>
-                                </div>
-                            </div>
-                            <div
-                                className="events-collection-card wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0"
-                            >
-                                <div className="image">
-                                    <Image
-                                        src={'/assets/imgs/banner/events-collection-3.jpg'}
-                                        layout="fill"
-                                        alt="rent-for-women"
-                                    />
-                                </div>
-                                <div className="">
-                                    <h5 className="text-center mt-20">Decoration & Setup</h5>
-                                </div>
-                            </div>
+                            {
+                                data?.events_collections.map((event,i)=>(
+                                <Link href={`/collection/${event.collection_handle}`} key={event.collection_mapping_id}>
+                                    <div className="events-collection-card wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0">
+                                    <div className="image">
+                                        <Image
+                                            src={event?.collection_image}
+                                            layout="fill"
+                                            alt="rent-for-women"
+                                            />
+                                    </div>
+                                    <div className="">
+                                        <h5 className="text-center mt-20">{event.title}</h5>
+                                    </div>
+                                    </div>
+                                </Link>
+
+                                ))
+                            }
                         </div>
                     </div>
                 </section>
@@ -215,7 +133,7 @@ export default function Home() {
                                 </h3>
                             </div>
                         </div>
-                        <FeatchTab2 />
+                        <FeatchTab2 data={data?.success_story} />
                     </div>
                 </section>
 
@@ -290,8 +208,11 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-
-            </Layout>
+                </>
+                </Layout>
+                :
+                <Preloader/>
+            }
         </>
     );
 }

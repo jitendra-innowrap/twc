@@ -231,6 +231,32 @@ export const getSearchProducts = async (search_keyword) => {
 };
 
 
+// Home page 
+
+export const getHomeDetails = async () => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+
+  try {
+    const response = await axios.get(
+      'https://innowrap.co.in/clients/twc/App/V1/Home/getHomeData',
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+
 // Product details page api's endpoints
 export const getProductDetails = async ({ handle }) => {
   try {
@@ -795,7 +821,6 @@ export const deleteAddress = async (address_id) => {
   }
 }
 
-
 export const getOrderList = async (pageNo=1) => {
   const auth_token = getToken();
   // Create a new FormData object
@@ -1187,7 +1212,7 @@ export const setGst = async (
   formData.append('gst_number', gst_number?gst_number:"");
   formData.append('cart_id', cart_id);
   formData.append('is_gst_add', 1);
-  // formData.append('companyName', companyName);
+formData.append('company_name', companyName);
   try {
     const response = await axios.post(
       'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',

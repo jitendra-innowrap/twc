@@ -6,44 +6,44 @@ import { useMediaQuery } from "react-responsive";
 
 SwiperCore.use([Navigation]);
 
-const CategorySlider = () => {
-    var data = [
-        {
-            id: 6,
-            title: "Wedding Planning",
-            img: "event-category-2.svg",
-        },
-        {
-            id: 1,
-            title: "Balloon Decor",
-            img: "event-category-4.svg",
-        },
-        {
-            id: 3,
-            title: "Kids Entertainment",
-            img: "event-category-3.svg",
-        },
-        {
-            id: 5,
-            title: "Catering",
-            img: "event-category-6.svg",
-        },
-        {
-            id: 7,
-            title: "DJ Services",
-            img: "event-category-5.svg",
-        },
-        {
-            id: 4,
-            title: "Photography",
-            img: "event-category-1.svg",
-        },
-        {
-            id: 2,
-            title: "Venues",
-            img: "event-category-7.svg",
-        },
-    ];
+// var data = [
+//     {
+//         id: 6,
+//         title: "Wedding Planning",
+//         img: "event-category-2.svg",
+//     },
+//     {
+//         id: 1,
+//         title: "Balloon Decor",
+//         img: "event-category-4.svg",
+//     },
+//     {
+//         id: 3,
+//         title: "Kids Entertainment",
+//         img: "event-category-3.svg",
+//     },
+//     {
+//         id: 5,
+//         title: "Catering",
+//         img: "event-category-6.svg",
+//     },
+//     {
+//         id: 7,
+//         title: "DJ Services",
+//         img: "event-category-5.svg",
+//     },
+//     {
+//         id: 4,
+//         title: "Photography",
+//         img: "event-category-1.svg",
+//     },
+//     {
+//         id: 2,
+//         title: "Venues",
+//         img: "event-category-7.svg",
+//     },
+// ];
+const CategorySlider = ({data}) => {
     const isTab = useMediaQuery({
         query: '(max-width: 992px)'
       })
@@ -70,15 +70,15 @@ const CategorySlider = () => {
                 }}
                 className="custom-class"
             >
-                {data.map((item, i) => (
+                {data?.map((item, i) => (
                     <SwiperSlide key={i}>
                         <div className="card-1">
                             <figure className=" img-hover-scale overflow-hidden">
                                <Link href="/products">
                                     <a>
                                         <img
-                                            src={`assets/imgs/shop/${item.img}`}
-                                            alt=""
+                                            src={item.collection_image}
+                                            alt={item.title}
                                         />
                                     </a>
                                 </Link>

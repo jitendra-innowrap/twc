@@ -58,7 +58,7 @@ function Account() {
                         <div className="">
                             <div className="row">
                                 <div className="coupons-base-header col-12 col-md-6 col-lg-4">Order ID : {orderId}</div>
-                                {orderDetail?.bill_details?.gst_number && <div className="coupons-base-header col-12 col-md-6 col-lg-4 text-right">Order ID : {orderDetail?.bill_details?.gst_number}</div>}
+                                {orderDetail?.bill_details?.gst_number && <div className="coupons-base-header col-12 col-md-6 col-lg-4 text-right">Gst Number : {orderDetail?.bill_details?.gst_number}</div>}
                             </div>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-4 mb-40">
@@ -97,6 +97,10 @@ function Account() {
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-4 mb-40">
                                     <div className="order-address h-100">
+                                    <div className="card-head mb-10">
+                                    {orderDetail?.bill_details?.gst_number && <div className="coupons-base-header text-right mb-0">Gst NO : {orderDetail?.bill_details?.gst_number}</div>}
+                                    {orderDetail?.bill_details?.company_name && <div className="coupons-base-header text-right">Company Name : {orderDetail?.bill_details?.company_name}</div>}
+                                            </div>
                                         <div className={`  mb-0 address d-block h-100`}>
                                             <div className="d-flex justify-content-between">
                                                 <a onClick={handleDownloadInvoice} target="_blank" style={{color:'#fff'}}>

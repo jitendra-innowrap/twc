@@ -6,13 +6,16 @@ import { getAllCategory } from "../../util/api";
 import { useRouter } from "next/router";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import storage from "../../util/localStorage";
 import Popup from "reactjs-popup";
 import Logout from "../ecommerce/Dashboard/Logout/Logout";
+import { CiFacebook } from "react-icons/ci";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
-    const user = storage.get("auth_token");
+    const [user, setUser] = useState(null);
+
+
     const router = useRouter();
     const [isActive, setIsActive] = useState({
         status: false,
@@ -21,6 +24,8 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
     const [headerData, setheaderData] = useState([])
 
     useEffect(() => {
+        let storedUser = storage.get("auth_token");
+        setUser(storedUser);
         fetchHeaderData()
     },[]);  
     const fetchHeaderData =async ()=>{
@@ -161,11 +166,15 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                             <h5 className="mb-15 text-grey-4">Follow Us</h5>
                                 <a href={`https://www.facebook.com/`}
                                     target="_blank">
-                                    <SlSocialFacebook size={18} color="#606060" />
+                                    <CiFacebook strokeWidth={0.7} size={18} color="#606060" />
                                 </a>
                                 <a href={`https://twitter.com/`}
                                     target="_blank">
                                     <FaXTwitter size={18} color="#606060" />
+                                </a>
+                                <a href={`https://twitter.com/`}
+                                    target="_blank">
+                                    <FaInstagram size={18} color="#606060" />
                                 </a>
                                 <a href={`https://wa.me/`}
                                     data-action="share/whatsapp/share"
@@ -186,7 +195,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     <ul className="language-dropdown">
                                         {
                                             headerData?.region_data?.map((region, i) => (
-                                                <li>
+                                                <li key={i}>
                                                     <Link href="/">
                                                         <a>
                                                             {/* <img
