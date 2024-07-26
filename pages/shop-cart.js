@@ -37,6 +37,7 @@ const Cart = () => {
     const shippingAddress = useSelector((state) => state.cart.shippingAddress);
     const billingAddress = useSelector((state) => state.cart.billingAddress);
     const gst_number = useSelector((state) => state.cart.gst_number);
+    const companyName = useSelector((state) => state.cart.companyName);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -80,8 +81,7 @@ const Cart = () => {
         try {
             const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number,companyName});
             if(res.code == 1){
-                setGstNumber(res.gst_number);
-                dispatch(updateGst(res.gst_number));
+                dispatch(updateGst({gst_number,companyName}));
 
                 toast.success("GST Updated Successfully!", {
                     position: "bottom-center",
@@ -320,7 +320,13 @@ const Cart = () => {
                                                     <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You Have A GST Number.</label>
                                                 </div>
                                                 {isGST &&<div className="gst_number_wrapper">
-                                                            <div className="">{gst_number?gst_number:'Add'}</div>
+                                                            <div className="">
+                                                            {gst_number?<>
+                                                            <span>{gst_number}</span> <br />
+                                                            <span>{companyName}</span>
+                                                            </>
+                                                            :'Add'}
+                                                            </div>
                                                             <Popup
                                                             trigger={
                                                                 <div>

@@ -47,8 +47,8 @@ const FeaturedSlider = ({ products }) => {
                 }}
                 className="custom-class"
             >
-                {products.map((product, i) => (
-                    <SwiperSlide key={i}>
+                {products?.map((product, i) => (
+                    <SwiperSlide key={product.id}>
                         <div className="product-cart-wrap success-story-card">
                             <div className="product-img-action-wrap">
                                 <div className="product-img">
@@ -61,7 +61,7 @@ const FeaturedSlider = ({ products }) => {
                                                 >
                                                     {
                                                         (close)=>(
-                                                            <ReactPlayer className="player" url={"https://www.youtube.com/watch?v=XVwHLwZrIYk&pp=ygUWZXZlbnQgZGVjb3JhdGlvbiB2aWRlbw%3D%3D"} />
+                                                            <ReactPlayer className="player" url={product.video_url} />
                                                         )
                                                     }
                                             </Popup>
@@ -69,8 +69,8 @@ const FeaturedSlider = ({ products }) => {
                                         <a>
                                             <img
                                                 className="default-img"
-                                                src={product.images[0].img}
-                                                alt=""
+                                                src={product.image}
+                                                alt={product.title}
                                             />
                                         </a>
                                 </div>

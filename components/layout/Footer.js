@@ -4,6 +4,7 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import NewsletterFrom from "../elements/NewletterForm";
+import { CiFacebook } from "react-icons/ci";
 
 const Footer = () => {
     return (
@@ -67,7 +68,7 @@ const Footer = () => {
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
                                         <a href="#">
-                                            <SlSocialFacebook size={18} color="#606060" />
+                                            <CiFacebook strokeWidth={0.7} size={18} color="#606060" />
                                         </a>
                                         <a href="#">
                                             <FaXTwitter size={18} color="#606060" />
