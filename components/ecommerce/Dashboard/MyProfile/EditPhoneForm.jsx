@@ -284,10 +284,11 @@ export default function EditPhoneForm({ close, setTempUser }) {
                                     </div>
                                 </div>
                                 <h3>Verify with OTP</h3><h4>Sent to {Mobile}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
-                                <div className="otpContainer">
+                                <div className="otpContainer form-group">
                                     {otp.map((digit, index) => (
                                         <input
                                             key={index}
+                                            className='form-control'
                                             name={`otp${index}`}
                                             type="tel"
                                             maxLength={1}
