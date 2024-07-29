@@ -13,6 +13,7 @@ const Wishlist = () => {
     const router = useRouter();
     const isLoggedIn = storage.get("auth_token");
     const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
+    const status = useSelector((state) => state.wishlist.status);
     useEffect(() => {
         if(!isLoggedIn){
             router.push('/page-login-register')
@@ -24,7 +25,9 @@ const Wishlist = () => {
             <Layout parent="Home" sub="Shop" subChild="Wishlist">
                 <section className="mt-50 mb-50">
                     <div className="container">
-                        <div className="row product-grid-4 mobile_product_list">
+                        {
+                            status=='succeeded'?
+                            <div className="row product-grid-4 mobile_product_list">
                                     {wishlistItems?.length == 0 && (
                                         <div className="empty-cart">
                                             <h1>Your Wishlist is empty</h1>
@@ -48,6 +51,11 @@ const Wishlist = () => {
                                         </div>
                                     })}
                                 </div>
+                            :
+                            <div className="loading-view" style={{height:'calc( 100vh - 423px)'}}>
+                        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                    </div>
+                        }
                     </div>
                 </section>
             </Layout>

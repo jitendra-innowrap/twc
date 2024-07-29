@@ -241,7 +241,7 @@ const Products = () => {
                                     })}
                                 </div>
 
-                                { <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                {!productList?.length === 0 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
                                         <Pagination
                                             getPaginationGroup={
