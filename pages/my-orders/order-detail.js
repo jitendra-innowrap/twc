@@ -58,7 +58,6 @@ function Account() {
                         <div className="">
                             <div className="row">
                                 <div className="coupons-base-header col-12 col-md-6 col-lg-4">Order ID : {orderId}</div>
-                                {orderDetail?.bill_details?.gst_number && <div className="coupons-base-header col-12 col-md-6 col-lg-4 text-right">Gst Number : {orderDetail?.bill_details?.gst_number}</div>}
                             </div>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-4 mb-40">

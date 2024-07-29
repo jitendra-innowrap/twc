@@ -4805,7 +4805,7 @@ table .product-thumbnail img {
 
 .product-extra-link2 a {
   background: #fff none repeat scroll 0 0;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #555 !important;
   color: #555;
   border-radius: 4px;
   display: inline-block;

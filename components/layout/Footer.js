@@ -5,8 +5,10 @@ import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import NewsletterFrom from "../elements/NewletterForm";
 import { CiFacebook } from "react-icons/ci";
+import { useRouter } from "next/router";
 
 const Footer = () => {
+    const router =  useRouter();
     return (
         <>
             <footer className="main">
@@ -113,7 +115,7 @@ const Footer = () => {
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated">
                                     <li>
-                                        <Link href="/page-login-register">Sign In</Link>
+                                        <Link href={`/page-login-register?referrerUrl=${router?.asPath}`}>Sign In</Link>
                                     </li>
                                     <li>
                                         <Link href="/my-profile">My Profile</Link>

@@ -262,7 +262,7 @@ const Cart = () => {
                                                                     <button onClick={close} className='close_popUp'>
                                                                         <MdClose fontSize={22} />
                                                                     </button>
-                                                                    <LoginRegister close={close} />
+                                                                    <LoginRegister noRefferer close={close} />
                                                                 </div>
                                                             )
                                                         }
@@ -343,7 +343,7 @@ const Cart = () => {
                                                         >
                                                             {
                                                                 (close) => (
-                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gst_number} close={close} />
+                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gst_number} companyName={companyName} close={close} />
                                                                 )
                                                             }
                                                         </Popup>
@@ -445,7 +445,7 @@ const Cart = () => {
                                                             <button onClick={close} className='close_popUp'>
                                                                 <MdClose fontSize={22} />
                                                             </button>
-                                                            <LoginRegister close={close} />
+                                                            <LoginRegister noRefferer close={close} />
                                                         </div>
                                                     )
                                                 }

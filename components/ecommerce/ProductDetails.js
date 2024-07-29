@@ -188,10 +188,9 @@ useEffect(() => {
 
     const handleWishlist = async (product) => {
         if(!auth_token){
-            router.push('/page-login-register')
+            router.push(`/page-login-register?referrerUrl=${router?.asPath}`)
         }else{
             dispatch(addItemToWishlist(product));
-            // setIsInWishlist(!isInWishlist);           
         }
 
     };
