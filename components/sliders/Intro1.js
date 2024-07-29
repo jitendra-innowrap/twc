@@ -11,8 +11,6 @@ const Intro1 = ({data}) => {
             <Swiper
                 slidesPerView={1}
                 spaceBetween={0}
-                // loop={false}
-                //pagination={true}
                 navigation={{
                     prevEl: ".custom_prev_i1",
                     nextEl: ".custom_next_i1",
@@ -34,14 +32,14 @@ const Intro1 = ({data}) => {
             }
             </Swiper>
 
-            <div className="slider-arrow hero-slider-1-arrow">
+            {data?.length>1 &&<div className="slider-arrow hero-slider-1-arrow">
                 <span className="slider-btn slider-prev slick-arrow custom_prev_i1">
                     <i className="fi-rs-angle-left"></i>
                 </span>
                 <span className="slider-btn slider-next slick-arrow custom_next_i1">
                     <i className="fi-rs-angle-right"></i>
                 </span>
-            </div>
+            </div>}
         </>
     );
 };

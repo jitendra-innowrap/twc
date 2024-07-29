@@ -79,7 +79,8 @@ export default function Home() {
                                 </h3>
                             </div>
                             <div className="right">
-                                <button className="btn title-btn">Consult event expert</button>
+                                <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                                    `}>Consult Event Expert</a></button>
                             </div>
                         </div>
                         <div className="events-collection-grid">
@@ -150,7 +151,8 @@ export default function Home() {
                                 <p className="lh-1">enjoy end-to-end solutions from ideas all the way to execution</p>
                             </div>
                             <div className="right">
-                                <button className="btn title-btn">Consult event expert</button>
+                                <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                                    `}>Consult Event Expert</a></button>
                             </div>
                         </div>
                         <div className="usp-icons-grid position-relative wow fadeIn animated">

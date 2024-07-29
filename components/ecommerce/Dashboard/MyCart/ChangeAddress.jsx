@@ -168,7 +168,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                     {
                         addressList?.map((address)=>{
                             return (
-                                <div className={`addressStripV2-base-desktopContainer ${deliveredTo == address?.id? 'selected':''}`}>
+                                <div key={address?.id} className={`addressStripV2-base-desktopContainer ${deliveredTo == address?.id? 'selected':''}`}>
                                     <div className="addressStripV2-base-title">
                                         <div className="addressStripV2-base-addressName">
                                             Deliver to:<span className="addressStripV2-base-highlight">{address?.name}</span>,

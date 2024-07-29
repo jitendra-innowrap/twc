@@ -254,14 +254,14 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
               </label>
               <div className="address-type-buttons">
                 <button
-                  className={`${address.addressType === '0' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('0')}
+                  className={`${address.addressType === '1' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('1')}
                   >
                   Home
                 </button>
                 <button
-                  className={`${address.addressType === '1' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('1')}
+                  className={`${address.addressType === '2' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('2')}
                   >
                   Office
                 </button>

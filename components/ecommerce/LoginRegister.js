@@ -7,7 +7,7 @@ import { Bounce, toast } from 'react-toastify';
 import { refreshToken } from '../../redux/Slices/authSlice';
 import { useDispatch } from 'react-redux';
 
-function LoginRegister({logIN}) {
+function LoginRegister({noRefferer, close}) {
     const [isSumbitting, setIsSumbitting] = useState(false);
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
@@ -21,6 +21,10 @@ function LoginRegister({logIN}) {
 
     const router = useRouter()
     let referrer = "/"
+    const {referrerUrl} = router.query;
+    if(referrerUrl){
+        referrer = referrerUrl;
+    }
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
@@ -143,7 +147,9 @@ function LoginRegister({logIN}) {
                 if(res?.code==1){
                     storage.set("auth_token", auth_token);
                     storage.set("web_token", null);
-                    router.push(referrer);
+                    if(!noRefferer){
+                        router.push(referrer);
+                    }
                     toast.success("Account Created Successfully !", {
                         position: "bottom-center",
                         autoClose: 1500,
@@ -155,6 +161,10 @@ function LoginRegister({logIN}) {
                         theme: "light",
                         transition: Bounce,
                     });
+                    if(close){
+                        close();
+                        router.reload();
+                    }
                 }else{
                     toast.error("Something Went Wrong !", {
                         position: "bottom-center",
@@ -221,9 +231,6 @@ function LoginRegister({logIN}) {
                                 transition: Bounce,
                             });
                         } else {
-                            router.push(referrer)
-                            storage.set("auth_token", auth_token);
-                            storage.set("web_token", null);
                             toast.success("Logged In Successfully !", {
                                 position: "bottom-center",
                                 autoClose: 1500,
@@ -235,10 +242,19 @@ function LoginRegister({logIN}) {
                                 theme: "light",
                                 transition: Bounce,
                             });
+                            if(close){
+                                close();
+                                router.reload();
+                            }
                         }
-                        handleUpdateToken({
+                        handleUpdateToken(
                             auth_token // Assuming you have the auth_token available
-                        });
+                        );
+                        storage.set("auth_token", auth_token);
+                        storage.set("web_token", null);
+                        if(!noRefferer){
+                            router.push(referrer);
+                        }
                     } else {
                         console.error('Error verifying OTP:', error);
                         setError({ ...error, otp: true });
@@ -251,9 +267,9 @@ function LoginRegister({logIN}) {
         }
     };
 
-    const handleUpdateToken = async ()=>{
+    const handleUpdateToken = async (auth_token)=>{
         try {
-            const res = await updateTokenApi();
+            const res = await updateTokenApi(auth_token);
             console.log(res);
         } catch (error) {
             console.error(error)
@@ -270,7 +286,7 @@ function LoginRegister({logIN}) {
             {step === 1 ?
                 <div className="login_wrap w-100">
                     <img src="/assets/imgs/banner/login_banner.png" className='login-banner-image' alt="Login Banner" />
-                    <div className="padding_eight_all bg-white  p-30">
+                    <div className="padding_eight_all bg-white p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
                                 Login <span className="welcome_header_small">or</span> Signup
@@ -278,7 +294,7 @@ function LoginRegister({logIN}) {
                         </div>
                         <div className="mobileInputContainer mt-0">
                             <div className="form-group ">
-                                <input ref={phoneRef} autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <input ref={phoneRef} autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxLength="10" value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 

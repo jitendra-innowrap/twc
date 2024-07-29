@@ -7,6 +7,7 @@ import storage from "../../util/localStorage";
 import { BiSearch } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import SearchMobile from "../ecommerce/SearchMobile";
+import { useRouter } from "next/router";
 
 const Header = ({
     toggleClick,
@@ -19,7 +20,7 @@ const Header = ({
     const { cartCount } = useSelector((state) => state.cart);
     const { wishlistCount } = useSelector((state) => state.wishlist);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+    const router  = useRouter();
     useEffect(() => {
         fetchHeaderData()
         document.addEventListener("scroll", () => {
@@ -112,7 +113,7 @@ const Header = ({
                                         <li>
                                             {/* <i className="fi-rs-user"></i> */}
                                             {/* <Link href="/page-login-register"> */}
-                                                <a>1800 1800 1624 1423</a>
+                                            <a href="tel:18001800162414231">1800 1800 1624 1423</a>
                                             {/* </Link> */}
                                         </li>
                                     </ul>
@@ -200,7 +201,7 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?'/page-login-register':'/my-profile'}>
+                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -212,7 +213,7 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?'/page-login-register':'/shop-wishlist'}>
+                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -249,7 +250,7 @@ const Header = ({
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href={!user?'/page-login-register':'/shop-wishlist'}>
+                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                             <a>
                                                 <img
                                                     alt="The Party Cafe"
@@ -275,7 +276,7 @@ const Header = ({
                                         </Link>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href="/my-profile" className="mr-0">
+                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
                                             <a className="mr-0">
                                                 <img
                                                     alt="The Party Cafe"

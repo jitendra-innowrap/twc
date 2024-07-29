@@ -24,7 +24,7 @@ const Products = () => {
     let today = new Date();
     let Router = useRouter(),
     searchTerm = Router.query.search,
-    showLimit =10,
+    showLimit =20,
     showPagination = 4;
     const { category, sub_category, page, from_price, to_price, sort, availabilityDate } = Router.query;
     const [totalProducts, setTotalProducts] = useState(0);
@@ -248,7 +248,7 @@ const Products = () => {
                                         }
                                     })}
                                 </div>
-                                { <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                {!productList?.length === 0 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
                                         <Pagination1
                                             getPaginationGroup={
