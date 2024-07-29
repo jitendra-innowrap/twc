@@ -60,8 +60,8 @@ const Footer = () => {
                                         Maharashtra 400055.
                                     </p>
                                     <p className="wow fadeIn animated">
-                                        <strong>Phone: </strong>+01 2222 365
-                                        /(+91) 01 2345 6789
+                                        <strong>Phone: </strong><a href="tel:+012222365">+01 2222 365 </a> 
+                                        / <a href="tel:+910123456789">(+91) 01 2345 6789</a>
                                     </p>
                                     <h5 className="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">
                                         Follow Us

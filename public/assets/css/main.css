@@ -11127,7 +11127,7 @@ span.fi-rs-apps {
 .detail-info .detail-extralink .product-extra-link2 a.add-to-wishlist {
   border-radius: 0;
 }
-.detail-info .detail-extralink .product-extra-link2 a.add-to-wishlist:hover svg{
+.detail-extralink .product-extra-link2 a.add-to-wishlist:hover svg{
   color: #fff;
   fill: #fff;
 }
@@ -12715,8 +12715,11 @@ input[type="checkbox"]:hover{
 }
 .detail-extralink.mobile-buttons-style a.add-to-wishlist{
   margin: 0;
-  display: block;
+  display: flex;
   width: 48%;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .detail-info .product-price ins{

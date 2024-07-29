@@ -157,7 +157,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                 </Link>
                             </div>}
                             <div className="single-mobile-header-info">
-                                <Link href="#">
+                                <Link href="tel:1800180016241423">
                                     <a>1800 1800 1624 1423</a>
                                 </Link>
                             </div>

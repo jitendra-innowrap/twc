@@ -112,7 +112,7 @@ const Header = ({
                                         <li>
                                             {/* <i className="fi-rs-user"></i> */}
                                             {/* <Link href="/page-login-register"> */}
-                                                <a>1800 1800 1624 1423</a>
+                                            <a href="tel:18001800162414231">1800 1800 1624 1423</a>
                                             {/* </Link> */}
                                         </li>
                                     </ul>
