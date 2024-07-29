@@ -71,10 +71,10 @@ const CategorySlider = ({data}) => {
                 className="custom-class"
             >
                 {data?.map((item, i) => (
-                    <SwiperSlide key={i}>
+                    <SwiperSlide key={item.collection_mapping_id}>
                         <div className="card-1">
                             <figure className=" img-hover-scale overflow-hidden">
-                               <Link href="/products">
+                               <Link href={`/collection/${item.collection_handle}`}>
                                     <a>
                                         <img
                                             src={item.collection_image}
