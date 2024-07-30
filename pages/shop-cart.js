@@ -174,6 +174,7 @@ const Cart = () => {
         try {
           const res = await placeOrder(body);
           if(res.code==1){
+            dispatch(fetchCart())
             router.push('/checkout-success')
           }else{
             router.push('/checkout-fail')

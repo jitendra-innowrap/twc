@@ -175,6 +175,26 @@ input:focus::-moz-placeholder {
   transition: .4s;
 }
 
+
+/* Hide the spinner in Chrome, Safari, Edge, and Firefox */
+.no-spinner {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari */
+  margin: 0; /* Remove default margin */
+}
+
+/* Optional: To style the input field */
+.no-spinner {
+  width: 100%; /* Make input full width */
+  padding: 10px; /* Add some padding */
+  border: 1px solid #ccc; /* Border styling */
+  border-radius: 4px; /* Rounded corners */
+}
+
 a {
   color: #088178;
 }

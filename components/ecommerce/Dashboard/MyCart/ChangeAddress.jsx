@@ -58,11 +58,21 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
          }
     }, [addNew]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setAddress((prev) => ({ ...prev, [name]: value }));
-    setError((prev) => ({ ...prev, [name]: false }));
-  };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        if(name=="mobile"){
+          // Filter out non-numeric characters and limit to maxLength
+          const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          setAddress((prev) => ({ ...prev, [name]: numericValue }));
+        }else if(name=="pincode"){
+          // Filter out non-numeric characters and limit to maxLength
+          const numericValue = value.replace(/[^0-9]/g, '').slice(0, 6);
+          setAddress((prev) => ({ ...prev, [name]: numericValue }));
+        }else{
+          setAddress((prev) => ({ ...prev, [name]: value }));
+        }
+        setError((prev) => ({ ...prev, [name]: false }));
+      };
 
   const handleAddressTypeChange = (type) => {
     setAddress((prev) => ({ ...prev, addressType: type }));

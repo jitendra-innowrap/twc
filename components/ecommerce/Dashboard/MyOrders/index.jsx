@@ -102,6 +102,7 @@ export default function index() {
                                         <tr>
                                             <th>Order Id</th>
                                             <th>Date</th>
+                                            <th>Items</th>
                                             <th>Quantity</th>
                                             <th>Total</th>
                                             <th>Actions</th>
@@ -111,12 +112,13 @@ export default function index() {
                                         {
                                             orderList.map((order, i) => {
                                                 return <tr key={order.id}>
-                                                    <td>{order.id}</td>
-                                                    <td>{getDateFromString(order.order_date)}</td>
-                                                    <td>{order.order_items_count}</td>
-                                                    <td>{order.order_amount}</td>
-                                                    <td><Link href={`/my-orders/order-detail?orderId=${order.id}`} className="btn-small d-block">View</Link></td>
-                                                </tr>
+                                                            <td>{order.id}</td>
+                                                            <td>{getDateFromString(order.order_date)}</td>
+                                                            <td>{order.order_items_count}</td>
+                                                            <td>{order.total_quantity}</td>
+                                                            <td>{order.order_amount}</td>
+                                                            <td><Link href={`/my-orders/order-detail?orderId=${order.id}`} className="btn-small d-block">View</Link></td>
+                                                        </tr>
 
                                             })
                                         }

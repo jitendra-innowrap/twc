@@ -6,6 +6,8 @@ import storage from '../../util/localStorage';
 import { Bounce, toast } from 'react-toastify';
 import { refreshToken } from '../../redux/Slices/authSlice';
 import { useDispatch } from 'react-redux';
+import { fetchCart } from '../../redux/Slices/cartSlice';
+import { fetchWishlist } from '../../redux/Slices/wishlistSlice';
 
 function LoginRegister({noRefferer, close}) {
     const [isSumbitting, setIsSumbitting] = useState(false);
@@ -252,6 +254,8 @@ function LoginRegister({noRefferer, close}) {
                         );
                         storage.set("auth_token", auth_token);
                         storage.set("web_token", null);
+                        dispatch(fetchCart())
+                        dispatch(fetchWishlist())
                         if(!noRefferer){
                             router.push(referrer);
                         }
@@ -281,6 +285,13 @@ function LoginRegister({noRefferer, close}) {
             inputRefs.current[index - 1].focus();
         }
     };
+
+    const handleInput = (e) => {
+        const { value } = e.target;
+          // Filter out non-numeric characters and limit to maxLength
+          const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          setMobile(numericValue)
+      };
     return (
         <>
             {step === 1 ?
@@ -294,7 +305,14 @@ function LoginRegister({noRefferer, close}) {
                         </div>
                         <div className="mobileInputContainer mt-0">
                             <div className="form-group ">
-                                <input ref={phoneRef} autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxLength="10" value={Mobile} />
+                                <input ref={phoneRef} 
+                                autocomplete="new-password" 
+                                onKeyDown={(event) => { if (event.key === 'Enter') handleMobile }} 
+                                id="" type="text" pattern="[0-9]*" className="form-control mobileNumberInput"  name="mobile"
+                                onChange={handleInput} 
+                                placeholder="" 
+                                maxLength="10" 
+                                value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 

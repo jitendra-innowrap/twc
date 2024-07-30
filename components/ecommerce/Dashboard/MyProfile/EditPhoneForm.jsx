@@ -233,7 +233,12 @@ export default function EditPhoneForm({ close, setTempUser }) {
             inputRefs.current[index - 1].focus();
         }
     };
-
+    const handleInput = (e) => {
+        const { value } = e.target;
+          // Filter out non-numeric characters and limit to maxLength
+          const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          setMobile(numericValue)
+      };
     return (
         <div className='popUpContainer' style={{height:`${step===3?'240px':''}`}}>
             <button onClick={close} type='button' className='close_popUp'><MdClose fontSize={22} /></button>
@@ -250,7 +255,11 @@ export default function EditPhoneForm({ close, setTempUser }) {
                         </div>
                         <div className="mobileInputContainer">
                             <div className="form-group ">
-                                <input ref={phoneRef} autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxLength="10" value={Mobile} />
+                                <input ref={phoneRef} autoComplete="new-password" onKeyDown={(event) => { if (event.key === 'Enter') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" 
+                                onChange={handleInput} 
+                                placeholder=""
+                                maxLength="10" 
+                                value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 

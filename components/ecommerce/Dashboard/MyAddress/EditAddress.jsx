@@ -29,7 +29,17 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAddress((prev) => ({ ...prev, [name]: value }));
+    if(name=="mobile"){
+      // Filter out non-numeric characters and limit to maxLength
+      const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+      setAddress((prev) => ({ ...prev, [name]: numericValue }));
+    }else if(name=="pincode"){
+      // Filter out non-numeric characters and limit to maxLength
+      const numericValue = value.replace(/[^0-9]/g, '').slice(0, 6);
+      setAddress((prev) => ({ ...prev, [name]: numericValue }));
+    }else{
+      setAddress((prev) => ({ ...prev, [name]: value }));
+    }
     setError((prev) => ({ ...prev, [name]: false }));
   };
 
@@ -159,7 +169,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
                 className={`form-control square`}
                 name="mobile"
                 maxLength={10}
-                type="tel"
+                type="text"
                 value={address.mobile}
                 onChange={handleInputChange}
                 />
