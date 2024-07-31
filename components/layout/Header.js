@@ -8,6 +8,8 @@ import { BiSearch } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import SearchMobile from "../ecommerce/SearchMobile";
 import { useRouter } from "next/router";
+import Popup from "reactjs-popup";
+import Location from "../ecommerce/Header/Location";
 
 const Header = ({
     toggleClick,
@@ -63,29 +65,8 @@ const Header = ({
                                     <ul>
                                         <li>
                                             <Link href="/#">
-                                                <a className="language-dropdown-active">
-                                                    <i className="fi-rs-marker"></i>
-                                                    {headerData?.region_data?.[0]?.region_name}
-                                                    <i className="fi-rs-angle-small-down"></i>
-                                                </a>
+                                                <Location close={close} cities={headerData?.region_data} />
                                             </Link>
-                                            <ul className="language-dropdown">
-                                                {
-                                                    headerData?.region_data?.map((region,i)=>(
-                                                        <li key={i}>
-                                                            <Link href="/">
-                                                                <a>
-                                                                    {/* <img
-                                                                        src="/assets/imgs/theme/flag-fr.png"
-                                                                        alt=""
-                                                                    /> */}
-                                                                    {region?.region_name}
-                                                                </a>
-                                                            </Link>
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
                                         </li>
                                     </ul>
                                 </div>

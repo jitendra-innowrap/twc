@@ -107,7 +107,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding">
+                <section className="section-padding pt-50">
                     <div className="container">
                         <div className="head d-flex justify-content-center align-items-end mb-md-50">
                             <div className="left">
@@ -123,7 +123,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding success-stories-section">
+                {/* <section className="section-padding success-stories-section">
 
                     <div className="container pt-md-25 pb-md-5">
                         <div className="head d-flex justify-content-between align-items-end mb-50">
@@ -136,7 +136,7 @@ export default function Home() {
                         </div>
                         <FeatchTab2 data={data?.success_story} />
                     </div>
-                </section>
+                </section> */}
 
                 <section className="section-padding usp-section">
 
