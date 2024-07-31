@@ -149,9 +149,6 @@ function LoginRegister({noRefferer, close}) {
                 if(res?.code==1){
                     storage.set("auth_token", auth_token);
                     storage.set("web_token", null);
-                    if(!noRefferer){
-                        router.push(referrer);
-                    }
                     toast.success("Account Created Successfully !", {
                         position: "bottom-center",
                         autoClose: 1500,
@@ -163,6 +160,9 @@ function LoginRegister({noRefferer, close}) {
                         theme: "light",
                         transition: Bounce,
                     });
+                    if(!noRefferer){
+                        router.push(referrer);
+                    }
                     if(close){
                         close();
                         router.reload();
@@ -218,6 +218,10 @@ function LoginRegister({noRefferer, close}) {
                 .then((response) => {
                     // OTP is correct, redirect
                     if (response.code == 1) {
+                        storage.set("auth_token", auth_token);
+                        storage.set("web_token", null);
+                        dispatch(fetchCart())
+                        dispatch(fetchWishlist())
                         // Add your redirect logic
                         if (response?.result?.is_profile_completed == 0) {
                             setStep(3);
@@ -244,6 +248,10 @@ function LoginRegister({noRefferer, close}) {
                                 theme: "light",
                                 transition: Bounce,
                             });
+                            
+                            if(!noRefferer){
+                                router.push(referrer);
+                            }
                             if(close){
                                 close();
                                 router.reload();
@@ -252,13 +260,6 @@ function LoginRegister({noRefferer, close}) {
                         handleUpdateToken(
                             auth_token // Assuming you have the auth_token available
                         );
-                        storage.set("auth_token", auth_token);
-                        storage.set("web_token", null);
-                        dispatch(fetchCart())
-                        dispatch(fetchWishlist())
-                        if(!noRefferer){
-                            router.push(referrer);
-                        }
                     } else {
                         console.error('Error verifying OTP:', error);
                         setError({ ...error, otp: true });
