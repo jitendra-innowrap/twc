@@ -65,7 +65,7 @@ const Header = ({
                                     <ul>
                                         <li>
                                             <Link href="/#">
-                                                <Location close={close} cities={headerData?.region_data} />
+                                                <Location cities={headerData?.region_data} />
                                             </Link>
                                         </li>
                                     </ul>
