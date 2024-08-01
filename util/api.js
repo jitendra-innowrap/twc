@@ -718,6 +718,30 @@ export const addAddress = async ({ name
     throw error;
   }
 }
+export const checkDeliverablePincode = async ({ region_id, pincode }) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('region_id', region_id);
+  formData.append('pincode', pincode);
+  try {
+    const response = await axios.post(
+      `${baseURL}/Transaction/checkPincode`,
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 export const editAddress = async ({ name
   , city
   , state_name

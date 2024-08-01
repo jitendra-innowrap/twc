@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
 import { generateRandomId } from '../../../../util/util';
 import { useEffect } from 'react';
-import { addAddress } from '../../../../util/api';
+import { addAddress, checkDeliverablePincode } from '../../../../util/api';
+import storage from '../../../../util/localStorage';
 
 export default function ChangeAddress({ close , handleSelectAddress, fetchAddressList, deliveredTo, addressList}) {
     const [addNew, setAddNew] = useState(false)
@@ -85,7 +86,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
 
   const handleSubmit = async () => {
     let hasError = false;
-
+    setIsSumbitting(true)
     if (!address.name) {
       setError((prev) => ({ ...prev, name: true }));
       hasError = true;
@@ -121,6 +122,27 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
       hasError = true;
     }
 
+    if(address.pincode.length===6){
+        // when user enters 6th digit validate the 6 digit picode using this api
+        let selected = storage.get("preferred_location");
+        let region_id = 1;
+        if(selected){
+          region_id = selected.id;
+        }
+  
+        let params = {region_id, pincode:address.pincode}
+        try {
+          const isDeliverable = await checkDeliverablePincode(params);
+          console.log(isDeliverable);
+          if(isDeliverable?.code!==1){
+            setError((prev) => ({ ...prev, pincode: isDeliverable.msg ||  "Error: Unable to Verify this Pincode"}));
+            hasError = true;
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
     if (!hasError) {
 
     try {
@@ -137,16 +159,15 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
           other_address_type_name:"",
           pincode:address.pincode
         }
-        setIsSumbitting(false)
         const res = await addAddress(body);
         fetchAddressList();
         console.log(res)
       } catch (error) {
         console.log('Error !', error)
       }
-      setIsSumbitting(false)
       setAddNew(false)
-      }
+    }
+    setIsSumbitting(false)
   };
 
   const openAddNewForm =()=>{
@@ -288,8 +309,8 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                             value={address?.pincode}
                             onChange={handleInputChange}
                         />
-                        {error.pincode && <div className="errorContainer">Pincode is required</div>}
-                    </div>
+                        {error.pincode && <div className="errorContainer">{error.pincode}</div>}
+                </div>
                     <div className="form-group col-md-12">
                         <label>
                             State
@@ -357,7 +378,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                     </div>
                     <div className="form-group col-md-12 text-right mb-0">
                         <button className="btn square w-100 rounded-0" disabled={isSumbitting} onClick={handleSubmit}>
-                            Save Address
+                            {isSumbitting?'Please Wait...':'Save Address'}
                         </button>
                     </div>
                 </div>
