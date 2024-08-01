@@ -5,20 +5,19 @@ import Link from "next/link";
 function About() {
     return (
         <>
-            <Layout parent="Home" sub="Media and Press Release" subChild="">
+            <Layout parent="Home" sub="Blogs" subChild="">
                 <section className="section-padding">
                     <div className="container pt-25">
                         <div className="row">
                             <div className="col-lg-6 align-self-center mb-lg-0 mb-4">
                                 <h6 className="mt-0 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
-                                Media and Press Releases
+                                Media and Blogs
                                 </h6>
                                 <h1 className="font-heading mb-40">
-                                Welcome to Our Media Center
-
+                                Welcome to Our Blog
                                 </h1>
                                 <p>
-                                This is where you can find the latest news, announcements, and information about our company. Check back regularly for updates and insights into our products, services, and industry.
+                                Welcome to our Blog, your ultimate destination for the latest news, insights, and updates from our company. Here, you can explore a wealth of information about our products, services, and the industry at large. We invite you to visit regularly for fresh content that informs and inspires.
                                 </p>
                                 <p>
                                     Tempus ultricies augue luctus et ut

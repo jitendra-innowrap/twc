@@ -11,6 +11,8 @@ import Link from "next/link";
 import RentalCategory from "../components/ecommerce/Home/RentalCategory";
 import RentalCollection from "../components/ecommerce/Home/RentalCollection";
 import Preloader from "../components/elements/Preloader";
+import CategoryThumbSlider from "../components/sliders/CategoryThumbSlider";
+import { BsArrowRight } from "react-icons/bs";
 
 
 export default function Home() {
@@ -46,11 +48,11 @@ export default function Home() {
                 </section>
 
                 <section className="popular-categories section-padding mt-md-3 mb-md-4">
-                    <div className="container wow fadeIn animated">
+                    <div className="container wow fadeIn animated position-relative">
                         <h3 className="section-title text-center mb-20 title-underline">
-                            Browse Events Category
+                        Men's Rental Wear
                         </h3>
-                        <div className="carausel-6-columns-cover position-relative">
+                        <div className="carausel-6-columns-cover">
                             <div
                                 className=""
                                 id="carausel-6-columns"
@@ -83,8 +85,9 @@ export default function Home() {
                                                     `}>Consult Event Expert</a></button>
                             </div>
                         </div>
-                        <div className="events-collection-grid">
-                            {
+                        <div className="events-collection-slider">
+                            <CategoryThumbSlider data={data?.events_collections} />
+                            {/* {
                                 data?.events_collections.map((event,i)=>(
                                 <Link href={`/collection/${event.collection_handle}`} key={event.collection_mapping_id}>
                                     <div className="events-collection-card wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0">
@@ -102,12 +105,12 @@ export default function Home() {
                                 </Link>
 
                                 ))
-                            }
+                            } */}
                         </div>
                     </div>
                 </section>
 
-                <section className="section-padding pt-50">
+                {/* <section className="section-padding pt-50">
                     <div className="container">
                         <div className="head d-flex justify-content-center align-items-end mb-md-50">
                             <div className="left">
@@ -121,7 +124,7 @@ export default function Home() {
                             <BrandSlider />
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 {/* <section className="section-padding success-stories-section">
 
@@ -140,11 +143,81 @@ export default function Home() {
 
                 <section className="section-padding usp-section">
 
+                <div className="container">
+                    <div className="head d-flex justify-content-between align-items-start mb-50">
+                        <div className="left">
+                            <h3 className="section-title title-rightline">
+                            Blogs
+                            </h3>
+                            <p className="fw-bold mt-20">Find everything you need to make your events a success!</p>
+                            <p className="lh-1">Whether it’s event equipment rental or corporate event supplies,</p>
+                            <p className="lh-1">enjoy end-to-end solutions from ideas all the way to execution</p>
+                        </div>
+                        <div className="right">
+                            <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} 
+                            href={`/blogs`}>View All</a></button>
+                        </div>
+                    </div>
+                    <div class="row loop-grid">
+                            <div class="col-lg-4">
+                                <article class="wow fadeIn animated hover-up">
+                                    <div class="post-thumb img-hover-scale">
+                                        <a href="/media-post"><img src="/assets/imgs/blog/blog-6.jpg" alt="" /></a>
+
+                                    </div>
+                                    <div class="entry-content-2">
+                                        <h3 class="post-title mb-15"><a href="/media-post">New Launches Solution for Streamlining Operations</a></h3>
+                                        <p class="post-exerpt mb-30">Today, we are excited to announce the launch of our latest enterprise software package designed to help large organizations optimize workflows and boost productivity.</p>
+                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
+                                            <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
+                                            <a href="/media-post">Read more <BsArrowRight /></a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="col-lg-4">
+                                <article class="wow fadeIn animated hover-up">
+                                    <div class="post-thumb img-hover-scale">
+                                        <a href="/media-post"><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
+
+                                    </div>
+                                    <div class="entry-content-2">
+                                        <h3 class="post-title mb-15"><a href="/media-post">CEO Named One of the Top 50 Tech Leaders</a></h3>
+                                        <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
+                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
+                                            <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
+                                            <a href="/media-post">Read more <BsArrowRight /></a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="col-lg-4">
+                                <article class="wow fadeIn animated hover-up">
+                                    <div class="post-thumb img-hover-scale">
+                                        <a href="/media-post"><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
+
+                                    </div>
+                                    <div class="entry-content-2">
+                                        <h3 class="post-title mb-15"><a href="/media-post">Company Earns ISO 27001 Certification for Information Security</a></h3>
+                                        <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
+                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
+                                            <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
+                                            <a href="/media-post">Read more <BsArrowRight /></a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                </div>
+                </section>
+
+                <section className="section-padding usp-section">
+
                     <div className="container pt-md-5 pb-25">
                         <div className="head d-flex justify-content-between align-items-start mb-50">
                             <div className="left">
                                 <h3 className="section-title title-rightline">
-                                Why Choose Party House
+                                Why Choose The Party Cafe
                                 </h3>
                                 <p className="fw-bold mt-20">Find everything you need to make your events a success!</p>
                                 <p className="lh-1">Whether it’s event equipment rental or corporate event supplies,</p>
@@ -152,7 +225,7 @@ export default function Home() {
                             </div>
                             <div className="right">
                                 <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
-                                                    `}>Consult Event Expert</a></button>
+                                                    `}>Consult Our Expert</a></button>
                             </div>
                         </div>
                         <div className="usp-icons-grid position-relative wow fadeIn animated">
