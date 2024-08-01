@@ -12,7 +12,7 @@ export default function RentalCategory({forHer, forHim}) {
     return (
         <div className="container wow fadeIn animated">
             <h3 className="section-title text-center mb-20 title-underline">
-                Browse Rental Category
+                Women's Rental Wear
             </h3>
             <div className="mt-md-5">
                 <div className="rental-category">

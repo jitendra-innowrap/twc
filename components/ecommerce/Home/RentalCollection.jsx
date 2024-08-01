@@ -1,5 +1,7 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { FaArrowRight } from 'react-icons/fa'
 
 export default function RentalCollection({data}) {
     let rentalCollectionData = {
@@ -50,11 +52,11 @@ export default function RentalCollection({data}) {
     }
 
     return (
-        <div className="container wow fadeIn animated">
+        <div className="wow fadeIn animated">
             <h3 className="section-title text-center mb-20 title-underline">
                 Browse Rental Collections
             </h3>
-            <div className="rental-banner mt-15 mt-md-5">
+            {/* <div className="rental-banner mt-15 mt-md-5">
                 <div
                     className="rental-category-card-full image-press wow fadeIn animated"
                 >
@@ -62,8 +64,8 @@ export default function RentalCollection({data}) {
                     <img src={rentalCollectionData.banner.image} alt={rentalCollectionData.banner.title} />
                     </Link>
                 </div>
-            </div>
-            <div className="rental-collection-grid mt-20">
+            </div> */}
+            {/* <div className="rental-collection-grid mt-20">
                 {
                     rentalCollectionData.grid.map((collection)=>(
                         <div key={collection.id}
@@ -76,6 +78,38 @@ export default function RentalCollection({data}) {
                         
                     ))
                 }
+            </div> */}
+            <div className="overlay-grid-banner">
+                <div className="overlay-image">
+                    <div className="img-wrapper">
+                        <div className="img"style={{
+                    backgroundImage: `url(${rentalCollectionData.banner.image})`}}></div>
+                    </div>
+                </div>
+                <div className="d-flex container">
+                    <div className="left-content col-6 px-5">
+                        <div className="title">Women's Rentals</div>
+                        <p>A Spectacular assortment of <br></br>
+                        minimal yet alluring styles</p>
+                        <Link href={`/collection/${rentalCollectionData.banner.handle}`}>
+                            <div className="collection-btn">Shop Now <span><FaArrowRight /></span></div>
+                        </Link>
+                    </div>
+                    <div className="right-grid col-6 px-5">
+                        {
+                            rentalCollectionData.grid.slice(0,4).map((collection)=>(
+                                <div key={collection.id}
+                                    className="right-grid-overlay cursor_pointer wow fadeIn animated"
+                                >
+                                <Link href={`/collection/${collection.handle}`}>
+                                    <img src={collection.image} alt={collection.title} />
+                                </Link>
+                                </div>
+                                
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )
