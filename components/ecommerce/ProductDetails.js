@@ -1,6 +1,5 @@
     import Link from "next/link";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Bounce, toast } from "react-toastify";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
@@ -405,8 +404,8 @@ useEffect(() => {
                                                             )
                                                         }
                                                     >
-                                                        {isInWishlist?<FaHeart fill="#088178" />
-                                                        :<FaRegHeart fill="#088178" />}
+                                                        {isInWishlist?<FaHeart fill="var(--tpc-theme-primary)" />
+                                                        :<FaRegHeart fill="var(--tpc-theme-primary)" />}
                                                     </a>
                                                 </div>
                                             </div>
@@ -458,8 +457,8 @@ useEffect(() => {
                                                         )
                                                     }
                                                 >
-                                                    {isInWishlist ? <FaHeart fill="#088178" />
-                                                        : <FaRegHeart fill="#088178" />} Add To Wishlist
+                                                    {isInWishlist ? <FaHeart fill="var(--tpc-theme-primary)" />
+                                                        : <FaRegHeart fill="var(--tpc-theme-primary)" />} Add To Wishlist
                                                 </a>
                                             </div>
                                         </div>

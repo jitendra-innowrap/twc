@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getOrderDetails, getOrderList } from '../../../../util/api';
 import Link from 'next/link';
-import Lottie from "lottie-web";
-import success from "../../../../public/assets/Lottie/no-orders.json"
 import Pagination1 from "../../../../components/ecommerce/Pagination";
 
 import { getDateFromString } from '../../../../util/util';
+import EmptyBookAnimation from '../EmptyBookAnimation';
 export default function index() {
     const [orderList, setOrderList] = useState([]);
     const [pageNo, setPageNo] = useState(1);
@@ -13,17 +12,6 @@ export default function index() {
     let [pages, setPages] = useState();
     const [isLoading, setIsLoading] = useState(true);
     let [pagination, setPagination] = useState([]);
-
-    useEffect(() => {
-        Lottie.loadAnimation({
-          container: document.getElementById('animation'),
-          animationData: success,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-        });
-      }, []);
-
     let showLimit = 10,
         showPagination = 4;
     let start = Math.floor((pageNo - 1) / showPagination) * showPagination;
@@ -86,7 +74,7 @@ export default function index() {
                     !orderList?.length>0?
                     (
                         <div className="order-sucess-container mb-20" style={{boxShadow:'none'}}>
-                            <div id="animation" style={{ width: 200, height: 200 , marginInline:"auto"}} />
+                            <EmptyBookAnimation />
                             <h1 className="mb-20">No Orders Yet!</h1>
                             <p className="mb-20">Your Orders Will Appear here.</p>
                             <div className="actions">

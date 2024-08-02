@@ -3,90 +3,14 @@ import Popup from 'reactjs-popup';
 import AddAddress from './AddAddress';
 import EditAddress from './EditAddress';
 import { deleteAddress, editAddress, getAddressList } from '../../../../util/api';
-import Lottie from "lottie-web";
-import success from "../../../../public/assets/Lottie/no-orders.json"
-import Link from 'next/link';
-const dummyAddresses = [
-    {
-      id: "1",
-      name: "John Doe",
-      mobile: "1234567890",
-      addressLine1: "3522 Interstate",
-      addressLine2: "75 Business Spur",
-      landmark: "Sault Ste. Marie",
-      pincode: "49783",
-      state: "MI",
-      city: "Sault Ste. Marie",
-      addressType: "home",
-      isDefault: true,
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      mobile: "2345678901",
-      addressLine1: "123 Main St",
-      addressLine2: "Anytown, USA",
-      landmark: "Corner of Main and Elm",
-      pincode: "12345",
-      state: "CA",
-      city: "Anytown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "3",
-      name: "Bob Johnson",
-      mobile: "3456789012",
-      addressLine1: "456 Elm St",
-      addressLine2: "Othertown, USA",
-      landmark: "Elm and Oak",
-      pincode: "67890",
-      state: "NY",
-      city: "Othertown",
-      addressType: "home",
-      isDefault: false,
-    },
-    {
-      id: "4",
-      name: "Alice Brown",
-      mobile: "4567890123",
-      addressLine1: "789 Oak St",
-      addressLine2: "Thistown, USA",
-      landmark: "Oak and Maple",
-      pincode: "34567",
-      state: "TX",
-      city: "Thistown",
-      addressType: "office",
-      isDefault: false,
-    },
-    {
-      id: "5",
-      name: "Charlie Davis",
-      mobile: "5678901234",
-      addressLine1: "901 Maple St",
-      addressLine2: "Thattown, USA",
-      landmark: "Maple and Pine",
-      pincode: "90123",
-      state: "FL",
-      city: "Thattown",
-      addressType: "home",
-      isDefault: false,
-    },
-  ];
+import EmptyBookAnimation from '../EmptyBookAnimation';
+
   
 export default function index() {
     const [expanded, setExpanded] = useState(0);
     const [addressList, setAddressList] = useState([]);
     const [isLoading, setisLoading] = useState(true);
-    useEffect(() => {
-        Lottie.loadAnimation({
-          container: document.getElementById('animation'),
-          animationData: success,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-        });
-      }, []);
+    
     useEffect(() => {
       fetchAddressList();
     }, [])
@@ -168,10 +92,9 @@ export default function index() {
                     !addressList?.length>0?
                     (
                         <div className="order-sucess-container mb-20" style={{boxShadow:'none'}}>
-                            <div id="animation" style={{ width: 200, height: 200 , marginInline:"auto"}} />
+                            <EmptyBookAnimation />
                             <h1 className="mb-20">No Saved Address!</h1>
                             <p className="mb-20">Click On Add New Button to Add.</p>
-                            
                         </div>
                     ):
                     <div className="address_list">

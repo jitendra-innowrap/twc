@@ -33,7 +33,7 @@ export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', as
   console.log('response from thunk remove', response.data)
   toast.success("Removed from Cart!", {
     position: "bottom-center",
-    autoClose: 1500,
+    autoClose: 15000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
