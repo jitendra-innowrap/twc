@@ -46,7 +46,7 @@ const Footer = () => {
                                     <div className="logo logo-width-1 wow fadeIn animated">
                                         <Link href="/"><a>
                                             <img
-                                                src="/assets/imgs/theme/the-party-cafe-logo.png"
+                                                src="/assets/imgs/theme/the-party-cafe-icon.png"
                                                 alt="logo"
                                             />
                                         </a>

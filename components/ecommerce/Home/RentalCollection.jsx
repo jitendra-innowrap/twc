@@ -54,7 +54,7 @@ export default function RentalCollection({data}) {
     return (
         <div className="wow fadeIn animated">
             <h3 className="section-title text-center mb-20 title-underline">
-                Browse Rental Collections
+                Women's Rental Wear
             </h3>
             {/* <div className="rental-banner mt-15 mt-md-5">
                 <div

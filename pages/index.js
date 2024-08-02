@@ -63,9 +63,9 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding mt-md-3 mb-md-4">
+                {/* <section className="section-padding mt-md-3 mb-md-4">
                     <RentalCategory forHim={data?.rental_2?.[0]} forHer={data?.rental_1?.[0]} />
-                </section>
+                </section> */}
 
                 <section className="section-padding mt-md-3 mb-md-4">
                     <RentalCollection data={data} />
