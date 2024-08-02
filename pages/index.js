@@ -63,9 +63,9 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="section-padding mt-md-3 mb-md-4">
+                {/* <section className="section-padding mt-md-3 mb-md-4">
                     <RentalCategory forHim={data?.rental_2?.[0]} forHer={data?.rental_1?.[0]} />
-                </section>
+                </section> */}
 
                 <section className="section-padding mt-md-3 mb-md-4">
                     <RentalCollection data={data} />
@@ -223,11 +223,15 @@ export default function Home() {
 
                                     </div>
                                     <div class="entry-content-2">
-                                        <h3 class="post-title mb-15"><a href="/media-post">New Launches Solution for Streamlining Operations</a></h3>
+                                        <h3 class="post-title mb-15">
+                                            <Link href={"/blogs//new-launches-solution-for-streamlining-operations"}>
+                                                <a>New Launches Solution for Streamlining Operations</a>
+                                            </Link>
+                                        </h3>
                                         <p class="post-exerpt mb-30">Today, we are excited to announce the launch of our latest enterprise software package designed to help large organizations optimize workflows and boost productivity.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <a className="post-link" href="/media-post">Read more <BsArrowRight /></a>
+                                            <Link className="post-link" href="/blogs/new-launches-solution-for-streamlining-operations"><a>Read more <BsArrowRight /></a></Link>
                                         </div>
                                     </div>
                                 </article>
@@ -239,11 +243,15 @@ export default function Home() {
 
                                     </div>
                                     <div class="entry-content-2">
-                                        <h3 class="post-title mb-15"><a href="/media-post">CEO Named One of the Top 50 Tech Leaders</a></h3>
+                                        <h3 class="post-title mb-15">
+                                            <Link href={"/blogs//ceo-named-one-of-the-top-50-tech-leaders"}>
+                                                <a>CEO Named One of the Top 50 Tech Leaders</a>
+                                            </Link>
+                                        </h3>
                                         <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <a className="post-link" href="/media-post">Read more <BsArrowRight /></a>
+                                            <Link className="post-link" href="/blogs/ceo-named-one-of-the-top-50-tech-leaders"><a>Read more <BsArrowRight /></a></Link>
                                         </div>
                                     </div>
                                 </article>
@@ -251,7 +259,9 @@ export default function Home() {
                             <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
-                                        <a href="/media-post"><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
+                                        <Link href="/blogs/company-earns-iso-27001-certification-for-information-security">
+                                            <a><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
+                                        </Link>
 
                                     </div>
                                     <div class="entry-content-2">
@@ -259,7 +269,7 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <a className="post-link" href="/media-post">Read more <BsArrowRight /></a>
+                                            <Link className="post-link" href="/blogs/company-earns-iso-27001-certification-for-information-security"><a>Read more <BsArrowRight /></a></Link>
                                         </div>
                                     </div>
                                 </article>
