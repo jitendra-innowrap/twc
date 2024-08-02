@@ -140,8 +140,65 @@ export default function Home() {
                         <FeatchTab2 data={data?.success_story} />
                     </div>
                 </section> */}
+                <section className="section-padding usp-section packages-section">
+                    <div className="container">
+                        <h3 className="section-title text-center mb-20 title-underline">
+                            Browse Packages
+                        </h3>
+                        <div className="row packages-grid-layout">
+                            <div className="column-1 col-12 col-md-6 h-md-100">
+                                <div className=" block block-1">
+                                    <Image 
+                                        src="/assets/imgs/shop/wedding venue-3.jpg"
+                                        layout="fill"
+                                        quality={100}
+                                        className="position-absolute"
+                                    />
+                                </div>
+                            </div>
+                            <div className="column-2 col-6 col-md-3 h-md-100">
+                                <div className=" block block-2">
+                                    <Image 
+                                        src="/assets/imgs/shop/wedding stage decor-1.jpg"
+                                        layout="fill"
+                                        quality={100}
+                                        className="position-absolute"
+                                    />
+                                </div>
+                                <div className=" block block-3">
+                                    <Image 
+                                        src="/assets/imgs/shop/wedding stage decor-3.jpg"
+                                        layout="fill"
+                                        quality={100}
+                                        className="position-absolute"
+                                    />
+                                </div>
+                            </div>
+                            <div className="column-3 col-6 col-md-3 h-md-100">
+                                <div className=" block block-4">
+                                    <Image 
+                                        src="/assets/imgs/shop/wedding venue-1.jpg"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        quality={100}
+                                        objectPosition="center"
+                                        className="position-absolute"
+                                    />
+                                </div>
+                                <div className=" block block-5">
+                                    <Image 
+                                        src="/assets/imgs/shop/wedding venue-2.jpg"
+                                        layout="fill"
+                                        quality={100}
+                                        className="position-absolute"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                <section className="section-padding usp-section">
+                <section className="section-padding usp-section blog-section pb-0">
 
                 <div className="container">
                     <div className="head d-flex justify-content-between align-items-start mb-50">
@@ -159,7 +216,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div class="row loop-grid">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
                                         <a href="/media-post"><img src="/assets/imgs/blog/blog-6.jpg" alt="" /></a>
@@ -170,12 +227,12 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">Today, we are excited to announce the launch of our latest enterprise software package designed to help large organizations optimize workflows and boost productivity.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <a href="/media-post">Read more <BsArrowRight /></a>
+                                            <a className="post-link" href="/media-post">Read more <BsArrowRight /></a>
                                         </div>
                                     </div>
                                 </article>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
                                         <a href="/media-post"><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
@@ -186,12 +243,12 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <a href="/media-post">Read more <BsArrowRight /></a>
+                                            <a className="post-link" href="/media-post">Read more <BsArrowRight /></a>
                                         </div>
                                     </div>
                                 </article>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
                                         <a href="/media-post"><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
@@ -202,7 +259,7 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <a href="/media-post">Read more <BsArrowRight /></a>
+                                            <a className="post-link" href="/media-post">Read more <BsArrowRight /></a>
                                         </div>
                                     </div>
                                 </article>

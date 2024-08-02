@@ -12673,6 +12673,64 @@ input[type="checkbox"]:hover{
 .overlay-grid-banner .left-content .collection-btn span{
   margin-left: 5px;
 }
+
+/**************** Packages Section *******************/
+
+.packages-section{
+
+}
+
+.packages-section .packages-grid-layout{
+  height: calc( 100vh - 150px);
+  max-height: 580px;
+}
+.packages-section .packages-grid-layout .block{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: gray;
+}
+.packages-section .packages-grid-layout .block-1{
+  height: 100%;
+}
+.packages-section .packages-grid-layout .column-2,.packages-section .packages-grid-layout .column-3{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.packages-section .block-2{
+  flex: 1;
+}
+.packages-section .block-3{
+  flex: 2;
+}
+.packages-section .block-4{
+  flex: 2;
+}
+.packages-section .block-5{
+  flex: 1;
+}
+
+.blog-section .post-title a{
+  font-size: 20px;
+  display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.blog-section .post-exerpt{
+  display: -webkit-box;
+    -webkit-line-clamp: 4; /* Number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.blog-section .post-link{
+  text-wrap: nowrap;
+}
+
 /* setup tooltips */
 .tooltip-info {
   position: relative;
@@ -12747,6 +12805,12 @@ input[type="checkbox"]:hover{
 }
 }
 @media (max-width:768px){
+  .blog-section{
+    padding-bottom: 25px !important;
+  }
+  .blog-section .loop-grid{
+    margin-bottom: 50px;
+  }
   .rental-collection-grid{
     grid-template-columns: 1fr 1fr ;
   }
@@ -12819,6 +12883,17 @@ input[type="checkbox"]:hover{
 .attr-date .react-datepicker__triangle{
   left: 67px !important;
 }
+.packages-section .packages-grid-layout .column-1{
+  margin-bottom: 25px;
+}
+.packages-section .packages-grid-layout .column-2, .packages-section .packages-grid-layout .column-3 {
+  gap: 25px;
+}
+.packages-section .packages-grid-layout {
+  height: calc(100vh - 100px);
+  max-height: unset;
+}
+
 }
 .detail-extralink.mobile-buttons-style{
   display: none;
@@ -13576,10 +13651,12 @@ main.login_page{
   font-size: 32px;
   margin-bottom: 30px;
 }
+
 }
 
 
 @media only screen and (max-width: 768px) {
+  
   .dashboard-menu{
     margin-bottom: 40px;
   }
@@ -13621,6 +13698,9 @@ main.login_page{
 }
 .overlay-grid-banner .left-content, .overlay-grid-banner .right-grid{
   padding-inline: 0 !important;
+}
+.post-title a{
+  font-size: 18px;
 }
 }
 
@@ -13786,6 +13866,10 @@ p{
 }
 .newsletter{
   padding-inline: 0px !important;
+}
+
+.collection-thumb h5{
+  font-size: 16px;
 }
 }
 
