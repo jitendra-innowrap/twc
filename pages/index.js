@@ -219,8 +219,9 @@ export default function Home() {
                             <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
-                                        <a href="/media-post"><img src="/assets/imgs/blog/blog1.png" alt="" /></a>
-
+                                        <Link href={"/blogs/the-biggest-wedding-trends-for-2025"}>
+                                            <a><img src="/assets/imgs/blog/blog1.png" alt="" /></a>
+                                        </Link>
                                     </div>
                                     <div class="entry-content-2">
                                         <h3 class="post-title mb-15">
@@ -239,8 +240,9 @@ export default function Home() {
                             <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
-                                        <a href="/media-post"><img src="/assets/imgs/blog/blog2.png" alt="" /></a>
-
+                                        <Link href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow">
+                                            <a><img src="/assets/imgs/blog/blog2.png" alt="" /></a>
+                                        </Link>
                                     </div>
                                     <div class="entry-content-2">
                                         <h3 class="post-title mb-15">
@@ -265,7 +267,12 @@ export default function Home() {
 
                                     </div>
                                     <div class="entry-content-2">
-                                        <h3 class="post-title mb-15"><a href="/media-post">Reasons Why Should Brides RENT Their Lehengas & Not Buy Them</a></h3>
+                                        <h3 class="post-title mb-15">
+                                            <a href="/media-post"></a>
+                                            <Link href={"/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them"}>
+                                                <a>Reasons Why Should Brides RENT Their Lehengas & Not Buy Them</a>
+                                            </Link>
+                                        </h3>
                                         <p class="post-exerpt mb-30">All we know is that brides have their dream of having a beautiful lehenga at their wedding. Most brides prefer designer lehengas for their wedding. Many brides spend a lot.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
