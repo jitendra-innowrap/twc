@@ -12460,9 +12460,16 @@ input[type="checkbox"]:hover{
 }
 .collection-thumb p{
   font-size: 18px;
+  display: -webkit-box;
+    -webkit-line-clamp: 8; /* Number of lines */
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .collection-thumb h5{
   font-size: 52px;
+  margin-top: 20px;
   text-transform: uppercase;
 }
 .collection-thumb .collection_thumb_right img{
@@ -12483,7 +12490,8 @@ input[type="checkbox"]:hover{
   width: 100%;
 }
 .events-collection-slider .card-1 h5{
-  text-align: right;
+  text-align: left;
+  cursor: pointer;
 }
 .rental-category{
   display: flex;
@@ -12756,6 +12764,7 @@ input[type="checkbox"]:hover{
   display: -webkit-box;
     -webkit-line-clamp: 2; /* Number of lines */
     -webkit-box-orient: vertical;
+    line-height: 1.5;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -12825,6 +12834,15 @@ input[type="checkbox"]:hover{
 @media (max-width:1280px){
   h3.section-title {
     font-size: 28px;
+}
+.collection-thumb p {
+  font-size: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .title-underline {
@@ -13503,6 +13521,15 @@ main.login_page{
 
 
 @media only screen and (max-width: 992px) {
+  .collection-thumb p {
+    font-size: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
   .logo.logo-width-1 a img{
     min-width: unset;
     width: 80px;
@@ -13695,7 +13722,15 @@ main.login_page{
 
 
 @media only screen and (max-width: 768px) {
-  
+  .collection-thumb p {
+    font-size: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
   .dashboard-menu{
     margin-bottom: 40px;
   }
@@ -13747,6 +13782,7 @@ main.login_page{
   h3.section-title {
     font-size: 14px;
 }
+
 .collection-slider-container .card-1{
   width: 100% !important;
 }
@@ -13907,9 +13943,20 @@ p{
   padding-inline: 0px !important;
 }
 
-.collection-thumb h5{
-  font-size: 16px;
+.collection-thumb p {
+  font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+.collection-thumb h5{
+  font-size: 14px;
+  margin-top: 10px;
+}
+
 }
 
 .itemComponents-base-sellerContainer .from-to-date-mobile{

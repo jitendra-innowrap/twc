@@ -30,9 +30,9 @@ const CategorySlider = ({data}) => {
             >
             {data?.map((item, i) => (
                  <SwiperSlide key={item.collection_mapping_id} className="card-1-slide">
-                     <div className="card-1">
-                         <figure className=" img-hover-scale overflow-hidden">
                             <Link draggable='false' href={`/collection/${item.collection_handle}`}>
+                     <div className="card-1 cursor_pointer">
+                         <figure className=" img-hover-scale overflow-hidden">
                                  <a draggable='false' className="w-100">
                                      <img
                                         draggable='false'
@@ -41,12 +41,12 @@ const CategorySlider = ({data}) => {
                                          alt={item.title}
                                      />
                                  </a>
-                             </Link>
                          </figure>
                          <h5>
                          {item.title}
                          </h5>
                      </div>
+                             </Link>
                  </SwiperSlide>
              ))}
             </Swiper>
