@@ -547,7 +547,7 @@ input[type=number]:focus,
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--tpc-theme-primary); /* Color for the custom scrollbar thumb */
+  background-color: red; /* Color for the custom scrollbar thumb */
   border-radius: 8px; /* Rounded corners for the thumb */
 }
 
