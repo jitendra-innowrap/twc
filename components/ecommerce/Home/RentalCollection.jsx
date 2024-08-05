@@ -83,7 +83,7 @@ export default function RentalCollection({data}) {
                 <div className="overlay-image">
                     <div className="img-wrapper">
                         <div className="img"style={{
-                    backgroundImage: `url(${rentalCollectionData.banner.image})`}}></div>
+                    backgroundImage: `url('${rentalCollectionData.banner.image}')`}}></div>
                     </div>
                 </div>
                 <div className="d-flex container">
