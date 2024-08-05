@@ -22,7 +22,7 @@ const Intro1 = ({data}) => {
                     <SwiperSlide key={banner}>
                                 <Link href={banner.redirect_url}>
                                         <img
-                                            className="animated slider-1-1"
+                                            className="animated slider-1-1 cursor_pointer"
                                             src={banner.image}
                                             alt={banner.title}
                                             />

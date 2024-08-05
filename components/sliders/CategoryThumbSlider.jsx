@@ -94,9 +94,9 @@ const CategoryThumbSlider = ({data}) => {
             >
             {data?.map((item, i) => (
                  <SwiperSlide key={item.collection_mapping_id} className="">
+                            <Link href={`/collection/${item.collection_handle}`}>
                      <div className="card-1">
                          <figure className=" img-hover-scale overflow-hidden">
-                            <Link href={`/collection/${item.collection_handle}`}>
                                  <a>
                                      <img
                                          src={item.collection_image}
@@ -104,12 +104,12 @@ const CategoryThumbSlider = ({data}) => {
                                          alt={item.title}
                                      />
                                  </a>
-                             </Link>
                          </figure>
                          <h5>
                          {item.title}
                          </h5>
                      </div>
+                             </Link>
                  </SwiperSlide>
              ))}
             </Swiper>

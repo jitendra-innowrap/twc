@@ -12483,7 +12483,8 @@ input[type="checkbox"]:hover{
   width: 100%;
 }
 .events-collection-slider .card-1 h5{
-  text-align: right;
+  text-align: left;
+  cursor: pointer;
 }
 .rental-category{
   display: flex;
@@ -12756,6 +12757,7 @@ input[type="checkbox"]:hover{
   display: -webkit-box;
     -webkit-line-clamp: 2; /* Number of lines */
     -webkit-box-orient: vertical;
+    line-height: 1.5;
     overflow: hidden;
     text-overflow: ellipsis;
 }

@@ -219,19 +219,19 @@ export default function Home() {
                             <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
-                                        <a href="/media-post"><img src="/assets/imgs/blog/blog-6.jpg" alt="" /></a>
+                                        <a href="/media-post"><img src="/assets/imgs/blog/blog1.png" alt="" /></a>
 
                                     </div>
                                     <div class="entry-content-2">
                                         <h3 class="post-title mb-15">
-                                            <Link href={"/blogs//new-launches-solution-for-streamlining-operations"}>
-                                                <a>New Launches Solution for Streamlining Operations</a>
+                                            <Link href={"/blogs/the-biggest-wedding-trends-for-2025"}>
+                                                <a>The Biggest Wedding Trends for 2025</a>
                                             </Link>
                                         </h3>
-                                        <p class="post-exerpt mb-30">Today, we are excited to announce the launch of our latest enterprise software package designed to help large organizations optimize workflows and boost productivity.</p>
+                                        <p class="post-exerpt mb-30">Planning a wedding in 2025? The wedding landscape is constantly evolving, and next year promises some exciting trends that cater to modern couples' desires for personalization, sustainability, and unique experiences.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <Link className="post-link" href="/blogs/new-launches-solution-for-streamlining-operations"><a>Read more <BsArrowRight /></a></Link>
+                                            <Link className="post-link" href="/blogs/the-biggest-wedding-trends-for-2025"><a>Read more <BsArrowRight /></a></Link>
                                         </div>
                                     </div>
                                 </article>
@@ -239,19 +239,19 @@ export default function Home() {
                             <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
-                                        <a href="/media-post"><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
+                                        <a href="/media-post"><img src="/assets/imgs/blog/blog2.png" alt="" /></a>
 
                                     </div>
                                     <div class="entry-content-2">
                                         <h3 class="post-title mb-15">
-                                            <Link href={"/blogs//ceo-named-one-of-the-top-50-tech-leaders"}>
-                                                <a>CEO Named One of the Top 50 Tech Leaders</a>
+                                            <Link href={"/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow"}>
+                                                <a>The Ultimate Guide to Choosing the Perfect Event Planner in Mumbai</a>
                                             </Link>
                                         </h3>
-                                        <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
+                                        <p class="post-exerpt mb-30">Indians love weddings, celebrated with joy, laughter, and a lot of fun. They are not just the union of two individuals but also a coming together of two families.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <Link className="post-link" href="/blogs/ceo-named-one-of-the-top-50-tech-leaders"><a>Read more <BsArrowRight /></a></Link>
+                                            <Link className="post-link" href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow"><a>Read more <BsArrowRight /></a></Link>
                                         </div>
                                     </div>
                                 </article>
@@ -259,17 +259,17 @@ export default function Home() {
                             <div class="col-lg-4 mb-4">
                                 <article class="wow fadeIn animated hover-up">
                                     <div class="post-thumb img-hover-scale">
-                                        <Link href="/blogs/company-earns-iso-27001-certification-for-information-security">
-                                            <a><img src="/assets/imgs/blog/blog-3.jpg" alt="" /></a>
+                                        <Link href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them">
+                                            <a><img src="/assets/imgs/blog/blog4.png" alt="" /></a>
                                         </Link>
 
                                     </div>
                                     <div class="entry-content-2">
-                                        <h3 class="post-title mb-15"><a href="/media-post">Company Earns ISO 27001 Certification for Information Security</a></h3>
-                                        <p class="post-exerpt mb-30">We are proud to announce that we have successfully completed the rigorous certification process for ISO 27001, the international standard for information security management systems.</p>
+                                        <h3 class="post-title mb-15"><a href="/media-post">Reasons Why Should Brides RENT Their Lehengas & Not Buy Them</a></h3>
+                                        <p class="post-exerpt mb-30">All we know is that brides have their dream of having a beautiful lehenga at their wedding. Most brides prefer designer lehengas for their wedding. Many brides spend a lot.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <Link className="post-link" href="/blogs/company-earns-iso-27001-certification-for-information-security"><a>Read more <BsArrowRight /></a></Link>
+                                            <Link className="post-link" href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them"><a>Read more <BsArrowRight /></a></Link>
                                         </div>
                                     </div>
                                 </article>
