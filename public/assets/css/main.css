@@ -1915,9 +1915,10 @@ label {
 }
 
 .hero-slider-1 img {
-  max-height: calc(100vh - 200px);
+  /* max-height: calc(100vh - 126px); */
   width: 100%;
-    object-fit: cover;
+  object-fit: cover;
+  object-position: top;
 }
 
 .hero-slider-1 .single-slider-img-1 {
