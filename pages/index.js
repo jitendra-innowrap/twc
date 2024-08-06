@@ -149,10 +149,13 @@ export default function Home() {
                             <div className="column-1 col-12 col-md-6 h-md-100">
                                 <div className=" block block-1">
                                     <Image 
-                                        src="/assets/imgs/shop/wedding venue-3.jpg"
+                                        src="/assets/imgs/shop/dj-packages.jpg"
+                                        // height={600}
+                                        // width={600}
                                         layout="fill"
+                                        objectFit="cover"
                                         quality={100}
-                                        className="position-absolute"
+                                        className=""
                                     />
                                 </div>
                             </div>
@@ -161,6 +164,7 @@ export default function Home() {
                                     <Image 
                                         src="/assets/imgs/shop/wedding stage decor-1.jpg"
                                         layout="fill"
+                                        objectFit="cover"
                                         quality={100}
                                         className="position-absolute"
                                     />
@@ -169,6 +173,7 @@ export default function Home() {
                                     <Image 
                                         src="/assets/imgs/shop/wedding stage decor-3.jpg"
                                         layout="fill"
+                                        objectFit="cover"
                                         quality={100}
                                         className="position-absolute"
                                     />
@@ -189,6 +194,7 @@ export default function Home() {
                                     <Image 
                                         src="/assets/imgs/shop/wedding venue-2.jpg"
                                         layout="fill"
+                                        objectFit="cover"
                                         quality={100}
                                         className="position-absolute"
                                     />

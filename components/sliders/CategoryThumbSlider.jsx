@@ -42,7 +42,7 @@ const CategoryThumbSlider = ({data}) => {
                     <div className="collection_thumb_right">
                         <img
                         //  src={item.collection_image}
-                            src="/assets/imgs/banner/event-thumb-1.png"
+                            src="/assets/imgs/banner/event-thumb-5.jpg"
                             // alt={item.title}
                         />
                     </div>
@@ -57,7 +57,7 @@ const CategoryThumbSlider = ({data}) => {
                         <div className="collection_thumb_right">
                             <img
                             //  src={item.collection_image}
-                            src="/assets/imgs/banner/event-thumb-2.png"
+                            src="/assets/imgs/banner/event-thumb-6.jpg"
                                 // alt={item.title}
                             />
                         </div>
@@ -72,7 +72,7 @@ const CategoryThumbSlider = ({data}) => {
                         <div className="collection_thumb_right">
                             <img
                             //  src={item.collection_image}
-                            src="/assets/imgs/banner/event-thumb-3.png"
+                            src="/assets/imgs/banner/event-thumb-7.jpg"
                                 // alt={item.title}
                             />
                         </div>
@@ -87,7 +87,7 @@ const CategoryThumbSlider = ({data}) => {
                         <div className="collection_thumb_right">
                             <img
                             //  src={item.collection_image}
-                            src="/assets/imgs/banner/event-thumb-4.png"
+                            src="/assets/imgs/banner/event-thumb-8.jpg"
                                 // alt={item.title}
                             />
                         </div>
@@ -97,7 +97,8 @@ const CategoryThumbSlider = ({data}) => {
             
         <div className="collection-slider-container position-relative">
         <Swiper
-                slidesPerView={isSmallPhone?2.2:isPhone?3.2:isTab?4:5}
+                // slidesPerView={isSmallPhone?2.2:isPhone?3.2:isTab?4:5}
+                slidesPerView="auto"
                 spaceBetween={15}
                 navigation={{
                     prevEl: ".custom_prev_ct1",
@@ -108,7 +109,7 @@ const CategoryThumbSlider = ({data}) => {
                 onSwiper={setThumbsSwiper}
             >
             {data?.map((item, i) => (
-                 <SwiperSlide key={item.collection_mapping_id} className="">
+                 <SwiperSlide key={item.collection_mapping_id} className="w-auto">
                             <Link href={`/collection/${item.collection_handle}`}>
                      <div className="card-1">
                          <figure className=" img-hover-scale overflow-hidden">
