@@ -150,12 +150,11 @@ export default function Home() {
                                 <div className=" block block-1">
                                     <Image 
                                         src="/assets/imgs/shop/dj-packages.jpg"
-                                        // height={600}
-                                        // width={600}
-                                        layout="fill"
+                                        height={636}
+                                        width={636}
+                                        // layout="fill"
                                         objectFit="cover"
-                                        quality={100}
-                                        className=""
+                                        className="package-img"
                                     />
                                 </div>
                             </div>
@@ -163,19 +162,21 @@ export default function Home() {
                                 <div className=" block block-2">
                                     <Image 
                                         src="/assets/imgs/shop/wedding stage decor-1.jpg"
-                                        layout="fill"
+                                        height={202}
+                                        width={306}
+                                        // layout="fill"
                                         objectFit="cover"
-                                        quality={100}
-                                        className="position-absolute"
+                                        className="package-img"
                                     />
                                 </div>
                                 <div className=" block block-3">
                                     <Image 
                                         src="/assets/imgs/shop/wedding stage decor-3.jpg"
-                                        layout="fill"
+                                         height={404}
+                                        width={306}
+                                        // layout="fill"
                                         objectFit="cover"
-                                        quality={100}
-                                        className="position-absolute"
+                                        className="package-img"
                                     />
                                 </div>
                             </div>
@@ -183,20 +184,22 @@ export default function Home() {
                                 <div className=" block block-4">
                                     <Image 
                                         src="/assets/imgs/shop/wedding venue-1.jpg"
-                                        layout="fill"
+                                        height={202}
+                                        width={306}
+                                        // layout="fill"
                                         objectFit="cover"
-                                        quality={100}
                                         objectPosition="center"
-                                        className="position-absolute"
+                                        className="package-img"
                                     />
                                 </div>
                                 <div className=" block block-5">
                                     <Image 
                                         src="/assets/imgs/shop/wedding venue-2.jpg"
-                                        layout="fill"
+                                        height={404}
+                                        width={306}
+                                        // layout="fill"
                                         objectFit="cover"
-                                        quality={100}
-                                        className="position-absolute"
+                                        className="package-img"
                                     />
                                 </div>
                             </div>
@@ -297,11 +300,12 @@ export default function Home() {
                         <div className="head d-flex justify-content-between align-items-start mb-50">
                             <div className="left">
                                 <h3 className="section-title title-rightline">
-                                Why Choose The Party Cafe
+                                Why Choose The Party Cafe?
                                 </h3>
-                                <p className="fw-bold mt-20">Find everything you need to make your events a success!</p>
-                                <p className="lh-1">Whether it’s event equipment rental or corporate event supplies,</p>
-                                <p className="lh-1">enjoy end-to-end solutions from ideas all the way to execution</p>
+                                <p className="fw-bold mt-20 usp-desc">India's go-to destination for all things celebration. From weddings to corporate events, birthdays to festive gatherings, we've got you covered. Our vast 'menu' offers everything from stunning decorations to designer outfits, all available for rent.
+                                </p>
+                                <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event?
+                                </p>
                             </div>
                             <div className="right">
                                 <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
@@ -311,13 +315,17 @@ export default function Home() {
                         <div className="usp-icons-grid position-relative wow fadeIn animated">
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-1.svg'}
+                                    src={'/assets/imgs/usp/usp-5.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
-                                    alt="best price guanrantee"
+                                    alt="Convenience"
                                 />
-                                <h5>best price guanrantee</h5>
+                                <div className="usp-value">
+                                <h5>Convenience</h5>
+                                <p>Our one-stop-shop approach means you can find everything you need for your event in one place, saving you time and effort.
+                                </p>
+                                </div>
                             </div>
                             <div className="usp-card">
                                 <img
@@ -325,9 +333,13 @@ export default function Home() {
                                     width={160}
                                     height={120}
                                     className="image"
-                                    alt="Unlimited Supplies"
+                                    alt="Variety"
                                 />
-                                <h5>Unlimited Supplies</h5>
+                                <div className="usp-value">
+                                <h5>Variety</h5>
+                                <p>We offer an extensive range of high-quality items and services to suit various themes, styles, and budgets.
+                                </p>
+                                </div>
                             </div>
                             <div className="usp-card">
                                 <img
@@ -335,9 +347,42 @@ export default function Home() {
                                     width={160}
                                     height={120}
                                     className="image"
-                                    alt="Trusted Quality partners"
+                                    alt="Quality Assurance"
                                 />
-                                <h5>Trusted Quality partners</h5>
+                                <div className="usp-value">
+                                <h5>Quality Assurance</h5>
+                                <p>All our items and service providers are carefully vetted to ensure top-notch quality for your event.
+                                </p>
+                                </div>
+                            </div>
+                            <div className="usp-card">
+                                <img
+                                    src={'/assets/imgs/usp/usp-1.svg'}
+                                    width={160}
+                                    height={120}
+                                    className="image"
+                                    alt="Cost-Effective"
+                                />
+                                <div className="usp-value">
+                                <h5>Cost-Effective</h5>
+                                <p>Renting allows you to access premium items at a fraction of the cost of buying, helping you create a luxurious event within your budget.
+                                </p>
+                                </div>
+                            </div>
+                            <div className="usp-card">
+                                <img
+                                    src={'/assets/imgs/usp/usp-6.svg'}
+                                    width={160}
+                                    height={120}
+                                    className="image"
+                                    quality={100}
+                                    alt="Sustainability"
+                                />
+                                <div className="usp-value">
+                                <h5>Sustainability</h5>
+                                <p>By choosing to rent instead of buy, you're making an environmentally friendly choice, reducing waste from single-use party items.
+                                </p>
+                                </div>
                             </div>
                             <div className="usp-card">
                                 <img
@@ -345,20 +390,14 @@ export default function Home() {
                                     width={160}
                                     height={120}
                                     className="image"
-                                    alt="Fast Customer Service"
-                                />
-                                <h5>Fast Customer Service</h5>
-                            </div>
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp/usp-5.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
                                     quality={100}
-                                    alt="Quick Delivery"
+                                    alt="Customer Support"
                                 />
-                                <h5>Quick Delivery</h5>
+                                <div className="usp-value">
+                                <h5>Customer Support</h5>
+                                <p>Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
