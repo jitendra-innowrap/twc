@@ -43,7 +43,7 @@ const Footer = () => {
                             </div>
                             <div className="col-6 col-md-3 col-lg-2">
                                 <h5 className="widget-title wow fadeIn animated">
-                                    About
+                                    Quick Links
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-40">
                                     <li>
@@ -68,7 +68,7 @@ const Footer = () => {
                             </div>
                             <div className="col-6 col-md-3 col-lg-2">
                                 <h5 className="widget-title wow fadeIn animated">
-                                    My Account
+                                    Quick Links
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-40">
                                     <li>
@@ -88,7 +88,7 @@ const Footer = () => {
                             <div className=" col-lg-4">
                                 <div className="newsletter-title ">
                                 <h5 className="widget-title wow fadeIn animated">
-                                Sign up to Newsletter 
+                                Newsletter 
                                 </h5>
                                 <img
                                     className="icon-email"
@@ -101,22 +101,24 @@ const Footer = () => {
                                         <div className="col-12">
                                             <NewsletterFrom />
                                         </div>
-                                    <h5 className="mb-10 mt-30 fw-600 wow fadeIn animated">
+                                    <div className="d-grid justify-content-end">
+                                    <h5 className="mb-10 mt-30 fw-600 wow text-end fadeIn animated">
                                         Follow Us
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
                                         <a href="#">
-                                            <CiFacebook strokeWidth={0.7} size={18} color="#fff" />
+                                            <CiFacebook strokeWidth={0.7} size={25} color="#fff" />
                                         </a>
                                         <a href="#">
-                                            <FaXTwitter size={18} color="#fff" />
+                                            <FaXTwitter size={25} color="#fff" />
                                         </a>
                                         <a href="#">
-                                            <FaInstagram size={18} color="#fff"/>
+                                            <FaInstagram size={25} color="#fff"/>
                                         </a>
                                         <a href="#">
-                                            <FaWhatsapp size={18} color="#fff"/>
+                                            <FaWhatsapp size={25} color="#fff"/>
                                         </a>
+                                    </div>
                                     </div>
                                 </ul>
                             </div>
@@ -128,19 +130,14 @@ const Footer = () => {
                         <div className="col-12 mb-20">
                             <div className="footer-bottom"></div>
                         </div>
-                        <div className="col-lg-6">
-                            <p className="float-md-left font-sm mb-0">
+                        <div className="col-lg-12">
+                            <p className="float-md-left font-sm mb-0 text-center">
                             Copyright &copy; {new Date().getFullYear()},
                                 <strong className="text-primary-light-1"> The Party Cafe</strong> . All Rights Reserved
                             </p>
                              
                         </div>
-                        <div className="col-lg-6">
-                            <p className="text-lg-end text-start font-sm mb-0">
-                                Designed by 
-                                <strong><a href="https://innowrap.com/" target="_blank"> Innowrap Technologies.</a></strong>
-                            </p>
-                        </div>
+                        
                     </div>
                 </div>
             </footer>

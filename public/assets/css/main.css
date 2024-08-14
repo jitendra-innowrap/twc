@@ -27,7 +27,10 @@
 }
 
 
-
+::selection {
+  color: var(--tpc-theme-primary);
+  background: var(--tpc-theme-primary-light-1);
+}
 
 /*RESET*/
 html,
@@ -231,9 +234,8 @@ a:hover {
 }
 
 ::selection {
-  background: var(--tpc-theme-primary);
-  /* WebKit/Blink Browsers */
-  color: #fff;
+  color: var(--tpc-theme-primary);
+  background: var(--tpc-theme-primary-light-1);
 }
 
 ::-moz-selection {
@@ -2442,6 +2444,15 @@ label {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: start;
+}
+.hero-card .hero-card-icon.icon-left-2 img{
+  width: 100px;
+}
+.hero-card .hero-card-icon{
+  width: unset !important;
+}
+.hero-card .pl-30{
+  width: calc( 100% - 20px);
 }
 
 .hero-card .hero-card-icon i {
@@ -6261,7 +6272,7 @@ h6.post-title {
   left: 0;
   -webkit-transition: all .3s ease 0s;
   transition: all .3s ease 0s;
-  border-bottom: 2px solid var(--tpc-theme-primary-dark-2);
+  border-bottom: 2px solid #f5f5f6;
   background: #fff;
 }
 
@@ -8138,8 +8149,8 @@ span.fi-rs-apps {
   display: block;
 }
 
-.footer-list li a:hover {
-  color: var(--tpc-theme-primary);
+footer a:hover, footer a:hover svg {
+  color: var(--tpc-theme-primary-light-1) !important;
 }
 
 .footer-bottom {
@@ -11415,6 +11426,23 @@ span.fi-rs-apps {
   width: 100% !important;
 }
 
+.editor-content-static h1,
+.editor-content-static h2,
+.editor-content-static h3,
+.editor-content-static h4,
+.editor-content-static h5,
+.editor-content-static h6 {
+margin-bottom: 12px;
+margin-top: 16px;
+}
+.editor-content-static ul{
+  margin-left: 20px;
+  list-style-type: disc;
+  }
+.editor-content-static ol {
+margin-left: 20px;
+list-style-type: decimal;
+}
 
 
 /***************************************** Login / register ****************************************/
@@ -12474,7 +12502,6 @@ input[type="checkbox"]:hover{
   font-weight: 500;
   color: #001325;
 }
-.custom_prev_ct1.swiper-button-disabled,.custom_next_ct1.swiper-button-disabled,
 .custom_prev_i1.swiper-button-disabled,.custom_next_i1.swiper-button-disabled{
   display: none;
 }
@@ -13490,9 +13517,9 @@ main.login_page{
   gap: 10px;
 }
 .footer-mid .newsletter-title img{
-  width: 33px;
-  height: 32px;
-  margin: 10px 0 0 0;
+  width: 23px;
+  height: 22px;
+  margin: 14px 0 0 0;
 }
 footer.main{
   background: var(--tpc-theme-primary);

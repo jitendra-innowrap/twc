@@ -13,7 +13,7 @@ const Intro1 = ({data}) => {
                 spaceBetween={0}
                 loop
                 autoplay={{
-                    delay: 4000, // 4 seconds
+                    delay: 3000, // 4 seconds
                     disableOnInteraction: false, // Continue autoplay after interactions
                 }}
                 modules={[Autoplay]}

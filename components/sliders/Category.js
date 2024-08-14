@@ -1,4 +1,4 @@
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import Link from "next/link";
@@ -22,6 +22,11 @@ const CategorySlider = ({data}) => {
             <Swiper
                 slidesPerView="auto"
                 spaceBetween={25}
+                loop
+                autoplay={{
+                    delay: 3000, // 4 seconds
+                    disableOnInteraction: false, // Continue autoplay after interactions
+                }}
                 navigation={{
                     prevEl: ".custom_prev_ct1",
                     nextEl: ".custom_next_ct1",
@@ -29,7 +34,7 @@ const CategorySlider = ({data}) => {
                 pagination={{
                     clickable: true, // Allows clicking on dots to navigate
                 }}
-                modules={[Pagination]}
+                modules={[Pagination, Autoplay]}
                 className="custom-class"
             >
             {data?.map((item, i) => (

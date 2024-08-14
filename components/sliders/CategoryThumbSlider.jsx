@@ -47,7 +47,7 @@ const CategoryThumbSlider = ({data}) => {
                         onSwiper={setMainSwiper}
                         loop
                         autoplay={{
-                            delay: 2000, // 4 seconds
+                            delay: 3000, // 4 seconds
                             disableOnInteraction: false, // Continue autoplay after interactions
                         }}
                         navigation={{
@@ -151,7 +151,7 @@ const CategoryThumbSlider = ({data}) => {
                         clickable: true, // Allows clicking on dots to navigate
                     }}
                     autoplay={{
-                        delay: 2000, // 4 seconds
+                        delay: 3000, // 4 seconds
                         disableOnInteraction: false, // Continue autoplay after interactions
                     }}
                     modules={[Pagination, Autoplay]}

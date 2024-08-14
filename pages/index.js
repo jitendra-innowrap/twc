@@ -29,7 +29,6 @@ export default function Home() {
             }else{
                 console.error('Error !',res?.msg)
             }
-            console.log(res.home_data_list)
         } catch (error) {
             console.error(error)
         }
@@ -239,7 +238,7 @@ export default function Home() {
                                 </h3>
                                 <p className="fw-bold mt-20 usp-desc">India's go-to destination for all things celebration. From weddings to corporate events, birthdays to festive gatherings, we've got you covered. Our vast 'menu' offers everything from stunning decorations to designer outfits, all available for rent.
                                 </p>
-                                <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event?
+                                <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event!
                                 </p>
                             </div>
                             <div className="right">
@@ -330,7 +329,7 @@ export default function Home() {
                                 />
                                 <div className="usp-value">
                                 <h5>Customer Support</h5>
-                                <p>Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+                                <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
                                 </p>
                                 </div>
                             </div>
