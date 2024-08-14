@@ -73,7 +73,7 @@ export default function NewsletterForm() {
         className={`form-control bg-white font-small ${!isEmailValid ? 'is-invalid' : ''}`}
         placeholder="Enter your email"
       />
-      <button className="btn bg-dark text-white" type="submit">
+      <button className="btn text-white" type="submit">
         Subscribe
       </button>
       {!isEmailValid && (<label className="invalid-feedback position-absolute " style={{bottom:"-30px"}}>Please enter a valid email address.</label>)}

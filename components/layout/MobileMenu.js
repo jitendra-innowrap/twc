@@ -78,7 +78,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                             <div className="mobile-header-logo">
                                 <Link href="/index">
                                     <a>
-                                        <img src="/assets/imgs/theme/the-party-cafe-icon.png" alt="the-party-cafe-logo" />
+                                        <img src="/assets/imgs/theme/the-party-cafe-yellow-icon.png" alt="the-party-cafe-logo" />
                                     </a>
                                 </Link>
                             </div>

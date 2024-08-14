@@ -10,6 +10,7 @@ import SearchMobile from "../ecommerce/SearchMobile";
 import { useRouter } from "next/router";
 import Popup from "reactjs-popup";
 import Location from "../ecommerce/Header/Location";
+import { IoCall } from "react-icons/io5";
 
 const Header = ({
     toggleClick,
@@ -28,7 +29,7 @@ const Header = ({
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY >= 100;
             if (scrollCheck !== scroll) {
-                // setScroll(scrollCheck);
+                setScroll(scrollCheck);
             }
         });
     },[]);       
@@ -56,7 +57,7 @@ const Header = ({
 
     return (
         <>
-            <header className={`header-area ${headerStyle} header-height-2`}>
+            <header className={`header-area header-style-1  header-height-2`}>
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
@@ -81,7 +82,7 @@ const Header = ({
                                             <li>
                                                 {title} &nbsp;
                                                 <Link href={url}>
-                                                    <a> View details</a>
+                                                    <a className="text-primary-light-1"> View details</a>
                                                 </Link>
                                             </li>
                                         </ul>
@@ -91,11 +92,9 @@ const Header = ({
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
-                                        <li>
-                                            {/* <i className="fi-rs-user"></i> */}
-                                            {/* <Link href="/page-login-register"> */}
+                                        <li> 
+                                            <span className="mr-5"><IoCall size={15}/></span>
                                             <a href="tel:18001800162414231">1800 1800 1624 1423</a>
-                                            {/* </Link> */}
                                         </li>
                                     </ul>
                                 </div>
@@ -117,7 +116,7 @@ const Header = ({
                                 <Link href="/">
                                     <a>
                                         <img
-                                            src="/assets/imgs/theme/the-party-cafe-icon.png"
+                                            src="/assets/imgs/theme/the-party-cafe-yellow-icon.png"
                                             alt="the-party-cafe-logo"
                                         />
                                     </a>
