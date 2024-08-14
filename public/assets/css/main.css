@@ -5741,7 +5741,7 @@ h6.post-title {
 }
 
 .header-info>ul>li>ul li a:hover {
-  color: var(--tpc-theme-primary);
+  color: var(--tpc-theme-primary-light-1);
   background-color: none;
 }
 
@@ -5751,8 +5751,8 @@ h6.post-title {
   margin-right: 5px;
 }
 
-.header-info>ul>li:hover>a {
-  color: #333;
+.header-info>ul>li:hover>a , .header-info>ul>li:hover>span {
+  color: var(--tpc-theme-primary-light-1);
 }
 
 .header-info>ul>li:hover>ul.language-dropdown {
