@@ -75,51 +75,51 @@ const CategoryThumbSlider = ({data}) => {
                             </div>
                         </div>
                     </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="collection-thumb  bg-white p-5">
-                                <div className="collection_thumb_left">
-                                    <p>Celebrate your love with a perfectly planned engagement party that sets the tone for your journey ahead. Our expert team specializes in creating enchanting atmospheres, from intimate gatherings to grand celebrations. With personalized decor and thoughtful touches, we ensure your engagement is as unforgettable as the love it celebrates.Choose from a variety of themes and styles to match your personality, and let us handle the details while you focus on making memories with your loved ones.</p>
-                                    <h5>Engagement <br /> Bliss</h5>
-                                </div>
-                                <div className="collection_thumb_right">
-                                    <img
-                                    //  src={item.collection_image}
-                                    src="/assets/imgs/banner/event-thumb-6.jpg"
-                                        // alt={item.title}
-                                    />
-                                </div>
+                    {/* <SwiperSlide>
+                        <div className="collection-thumb  bg-white p-5">
+                            <div className="collection_thumb_left">
+                                <p>Celebrate your love with a perfectly planned engagement party that sets the tone for your journey ahead. Our expert team specializes in creating enchanting atmospheres, from intimate gatherings to grand celebrations. With personalized decor and thoughtful touches, we ensure your engagement is as unforgettable as the love it celebrates.Choose from a variety of themes and styles to match your personality, and let us handle the details while you focus on making memories with your loved ones.</p>
+                                <h5>Engagement <br /> Bliss</h5>
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="collection-thumb  bg-white p-5">
-                                <div className="collection_thumb_left">
-                                    <p>Make your birthday celebration unforgettable with our creative party decor and planning services. Whether it’s a milestone birthday or a fun gathering with friends, we bring your vision to life with vibrant themes, personalized decorations, and engaging activities. Celebrate in style and create cherished memories that last a lifetime! Our team will work closely with you to understand your preferences and create a unique and memorable event that reflects your personality. From custom-made decorations to interactive entertainment, we ensure every detail is carefully curated to make your birthday truly special.</p>
-                                    <h5>Birthday Bash Extravaganza</h5>
-                                </div>
-                                <div className="collection_thumb_right">
-                                    <img
-                                    //  src={item.collection_image}
-                                    src="/assets/imgs/banner/event-thumb-7.jpg"
-                                        // alt={item.title}
-                                    />
-                                </div>
+                            <div className="collection_thumb_right">
+                                <img
+                                //  src={item.collection_image}
+                                src="/assets/imgs/banner/event-thumb-6.jpg"
+                                    // alt={item.title}
+                                />
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="collection-thumb  bg-white p-5">
-                                <div className="collection_thumb_left">
-                                    <p>From corporate events to private parties, our event organizing services ensure a flawless experience from start to finish. We handle everything from venue selection and catering to entertainment and decor, allowing you to focus on enjoying the moment. Trust us to bring your vision to life and create an event that leaves a lasting impression. Our team of event experts will guide you through the planning process, offering creative ideas and practical solutions to make your event a success. With our attention to detail and commitment to excellence, you can relax and enjoy the event, knowing that every aspect is taken care of. These descriptions aim to provide more information about the services, highlight the expertise of the team, and emphasize the personalized and memorable experiences.</p>
-                                    <h5>Seamless Event Organizing</h5>
-                                </div>
-                                <div className="collection_thumb_right">
-                                    <img
-                                    //  src={item.collection_image}
-                                    src="/assets/imgs/banner/event-thumb-8.jpg"
-                                        // alt={item.title}
-                                    />
-                                </div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="collection-thumb  bg-white p-5">
+                            <div className="collection_thumb_left">
+                                <p>Make your birthday celebration unforgettable with our creative party decor and planning services. Whether it’s a milestone birthday or a fun gathering with friends, we bring your vision to life with vibrant themes, personalized decorations, and engaging activities. Celebrate in style and create cherished memories that last a lifetime! Our team will work closely with you to understand your preferences and create a unique and memorable event that reflects your personality. From custom-made decorations to interactive entertainment, we ensure every detail is carefully curated to make your birthday truly special.</p>
+                                <h5>Birthday Bash Extravaganza</h5>
                             </div>
-                        </SwiperSlide>
+                            <div className="collection_thumb_right">
+                                <img
+                                //  src={item.collection_image}
+                                src="/assets/imgs/banner/event-thumb-7.jpg"
+                                    // alt={item.title}
+                                />
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="collection-thumb  bg-white p-5">
+                            <div className="collection_thumb_left">
+                                <p>From corporate events to private parties, our event organizing services ensure a flawless experience from start to finish. We handle everything from venue selection and catering to entertainment and decor, allowing you to focus on enjoying the moment. Trust us to bring your vision to life and create an event that leaves a lasting impression. Our team of event experts will guide you through the planning process, offering creative ideas and practical solutions to make your event a success. With our attention to detail and commitment to excellence, you can relax and enjoy the event, knowing that every aspect is taken care of. These descriptions aim to provide more information about the services, highlight the expertise of the team, and emphasize the personalized and memorable experiences.</p>
+                                <h5>Seamless Event Organizing</h5>
+                            </div>
+                            <div className="collection_thumb_right">
+                                <img
+                                //  src={item.collection_image}
+                                src="/assets/imgs/banner/event-thumb-8.jpg"
+                                    // alt={item.title}
+                                />
+                            </div>
+                        </div>
+                    </SwiperSlide> */}
                     </Swiper>
             </div>
             <div className="d-flex justify-content-center">

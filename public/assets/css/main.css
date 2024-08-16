@@ -21,8 +21,8 @@
   --tpc-theme-primary-dark-2: #00144f; /* Darker shade */
   --tpc-theme-bg-variant-light: #f4f6fc; /* lighter shade */
   --tpc-theme-bg-variant-2: #fff8dc;
-  --tpc-theme-bg-red: #ff0004;
-  --tpc-theme-bg-red-dark: #af0003;
+  --tpc-theme-bg-red: #ca1515;
+  --tpc-theme-bg-red-dark: #b51414;
 
 }
 
@@ -570,6 +570,26 @@ input[type=number]:focus,
   background-color: var(--tpc-theme-primary-light-2); /* A lighter blue on hover */
 }
 
+
+.scroll-to-top {
+  background-color: var(--tpc-theme-primary) !important;
+  border-radius: 50% !important;
+  width: 50px !important;
+  height: 50px !important;
+  box-shadow: 0 0 0px 1px var(--tpc-theme-primary-light-1) !important;
+  /* box-shadow: 0.5px 1px 5px 5px rgba(0, 0, 0, 0.5) !important; */
+}
+.scroll-to-top svg{
+  color: var(--tpc-theme-primary-light-1) !important;
+  fill: var(--tpc-theme-primary-light-1) !important;
+  size: 12px !important;
+  font-size: 6px !important;
+  width: 18px !important;
+}
+.scroll-to-top:hover {
+  transition: 0.3s;
+  box-shadow: 0 0 10px 2px var(--tpc-theme-primary-light-1) !important;
+}
 
 /*****************************
 *********  BORDER  *****
@@ -7282,6 +7302,7 @@ span.fi-rs-apps {
   font-size: 8px;
   position: relative;
   margin-left: 4px;
+  font-weight: 700;
 }
 
 .main-menu>nav>ul>li>a.active {
@@ -7357,7 +7378,7 @@ span.fi-rs-apps {
   position: absolute;
   left: 0;
   display: flex;
-  top: 100%;
+  top: calc(100% + 10px);
   max-height: calc(100vh - 150px);
   overflow: auto;
   background-color: #ffffff;
@@ -8127,10 +8148,22 @@ span.fi-rs-apps {
 }
 
 .footer-list li {
+  position: relative;
   display: block;
   margin: 0 0 13px;
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
+}
+.footer-list li a::after{
+  content: '';
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: -12px;
 }
 
 .footer-list li:last-child {
@@ -12479,7 +12512,7 @@ input[type="checkbox"]:hover{
   width: 100% !important;
 }
 .collection-slider-container .card-1{
-  padding: 10px;
+  padding: 5px;
   background: var(--tpc-theme-bg-variant-2);
   border-radius: 10px;
   margin-bottom: 40px;
@@ -12535,13 +12568,13 @@ input[type="checkbox"]:hover{
   background-repeat: no-repeat;
   background-position: top;
   background-size: contain;
-  max-width: 500px;
+  max-width: 450px;
   
 }
 .collection-thumb p{
   font-size: 18px;
   display: -webkit-box;
-    -webkit-line-clamp: 8; /* Number of lines */
+    -webkit-line-clamp: 11; /* Number of lines */
     -webkit-box-orient: vertical;
     line-height: 1.5;
     overflow: hidden;
@@ -12950,7 +12983,7 @@ input[type="checkbox"]:hover{
 .collection-thumb p {
   font-size: 18px;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
   line-height: 1.5;
   overflow: hidden;
@@ -13542,7 +13575,7 @@ footer.main h5, footer.main a, footer.main p{
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-subcriber button.submit:hover, button[type='submit']:hover {
+.form-subcriber button.submit:hover, .form-subcriber button[type='submit']:hover, .form-subcriber button[type='submit']:focus {
   background-color: var(--tpc-theme-bg-red-dark) !important;
   border: 1px solid var(--tpc-theme-bg-red-dark) !important;
   border-radius: 5px;
@@ -13687,7 +13720,7 @@ footer.main h5, footer.main a, footer.main p{
   .collection-thumb p {
     font-size: 18px;
     display: -webkit-box;
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 10;
     -webkit-box-orient: vertical;
     line-height: 1.5;
     overflow: hidden;
@@ -14134,7 +14167,7 @@ p{
 .collection-thumb p {
   font-size: 12px;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   line-height: 1.5;
   overflow: hidden;
@@ -14243,6 +14276,19 @@ display: none;
 }
 body.mobile-menu-active{
   overflow: hidden !important;
+}
+.hero-slider-link{
+  position: absolute;
+  background: transparent;
+  transform: translateX(100px);
+  cursor: pointer;
+  height: 100%;
+  width: calc( 100% - 200px );
+}
+
+.rental-collection-swiper-slider .swiper-pagination-bullets.swiper-pagination-horizontal{
+  display: flex;
+  justify-content: center;
 }
 @media (min-width: 768px) {
   .mb-md-5 {

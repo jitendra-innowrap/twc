@@ -26,8 +26,8 @@ const Footer = () => {
                                         </a>
                                         </Link>
                                     </div>
-                                    <h5 className="mt-20 mb-10 fw-600 wow fadeIn animated">
-                                        Contact
+                                    <h5 className="widget-title mt-20 mb-10 fw-600 wow fadeIn animated">
+                                        Contact Us
                                     </h5>
                                     <p className="wow fadeIn animated">
                                         <strong>Address: </strong>301, 3rd Floor, Raheja Point 1,near,<br /> 
@@ -68,7 +68,7 @@ const Footer = () => {
                             </div>
                             <div className="col-6 col-md-3 col-lg-2">
                                 <h5 className="widget-title wow fadeIn animated">
-                                    Quick Links
+                                    My Accounts
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-40">
                                     <li>
@@ -101,8 +101,8 @@ const Footer = () => {
                                         <div className="col-12">
                                             <NewsletterFrom />
                                         </div>
-                                    <div className="d-grid justify-content-end">
-                                    <h5 className="mb-10 mt-30 fw-600 wow text-end fadeIn animated">
+                                    <div className="d-grid justify-content-start mt-5">
+                                    <h5 className="mb-10 mt-30 fw-600 wow text-start fadeIn animated">
                                         Follow Us
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
@@ -133,7 +133,7 @@ const Footer = () => {
                         <div className="col-lg-12">
                             <p className="float-md-left font-sm mb-0 text-center">
                             Copyright &copy; {new Date().getFullYear()},
-                                <strong className="text-primary-light-1"> The Party Cafe</strong> . All Rights Reserved
+                                <Link href='/'><a><strong className="text-primary-light-1"> The Party Cafe</strong></a></Link> . All Rights Reserved
                             </p>
                              
                         </div>

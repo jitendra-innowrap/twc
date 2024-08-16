@@ -34,8 +34,32 @@ const CategorySlider = ({data}) => {
                 pagination={{
                     clickable: true, // Allows clicking on dots to navigate
                 }}
+                onSwiper={(swiper) => {
+                    const updatePagination = () => {
+                        const perView = swiper.slidesPerViewDynamic();
+                        const totalSlides = swiper.slides.length;
+                        const paginationLength = Math.ceil(totalSlides / perView);
+    
+                        // Update the pagination to match the current slidesPerView
+                        swiper.pagination.bullets.forEach((bullet, index) => {
+                            if (index <= 2) {
+                                bullet.style.display = 'block';
+                            } else {
+                                bullet.style.display = 'none';
+                            }
+                        });
+                    };
+    
+                    swiper.on('resize', updatePagination);
+                    updatePagination(); // Initial pagination update
+                }}
+                // onSlideChange={() => {
+                //     const swiper = document.querySelector('.rental-collection-swiper-slider').swiper;
+                //     const perView = swiper.slidesPerViewDynamic();
+                //     swiper.slideTo(swiper.activeIndex + perView);
+                // }}
                 modules={[Pagination, Autoplay]}
-                className="custom-class"
+                className="custom-class rental-collection-swiper-slider"
             >
             {data?.map((item, i) => (
                  <SwiperSlide key={item.collection_mapping_id} className="card-1-slide mb-35">
