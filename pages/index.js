@@ -13,6 +13,7 @@ import RentalCollection from "../components/ecommerce/Home/RentalCollection";
 import Preloader from "../components/elements/Preloader";
 import CategoryThumbSlider from "../components/sliders/CategoryThumbSlider";
 import { BsArrowRight } from "react-icons/bs";
+import ScrollToTop from "react-scroll-to-top";
 
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
                 {data ? 
             <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
                 <>
+                <ScrollToTop smooth />
                 <section className="home-slider position-relative">
                     <Intro1 data={data.slider} />
                 </section>

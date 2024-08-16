@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import Popup from "reactjs-popup";
 import Location from "../ecommerce/Header/Location";
 import { IoCall } from "react-icons/io5";
+import { FaChevronDown } from "react-icons/fa";
 
 const Header = ({
     toggleClick,
@@ -92,8 +93,8 @@ const Header = ({
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
-                                        <li> 
-                                            <span className="mr-5"><IoCall size={15}/></span>
+                                        <li className="position-relative"> 
+                                            <span className="mr-5" style={{position:'absolute', top:'calc( 50% + 2px)', left:'-30px', transform:'translateY(-50%)'}}><img src="/assets/imgs/theme/phone-icon.png"  width={'35px'} height={'35px'}/></span>
                                             <a href="tel:18001800162414231">1800 1800 1624 1423</a>
                                         </li>
                                     </ul>
@@ -131,7 +132,7 @@ const Header = ({
                                                     <li className="position-static" key={menu?.id}>
                                                         <a className="text-black">
                                                             {menu?.name}
-                                                            <i className="fi-rs-angle-down"></i>
+                                                            <FaChevronDown fontWeight={400} fontSize={12} className="ml-5" />
                                                         </a>
                                                         <ul className="mega-menu">
                                                             {
@@ -200,9 +201,9 @@ const Header = ({
                                                         alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-heart.svg"
                                                     />
-                                                    <span className="pro-count blue">
+                                                    {wishlistCount>0 &&<span className="pro-count blue">
                                                         {wishlistCount}
-                                                    </span>
+                                                    </span>}
                                                     <span className="header-action-name">Wishlist</span>
                                                 </a>
                                             </Link>
@@ -214,9 +215,9 @@ const Header = ({
                                                         alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-cart.svg"
                                                     />
-                                                    <span className="pro-count blue">
+                                                    {cartCount>0 &&<span className="pro-count blue">
                                                         {cartCount}
-                                                    </span>
+                                                    </span>}
                                                     <span className="header-action-name">Cart</span>
                                                 </a>
                                             </Link>
