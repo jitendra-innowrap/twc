@@ -29,7 +29,6 @@ export default function Home() {
             }else{
                 console.error('Error !',res?.msg)
             }
-            console.log(res.home_data_list)
         } catch (error) {
             console.error(error)
         }
@@ -50,7 +49,7 @@ export default function Home() {
                 <section className="popular-categories section-padding mt-md-3 mb-md-4">
                     <div className="container wow fadeIn animated position-relative">
                         <h3 className="section-title text-center mb-20 title-underline">
-                        Men's Rental Wear
+                        Rental Collection
                         </h3>
                         <div className="carausel-6-columns-cover">
                             <div
@@ -63,83 +62,18 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* <section className="section-padding mt-md-3 mb-md-4">
-                    <RentalCategory forHim={data?.rental_2?.[0]} forHer={data?.rental_1?.[0]} />
-                </section> */}
-
                 <section className="section-padding mt-md-3 mb-md-4">
                     <RentalCollection data={data} />
                 </section>
 
                 <section className="section-padding events-section">
-                    <div className="container wow fadeIn animated">
-                        <div className="head d-flex justify-content-between align-items-end mb-50">
-                            <div className="left">
-                                <p>Book Everything You Need for your events</p>
-                                <h3 className="section-title title-rightline">
-                                    Events Collections
-                                </h3>
-                            </div>
-                            <div className="right">
-                                <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
-                                                    `}>Consult Event Expert</a></button>
-                            </div>
-                        </div>
+                    <div className=" wow fadeIn animated">
                         <div className="events-collection-slider">
                             <CategoryThumbSlider data={data?.events_collections} />
-                            {/* {
-                                data?.events_collections.map((event,i)=>(
-                                <Link href={`/collection/${event.collection_handle}`} key={event.collection_mapping_id}>
-                                    <div className="events-collection-card wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0">
-                                    <div className="image">
-                                        <Image
-                                            src={event?.collection_image}
-                                            layout="fill"
-                                            alt="rent-for-women"
-                                            />
-                                    </div>
-                                    <div className="">
-                                        <h5 className="text-center mt-20">{event.title}</h5>
-                                    </div>
-                                    </div>
-                                </Link>
-
-                                ))
-                            } */}
                         </div>
                     </div>
                 </section>
 
-                {/* <section className="section-padding pt-50">
-                    <div className="container">
-                        <div className="head d-flex justify-content-center align-items-end mb-md-50">
-                            <div className="left">
-                                <h3 className="section-title">
-                                    We love our clients
-                                </h3>
-                                <p className="title-underline text-center">And they love us too!</p>
-                            </div>
-                        </div>
-                        <div className="client-icons-grid position-relative wow fadeIn animated">
-                            <BrandSlider />
-                        </div>
-                    </div>
-                </section> */}
-
-                {/* <section className="section-padding success-stories-section">
-
-                    <div className="container pt-md-25 pb-md-5">
-                        <div className="head d-flex justify-content-between align-items-end mb-50">
-                            <div className="left">
-                                <p>The inspiring tales of our exceptional achievements.</p>
-                                <h3 className="section-title title-rightline">
-                                    Success Stories
-                                </h3>
-                            </div>
-                        </div>
-                        <FeatchTab2 data={data?.success_story} />
-                    </div>
-                </section> */}
                 <section className="section-padding usp-section packages-section">
                     <div className="container">
                         <h3 className="section-title text-center mb-20 title-underline">
@@ -161,9 +95,9 @@ export default function Home() {
                             <div className="column-2 col-6 col-md-3 h-md-100">
                                 <div className=" block block-2">
                                     <Image 
-                                        src="/assets/imgs/shop/wedding stage decor-1.jpg"
-                                        height={202}
-                                        width={306}
+                                        src="/assets/imgs/shop/wedding venue-1.jpg"
+                                        height={318}
+                                        width={318}
                                         // layout="fill"
                                         objectFit="cover"
                                         className="package-img"
@@ -171,9 +105,9 @@ export default function Home() {
                                 </div>
                                 <div className=" block block-3">
                                     <Image 
-                                        src="/assets/imgs/shop/wedding stage decor-3.jpg"
-                                         height={404}
-                                        width={306}
+                                        src="/assets/imgs/shop/wedding venue-1.jpg"
+                                         height={318}
+                                        width={318}
                                         // layout="fill"
                                         objectFit="cover"
                                         className="package-img"
@@ -184,8 +118,8 @@ export default function Home() {
                                 <div className=" block block-4">
                                     <Image 
                                         src="/assets/imgs/shop/wedding venue-1.jpg"
-                                        height={202}
-                                        width={306}
+                                        height={318}
+                                        width={318}
                                         // layout="fill"
                                         objectFit="cover"
                                         objectPosition="center"
@@ -195,8 +129,8 @@ export default function Home() {
                                 <div className=" block block-5">
                                     <Image 
                                         src="/assets/imgs/shop/wedding venue-2.jpg"
-                                        height={404}
-                                        width={306}
+                                        height={318}
+                                        width={318}
                                         // layout="fill"
                                         objectFit="cover"
                                         className="package-img"
@@ -304,7 +238,7 @@ export default function Home() {
                                 </h3>
                                 <p className="fw-bold mt-20 usp-desc">India's go-to destination for all things celebration. From weddings to corporate events, birthdays to festive gatherings, we've got you covered. Our vast 'menu' offers everything from stunning decorations to designer outfits, all available for rent.
                                 </p>
-                                <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event?
+                                <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event!
                                 </p>
                             </div>
                             <div className="right">
@@ -395,7 +329,7 @@ export default function Home() {
                                 />
                                 <div className="usp-value">
                                 <h5>Customer Support</h5>
-                                <p>Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+                                <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
                                 </p>
                                 </div>
                             </div>

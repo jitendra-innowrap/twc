@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa'
+import { ImArrowRight } from 'react-icons/im'
 
 export default function RentalCollection({data}) {
     let rentalCollectionData = {
@@ -54,7 +55,7 @@ export default function RentalCollection({data}) {
     return (
         <div className="wow fadeIn animated">
             <h3 className="section-title text-center mb-20 title-underline">
-                Women's Rental Wear
+                Rental Wear
             </h3>
             {/* <div className="rental-banner mt-15 mt-md-5">
                 <div
@@ -92,7 +93,10 @@ export default function RentalCollection({data}) {
                         <p>A Spectacular assortment of <br></br>
                         minimal yet alluring styles</p>
                         <Link href={`/collection/${rentalCollectionData.banner.handle}`}>
-                            <div className="collection-btn">Shop Now <span><FaArrowRight /></span></div>
+                            <div className="collection-btn d-flex align-items-center">
+                                Shop Now 
+                                <span style={{background:'#fff', borderRadius:'50%', width:'20px', height:'20px', display:'flex', justifyContent:'flex-start', alignItems:'center' }}><ImArrowRight color='#000' size={15} fontWeight={300} style={{transform:'translateY(1px)'}} /></span>
+                            </div>
                         </Link>
                     </div>
                     <div className="right-grid col-6 px-5">

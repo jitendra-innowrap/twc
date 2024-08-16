@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Navigation, Pagination } from "swiper";
+import { Navigation, Pagination, Autoplay } from "swiper";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,6 +11,12 @@ const Intro1 = ({data}) => {
             <Swiper
                 slidesPerView={1}
                 spaceBetween={0}
+                loop
+                autoplay={{
+                    delay: 3000, // 4 seconds
+                    disableOnInteraction: false, // Continue autoplay after interactions
+                }}
+                modules={[Autoplay]}
                 navigation={{
                     prevEl: ".custom_prev_i1",
                     nextEl: ".custom_next_i1",
