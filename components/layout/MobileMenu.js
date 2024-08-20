@@ -181,11 +181,11 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                         target="_blank">
                                         <FaXTwitter size={18} color="#606060" />
                                     </a>
-                                    <a href={`https://twitter.com/`}
+                                    <a href={`https://instagram.com/`}
                                         target="_blank">
                                         <FaInstagram size={18} color="#606060" />
                                     </a>
-                                    <a href={`https://wa.me/`}
+                                    <a href={`https://wa.me/+919892745795/?text=Hi`}
                                         data-action="share/whatsapp/share"
                                         target="_blank">
                                         <FaWhatsapp size={18} color="#606060" />

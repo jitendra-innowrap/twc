@@ -13563,6 +13563,7 @@ footer.main h5, footer.main a, footer.main p{
 .footer-copyright p{
   color: #fff;
 }
+
 .form-subcriber button.submit, button[type='submit'] {
   font-size: 15px;
   font-weight: 500;
@@ -13574,15 +13575,31 @@ footer.main h5, footer.main a, footer.main p{
   border-radius: 5px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  border-radius: 50px;
+  margin: 2px;
+  position: absolute;
+  height: calc( 100% - 4px);
+  padding: 12px 20px;
+  top: 0;
+  right: 0;
+  line-height: 1;
 }
 .form-subcriber button.submit:hover, .form-subcriber button[type='submit']:hover, .form-subcriber button[type='submit']:focus {
   background-color: var(--tpc-theme-bg-red-dark) !important;
   border: 1px solid var(--tpc-theme-bg-red-dark) !important;
-  border-radius: 5px;
 }
-.form-subcriber .form-control{
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+.form-subcriber input.form-control:focus {
+  border-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+form.form-subcriber{
+  background: #fff;
+  border-radius: 50px;
+}
+form.form-subcriber input{
+  border-radius: 50px;
+  width: calc(100% - 105px);
 }
 .event-collection-thumb .slider-arrow{
   max-width: 1500px;

@@ -106,16 +106,16 @@ const Footer = () => {
                                         Follow Us
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
-                                        <a href="#">
+                                        <a href={`https://www.facebook.com/`}>
                                             <CiFacebook strokeWidth={0.7} size={25} color="#fff" />
                                         </a>
-                                        <a href="#">
+                                        <a href={`https://www.twitter.com/`}>
                                             <FaXTwitter size={25} color="#fff" />
                                         </a>
-                                        <a href="#">
+                                        <a href={`https://www.instagram.com/`}>
                                             <FaInstagram size={25} color="#fff"/>
                                         </a>
-                                        <a href="#">
+                                        <a href={`https://wa.me/+919892745795/?text=Hi`}>
                                             <FaWhatsapp size={25} color="#fff"/>
                                         </a>
                                     </div>
@@ -125,8 +125,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </section>
-                <div className="container pb-20 wow fadeIn animated footer-copyright">
-                    <div className="row">
+                <div className="pb-20 wow fadeIn animated footer-copyright">
                         <div className="col-12 mb-20">
                             <div className="footer-bottom"></div>
                         </div>
@@ -136,7 +135,6 @@ const Footer = () => {
                                 <Link href='/'><a><strong className="text-primary-light-1"> The Party Cafe</strong></a></Link> . All Rights Reserved
                             </p>
                              
-                        </div>
                         
                     </div>
                 </div>

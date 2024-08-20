@@ -75,7 +75,7 @@ const CategoryThumbSlider = ({data}) => {
                             </div>
                         </div>
                     </SwiperSlide>
-                    {/* <SwiperSlide>
+                    <SwiperSlide>
                         <div className="collection-thumb  bg-white p-5">
                             <div className="collection_thumb_left">
                                 <p>Celebrate your love with a perfectly planned engagement party that sets the tone for your journey ahead. Our expert team specializes in creating enchanting atmospheres, from intimate gatherings to grand celebrations. With personalized decor and thoughtful touches, we ensure your engagement is as unforgettable as the love it celebrates.Choose from a variety of themes and styles to match your personality, and let us handle the details while you focus on making memories with your loved ones.</p>
@@ -119,7 +119,7 @@ const CategoryThumbSlider = ({data}) => {
                                 />
                             </div>
                         </div>
-                    </SwiperSlide> */}
+                    </SwiperSlide>
                     </Swiper>
             </div>
             <div className="d-flex justify-content-center">
