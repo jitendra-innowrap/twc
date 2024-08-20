@@ -6,7 +6,8 @@
         "dev": "next dev && sass --watch --update --style=expanded styles/scss:styles/css",
         "build": "next build",
         "start": "next start",
-        "sass": "node-sass --watch public/assets/sass/main.scss public/assets/css/main.css --source-map public/assets/css/main.css.map"
+        "sass": "node-sass --watch public/assets/sass/main.scss public/assets/css/main.css --source-map public/assets/css/main.css.map",
+        "postbuild": "next-sitemap"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^2.2.6",
@@ -20,6 +21,7 @@
         "lottie-web": "^5.12.2",
         "next": "12.1.6",
         "next-redux-wrapper": "^8.1.0",
+        "next-sitemap": "^4.2.3",
         "rc-slider": "^10.0.0",
         "react": "18.1.0",
         "react-bootstrap": "^2.4.0",

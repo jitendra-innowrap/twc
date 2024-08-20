@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# sitemap and robots
+/public/robots.txt
+/public/sitemap.xml
+/public/sitemap-0.xml
