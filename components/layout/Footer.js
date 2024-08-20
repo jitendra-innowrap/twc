@@ -125,8 +125,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </section>
-                <div className="container pb-20 wow fadeIn animated footer-copyright">
-                    <div className="row">
+                <div className="pb-20 wow fadeIn animated footer-copyright">
                         <div className="col-12 mb-20">
                             <div className="footer-bottom"></div>
                         </div>
@@ -136,7 +135,6 @@ const Footer = () => {
                                 <Link href='/'><a><strong className="text-primary-light-1"> The Party Cafe</strong></a></Link> . All Rights Reserved
                             </p>
                              
-                        </div>
                         
                     </div>
                 </div>
