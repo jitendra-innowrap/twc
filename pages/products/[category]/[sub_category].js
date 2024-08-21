@@ -42,9 +42,6 @@ const Products = () => {
     const [filterOpen, SetfilterOpen] = useState(false);
     let formattedDate
     
-    useEffect(() => {
-    }, [])
-
     const toggleFilter=()=>{
         SetfilterOpen(!filterOpen);
     }
