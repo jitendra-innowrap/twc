@@ -2190,6 +2190,15 @@ label {
   z-index: 2;
   width: 100%;
 }
+.collection-slider-container .slider-arrow{
+  top: calc( 50% - 41px);
+}
+.collection-slider-container .slider-arrow .slider-btn.slider-prev{
+  left: -15px;
+}
+.collection-slider-container .slider-arrow .slider-btn.slider-next{
+  right: -15px;
+}
 
 .slider-arrow .slider-btn {
   cursor: pointer;
@@ -8145,6 +8154,7 @@ span.fi-rs-apps {
   list-style: outside none none;
   margin: 0;
   padding: 0;
+  margin-left: 14px;
 }
 
 .footer-list li {
@@ -10252,10 +10262,6 @@ footer a:hover, footer a:hover svg {
 
   .header-height-4 {
     min-height: 144px;
-  }
-
-  .hero-slider-1 {
-    height: 500px;
   }
 
   .hero-slider-1 .single-slider-img-1 {
@@ -12515,7 +12521,7 @@ input[type="checkbox"]:hover{
   padding: 5px;
   background: var(--tpc-theme-bg-variant-2);
   border-radius: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 .card-1 figure{
   border-radius: 0;
@@ -13026,6 +13032,9 @@ input[type="checkbox"]:hover{
     transform: translateX(-50%);
     margin-bottom: 30px;
   }
+  .events-section .right{
+    margin-bottom: 0;
+  }
   .events-section .left .usp-section .left{
     margin-inline: auto;
   }
@@ -13097,6 +13106,10 @@ input[type="checkbox"]:hover{
 }
 .collection-thumb{
   margin-bottom: 20px;
+}
+.events-collection-slider .card-1 figure img{
+  height: 202px;
+  width: 140px;
 }
 }
 .detail-extralink.mobile-buttons-style{
@@ -13223,10 +13236,30 @@ input[type="checkbox"]:hover{
   left: 25px !important;
 }
 .carausel-6-columns-cover .slider-arrow .slider-btn.slider-next{
-  right: 40px !important;
+  right: 25px !important;
+}
+
+.collection-slider-container .slider-arrow .slider-btn.slider-prev{
+  left: 25px;
+}
+.collection-slider-container .slider-arrow .slider-btn.slider-next{
+  right: 25px;
 }
 .carausel-6-columns-cover .slider-arrow{
   position: static;
+}
+.scroll-to-top {
+  background-color: white;
+  right: 25px !important;
+  bottom: 25px !important;
+  position: fixed;
+  z-index: 2;
+  cursor: pointer;
+  border-radius: 7px;
+  width: 35px !important;
+  height: 35px !important;
+  box-shadow: 0 9px 25px 0 rgba(132, 128, 177, 0.28);
+  border: none;
 }
 }
 
@@ -14007,7 +14040,7 @@ form.form-subcriber input{
   display: none;
 }
 .collection-slider-container {
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 }
 }
 

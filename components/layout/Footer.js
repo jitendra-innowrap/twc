@@ -97,7 +97,7 @@ const Footer = () => {
                                 />
                                 </div>
                                 
-                                <ul className="footer-list wow fadeIn animated">
+                                <ul className=" wow fadeIn animated">
                                         <div className="col-12">
                                             <NewsletterFrom />
                                         </div>

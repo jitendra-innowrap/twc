@@ -100,7 +100,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                                         <span className="menu-expand">
                                                             <i className="fi-rs-angle-small-down"></i>
                                                         </span>
-                                                        <a style={{color:`${isActive.key == i ? '#088178':'#000'}`}}>
+                                                        <a style={{color:`${isActive.key == i ? 'var(--tpc-theme-primary)':'#000'}`}}>
                                                             {menu?.name}
                                                         </a>
                                                     </div>
