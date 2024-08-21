@@ -177,7 +177,9 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">Planning a wedding in 2025? The wedding landscape is constantly evolving, and next year promises some exciting trends that cater to modern couples' desires for personalization, sustainability, and unique experiences.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <Link className="post-link" href="/blogs/the-biggest-wedding-trends-for-2025"><a>Read more <BsArrowRight /></a></Link>
+                                            <Link href="/blogs/the-biggest-wedding-trends-for-2025">
+                                                <a className="post-link" >Read more <BsArrowRight /></a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </article>
@@ -198,7 +200,9 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">Indians love weddings, celebrated with joy, laughter, and a lot of fun. They are not just the union of two individuals but also a coming together of two families.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <Link className="post-link" href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow"><a>Read more <BsArrowRight /></a></Link>
+                                            <Link href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow">
+                                                <a className="post-link" >Read more <BsArrowRight /></a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </article>
@@ -221,7 +225,9 @@ export default function Home() {
                                         <p class="post-exerpt mb-30">All we know is that brides have their dream of having a beautiful lehenga at their wedding. Most brides prefer designer lehengas for their wedding. Many brides spend a lot.</p>
                                         <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                             <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                            <Link className="post-link" href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them"><a>Read more <BsArrowRight /></a></Link>
+                                            <Link href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them">
+                                                <a className="post-link" >Read more <BsArrowRight /></a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </article>

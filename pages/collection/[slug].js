@@ -13,8 +13,13 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Preloader from "../../components/elements/Preloader";
 import { getAllCollectionProducts } from "../../util/api";
+import { useMediaQuery } from "react-responsive";
+import FiltersMobile from "../../components/ecommerce/FiltersMobile";
 
 const Products = () => {
+    const isTab = useMediaQuery({
+        query: '(max-width: 992px)'
+      })
     let today = new Date();
     let Router = useRouter(),
     searchTerm = Router.query.search,
@@ -38,6 +43,11 @@ const Products = () => {
     let [limit, setLimit] = useState(showLimit);
     let [pages, setPages] = useState(Math.ceil(totalProducts / limit));
     let [currentPage, setCurrentPage] = useState(1);
+    const [filterOpen, SetfilterOpen] = useState(false);
+
+    const toggleFilter=()=>{
+        SetfilterOpen(!filterOpen);
+    }
 
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
         if (value)
@@ -125,12 +135,13 @@ const Products = () => {
         <>
             <Layout parent="Home" sub={"collection"} subChild={title}>
                 <section className="mt-50 mb-50">
-                    <div className="container">
+                {filterOpen && <div className="body-overlay-1" style={{visibility:'visible', opacity:1}} onClick={toggleFilter}></div>}
+                <div className="container">
                         {isLoading?
                         <Preloader />
                         :
                         <div className="row">
-                            <div className="col-lg-3 primary-sidebar sticky-sidebar">
+                             {!isTab? <div className="col-lg-3 primary-sidebar sticky-sidebar">
                                 <div className="sidebar-widget price_range range mb-30">
                                     <div className="widget-header position-relative mb-20 pb-10">
                                         <h5 className="widget-title mb-10">
@@ -195,13 +206,18 @@ const Products = () => {
                                     </div>
                                 </div> */}
                             </div>
+                            :
+                            <>
+                                {filterOpen && <FiltersMobile filterOpen={filterOpen} handleClearFilters={handleClearFilters} deliveryDate={deliveryDate} toggleFilter={toggleFilter} handleDateFilter={handleDateFilter} calendarStartDate={calendarStartDate} calendarEndDate={calendarEndDate} />    }
+                            </>
+                            }
                             <div className="col-lg-9">
-                                {productList?.length > 0 && <div className="shop-product-fillter">
+                                <div className="shop-product-fillter">
                                     <div className="totall-product">
                                         <p>
                                             We found
                                             <strong className="text-brand">
-                                                {totalProducts}
+                                                {totalProducts || 0}
                                             </strong>
                                             items for you!
                                         </p>
@@ -210,14 +226,14 @@ const Products = () => {
                                         <div className="sort-by-cover">
                                             <SortSelect />
                                         </div>
-                                        {/* <div className="change-List-layout" onClick={handleLayout}>
+                                        <div className="change-List-layout" onClick={toggleFilter}>
                                             <span>
-                                                {listLayout?<i className="fi-rs-grid"></i>:<i className="fi-rs-list"></i>}
+                                                {<i className="fi-rs-filter"></i>}
                                             </span>
-                                        </div> */}
+                                        </div>
                                     </div>
-                                </div>}
-                                <div className="row product-grid-3">
+                                </div>
+                                <div className="row product-grid-3 mobile_product_list">
                                     {productList?.length === 0 && (
                                         <div className="no-products-found">
                                             <img src="/assets/imgs/theme/no-products.png" alt="no products found" />
@@ -232,7 +248,7 @@ const Products = () => {
                                             <SingleProductList product={item}/>
                                         </div>                                        
                                         }else{
-                                            return <div className="col-lg-4 col-md-4 col-12 col-sm-6"
+                                            return <div className="col-lg-4 col-md-4 col-6 product_card"
                                             key={i}
                                             >
                                             <SingleProduct product={item} />
@@ -240,10 +256,9 @@ const Products = () => {
                                         }
                                     })}
                                 </div>
-
                                 {!productList?.length === 0 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
-                                        <Pagination
+                                        <Pagination1
                                             getPaginationGroup={
                                                 getPaginationGroup
                                             }
