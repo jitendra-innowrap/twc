@@ -60,7 +60,7 @@ main.revised .services .usp-card{
     cursor: pointer;
     padding: 15px;
 }
-main.revised .usp-card:hover{
+main.revised .services .usp-card:hover{
     background: #f8f8f8;
 }
 main.revised .usp-card .image {
@@ -100,6 +100,7 @@ main.revised .why-to-choose .usp-card {
     border-radius: 0;
     padding: 0;
     margin: 10px;
+    box-shadow: none;
 }
 main.revised .why-to-choose .usp-card:not(:last-child) {
     border-right: 1px solid #80808059;
