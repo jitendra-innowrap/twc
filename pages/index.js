@@ -257,7 +257,7 @@ export default function Home() {
                         <div className="usp-icons-grid position-relative wow fadeIn animated">
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-5.svg'}
+                                    src={'/assets/imgs/usp-icons/usp-5.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
@@ -271,7 +271,7 @@ export default function Home() {
                             </div>
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-2.svg'}
+                                    src={'/assets/imgs/usp-icons/usp-2.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
@@ -285,7 +285,7 @@ export default function Home() {
                             </div>
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-3.svg'}
+                                    src={'/assets/imgs/usp-icons/usp-3.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
@@ -299,7 +299,7 @@ export default function Home() {
                             </div>
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-1.svg'}
+                                    src={'/assets/imgs/usp-icons/usp-1.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
@@ -313,7 +313,7 @@ export default function Home() {
                             </div>
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-6.svg'}
+                                    src={'/assets/imgs/usp-icons/usp-6.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
@@ -328,7 +328,7 @@ export default function Home() {
                             </div>
                             <div className="usp-card">
                                 <img
-                                    src={'/assets/imgs/usp/usp-4.svg'}
+                                    src={'/assets/imgs/usp-icons/usp-4.svg'}
                                     width={160}
                                     height={120}
                                     className="image"
