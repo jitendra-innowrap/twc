@@ -11660,7 +11660,7 @@ list-style-type: decimal;
 .otpContainer {
   margin-top: 40px;
   display: flex;
-  align-items: flex-end;
+align-items: flex-end;
   justify-content: space-between;
 }
 .otpContainer input {
