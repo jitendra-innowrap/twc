@@ -46,6 +46,9 @@ export default function Home() {
                 <section className="home-slider position-relative">
                     <HeroBanner2 data={data.slider} />
                 </section>
+                <section className="home-banner section-padding position-relative pb-0">
+                    <img src="/assets/imgs/banner/home-banner.png" alt="" style={{width:'100%', height:'auto', cursor:'pointer'}} />
+                </section>
 
 <section className="popular-categories section-padding mt-md-3 mb-md-4">
     <div className="container wow fadeIn animated position-relative">
