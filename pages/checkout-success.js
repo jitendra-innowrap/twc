@@ -24,7 +24,7 @@ const OrderSucess = () => {
                             <p className="mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam veniam dolorum vitae.</p>
                             <div className="actions">
                                 <button className="btn btn-border">
-                                    <Link href={"/my-profile?tab=2"}>view order</Link>
+                                    <Link href={"/my-profile?tab=2"}>View order</Link>
                                 </button>
                                 <button className="btn">
                                     <Link href={"/"}>Continue Shopping</Link>

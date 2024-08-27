@@ -6,8 +6,10 @@ import storage from '../../util/localStorage';
 import { Bounce, toast } from 'react-toastify';
 import { refreshToken } from '../../redux/Slices/authSlice';
 import { useDispatch } from 'react-redux';
+import { fetchCart } from '../../redux/Slices/cartSlice';
+import { fetchWishlist } from '../../redux/Slices/wishlistSlice';
 
-function LoginRegister({logIN}) {
+function LoginRegister({noRefferer, close}) {
     const [isSumbitting, setIsSumbitting] = useState(false);
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
@@ -21,6 +23,10 @@ function LoginRegister({logIN}) {
 
     const router = useRouter()
     let referrer = "/"
+    const {referrerUrl} = router.query;
+    if(referrerUrl){
+        referrer = referrerUrl;
+    }
     const [otpTimer, setOtpTimer] = useState(false);
     const [timerValue, setTimerValue] = useState(60); // 1 minute in seconds
     let [interval, updateInterval] = useState(null);
@@ -143,7 +149,6 @@ function LoginRegister({logIN}) {
                 if(res?.code==1){
                     storage.set("auth_token", auth_token);
                     storage.set("web_token", null);
-                    router.push(referrer);
                     toast.success("Account Created Successfully !", {
                         position: "bottom-center",
                         autoClose: 1500,
@@ -155,6 +160,13 @@ function LoginRegister({logIN}) {
                         theme: "light",
                         transition: Bounce,
                     });
+                    if(!noRefferer){
+                        router.push(referrer);
+                    }
+                    if(close){
+                        close();
+                        router.reload();
+                    }
                 }else{
                     toast.error("Something Went Wrong !", {
                         position: "bottom-center",
@@ -206,6 +218,10 @@ function LoginRegister({logIN}) {
                 .then((response) => {
                     // OTP is correct, redirect
                     if (response.code == 1) {
+                        storage.set("auth_token", auth_token);
+                        storage.set("web_token", null);
+                        dispatch(fetchCart())
+                        dispatch(fetchWishlist())
                         // Add your redirect logic
                         if (response?.result?.is_profile_completed == 0) {
                             setStep(3);
@@ -221,9 +237,6 @@ function LoginRegister({logIN}) {
                                 transition: Bounce,
                             });
                         } else {
-                            router.push(referrer)
-                            storage.set("auth_token", auth_token);
-                            storage.set("web_token", null);
                             toast.success("Logged In Successfully !", {
                                 position: "bottom-center",
                                 autoClose: 1500,
@@ -235,10 +248,18 @@ function LoginRegister({logIN}) {
                                 theme: "light",
                                 transition: Bounce,
                             });
+                            
+                            if(!noRefferer){
+                                router.push(referrer);
+                            }
+                            if(close){
+                                close();
+                                router.reload();
+                            }
                         }
-                        handleUpdateToken({
+                        handleUpdateToken(
                             auth_token // Assuming you have the auth_token available
-                        });
+                        );
                     } else {
                         console.error('Error verifying OTP:', error);
                         setError({ ...error, otp: true });
@@ -251,9 +272,9 @@ function LoginRegister({logIN}) {
         }
     };
 
-    const handleUpdateToken = async ()=>{
+    const handleUpdateToken = async (auth_token)=>{
         try {
-            const res = await updateTokenApi();
+            const res = await updateTokenApi(auth_token);
             console.log(res);
         } catch (error) {
             console.error(error)
@@ -265,12 +286,19 @@ function LoginRegister({logIN}) {
             inputRefs.current[index - 1].focus();
         }
     };
+
+    const handleInput = (e) => {
+        const { value } = e.target;
+          // Filter out non-numeric characters and limit to maxLength
+          const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          setMobile(numericValue)
+      };
     return (
         <>
             {step === 1 ?
                 <div className="login_wrap w-100">
                     <img src="/assets/imgs/banner/login_banner.png" className='login-banner-image' alt="Login Banner" />
-                    <div className="padding_eight_all bg-white  p-30">
+                    <div className="padding_eight_all bg-white p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
                                 Login <span className="welcome_header_small">or</span> Signup
@@ -278,7 +306,14 @@ function LoginRegister({logIN}) {
                         </div>
                         <div className="mobileInputContainer mt-0">
                             <div className="form-group ">
-                                <input ref={phoneRef} autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleMobile }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setMobile(e.target.value) }} placeholder="" maxlength="10" value={Mobile} />
+                                <input ref={phoneRef} 
+                                autocomplete="new-password" 
+                                onKeyDown={(event) => { if (event.key === 'Enter') handleMobile }} 
+                                id="" type="text" pattern="[0-9]*" className="form-control mobileNumberInput"  name="mobile"
+                                onChange={handleInput} 
+                                placeholder="" 
+                                maxLength="10" 
+                                value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>
 
@@ -312,10 +347,11 @@ function LoginRegister({logIN}) {
                                     </div>
                                 </div>
                                 <h3>Verify with OTP</h3><h4>Sent to {Mobile}</h4> <span onClick={handleBack} tabIndex="0" className='change_mobile'>Change</span>
-                                <div className="otpContainer">
+                                <div className="otpContainer form-group">
                                     {otp.map((digit, index) => (
                                         <input
                                             key={index}
+                                            className='form-control'
                                             name={`otp${index}`}
                                             type="tel"
                                             maxLength={1}

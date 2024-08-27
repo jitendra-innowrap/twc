@@ -3,62 +3,31 @@
 import axios from 'axios';
 import storage from './localStorage';
 import { clipDateOnly, getToken, getWebToken } from './util';
-import { setRequestMeta } from 'next/dist/server/request-meta';
+// const username = process.env.NEXT_PUBLIC_API_USERNAME
+// const password = process.env.NEXT_PUBLIC_API_PASSWORD
+// const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 const username = 'PLKT-,9_d63YGYIc87(^5';
 const password = 'PLKRn72^8YKqRip8v^a#|';
+
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
-const api = axios.create({
-    baseURL: 'https://innowrap.co.in/clients/twc/App/V1',
-    headers: {
-      'Authorization': `Basic ${auth}`,
-      'Content-Type': 'multipart/form-data'
-    }
-});
-
-
-// api.interceptors.request.use(
-//     (config) => {
-//         
-//         if (authToken) {
-//           config.headers['auth_token'] = authToken;
-//         }else{
-//           config.headers['web_token'] = webToken;
-//         }
-//         return config;
-//     },
-//     (error) => Promise.reject(error)
-// );
-
-// api.interceptors.response.use(
-//     (response) => response,
-//     async (error) => {
-//         const originalRequest = error.config;
-//         if (error.response.status === 401 && !originalRequest._retry) {
-//             originalRequest._retry = true;
-//             try {
-//                 const response = await api.post('/refresh-token', {
-//                     token: store.getState().auth.token,
-//                 });
-//                 store.dispatch(refreshToken({ token: response.data.token }));
-//                 api.defaults.headers['Authorization'] = `Bearer ${response.data.token}`;
-//                 originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`;
-//                 return api(originalRequest);
-//             } catch (err) {
-//                 store.dispatch(logout());
-//                 return Promise.reject(err);
-//             }
-//         }
-//         return Promise.reject(error);
-//     }
-// );
-
-
+const baseURL = 'https://innowrap.co.in/clients/twc/App/V1';
 
 // category page api's endpoints
 
 export const getAllCategory = async () => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
   try {
-    const response = await api.get('/Product/getAllCategory');
+    const response = await axios.get(
+      `${baseURL}/Product/getAllCategory`,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
     return response;
   } catch (error) {
     console.error('Failed to fetch data', error);
@@ -78,7 +47,7 @@ export const getPriceRange = async ({ flag, sub_category, category, collection }
   }
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/getPriceRange',
+      `${baseURL}/Product/getPriceRange`,
       formData,
       {
         headers: {
@@ -134,7 +103,7 @@ export const getAllCategoryProducts = async ({ handle_sub_category, handle_categ
 
 
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCategoryProducts',
+      `${baseURL}/Product/getAllCategoryProducts`,
       formData,
       {
         headers: {
@@ -188,7 +157,7 @@ export const getAllCollectionProducts = async ({ handle, sort, page = 1, from_pr
     }
     
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/getAllCollectionProducts',
+      `${baseURL}/Product/getAllCollectionProducts`,
       formData,
       {
         headers: {
@@ -212,7 +181,7 @@ export const getSearchProducts = async (search_keyword) => {
     formData.append('search_keyword', search_keyword);
     
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/searchProduct',
+      `${baseURL}/Product/searchProduct`,
       formData,
       {
         headers: {
@@ -231,6 +200,32 @@ export const getSearchProducts = async (search_keyword) => {
 };
 
 
+// Home page 
+
+export const getHomeDetails = async () => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+
+  try {
+    const response = await axios.get(
+      `${baseURL}/Home/getHomeData`,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to login', error);
+    throw error;
+  }
+}
+
+
 // Product details page api's endpoints
 export const getProductDetails = async ({ handle }) => {
   try {
@@ -240,7 +235,7 @@ export const getProductDetails = async ({ handle }) => {
     
     const auth_token = getToken();
     const web_token = storage.get("web_token")
-    const response = await axios.post('https://innowrap.co.in/clients/twc/App/V1/Product/getProductDetails',
+    const response = await axios.post(`${baseURL}/Product/getProductDetails`,
       formData,
       {
         headers: {
@@ -268,7 +263,7 @@ export const logOutApi = async () => {
 
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/logout',
+      `${baseURL}/Auth/logout`,
       formData,
       {
         headers: {
@@ -295,7 +290,7 @@ export const loginApi = async (mobile) => {
     formData.append('mobile', mobile);
 
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/Login',
+      `${baseURL}/Auth/Login`,
       formData,
       {
         headers: {
@@ -321,7 +316,7 @@ export const updateTokenApi = async (auth_token) => {
     formData.append('device', 'web');
 
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/updateToken',
+      `${baseURL}/Auth/updateToken`,
       formData,
       {
         headers: {
@@ -345,7 +340,7 @@ export const registerApi = async ({ auth_token, name }) => {
     formData.append('f_name', name);
 
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/userRegistration',
+      `${baseURL}/Auth/userRegistration`,
       formData,
       {
         headers: {
@@ -370,7 +365,7 @@ export const verifyOTPApi = async ({ auth_token, otp }) => {
     formData.append('otp', otp);
   const web_token = storage.get("web_token")
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
+      `${baseURL}/Auth/verifyOTP`,
       formData,
       {
         headers: {
@@ -393,7 +388,7 @@ export const resendOTPApi = async (auth_token) => {
     
   const web_token = storage.get("web_token")
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+      `${baseURL}/Auth/resendOTP`,
       {
         headers: {
           ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),          'Authorization': `Basic ${auth}`,
@@ -415,7 +410,7 @@ export const resendOTPApi = async (auth_token) => {
 export const getProfileDetails = async (auth_token) => {
   try {
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/myProfile',
+      `${baseURL}/Auth/myProfile`,
       {
         headers: {
           'auth_token': auth_token,
@@ -484,7 +479,7 @@ export const editProfileDetails = async ({ fullname, mobile, email, gender, dob,
 
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      `${baseURL}/Auth/editProfile`,
       formData,
       {
         headers: {
@@ -510,7 +505,7 @@ export const editPhoneNumber = async (mobile) => {
 
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      `${baseURL}/Auth/editProfile`,
       formData,
       {
         headers: {
@@ -536,7 +531,7 @@ export const resendOTPForPhone = async (mobile) => {
 
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTPProfile',
+      `${baseURL}/Auth/resendOTPProfile`,
       formData,
       {
         headers: {
@@ -562,7 +557,7 @@ export const verifyOTPforPhone = async ({mobile, otp}) => {
   try {
 
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
+      `${baseURL}/Auth/verifyOTP`,
       formData,
       {
         headers: {
@@ -589,7 +584,7 @@ export const editEmail = async (email) => {
 
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/editProfile',
+      `${baseURL}/Auth/editProfile`,
       formData,
       {
         headers: {
@@ -615,7 +610,7 @@ export const resendOTPForEmail = async (email) => {
 
   try {
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/resendOTP',
+      `${baseURL}/Auth/resendOTP`,
       formData,
       {
         headers: {
@@ -641,7 +636,7 @@ export const verifyOTPforEmail = async ({email, otp}) => {
   try {
 
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/verifyOTP',
+      `${baseURL}/Auth/verifyOTP`,
       formData,
       {
         headers: {
@@ -664,7 +659,7 @@ export const getAddressList = async () => {
   const auth_token = getToken();
   try {
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/userAddressList',
+      `${baseURL}/Auth/userAddressList`,
       {
         headers: {
           'auth_token': auth_token,
@@ -706,7 +701,7 @@ export const addAddress = async ({ name
   formData.append('pincode', pincode);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/addUserAddress',
+      `${baseURL}/Auth/addUserAddress`,
       formData,
       {
         headers: {
@@ -720,6 +715,30 @@ export const addAddress = async ({ name
     return response.data;
   } catch (error) {
     console.error('Failed to login', error);
+    throw error;
+  }
+}
+export const checkDeliverablePincode = async ({ region_id, pincode }) => {
+  const auth_token = getToken();
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('region_id', region_id);
+  formData.append('pincode', pincode);
+  try {
+    const response = await axios.post(
+      `${baseURL}/Transaction/checkPincode`,
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+
+    return response.data;
+  } catch (error) {
     throw error;
   }
 }
@@ -752,7 +771,7 @@ export const editAddress = async ({ name
   formData.append('address_id', address_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/editUserAddress',
+      `${baseURL}/Auth/editUserAddress`,
       formData,
       {
         headers: {
@@ -777,7 +796,7 @@ export const deleteAddress = async (address_id) => {
   formData.append('address_id', address_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/deleteUserAddress',
+      `${baseURL}/Auth/deleteUserAddress`,
       formData,
       {
         headers: {
@@ -795,7 +814,6 @@ export const deleteAddress = async (address_id) => {
   }
 }
 
-
 export const getOrderList = async (pageNo=1) => {
   const auth_token = getToken();
   // Create a new FormData object
@@ -803,7 +821,7 @@ export const getOrderList = async (pageNo=1) => {
   formData.append('page', pageNo);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/getOrderList',
+      `${baseURL}/Transaction/getOrderList`,
       formData,
       {
         headers: {
@@ -826,7 +844,7 @@ export const getOrderDetails = async (order_id) => {
   formData.append('order_id', order_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/getOrderDetails',
+      `${baseURL}/Transaction/getOrderDetails`,
       formData,
       {
         headers: {
@@ -850,7 +868,7 @@ export const addNewsletter = async (email) => {
   formData.append('email', email);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/addNewsletter',
+      `${baseURL}/Auth/addNewsletter`,
       formData,
       {
         headers: {
@@ -878,7 +896,7 @@ export const addContactUs = async ({email, name, mobile, subject, message}) => {
   formData.append('message', message);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/addContactUs',
+      `${baseURL}/Auth/addContactUs`,
       formData,
       {
         headers: {
@@ -907,7 +925,7 @@ export const checkRentalAvailability = async ({qty,end_date,start_date,product_i
   formData.append('qty', qty);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/checkRentalAvailability',
+      `${baseURL}/Transaction/checkRentalAvailability`,
       formData,
       {
         headers: {
@@ -930,7 +948,7 @@ export const getFaqs = async () => {
   
   try {
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Auth/getFaq',
+      `${baseURL}/Auth/getFaq`,
       {
         headers: {
           // 'auth_token': "MZhVcdbJJbPD8CWpMUUnIw==",
@@ -952,7 +970,7 @@ export const getCartList = async (page) => {
   
   try {
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/cartProductList',
+      `${baseURL}/Transaction/cartProductList`,
       {
         headers: {
           ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
@@ -974,7 +992,7 @@ export const getWishlistList = async (page) => {
   formData.append('page', page || 1);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/getUserWishlistProducts',
+      `${baseURL}/Product/getUserWishlistProducts`,
       formData,
       {
         headers: {
@@ -1022,7 +1040,7 @@ rental_end_date
   formData.append('rental_end_date', clipDateOnly(rental_end_date));
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/addToCart',
+      `${baseURL}/Transaction/addToCart`,
       formData,
       {
         headers: {
@@ -1046,7 +1064,7 @@ export const addToWishlist = async (product_id) => {
   formData.append('product_id', product_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Product/addToWishlist',
+      `${baseURL}/Product/addToWishlist`,
       formData,
       {
         headers: {
@@ -1075,7 +1093,7 @@ export const deleteFromCart = async (
   formData.append('cart_id', cart_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      `${baseURL}/Transaction/removeCartProduct`,
       formData,
       {
         headers: {
@@ -1103,7 +1121,7 @@ export const deleteFromWishlist = async (
   formData.append('cart_id', cart_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeWishlistProduct',
+      `${baseURL}/Transaction/removeWishlistProduct`,
       formData,
       {
         headers: {
@@ -1133,7 +1151,7 @@ export const selectShippingAddress = async (
   formData.append('cart_id', cart_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      `${baseURL}/Transaction/removeCartProduct`,
       formData,
       {
         headers: {
@@ -1161,7 +1179,7 @@ export const selectBillingAddress = async (
   formData.append('cart_id', cart_id);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      `${baseURL}/Transaction/removeCartProduct`,
       formData,
       {
         headers: {
@@ -1187,10 +1205,10 @@ export const setGst = async (
   formData.append('gst_number', gst_number?gst_number:"");
   formData.append('cart_id', cart_id);
   formData.append('is_gst_add', 1);
-  // formData.append('companyName', companyName);
+formData.append('company_name', companyName);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCartProduct',
+      `${baseURL}/Transaction/removeCartProduct`,
       formData,
       {
         headers: {
@@ -1215,7 +1233,7 @@ export const applyCouponApi = async (coupon) => {
   formData.append('coupon_code', coupon);
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/applyCoupon',
+      `${baseURL}/Transaction/applyCoupon`,
       formData,
       {
         headers: {
@@ -1236,7 +1254,7 @@ export const removeCouponApi = async (coupon) => {
   const web_token = storage.get("web_token")
   try {
     const response = await axios.get(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/removeCoupon',
+      `${baseURL}/Transaction/removeCoupon`,
       {
         headers: {
           ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
@@ -1264,7 +1282,7 @@ export const placeOrder = async ({address_id, billing_address_id, payment_type, 
   // formData.append('delivery_date', '12-07-2024');
   try {
     const response = await axios.post(
-      'https://innowrap.co.in/clients/twc/App/V1/Transaction/placeOrder',
+      `${baseURL}/Transaction/placeOrder`,
       formData,
       {
         headers: {

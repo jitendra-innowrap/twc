@@ -3,16 +3,16 @@ import React from 'react'
 export default function ShoppingBag() {
   return (
     <svg viewBox="656 573 264 182" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-    <rect id="bg-line" stroke="none" fillOpacity="0.2" fill="#088178" fillRule="evenodd" x={656} y={624} width={206} height={38} rx={19} />
-    <rect id="bg-line" stroke="none" fillOpacity="0.2" fill="#088178" fillRule="evenodd" x={692} y={665} width={192} height={29} rx="14.5" />
-    <rect id="bg-line" stroke="none" fillOpacity="0.2" fill="#088178" fillRule="evenodd" x={678} y={696} width={192} height={33} rx="16.5" />
+    <rect id="bg-line" stroke="none" fillOpacity="0.2" fill="#002b9f" fillRule="evenodd" x={656} y={624} width={206} height={38} rx={19} />
+    <rect id="bg-line" stroke="none" fillOpacity="0.2" fill="#002b9f" fillRule="evenodd" x={692} y={665} width={192} height={29} rx="14.5" />
+    <rect id="bg-line" stroke="none" fillOpacity="0.2" fill="#002b9f" fillRule="evenodd" x={678} y={696} width={192} height={33} rx="16.5" />
     <g id="shopping-bag" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd" transform="translate(721.000000, 630.000000)">
-      <polygon id="Fill-10" fill="#046963" points="4 29 120 29 120 0 4 0" />
-      <polygon id="Fill-14" fill="#088178" points="120 29 120 0 115.75 0 103 12.4285714 115.75 29" />
-      <polygon id="Fill-15" fill="#088178" points="4 29 4 0 8.25 0 21 12.4285714 8.25 29" />
-      <polygon id="Fill-33" fill="#046963" points="110 112 121.573723 109.059187 122 29 110 29" />
+      <polygon id="Fill-10" fill="#0035c5" points="4 29 120 29 120 0 4 0" />
+      <polygon id="Fill-14" fill="#002b9f" points="120 29 120 0 115.75 0 103 12.4285714 115.75 29" />
+      <polygon id="Fill-15" fill="#002b9f" points="4 29 4 0 8.25 0 21 12.4285714 8.25 29" />
+      <polygon id="Fill-33" fill="#0035c5" points="110 112 121.573723 109.059187 122 29 110 29" />
       <polygon id="Fill-35" fillOpacity="0.5" fill="#FFFFFF" points="2 107.846154 10 112 10 31 2 31" />
-      <path d="M107.709596,112 L15.2883462,112 C11.2635,112 8,108.70905 8,104.648275 L8,29 L115,29 L115,104.648275 C115,108.70905 111.7365,112 107.709596,112" id="Fill-36" fill="#088178" />
+      <path d="M107.709596,112 L15.2883462,112 C11.2635,112 8,108.70905 8,104.648275 L8,29 L115,29 L115,104.648275 C115,108.70905 111.7365,112 107.709596,112" id="Fill-36" fill="#002b9f" />
       <path d="M122,97.4615385 L122,104.230231 C122,108.521154 118.534483,112 114.257931,112 L9.74206897,112 C5.46551724,112 2,108.521154 2,104.230231 L2,58" id="Stroke-4916" stroke="#000000" strokeWidth={3} strokeLinecap="round" />
       <polyline id="Stroke-4917" stroke="#000000" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" points="2 41.5 2 29 122 29 122 79" />
       <path d="M4,50 C4,51.104 3.104,52 2,52 C0.896,52 0,51.104 0,50 C0,48.896 0.896,48 2,48 C3.104,48 4,48.896 4,50" id="Fill-4918" fill="#000000" />
@@ -47,7 +47,7 @@ export default function ShoppingBag() {
     <circle id="oval" stroke="none" fill="#A24C65" fillRule="evenodd" cx="760.5" cy="587.5" r="1.5" />
     <circle id="oval" stroke="#66739F" strokeWidth={2} fill="none" cx={745} cy={603} r={3} />
     <circle id="oval" stroke="#EFB549" strokeWidth={2} fill="none" cx={716} cy={597} r={3} />
-    <circle id="oval" stroke="#088178" strokeWidth={2} fill="none" cx={681} cy={751} r={3} />
+    <circle id="oval" stroke="#002b9f" strokeWidth={2} fill="none" cx={681} cy={751} r={3} />
     <circle id="oval" stroke="#3CBC83" strokeWidth={2} fill="none" cx={896} cy={680} r={3} />
     <polygon id="diamond" stroke="#C46F82" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" fill="none" points="886 705 889 708 886 711 883 708" />
     <path d="M736,577 C737.65825,577 739,578.34175 739,580 C739,578.34175 740.34175,577 742,577 C740.34175,577 739,575.65825 739,574 C739,575.65825 737.65825,577 736,577 Z" id="bubble-rounded" stroke="#3CBC83" strokeWidth={1} strokeLinecap="round" strokeLinejoin="round" fill="none" />

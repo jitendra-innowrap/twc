@@ -45,10 +45,19 @@ export default function EditProfileForm({ user, handleSubmit }) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setTempUser({
-            ...tempUser,
-            [name]: value,
-        });
+        if(name=="alternateMobile"){
+            // Filter out non-numeric characters and limit to maxLength
+            const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+            setTempUser({
+                ...tempUser,
+                [name]: numericValue,
+            });
+          }else{
+            setTempUser({
+                ...tempUser,
+                [name]: value,
+            });
+          }
     };
 
     const handleDateChange = (date) => {

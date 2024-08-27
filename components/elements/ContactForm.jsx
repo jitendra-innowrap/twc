@@ -196,7 +196,7 @@ const ContactForm = () => {
                         type="submit"
                         disabled={isLoading}
                     >
-                        {isLoading?'Sending...':'Send message'}
+                    {isLoading ? 'Submitting...' : 'Submit'}
                     </button>
                 </div>
             </div>

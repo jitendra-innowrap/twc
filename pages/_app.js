@@ -3,6 +3,7 @@ import "react-responsive-modal/styles.css";
 import { wrapper } from "../redux/store";
 import StorageWrapper from "../components/ecommerce/storage-wrapper";
 import "../public/assets/css/main.css";
+import "../public/assets/css/revised-homepage.css";
 import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";

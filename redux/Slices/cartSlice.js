@@ -33,7 +33,7 @@ export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', as
   console.log('response from thunk remove', response.data)
   toast.success("Removed from Cart!", {
     position: "bottom-center",
-    autoClose: 1500,
+    autoClose: 15000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -89,6 +89,7 @@ const cartSlice = createSlice({
     shippingAddress: null,
     billingAddress: null,
     gst_number:"",
+    companyName:"",
     couponCode:"",
     status: 'idle',
     error: null,
@@ -106,7 +107,8 @@ const cartSlice = createSlice({
       state.cartDetails = {};
     },
     updateGst:(state, action) =>{
-      state.gst_number = action.payload;
+      state.gst_number = action.payload.gst_number;
+      state.companyName = action.payload.companyName;
     }
   },
   extraReducers: (builder) => {
@@ -125,6 +127,7 @@ const cartSlice = createSlice({
         state.billingAddress = action.payload.billing_address?.[0] || state.defaultAddress;
         state.couponCode = action.payload?.coupon_data?.code || "";
         state.gst_number = action.payload?.gst_number || "";
+        state.companyName = action.payload?.company_name || "";
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = 'failed';

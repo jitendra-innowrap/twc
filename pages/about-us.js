@@ -9,24 +9,29 @@ function About() {
                     <div className="container pt-25">
                         <div className="row">
                             <div className="col-lg-6 align-self-center mb-lg-0 mb-4">
-                                <h6 className="mt-0 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
-                                    Our Company
-                                </h6>
                                 <h1 className="font-heading mb-40">
-                                    We are Building The Destination For Getting
-                                    Things Done
+                                    ABOUT THE PARTY CAFE
                                 </h1>
                                 <p>
-                                    Tempus ultricies augue luctus et ut
-                                    suscipit. Morbi arcu, ultrices purus dolor
-                                    erat bibendum sapien metus.
+                                    The Party Cafe is your one-stop online destination for all things event rentals, offering a
+                                    comprehensive e-commerce platform that caters to every celebration need. A stunning outfit, a
+                                    piece of elegant furniture, captivating decor, even live performing artist are all available at your
+                                    fingertips.
                                 </p>
+                                <h6 className="mt-15 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
+                                    Our Vision
+                                </h6>
                                 <p>
-                                    Tempus ultricies augue luctus et ut
-                                    suscipit. Morbi arcu, ultrices purus dolor
-                                    erat bibendum sapien metus. Sit mi,
-                                    pharetra, morbi arcu id. Pellentesque
-                                    dapibus nibh augue senectus.
+                                    Our Vision is to transform every event into an unforgettable celebration by providing easy
+                                    access to premium party essentials and services.
+                                </p>
+                                <h6 className="mt-15 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
+                                    Our Mission
+                                </h6>
+                                <p>
+                                    We aim to simplify event planning by providing a carefully curated range of
+                                    high-quality rentals and services, ensuring every customer can effortlessly and confidently
+                                    create their perfect celebration.
                                 </p>
                             </div>
                             <div className="col-lg-6">
@@ -38,24 +43,22 @@ function About() {
                         </div>
                     </div>
                 </section>
+
                 <section id="team" className="pt-25 wow fadeIn animated">
                     <div className="container">
                         <div className="row mb-50 align-items-center">
-                            <div className="col-md-6">
+                            <div className="col-md-8">
                                 <h6 className="mt-0 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
                                     Our Team
                                 </h6>
                                 <h2 className="mb-15 wow fadeIn animated">
                                     Top team of experts
                                 </h2>
-                                <p className="text-grey-3 wow fadeIn animated">
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Ratione optio perferendis
-                                    sequi mollitia quis autem ea cupiditate
-                                    possimus!
+                                <p className="text-grey-3 wow fadeIn animated ">
+                                    We have a team of event enthusiasts and tech innovators The Party Cafe was born from the desire to revolutionize how people plan and execute their special occasions. We understand that every event is unique and are passionate about helping you bring your vision to life.
                                 </p>
                             </div>
-                            <div className="col-md-6 text-md-end mt-30">
+                            <div className="col-md-4 text-md-end mt-30">
                                 <a className="btn btn-outline btn-lg btn-brand-outline font-weight-bold text-brand text-hover-white border-radius-5 btn-shadow-brand hover-up">
                                     All Members
                                 </a>
@@ -71,7 +74,23 @@ function About() {
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
                                         <h4 className="fw-500 mb-0">
-                                            Patric Adams
+                                            Zuzer Lucknowala
+                                        </h4>
+                                        <p className="fw-400 text-brand mb-10">
+                                            Founder
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-3 col-6">
+                                    <div className="blog-card border-radius-10 overflow-hidden text-center">
+                                        <img
+                                            src="assets/imgs/page/avatar-2.jpg"
+                                            alt=""
+                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
+                                        />
+                                        <h4 className="fw-500 mb-0">
+                                            Mamta Minocha Malkani
                                         </h4>
                                         <p className="fw-400 text-brand mb-10">
                                             CEO & Co-Founder
@@ -82,29 +101,13 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-2.jpg"
-                                            alt=""
-                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
-                                        />
-                                        <h4 className="fw-500 mb-0">
-                                            Dilan Specter
-                                        </h4>
-                                        <p className="fw-400 text-brand mb-10">
-                                            Head Engineer
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-3 col-6">
-                                    <div className="blog-card border-radius-10 overflow-hidden text-center">
-                                        <img
                                             src="assets/imgs/page/avatar-3.jpg"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
-                                        <h4 className="fw-500 mb-0">Tomas Baker</h4>
+                                        <h4 className="fw-500 mb-0">Rachana Lucknowala</h4>
                                         <p className="fw-400 text-brand mb-10">
-                                            Senior Planner
+                                            Advisory Board
                                         </p>
                                     </div>
                                 </div>
@@ -117,10 +120,10 @@ function About() {
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
                                         <h4 className="fw-500 mb-0">
-                                            Norton Mendos
+                                            Firoz Lucknowala
                                         </h4>
                                         <p className="fw-400 text-brand mb-10">
-                                            Project Manager
+                                            Advisory Board
                                         </p>
                                     </div>
                                 </div>
@@ -128,20 +131,23 @@ function About() {
                         </div>
                     </div>
                 </section>
+
                 <section id="testimonials" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
                             <div className="col-lg-12 col-md-12 text-center">
                                 <h6 className="mt-0 mb-10 text-uppercase  text-brand font-sm wow fadeIn animated">
-                                    AWARDS & RECOGNITION
+                                What We Offer
                                 </h6>
                                 <h2 className="mb-15 text-grey-1 wow fadeIn animated">
-                                Take a look at our 
+                                The Party Cafe boasts an 
 
-                                    <br /> achievements
+                                    <br /> extensive inventory
                                 </h2>
                                 <p className="w-50 m-auto text-grey-3 wow fadeIn animated">
-                                We are proud to have received numerous awards and recognition for our outstanding work. These accolades are a testament to our commitment to excellence and dedication to our clients.
+                                Our user-friendly website is designed with your comfort in mind, allowing you to easily browse,
+                                    compare, and book items. We offer detailed descriptions, high-quality images, and customer
+                                    reviews to help you make informed decisions, all in a seamless online experience.
                                 </p>
                             </div>
                         </div>
@@ -151,22 +157,19 @@ function About() {
                                     <div className="hero-card-icon icon-left-2 hover-up ">
                                         <img
                                             className="btn-shadow-brand hover-up border-radius-5 bg-brand-muted"
+                                            style={{border:'none'}}
                                             src="assets/imgs/page/avatar-1.jpg"
                                             alt=""
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">Best Product of the Year
+                                        <h5 className="mb-5 fw-500">Stylish Outfits
                                         </h5>
-                                        <p className="font-sm text-grey-5">
-                                        Gratifi
-                                        </p>
+                                        {/* <p className="font-sm text-grey-5">
+                                            Gratifi
+                                        </p> */}
                                         <p className="text-grey-3 truncate-3">
-                                            "Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Debitis nesciunt voluptatum dicta
-                                            reprehenderit accusamus voluptatibus
-                                            voluptas."
+                                            "We have attire for every occasion, from wedding lehengas to cocktail dresses to tuxedos."
                                         </p>
                                     </div>
                                 </div>
@@ -176,22 +179,19 @@ function About() {
                                     <div className="hero-card-icon icon-left-2 hover-up ">
                                         <img
                                             className="btn-shadow-brand hover-up border-radius-5 bg-brand-muted"
+                                            style={{border:'none'}}
                                             src="assets/imgs/page/avatar-3.jpg"
                                             alt=""
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">Top Employer of the Year
+                                        <h5 className="mb-5 fw-500">Elegant Furniture
                                         </h5>
-                                        <p className="font-sm text-grey-5">
+                                        {/* <p className="font-sm text-grey-5">
                                             Edenred India
-                                        </p>
+                                        </p> */}
                                         <p className="text-grey-3 truncate-3">
-                                            "Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Debitis nesciunt voluptatum dicta
-                                            reprehenderit accusamus voluptatibus
-                                            voluptas."
+                                            "Tables, chairs, lounge sets, and more to set the perfect ambiance."
                                         </p>
                                     </div>
                                 </div>
@@ -201,22 +201,16 @@ function About() {
                                     <div className="hero-card-icon icon-left-2 hover-up ">
                                         <img
                                             className="btn-shadow-brand hover-up border-radius-5 bg-brand-muted"
+                                            style={{border:'none'}}
                                             src="assets/imgs/page/avatar-2.jpg"
                                             alt=""
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">Sustainability Leader
+                                        <h5 className="mb-5 fw-500">Captivating Decor
                                         </h5>
-                                        <p className="font-sm text-grey-5">
-                                        Vantage Circle
-                                        </p>
                                         <p className="text-grey-3 truncate-3">
-                                            "Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Debitis nesciunt voluptatum dicta
-                                            reprehenderit accusamus voluptatibus
-                                            voluptas."
+                                            "Lighting, centerpieces, backdrops, and themed decorations."
                                         </p>
                                     </div>
                                 </div>
@@ -226,22 +220,16 @@ function About() {
                                     <div className="hero-card-icon icon-left-2 hover-up ">
                                         <img
                                             className="btn-shadow-brand hover-up border-radius-5 bg-brand-muted"
+                                            style={{border:'none'}}
                                             src="assets/imgs/page/avatar-4.jpg"
                                             alt=""
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">Innovation Award
+                                        <h5 className="mb-5 fw-500">Live Performance Artists
                                         </h5>
-                                        <p className="font-sm text-grey-5">
-                                        HiFives
-                                        </p>
                                         <p className="text-grey-3 truncate-3">
-                                            "Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Debitis nesciunt voluptatum dicta
-                                            reprehenderit accusamus voluptatibus
-                                            voluptas."
+                                            "Musicians, DJs, dancers, and entertainers to elevate your event."
                                         </p>
                                     </div>
                                 </div>
@@ -251,52 +239,21 @@ function About() {
                                     <div className="hero-card-icon icon-left-2 hover-up ">
                                         <img
                                             className="btn-shadow-brand hover-up border-radius-5 bg-brand-muted"
+                                            style={{border:'none'}}
                                             src="assets/imgs/page/avatar-5.jpg"
                                             alt=""
                                         />
                                     </div>
                                     <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">Excellence in Customer Satisfaction
+                                        <h5 className="mb-5 fw-500">Party Essentials
                                         </h5>
-                                        <p className="font-sm text-grey-5">
-                                            Edenred India
-                                        </p>
                                         <p className="text-grey-3 truncate-3">
-                                            "Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Debitis nesciunt voluptatum dicta
-                                            reprehenderit accusamus voluptatibus
-                                            voluptas."
+                                            "Tableware, linens, audio-visual equipment, and everything in between."
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-6 col-lg-4">
-                                <div className="hero-card box-shadow-outer-6 wow fadeIn animated mb-30 hover-up d-flex">
-                                    <div className="hero-card-icon icon-left-2 hover-up ">
-                                        <img
-                                            className="btn-shadow-brand hover-up border-radius-5 bg-brand-muted"
-                                            src="assets/imgs/page/avatar-1.jpg"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="pl-30">
-                                        <h5 className="mb-5 fw-500">Customer's Choice Award
-                                        </h5>
-                                        <p className="font-sm text-grey-5">
-                                            Adobe Jsc
-                                        </p>
-                                        <p className="text-grey-3 truncate-3">
-                                            "Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Debitis nesciunt voluptatum dicta
-                                            reprehenderit accusamus voluptatibus
-                                            voluptas."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            
+
                         </div>
                         <div className="row mt-30">
                             <div className="col-12 text-center">
@@ -309,6 +266,7 @@ function About() {
                         </div>
                     </div>
                 </section>
+                
                 <section id="faqs" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
@@ -317,16 +275,17 @@ function About() {
                                     FAQ
                                 </h6>
                                 <h2 className="mb-15 text-grey-1 wow fadeIn animated">
-                                Frequently Asked Questions
+                                    Frequently Asked Questions
                                 </h2>
                                 <p className="w-50 m-auto text-grey-3 wow fadeIn animated">
-                                We understand that you may have questions about our renting and booking services. Below are some of the most frequently asked questions to help you better understand our process
+                                    We understand that you may have questions about our renting and booking services. Below are some of the most frequently asked questions to help you better understand our process
                                 </p>
                             </div>
                         </div>
                         <div className="row align-items-center">
                             <FAQSection />
                         </div>
+
                     </div>
                 </section>
             </Layout>

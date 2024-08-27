@@ -4,12 +4,12 @@ import { generateRandomId } from '../../../../util/util';
 import { useEffect } from 'react';
 import { addAddress } from '../../../../util/api';
 
-export default function AddGst({ close , handleAddGst, gstNumber}) {
+export default function AddGst({ close , handleAddGst, gstNumber, companyName}) {
     const [isSumbitting, setIsSumbitting] = useState(false)   
     const inputRef = useRef(null);
     const inputRef2 = useRef(null);
     const [tempGst, setTempGst] = useState(gstNumber)
-    const [companyName, setCompanyName] = useState("");
+    const [tempCompanyName, setCompanyName] = useState(companyName);
     const [error, setError] = useState({
         companyName:"",
         gstNumber:"",
@@ -37,7 +37,8 @@ export default function AddGst({ close , handleAddGst, gstNumber}) {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        let isError = false;
+        console.log('intiallize:',isError)
         // GST validation regex
         const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9A-Z]{1}$/;
     
@@ -46,6 +47,7 @@ export default function AddGst({ close , handleAddGst, gstNumber}) {
                 ...prev,
                 gstNumber: 'Please Enter Your GST Number'
             }));
+            isError=true;
         } 
         
         if (!gstRegex.test(tempGst)) {
@@ -53,19 +55,24 @@ export default function AddGst({ close , handleAddGst, gstNumber}) {
                 ...prev,
                 gstNumber: 'Please Enter a Valid GST Number'
             }));
+            isError=true;
         }
         
-        if (!companyName) {  // Moved this check outside the GST validation
+        if (!tempCompanyName) {  // Moved this check outside the GST validation
             setError(prev => ({
                 ...prev,
                 companyName: 'Please Enter Your Company Name'
             }));
-        } else {
+            isError=true;
+        } 
+        
+        console.log(isError)
+        if(!isError){
             setError({
                 companyName: "",
                 gstNumber: ''
             }); // Clear any previous error messages
-            handleAddGst(tempGst, companyName); // Pass both values
+            handleAddGst(tempGst, tempCompanyName); // Pass both values
             close();
         }
     };
@@ -113,11 +120,11 @@ export default function AddGst({ close , handleAddGst, gstNumber}) {
                             name="companyName"
                             id='companyName'
                             type="text"
-                            value={companyName}
+                            value={tempCompanyName}
                             onChange={handleInputChangeCompany}
                             ref={inputRef2}
                         />
-                        {(error.companyName && !companyName) && <div className="errorContainer">{error.companyName}</div>}
+                        {(error.companyName && !tempCompanyName) && <div className="errorContainer">{error.companyName}</div>}
                     </div>
                     <div className="form-group col-md-12 text-right mb-0">
                         <button className="btn square w-100 rounded-0" disabled={isSumbitting} type='submit'>

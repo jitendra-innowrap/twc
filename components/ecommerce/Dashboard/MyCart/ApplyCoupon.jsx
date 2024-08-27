@@ -12,12 +12,14 @@ export default function ApplyCoupons () {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
-        if(code){
+        if(code!==""){
         setCoupon(code)
         setIsApply('valid')
         setMessage("Coupon Applied Successfully !");
         }else{
-           setCoupon("") 
+          setCoupon("") ;
+          setIsApply(null)
+        setMessage("");
         }
     }, [code])
     

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import { getProfileDetails } from '../../../../util/api';
 import storage from '../../../../util/localStorage';
@@ -6,6 +6,7 @@ import { reverseDateOrder } from '../../../../util/util';
 
 export default function ProfileDetails({ user, setEdit, setUser }) {
     const auth_token = storage.get("auth_token");
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         if(auth_token){
@@ -15,23 +16,38 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
     
 
     const fetchProfileDetails = async()=>{
-        const response = await getProfileDetails(auth_token || "");
-        let tempUser = response.result?.[0];
-        console.log('tempuser',tempUser)
-        setUser({
-            fullname: tempUser?.f_name,
-        mobile: tempUser?.mobile,
-        email: tempUser?.email,
-        gender: tempUser?.gender,
-        dob: tempUser?.dob,
-        alternateMobile: tempUser?.alternate_mobile,
-        isMobileVerified: tempUser?.is_mobile_verified,
-        isEmailVerified: tempUser?.is_email_verified,
-        })
+        try {
+            setIsLoading(true)
+            const response = await getProfileDetails(auth_token || "");
+            if(response.code === 1){
+                let tempUser = response.result?.[0];
+                console.log('tempuser',response)
+                setUser({
+                    fullname: tempUser?.f_name,
+                mobile: tempUser?.mobile,
+                email: tempUser?.email,
+                gender: tempUser?.gender,
+                dob: tempUser?.dob,
+                alternateMobile: tempUser?.alternate_mobile,
+                isMobileVerified: tempUser?.is_mobile_verified,
+                isEmailVerified: tempUser?.is_email_verified,
+                })
+            }else{
+                console.error(response?.msg)
+            }
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
+        }
     }
     return (
         <div className="profile-details">
-            <div className="mb-3">
+            {isLoading ?
+            <div className="loading-view" style={{height:'calc( 100vh - 423px)'}}>
+                <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+            :<div className="mb-3">
                 <div>
                     <div className="row">
                         <div className="col-sm-3">
@@ -108,7 +124,7 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

@@ -7,6 +7,11 @@ import storage from "../../util/localStorage";
 import { BiSearch } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import SearchMobile from "../ecommerce/SearchMobile";
+import { useRouter } from "next/router";
+import Popup from "reactjs-popup";
+import Location from "../ecommerce/Header/Location";
+import { IoCall } from "react-icons/io5";
+import { FaChevronDown } from "react-icons/fa";
 
 const Header = ({
     toggleClick,
@@ -19,13 +24,13 @@ const Header = ({
     const { cartCount } = useSelector((state) => state.cart);
     const { wishlistCount } = useSelector((state) => state.wishlist);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+    const router  = useRouter();
     useEffect(() => {
         fetchHeaderData()
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY >= 100;
             if (scrollCheck !== scroll) {
-                // setScroll(scrollCheck);
+                setScroll(scrollCheck);
             }
         });
     },[]);       
@@ -53,7 +58,7 @@ const Header = ({
 
     return (
         <>
-            <header className={`header-area ${headerStyle} header-height-2`}>
+            <header className={`header-area header-style-1  header-height-2`}>
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
@@ -62,29 +67,8 @@ const Header = ({
                                     <ul>
                                         <li>
                                             <Link href="/#">
-                                                <a className="language-dropdown-active">
-                                                    <i className="fi-rs-marker"></i>
-                                                    {headerData?.region_data?.[0]?.region_name}
-                                                    <i className="fi-rs-angle-small-down"></i>
-                                                </a>
+                                                <Location cities={headerData?.region_data} />
                                             </Link>
-                                            <ul className="language-dropdown">
-                                                {
-                                                    headerData?.region_data?.map((region,i)=>(
-                                                        <li>
-                                                            <Link href="/">
-                                                                <a>
-                                                                    {/* <img
-                                                                        src="/assets/imgs/theme/flag-fr.png"
-                                                                        alt=""
-                                                                    /> */}
-                                                                    {region?.region_name}
-                                                                </a>
-                                                            </Link>
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
                                         </li>
                                     </ul>
                                 </div>
@@ -99,7 +83,7 @@ const Header = ({
                                             <li>
                                                 {title} &nbsp;
                                                 <Link href={url}>
-                                                    <a> View details</a>
+                                                    <a className="text-primary-light-1"> View details</a>
                                                 </Link>
                                             </li>
                                         </ul>
@@ -109,11 +93,9 @@ const Header = ({
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
-                                        <li>
-                                            {/* <i className="fi-rs-user"></i> */}
-                                            {/* <Link href="/page-login-register"> */}
-                                                <a>1800 1800 1624 1423</a>
-                                            {/* </Link> */}
+                                        <li className="position-relative"> 
+                                            <span className="mr-5" style={{position:'absolute', top:'calc( 50% + 2px)', left:'-30px', transform:'translateY(-50%)'}}><img src="/assets/imgs/theme/phone-icon.png"  width={'35px'} height={'35px'}/></span>
+                                            <a href="tel:18001800162414231">1800 1800 1624 1423</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -135,7 +117,7 @@ const Header = ({
                                 <Link href="/">
                                     <a>
                                         <img
-                                            src="/assets/imgs/theme/the-party-cafe-logo.png"
+                                            src="/assets/imgs/theme/the-party-cafe-yellow-icon.png"
                                             alt="the-party-cafe-logo"
                                         />
                                     </a>
@@ -150,7 +132,7 @@ const Header = ({
                                                     <li className="position-static" key={menu?.id}>
                                                         <a className="text-black">
                                                             {menu?.name}
-                                                            <i className="fi-rs-angle-down"></i>
+                                                            <FaChevronDown fontWeight={400} fontSize={12} className="ml-5" />
                                                         </a>
                                                         <ul className="mega-menu">
                                                             {
@@ -189,18 +171,25 @@ const Header = ({
                                                     </li>
                                                 ))
                                             }
+                                            <li className="position-static">
+                                                <Link href={`/blogs`}>
+                                                    <a>
+                                                        Blog
+                                                    </a>
+                                                </Link>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div className="header-right d-none d-lg-flex">
-                                <div className="search-style-2">
+                                {/* <div className="search-style-2">
                                     <Search />
-                                </div>
+                                </div> */}
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?'/page-login-register':'/my-profile'}>
+                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -212,16 +201,16 @@ const Header = ({
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?'/page-login-register':'/shop-wishlist'}>
+                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                                 <a>
                                                     <img
                                                         className="svgInject"
                                                         alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-heart.svg"
                                                     />
-                                                    <span className="pro-count blue">
+                                                    {wishlistCount>0 &&<span className="pro-count blue">
                                                         {wishlistCount}
-                                                    </span>
+                                                    </span>}
                                                     <span className="header-action-name">Wishlist</span>
                                                 </a>
                                             </Link>
@@ -233,9 +222,9 @@ const Header = ({
                                                         alt="The Party Cafe"
                                                         src="/assets/imgs/theme/icons/icon-cart.svg"
                                                     />
-                                                    <span className="pro-count blue">
+                                                    {cartCount>0 &&<span className="pro-count blue">
                                                         {cartCount}
-                                                    </span>
+                                                    </span>}
                                                     <span className="header-action-name">Cart</span>
                                                 </a>
                                             </Link>
@@ -245,11 +234,11 @@ const Header = ({
                             </div>
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2 gap-1">
-                                    <div className="header-action-icon-2" onClick={toggleSearch}>
+                                    {/* <div className="header-action-icon-2" onClick={toggleSearch}>
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
-                                    </div>
+                                    </div> */}
                                     <div className="header-action-icon-2">
-                                        <Link href={!user?'/page-login-register':'/shop-wishlist'}>
+                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                             <a>
                                                 <img
                                                     alt="The Party Cafe"
@@ -275,7 +264,7 @@ const Header = ({
                                         </Link>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href="/my-profile" className="mr-0">
+                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
                                             <a className="mr-0">
                                                 <img
                                                     alt="The Party Cafe"

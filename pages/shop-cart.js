@@ -31,14 +31,17 @@ const Cart = () => {
     const [errorNoGst, setErrorNoGst] = useState(false);
     const couponDiscount = useSelector((state) => state.cart.couponCode);
     const cartItems = useSelector((state) => state.cart.cartItems);
+    const status = useSelector((state) => state.cart.status);
     const cartCount = useSelector((state) => state.cart.cartCount);
     const cartDetails = useSelector((state) => state.cart.cartDetails);
     const defaultAddress = useSelector((state) => state.cart.defaultAddress);
     const shippingAddress = useSelector((state) => state.cart.shippingAddress);
     const billingAddress = useSelector((state) => state.cart.billingAddress);
     const gst_number = useSelector((state) => state.cart.gst_number);
+    const companyName = useSelector((state) => state.cart.companyName);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
+    
 
     const handleSelectAddress = (id) => {
         let address = { cart_id:cartItems?.[0]?.cart_id, address_id:id, billing_address_id : billingAddress?.id || defaultAddress?.id};
@@ -80,8 +83,7 @@ const Cart = () => {
         try {
             const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number,companyName});
             if(res.code == 1){
-                setGstNumber(res.gst_number);
-                dispatch(updateGst(res.gst_number));
+                dispatch(updateGst({gst_number,companyName}));
 
                 toast.success("GST Updated Successfully!", {
                     position: "bottom-center",
@@ -172,6 +174,7 @@ const Cart = () => {
         try {
           const res = await placeOrder(body);
           if(res.code==1){
+            dispatch(fetchCart())
             router.push('/checkout-success')
           }else{
             router.push('/checkout-fail')
@@ -205,7 +208,9 @@ const Cart = () => {
             <Layout parent="Home" sub="Shop" subChild="Cart">
                 <section className="mt-50 mb-50">
                     <div className="container">
-                        <div className="">
+                        {
+                            status=='succeeded'?
+                            <div className="">
                             {!cartItems.length ?
                                 <>
                                     <EmptyCart />
@@ -213,7 +218,7 @@ const Cart = () => {
                                 :
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock pt-0">
-                                        <div className="coupons-base-header">Delivery Address</div>
+                                        <div className="coupons-base-header">Delivery Address {status}</div>
                                         <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
                                             {
                                                 Object.keys(shippingAddress).length > 0 && <div className="addressStripV2-base-title">
@@ -262,7 +267,7 @@ const Cart = () => {
                                                                     <button onClick={close} className='close_popUp'>
                                                                         <MdClose fontSize={22} />
                                                                     </button>
-                                                                    <LoginRegister close={close} />
+                                                                    <LoginRegister noRefferer close={close} />
                                                                 </div>
                                                             )
                                                         }
@@ -320,7 +325,13 @@ const Cart = () => {
                                                     <label htmlFor="gstNumber" className="mb-0 cursor_pointer"> Do You Have A GST Number.</label>
                                                 </div>
                                                 {isGST &&<div className="gst_number_wrapper">
-                                                            <div className="">{gst_number?gst_number:'Add'}</div>
+                                                            <div className="">
+                                                            {gst_number?<>
+                                                            <span>{gst_number}</span> <br />
+                                                            <span>{companyName}</span>
+                                                            </>
+                                                            :'Add'}
+                                                            </div>
                                                             <Popup
                                                             trigger={
                                                                 <div>
@@ -337,7 +348,7 @@ const Cart = () => {
                                                         >
                                                             {
                                                                 (close) => (
-                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gst_number} close={close} />
+                                                                    <AddGst handleAddGst={handleAddGst} gstNumber={gst_number} companyName={companyName} close={close} />
                                                                 )
                                                             }
                                                         </Popup>
@@ -439,7 +450,7 @@ const Cart = () => {
                                                             <button onClick={close} className='close_popUp'>
                                                                 <MdClose fontSize={22} />
                                                             </button>
-                                                            <LoginRegister close={close} />
+                                                            <LoginRegister noRefferer close={close} />
                                                         </div>
                                                     )
                                                 }
@@ -450,6 +461,11 @@ const Cart = () => {
                                 </div>
                             }
                         </div>
+                        :
+                        <div className="loading-view" style={{height:'calc( 100vh - 423px)'}}>
+                        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                    </div>
+                    }
                     </div>
                 </section>
             </Layout>

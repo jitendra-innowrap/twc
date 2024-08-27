@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MdClose, MdCheck, MdClear } from 'react-icons/md';
-import { editAddress } from '../../../../util/api';
+import { checkDeliverablePincode, editAddress } from '../../../../util/api';
+import storage from '../../../../util/localStorage';
 
 export default function EditAddress({ close , currentAddress, fetchAddressList}) {
     const [isSumbitting, setIsSumbitting] = useState(false)
@@ -29,7 +30,17 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAddress((prev) => ({ ...prev, [name]: value }));
+    if(name=="mobile"){
+      // Filter out non-numeric characters and limit to maxLength
+      const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+      setAddress((prev) => ({ ...prev, [name]: numericValue }));
+    }else if(name=="pincode"){
+      // Filter out non-numeric characters and limit to maxLength
+      const numericValue = value.replace(/[^0-9]/g, '').slice(0, 6);
+      setAddress((prev) => ({ ...prev, [name]: numericValue }));
+    }else{
+      setAddress((prev) => ({ ...prev, [name]: value }));
+    }
     setError((prev) => ({ ...prev, [name]: false }));
   };
 
@@ -44,7 +55,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
 
   const handleSubmit = async () => {
     let hasError = false;
-
+    setIsSumbitting(true)
     if (!address.name) {
       setError((prev) => ({ ...prev, name: true }));
       hasError = true;
@@ -61,7 +72,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
     }
 
     if (!address.pincode) {
-      setError((prev) => ({ ...prev, pincode: true }));
+      setError((prev) => ({ ...prev, pincode: "Pincode is required" }));
       hasError = true;
     }
 
@@ -78,6 +89,27 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
     if (address.addressType === 'none') {
       setError((prev) => ({ ...prev, addressType: true }));
       hasError = true;
+    }
+
+    if(address.pincode.length===6){
+      // when user enters 6th digit validate the 6 digit picode using this api
+      let selected = storage.get("preferred_location");
+      let region_id = 1;
+      if(selected){
+        region_id = selected.id;
+      }
+
+      let params = {region_id, pincode:address.pincode}
+      try {
+        const isDeliverable = await checkDeliverablePincode(params);
+        console.log(isDeliverable);
+        if(isDeliverable?.code!==1){
+          setError((prev) => ({ ...prev, pincode: isDeliverable.msg ||  "Error: Unable to Verify this Pincode"}));
+          hasError = true;
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     if (!hasError) {
@@ -97,16 +129,14 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
           pincode:address.pincode,
           address_id:address.id
         }
-        setIsSumbitting(true)
         const res = await editAddress(body);
         fetchAddressList();
       } catch (error) {
         console.log(error)
       }
-      setIsSumbitting(false)
       close();
     }
-    
+    setIsSumbitting(false)
   };
   const inputRef = useRef(null);
 
@@ -159,7 +189,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
                 className={`form-control square`}
                 name="mobile"
                 maxLength={10}
-                type="tel"
+                type="text"
                 value={address.mobile}
                 onChange={handleInputChange}
                 />
@@ -214,8 +244,8 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
                 value={address.pincode}
                 onChange={handleInputChange}
                 />
-                {error.pincode && <div className="errorContainer">Pincode is required</div>}
-            </div>
+                {error.pincode && <div className="errorContainer">{error.pincode}</div>}
+                </div>
             <div className="form-group col-md-12">
               <label>
                 State
@@ -254,14 +284,14 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
               </label>
               <div className="address-type-buttons">
                 <button
-                  className={`${address.addressType === '0' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('0')}
+                  className={`${address.addressType === '1' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('1')}
                   >
                   Home
                 </button>
                 <button
-                  className={`${address.addressType === '1' ? 'selected' : ''}`}
-                  onClick={() => handleAddressTypeChange('1')}
+                  className={`${address.addressType === '2' ? 'selected' : ''}`}
+                  onClick={() => handleAddressTypeChange('2')}
                   >
                   Office
                 </button>
@@ -284,7 +314,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
             </div>
             <div className="form-group col-md-12 text-right mb-0">
               <button className="btn square w-100 rounded-0" disabled={isSumbitting} onClick={handleSubmit}>
-                Save Address
+                {isSumbitting?'Please Wait...':'Save Address'}
               </button>
             </div>
           </div>

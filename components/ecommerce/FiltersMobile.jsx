@@ -15,7 +15,7 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
         price: { from_price: "", to_price: "" },
         availabilityDate: ''
     })
-    const { from_price, to_price, category, sub_category, size, availabilityDate } = router.query;
+    const { from_price, to_price, category, sub_category, size, slug, availabilityDate } = router.query;
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -93,12 +93,19 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
         }
         
         // Replace the router query with the updated query
-        router.push({
-            pathname:`/products/${category}/${selectedSub_category}`,
-            query: updatedQuery,
-
-        });
-        // toggleFilter();
+        if(sub_categories){
+            router.push({
+                pathname:`/products/${category}/${selectedSub_category}`,
+                query: updatedQuery,
+                
+            });
+        }else{
+            router.push({
+                pathname:`/collection/${slug}`,
+                query: updatedQuery,    
+            });
+        }
+        toggleFilter();
         
     }
 
@@ -106,14 +113,14 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
     return (
         <div className={`col-lg-3 primary-sidebar sticky-sidebar ${filterOpen ? 'filter-sidebar active-sidebar' : 'filter-sidebar'}`}>
             <div className="filters-Wrapper">
-            <div className="widget-category mb-30">
+            {sub_categories && <div className="widget-category mb-30">
                 <h5 className="section-title style-1 mb-30 wow fadeIn animated">
                     Category
                 </h5>
                 <CategoryProduct mobile setselectedSub_category={setselectedSub_category} selectedSub_category={selectedSub_category} sub_categories={sub_categories} />
-            </div>
+            </div>}
 
-            <div className="sidebar-widget price_range range mb-30">
+            <div className={`sidebar-widget  price_range range mb-30 ${!sub_categories && 'mt-70'}`}>
                 <div className="widget-header position-relative mb-20 pb-10">
                     <h5 className="widget-title mb-10">
                         Filter by
