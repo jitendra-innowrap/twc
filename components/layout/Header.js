@@ -171,14 +171,21 @@ const Header = ({
                                                     </li>
                                                 ))
                                             }
+                                            <li className="position-static">
+                                                <Link href={`/blogs`}>
+                                                    <a>
+                                                        Blog
+                                                    </a>
+                                                </Link>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div className="header-right d-none d-lg-flex">
-                                <div className="search-style-2">
+                                {/* <div className="search-style-2">
                                     <Search />
-                                </div>
+                                </div> */}
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
@@ -227,9 +234,9 @@ const Header = ({
                             </div>
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2 gap-1">
-                                    <div className="header-action-icon-2" onClick={toggleSearch}>
+                                    {/* <div className="header-action-icon-2" onClick={toggleSearch}>
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
-                                    </div>
+                                    </div> */}
                                     <div className="header-action-icon-2">
                                         <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                             <a>

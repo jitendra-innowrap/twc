@@ -44,8 +44,6 @@ function About() {
                     </div>
                 </section>
 
-
-
                 <section id="team" className="pt-25 wow fadeIn animated">
                     <div className="container">
                         <div className="row mb-50 align-items-center">
@@ -133,6 +131,7 @@ function About() {
                         </div>
                     </div>
                 </section>
+
                 <section id="testimonials" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
@@ -267,6 +266,7 @@ function About() {
                         </div>
                     </div>
                 </section>
+                
                 <section id="faqs" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">

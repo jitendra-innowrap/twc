@@ -1,0 +1,174 @@
+main.revised .hero-slider-1 .search-style-2{
+    bottom: 20%;
+    left: 50%;
+    width: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+main.revised .hero-slider-1 .search-style-2 input{
+    max-width: unset;
+}
+main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar{
+    height: fit-content;
+    max-height: 30vh;
+}
+main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item{
+    justify-content: space-between;
+}
+main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    object-position: top;
+}
+main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right{
+    width: calc( 100% - 100px );
+}
+main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right h3{
+    font-size: 14px;
+}
+main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right p{
+    font-size: 12px;
+}
+main.revised .section-head .title-underline::after{
+left: 0;
+transform: none;
+}
+main.revised .section-head .btn{
+    height: fit-content;
+}
+main.revised .card-1{
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+}
+main.revised .card-1 h5{
+    padding: 10px;
+    font-weight: 600;
+}
+
+/* services */
+main.revised .services .usp-icons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    gap: 20px;
+    margin-bottom: 0;
+}
+main.revised .services .usp-card{
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 15px;
+}
+main.revised .usp-card:hover{
+    background: #f8f8f8;
+}
+main.revised .usp-card .image {
+    width: 30% !important;
+    height: auto !important;
+    max-width: 80px;
+    margin-inline: 20px;
+    border-radius: 50%;
+}
+main.revised .usp-card p {
+    display: none;
+}
+main.revised section.services{
+    background: #f2f3f8;
+    padding: 60px 0;
+}
+
+
+/* footer */
+.footer-list li a::after{
+    display: none;
+}
+.footer-list{
+    margin-left: 0;
+}
+
+/* why to choose */
+main.revised .why-to-choose {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border: 1px solid #80808059;
+    border-radius: 2px;
+    background-color: #fff;
+}
+main.revised .why-to-choose .usp-card {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 10px;
+}
+main.revised .why-to-choose .usp-card:not(:last-child) {
+    border-right: 1px solid #80808059;
+}
+
+
+
+
+@media (max-width: 1400px) {
+    main.revised .card-1, main.revised .card-1-slide{
+        width: unset !important;
+    }
+}
+@media (max-width: 992px) {   
+    main.revised .services .usp-icons-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        gap: 20px;
+    }
+    main.revised .why-to-choose {
+        grid-template-columns: 1fr 1fr;
+
+    }
+    main.revised .why-to-choose .usp-card:not(:last-child){
+        border-right: none;
+    }
+    main.revised .why-to-choose .usp-card:nth-child(odd) {
+        border-right: 1px solid #80808059;
+    }
+}
+@media (max-width: 768px) {
+    main.revised section.services{
+        padding: 30px 0;
+    }
+    main.revised .hero-slider-1 .search-style-2{
+        width: 90vw;
+        max-width: 490px;
+        bottom: 30px;
+    }
+    main.revised .hero-slider-1 .search-style-2 input{
+        height: 40px;
+        font-size: 14px;
+        background-position: 8px 9px;
+        padding-left: 32px;
+        background-size: 15px;
+    }
+    main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item img{
+        width: 50px;
+        height: 50px;
+    }
+    main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right {
+        width: calc(100% - 70px);
+    }
+    main.revised .section-head .btn{
+        padding: 5px 12px;
+        font-size: 8px
+    }
+    main.revised .section-head .btn span{
+        margin-right: 2px !important;
+    }
+    main.revised .section-head .btn svg{
+        font-size: 10px
+    }
+    main.revised .usp-card .image{
+        margin-inline: 0;
+        margin-right: 10px;
+    }
+    main.revised .why-to-choose{
+        margin-bottom: 50px;
+    }
+}
