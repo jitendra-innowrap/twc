@@ -310,7 +310,7 @@ export default function Home() {
 </div>
 </section>
 
-                <section className="section-padding usp-section blog-section pb-0">
+                <section className="section-padding usp-section blog-section">
 
                 <div className="container">
                     <div className="head d-flex justify-content-between align-items-start mb-50">
