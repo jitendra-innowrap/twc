@@ -14040,7 +14040,7 @@ form.form-subcriber input{
   display: none;
 }
 .product-detail-gallary .swiper.mySwiper{
-  height: 150px;
+  height: unset;
 }
 }
 
@@ -14235,7 +14235,7 @@ display: none;
 @media only screen and (max-width: 400px) {
   
 .product-detail-gallary .swiper.mySwiper{
-  height: 80px;
+  height: unset;
 }
   .usp-section .image{
     width: 70px !important;
