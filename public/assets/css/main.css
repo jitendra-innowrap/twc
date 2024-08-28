@@ -13269,10 +13269,10 @@ input[type="checkbox"]:hover{
   position: relative;
   width: 100px;
 }
-.magnify-image{
-  /* height: 70vh; */
+/* .magnify-image{
+  height: 70vh;
   max-height: 65vh;
-}
+} */
 .featurese-content ul, .featurese-content ol{
   list-style: unset;
 }
