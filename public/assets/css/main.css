@@ -13610,8 +13610,6 @@ footer.main h5, footer.main a, footer.main p{
   border-bottom-left-radius: 0;
   border-radius: 50px;
   margin: 2px;
-  position: absolute;
-  height: calc( 100% - 4px);
   padding: 12px 20px;
   top: 0;
   right: 0;

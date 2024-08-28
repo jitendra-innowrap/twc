@@ -6,12 +6,13 @@ import { getAllCategory } from "../../util/api";
 import { useRouter } from "next/router";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import storage from "../../util/localStorage";
 import Popup from "reactjs-popup";
 import Logout from "../ecommerce/Dashboard/Logout/Logout";
 import { CiFacebook } from "react-icons/ci";
 import { useMediaQuery } from "react-responsive";
+import { AiOutlineYoutube } from "react-icons/ai";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
     const isTab = useMediaQuery({
@@ -180,23 +181,24 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                             </div>
                             <div className="mobile-social-icon">
                                 <h5 className="mb-15 text-grey-4">Follow Us</h5>
-                                    <a href={`https://www.facebook.com/`}
-                                        target="_blank">
-                                        <CiFacebook strokeWidth={0.7} size={18} color="#606060" />
-                                    </a>
-                                    <a href={`https://twitter.com/`}
-                                        target="_blank">
-                                        <FaXTwitter size={18} color="#606060" />
-                                    </a>
-                                    <a href={`https://instagram.com/`}
-                                        target="_blank">
-                                        <FaInstagram size={18} color="#606060" />
-                                    </a>
-                                    <a href={`https://wa.me/+919892745795/?text=Hi`}
-                                        data-action="share/whatsapp/share"
-                                        target="_blank">
-                                        <FaWhatsapp size={18} color="#606060" />
-                                    </a>
+                                <a href={` https://www.facebook.com/profile.php?id=61563337004364`}>
+                                            <CiFacebook strokeWidth={0.7} size={23} color="#606060" />
+                                        </a>
+                                        <a href={` https://x.com/thepartycafe94/`}>
+                                            <FaXTwitter size={20} color="#606060" />
+                                        </a>
+                                        <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
+                                            <FaLinkedin size={20} color="#606060" />
+                                        </a>
+                                        <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
+                                            <FaInstagram size={20} color="#606060"/>
+                                        </a>
+                                        <a href={`https://wa.me/+919892745795/?text=Hi`}>
+                                            <FaWhatsapp size={20} color="#606060"/>
+                                        </a>
+                                        <a href={` https://www.youtube.com/@ThePartyCafe`}>
+                                            <AiOutlineYoutube size={23} color="#606060"/>
+                                        </a>
                             </div>
                             <div className="header-info header-info-left mt-20">
                                 <ul>
