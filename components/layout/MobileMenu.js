@@ -130,6 +130,13 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                                 </li>
                                             ))
                                         }
+                                        <li className={"menu-item-has-children"}>
+                                                    <div>
+                                                        <a style={{color:`#000`}}>
+                                                        <a onClick={()=>{handleCategory(`/blogs`)}}>Blogs</a>
+                                                        </a>
+                                                    </div>
+                                                </li>
                                     </ul>
                                 </nav>
                             </div>
