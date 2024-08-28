@@ -11312,7 +11312,7 @@ footer a:hover, footer a:hover svg {
 
 .product-detail-gallary .swiper.mySwiper {
   width: 100px !important;
-  height: 400px;
+  height: 420px;
 }
 
 .product-detail-gallary .swiper.mySwiper .swiper-slide img {
@@ -13269,10 +13269,10 @@ input[type="checkbox"]:hover{
   position: relative;
   width: 100px;
 }
-.magnify-image{
-  /* height: 70vh; */
+/* .magnify-image{
+  height: 70vh;
   max-height: 65vh;
-}
+} */
 .featurese-content ul, .featurese-content ol{
   list-style: unset;
 }
@@ -14039,8 +14039,8 @@ form.form-subcriber input{
 .event-collection-thumb .slider-arrow{
   display: none;
 }
-.collection-slider-container {
-  /* margin-bottom: 50px; */
+.product-detail-gallary .swiper.mySwiper{
+  height: 150px;
 }
 }
 
@@ -14227,13 +14227,16 @@ p{
   font-size: 14px;
   margin-top: 10px;
 }
-
 }
 
 .itemComponents-base-sellerContainer .from-to-date-mobile{
 display: none;
 }
 @media only screen and (max-width: 400px) {
+  
+.product-detail-gallary .swiper.mySwiper{
+  height: 80px;
+}
   .usp-section .image{
     width: 70px !important;
     height: 65px !important;

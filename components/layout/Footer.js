@@ -102,21 +102,21 @@ const Footer = () => {
                                             <NewsletterFrom />
                                         </div>
                                     <div className="d-grid justify-content-start mt-5">
-                                    <h5 className="mb-10 mt-30 fw-600 wow text-start fadeIn animated">
+                                    <h5 className="mb-10 mt-30 fw-600 wow text-start widget-title fadeIn animated">
                                         Follow Us
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
                                         <a href={`https://www.facebook.com/`}>
-                                            <CiFacebook strokeWidth={0.7} size={25} color="#fff" />
+                                            <CiFacebook strokeWidth={0.7} size={30} color="#fff" />
                                         </a>
                                         <a href={`https://www.twitter.com/`}>
-                                            <FaXTwitter size={25} color="#fff" />
+                                            <FaXTwitter size={30} color="#fff" />
                                         </a>
                                         <a href={`https://www.instagram.com/`}>
-                                            <FaInstagram size={25} color="#fff"/>
+                                            <FaInstagram size={30} color="#fff"/>
                                         </a>
                                         <a href={`https://wa.me/+919892745795/?text=Hi`}>
-                                            <FaWhatsapp size={25} color="#fff"/>
+                                            <FaWhatsapp size={30} color="#fff"/>
                                         </a>
                                     </div>
                                     </div>
