@@ -14,7 +14,8 @@ import Preloader from "../components/elements/Preloader";
 import CategoryThumbSlider from "../components/sliders/CategoryThumbSlider";
 import { BsArrowRight } from "react-icons/bs";
 import ScrollToTop from "react-scroll-to-top";
-
+import HeroBanner2 from "../components/home-2/HeroBanner2";
+import RentalSlider from "../components/home-2/RendalSlider";
 
 export default function Home() {
     const [data, setData] = useState(null);
@@ -38,110 +39,276 @@ export default function Home() {
     
     return (
         <>
-            {/* <IntroPopup /> */}
-
                 {data ? 
-            <Layout noBreadcrumb="d-none" headerStyle="header-style-1">
+            <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
                 <>
                 <ScrollToTop smooth />
                 <section className="home-slider position-relative">
-                    <Intro1 data={data.slider} />
+                    <HeroBanner2 data={data.slider} />
+                </section>
+                <section className="home-banner section-padding position-relative pb-0">
+                    <img src="/assets/imgs/banner/home-banner.png" alt="" style={{width:'100%', height:'auto', cursor:'pointer'}} />
                 </section>
 
-                <section className="popular-categories section-padding mt-md-3 mb-md-4">
-                    <div className="container wow fadeIn animated position-relative">
-                        <h3 className="section-title text-center mb-20 title-underline">
-                        Rental Collection
-                        </h3>
-                        <div className="carausel-6-columns-cover">
-                            <div
-                                className=""
-                                id="carausel-6-columns"
-                            >
-                                <CategorySlider data={data?.browse_events_category} />
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<section className="popular-categories section-padding mt-md-3 mb-md-4">
+    <div className="container wow fadeIn animated position-relative">
+        <div className="section-head d-flex justify-content-between">
+            <h3 className="section-title text-center mb-20 title-underline">
+            Rental
+            </h3>
+            <Link href={'/collection/suit'}>
+                <button className="btn title-btn">
+                    <span className="mr-5">View All</span> <BsArrowRight fontSize={22}/>
+                </button>
+            </Link>
+        </div>
+        <div className="carausel-6-columns-cover">
+            <div
+                className=""
+                id="carausel-6-columns"
+            >
+                <RentalSlider data={data?.browse_events_category} />
+            </div>
+        </div>
+    </div>
+</section>
 
-                <section className="section-padding mt-md-3 mb-md-4">
-                    <RentalCollection data={data} />
-                </section>
+<section className="popular-categories section-padding mt-md-3 mb-md-4">
+    <div className="container wow fadeIn animated position-relative">
+        <div className="section-head d-flex justify-content-between">
+            <h3 className="section-title text-center mb-20 title-underline">
+            Packages
+            </h3>
+            <Link href={'/collection/suit'}>
+                <button className="btn title-btn">
+                    <span className="mr-5">View All</span> <BsArrowRight fontSize={22}/>
+                </button>
+            </Link>
+        </div>
+        <div className="carausel-6-columns-cover">
+            <div
+                className=""
+                id="carausel-6-columns"
+            >
+                <RentalSlider data={data?.browse_events_category} />
+            </div>
+        </div>
+    </div>
+</section>
 
-                <section className="section-padding events-section">
-                    <div className=" wow fadeIn animated">
-                        <div className="events-collection-slider">
-                            <CategoryThumbSlider data={data?.events_collections} />
-                        </div>
-                    </div>
-                </section>
+<section className="services section-padding">
+    <div className="container wow fadeIn animated position-relative">
+        <div className="section-head d-flex justify-content-between">
+            <h3 className="section-title text-center mb-20 title-underline">
+            Services
+            </h3>
+            <Link href={'/collection/suit'}>
+                <button className="btn title-btn">
+                    <span className="mr-5">All Categories</span> <BsArrowRight fontSize={22}/>
+                </button>
+            </Link>
+        </div>
+        <div className="usp-icons-grid position-relative wow fadeIn animated">
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/shop/category-thumb-8.jpg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Convenience"
+            />
+            <div className="usp-value">
+            <h5>Sunny Wears</h5>
+            <p>Our one-stop-shop approach means you can find everything you need for your event in one place, saving you time and effort.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/shop/category-thumb-2.jpg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Variety"
+            />
+            <div className="usp-value">
+            <h5>Variety Collection</h5>
+            <p>We offer an extensive range of high-quality items and services to suit various themes, styles, and budgets.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/shop/category-thumb-3.jpg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Quality Assurance"
+            />
+            <div className="usp-value">
+            <h5>Quality Footwears</h5>
+            <p>All our items and service providers are carefully vetted to ensure top-notch quality for your event.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/shop/category-thumb-1.jpg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Cost-Effective"
+            />
+            <div className="usp-value">
+            <h5>Casuals</h5>
+            <p>Renting allows you to access premium items at a fraction of the cost of buying, helping you create a luxurious event within your budget.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/shop/category-thumb-6.jpg'}
+                width={160}
+                height={120}
+                className="image"
+                quality={100}
+                alt="Sustainability"
+            />
+            <div className="usp-value">
+            <h5>Party Decor</h5>
+            <p>By choosing to rent instead of buy, you're making an environmentally friendly choice, reducing waste from single-use party items.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/shop/category-thumb-4.jpg'}
+                width={160}
+                height={120}
+                className="image"
+                quality={100}
+                alt="Customer Support"
+            />
+            <div className="usp-value">
+            <h5>Seasonals</h5>
+            <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+            </p>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
 
-                <section className="section-padding usp-section packages-section">
-                    <div className="container">
-                        <h3 className="section-title text-center mb-20 title-underline">
-                            Browse Packages
-                        </h3>
-                        <div className="row packages-grid-layout">
-                            <div className="column-1 col-12 col-md-6 h-md-100">
-                                <div className=" block block-1">
-                                    <Image 
-                                        src="/assets/imgs/shop/dj-packages.jpg"
-                                        height={636}
-                                        width={636}
-                                        // layout="fill"
-                                        objectFit="cover"
-                                        className="package-img"
-                                    />
-                                </div>
-                            </div>
-                            <div className="column-2 col-6 col-md-3 h-md-100">
-                                <div className=" block block-2">
-                                    <Image 
-                                        src="/assets/imgs/shop/wedding venue-1.jpg"
-                                        height={318}
-                                        width={318}
-                                        // layout="fill"
-                                        objectFit="cover"
-                                        className="package-img"
-                                    />
-                                </div>
-                                <div className=" block block-3">
-                                    <Image 
-                                        src="/assets/imgs/shop/wedding venue-1.jpg"
-                                         height={318}
-                                        width={318}
-                                        // layout="fill"
-                                        objectFit="cover"
-                                        className="package-img"
-                                    />
-                                </div>
-                            </div>
-                            <div className="column-3 col-6 col-md-3 h-md-100">
-                                <div className=" block block-4">
-                                    <Image 
-                                        src="/assets/imgs/shop/wedding venue-1.jpg"
-                                        height={318}
-                                        width={318}
-                                        // layout="fill"
-                                        objectFit="cover"
-                                        objectPosition="center"
-                                        className="package-img"
-                                    />
-                                </div>
-                                <div className=" block block-5">
-                                    <Image 
-                                        src="/assets/imgs/shop/wedding venue-2.jpg"
-                                        height={318}
-                                        width={318}
-                                        // layout="fill"
-                                        objectFit="cover"
-                                        className="package-img"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+ 
+
+<section className="section-padding usp-section">
+
+<div className="container pt-md-5 pb-25">
+    <div className="head d-flex justify-content-between align-items-start mb-50">
+        <div className="left">
+            <h3 className="section-title title-rightline">
+            Why Choose The Party Cafe?
+            </h3>
+            <p className="fw-bold mt-20 usp-desc">India's go-to destination for all things celebration. From weddings to corporate events, birthdays to festive gatherings, we've got you covered. Our vast 'menu' offers everything from stunning decorations to designer outfits, all available for rent.
+            </p>
+            <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event!
+            </p>
+        </div>
+        <div className="right">
+            <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                `}>Consult Our Expert</a></button>
+        </div>
+    </div>
+    <div className="why-to-choose position-relative wow fadeIn animated">
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/usp-icons/usp-5.svg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Convenience"
+            />
+            <div className="usp-value">
+            <h5>Convenience</h5>
+            <p>Our one-stop-shop approach means you can find everything you need for your event in one place, saving you time and effort.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/usp-icons/usp-2.svg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Variety"
+            />
+            <div className="usp-value">
+            <h5>Variety</h5>
+            <p>We offer an extensive range of high-quality items and services to suit various themes, styles, and budgets.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/usp-icons/usp-3.svg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Quality Assurance"
+            />
+            <div className="usp-value">
+            <h5>Quality Assurance</h5>
+            <p>All our items and service providers are carefully vetted to ensure top-notch quality for your event.
+            </p>
+            </div>
+        </div>
+        {/* <div className="usp-card">
+            <img
+                src={'/assets/imgs/usp-icons/usp-1.svg'}
+                width={160}
+                height={120}
+                className="image"
+                alt="Cost-Effective"
+            />
+            <div className="usp-value">
+            <h5>Cost-Effective</h5>
+            <p>Renting allows you to access premium items at a fraction of the cost of buying, helping you create a luxurious event within your budget.
+            </p>
+            </div>
+        </div>
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/usp-icons/usp-6.svg'}
+                width={160}
+                height={120}
+                className="image"
+                quality={100}
+                alt="Sustainability"
+            />
+            <div className="usp-value">
+            <h5>Sustainability</h5>
+            <p>By choosing to rent instead of buy, you're making an environmentally friendly choice, reducing waste from single-use party items.
+            </p>
+            </div>
+        </div> */}
+        <div className="usp-card">
+            <img
+                src={'/assets/imgs/usp-icons/usp-4.svg'}
+                width={160}
+                height={120}
+                className="image"
+                quality={100}
+                alt="Customer Support"
+            />
+            <div className="usp-value">
+            <h5>Customer Support</h5>
+            <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+            </p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 
                 <section className="section-padding usp-section blog-section pb-0">
 
@@ -236,114 +403,6 @@ export default function Home() {
                 </div>
                 </section>
 
-                <section className="section-padding usp-section">
-
-                    <div className="container pt-md-5 pb-25">
-                        <div className="head d-flex justify-content-between align-items-start mb-50">
-                            <div className="left">
-                                <h3 className="section-title title-rightline">
-                                Why Choose The Party Cafe?
-                                </h3>
-                                <p className="fw-bold mt-20 usp-desc">India's go-to destination for all things celebration. From weddings to corporate events, birthdays to festive gatherings, we've got you covered. Our vast 'menu' offers everything from stunning decorations to designer outfits, all available for rent.
-                                </p>
-                                <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event!
-                                </p>
-                            </div>
-                            <div className="right">
-                                <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
-                                                    `}>Consult Our Expert</a></button>
-                            </div>
-                        </div>
-                        <div className="usp-icons-grid position-relative wow fadeIn animated">
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp-icons/usp-5.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
-                                    alt="Convenience"
-                                />
-                                <div className="usp-value">
-                                <h5>Convenience</h5>
-                                <p>Our one-stop-shop approach means you can find everything you need for your event in one place, saving you time and effort.
-                                </p>
-                                </div>
-                            </div>
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp-icons/usp-2.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
-                                    alt="Variety"
-                                />
-                                <div className="usp-value">
-                                <h5>Variety</h5>
-                                <p>We offer an extensive range of high-quality items and services to suit various themes, styles, and budgets.
-                                </p>
-                                </div>
-                            </div>
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp-icons/usp-3.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
-                                    alt="Quality Assurance"
-                                />
-                                <div className="usp-value">
-                                <h5>Quality Assurance</h5>
-                                <p>All our items and service providers are carefully vetted to ensure top-notch quality for your event.
-                                </p>
-                                </div>
-                            </div>
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp-icons/usp-1.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
-                                    alt="Cost-Effective"
-                                />
-                                <div className="usp-value">
-                                <h5>Cost-Effective</h5>
-                                <p>Renting allows you to access premium items at a fraction of the cost of buying, helping you create a luxurious event within your budget.
-                                </p>
-                                </div>
-                            </div>
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp-icons/usp-6.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
-                                    quality={100}
-                                    alt="Sustainability"
-                                />
-                                <div className="usp-value">
-                                <h5>Sustainability</h5>
-                                <p>By choosing to rent instead of buy, you're making an environmentally friendly choice, reducing waste from single-use party items.
-                                </p>
-                                </div>
-                            </div>
-                            <div className="usp-card">
-                                <img
-                                    src={'/assets/imgs/usp-icons/usp-4.svg'}
-                                    width={160}
-                                    height={120}
-                                    className="image"
-                                    quality={100}
-                                    alt="Customer Support"
-                                />
-                                <div className="usp-value">
-                                <h5>Customer Support</h5>
-                                <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
                 </>
                 </Layout>
                 :

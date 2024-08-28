@@ -17,6 +17,12 @@ const ThumbSlider = ({ product }) => {
     const isTab = useMediaQuery({
         query: '(max-width: 992px)'
       })
+    const isPhone = useMediaQuery({
+        query: '(max-width: 768px)'
+    })
+    const isSmallPhone = useMediaQuery({
+        query: '(max-width: 400px)'
+    })
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [mainSwiper, setMainSwiper] = useState(null);
 
@@ -74,7 +80,7 @@ const ThumbSlider = ({ product }) => {
                     onSwiper={setThumbsSwiper}
                     spaceBetween={10}
                     direction={isTab?"horizontal":"vertical"}
-                    slidesPerView={3}
+                    slidesPerView={isSmallPhone?4.5:isPhone?4:3}
                     freeMode={true}
                     watchSlidesProgress={true}
                     navigation={{
