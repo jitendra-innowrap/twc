@@ -28,8 +28,8 @@
 
 
 ::selection {
-  color: var(--tpc-theme-primary);
-  background: var(--tpc-theme-primary-light-1);
+  color: #fff;
+  background: var(--tpc-theme-primary-dark-2);
 }
 
 /*RESET*/
@@ -228,20 +228,18 @@ a:hover {
 
 /*--- Common Classes---------------------*/
 ::-moz-selection {
-  background: var(--tpc-theme-primary);
-  /* WebKit/Blink Browsers */
   color: #fff;
+  background: var(--tpc-theme-primary);
 }
 
 ::selection {
-  color: var(--tpc-theme-primary);
-  background: var(--tpc-theme-primary-light-1);
+  color: #fff;
+  background: var(--tpc-theme-primary);
 }
 
 ::-moz-selection {
-  background: var(--tpc-theme-primary);
-  /* Gecko Browsers */
   color: #fff;
+  background: var(--tpc-theme-primary);
 }
 
 ::-webkit-input-placeholder {
