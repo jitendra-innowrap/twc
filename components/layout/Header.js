@@ -194,7 +194,7 @@ const Header = ({
                                         <div className="header-action-icon-2">
                                             <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                                 <a>
-                                                    <FaRegHeart fontSize={22} color="#333333" /> 
+                                                    <FaRegHeart fontSize={22} strokeWidth={3} color="#333333" /> 
                                                     {wishlistCount!==0 &&<span className="pro-count">
                                                         {wishlistCount}
                                                     </span>}
@@ -204,7 +204,7 @@ const Header = ({
                                         <div className="header-action-icon-2">
                                             <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
                                                 <a className="mr-0">
-                                                    <FiUser color="#333333" strokeWidth={2.6} />
+                                                    <FiUser color="#333333" strokeWidth={2} />
                                                 </a>
                                             </Link>
                                         </div>

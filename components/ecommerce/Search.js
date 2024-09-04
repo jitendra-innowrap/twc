@@ -74,7 +74,7 @@ const Search = () => {
                     type="text"
                     placeholder="Search for products, events or more"
                 />
-                <IoSearch fontSize={26} color="#18282f" onClick={()=> setShowSearch(true)} />
+                <IoSearch fontSize={26} color="#333333" onClick={()=> setShowSearch(true)} cursor="pointer" />
                 {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'} custom-scrollbar`}>
                     {searchList?.map((item, index)=>{
                         return<li onClick={()=>{handleSearch(item?.handle)}}>
