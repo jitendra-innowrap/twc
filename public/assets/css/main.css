@@ -6081,7 +6081,7 @@ h6.post-title {
 }
 
 .header-action .header-action-icon>a span.pro-count.blue {
-  background-color: var(--tpc-theme-primary);
+  background-color: var(--tpc-theme-primary-light-1);
 }
 
 .header-action .header-action-icon:hover>a {
@@ -6107,7 +6107,7 @@ h6.post-title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 14px;
+  /* padding: 0 14px; */
 }
 
 .header-action-2 .header-action-icon-2>a svg {
@@ -6327,6 +6327,7 @@ h6.post-title {
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  align-items: center;
 }
 
 .search-style-2 form select {
@@ -6406,8 +6407,9 @@ h6.post-title {
 }
 
 .header-bottom .header-action-right a span.pro-count {
-  background-color: var(--tpc-theme-primary);
-  color: #fff;
+  background-color: var(--tpc-theme-primary-light-1);
+  color: #000;
+  font-weight: 600;
 }
 
 .search-style-3 form {
@@ -9820,7 +9822,7 @@ footer a:hover, footer a:hover svg {
   }
 
   .header-action-2 .header-action-icon-2 {
-    padding: 0 6px;
+    padding: 0 !important;
   }
 
   .header-action-2 .header-action-icon-2:last-child {
@@ -10696,6 +10698,9 @@ footer a:hover, footer a:hover svg {
   .mb-sm-15 {
     margin-bottom: 15px;
   }
+  .header-action-2{
+    gap: 10px !important;
+  }
 }
 
 /*phone landscape*/
@@ -11079,8 +11084,11 @@ footer a:hover, footer a:hover svg {
   font-weight: 600;
 }
 
-.search-style-2 form input {
+.header-right .search-style-2 form input {
   width: 100%;
+  opacity: 0;
+  width: 0px !important;
+  transition: 0.5s all ease-in;
   max-width: 683px;
   border-radius: 0;
   background-color: #f5f5f6;
@@ -11089,13 +11097,22 @@ footer a:hover, footer a:hover svg {
   border-width: 1px;
   border-style: solid;
   font-size: 16px;
-  background-image: url(/_next/static/media/search.9bda5a33.png);
+  /* background-image: url(/_next/static/media/search.9bda5a33.png); */
+  background-image: none;
   background-repeat: no-repeat;
   background-position: 20px 10px;
-  padding-left: 53px;
+  padding-left: 10px;
+  padding-right: 53px;
   font-style: italic;
 }
-
+.header-right .search-style-2 form svg{
+  position: absolute;
+  right: 10px;
+}
+.header-right .search-style-2 form.show-search input{
+  width: 320px !important;
+  opacity: 1;
+}
 .search-style-2 form input:focus {
   background-color: #fff;
   border-color: #eeeeee;
