@@ -8,6 +8,7 @@ header.revised.header-height-2{
 main.revised .section-head{
     position: relative;
 }
+
 /* heading pattern */
 main.revised .section-head .heading h2{
     font-family: var(--tpc-theme-font-secondary);
@@ -74,7 +75,7 @@ main.revised .section-head .heading {
   }
 main.revised .hero-slider-1 img{
     object-position: bottom;
-    max-height: calc(100vh);
+    max-height: 650px;
 }
 main.revised .hero-slider-1 span{
     font-size: 14px;
@@ -350,12 +351,24 @@ main.revised .popular-categories .btn.consult-btn{
     border: none;
     margin-inline: auto;
 }
+header.revised .header-bottom .header-right .search-style-2,header.revised .header-bottom .header-action-right .header-action-2 .header-action-icon-2.search{
+    display: none !important;
+}
+header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,header.revised .header-bottom.sticky-bar.stick .header-action-right .header-action-2 .header-action-icon-2.search{
+    display: block !important;
+}
+
+/* responsive */
 @media (max-width: 1400px) {
     main.revised .card-1, main.revised .card-1-slide{
         width: unset !important;
     }
 }
 @media (max-width: 992px) {  
+    main.revised .hero-slider-1 img{
+        object-position: bottom;
+        max-height: 550px;
+    }
     main.revised .hero-slider-1 .search-style-2.hero-search{
         width: 80%;
     } 
@@ -452,7 +465,10 @@ main.revised .popular-categories .btn.consult-btn{
 }
 
 @media (max-width: 540px){
-    
+    main.revised .hero-slider-1 img{
+        object-position: bottom;
+        max-height: 500px;
+    }
     main.revised .section-head .heading h2{
         font-size: 45px;
     }
@@ -468,4 +484,20 @@ main.revised .popular-categories .btn.consult-btn{
         right: -70px;
         width: 60px;
       }
+}
+
+@media (max-width: 420px){
+    main.revised .hero-slider-1 {
+        min-height: 350px;
+    }
+    main.revised .section-head .heading::before {
+        left: -35px;
+        width: 35px;
+      }
+      
+      main.revised .section-head .heading::after {
+        right: -37px;
+        width: 35px;
+      }
+
 }

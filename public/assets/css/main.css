@@ -14361,9 +14361,21 @@ body.mobile-menu-active{
   width: calc( 100% - 200px );
 }
 
+.header-bottom .container{
+  max-width: 1920px !important;
+}
+.header-wrap .logo.logo-width-1{
+  margin-right: 40px !important;
+}
 .rental-collection-swiper-slider .swiper-pagination-bullets.swiper-pagination-horizontal{
   display: flex;
   justify-content: center;
+}
+@media (min-width: 992px) {
+  .header-bottom{
+    padding-left: 30px;
+    padding-right: 20px;
+  }
 }
 @media (min-width: 768px) {
   .mb-md-5 {

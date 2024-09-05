@@ -132,6 +132,8 @@ const Header = ({
                                         <ul className="menu-links">
                                             {
                                                 result?.map((menu, i)=>(
+                                                    <>
+                                                    
                                                     <li className="position-static" key={menu?.id}>
                                                         <a className="text-black">
                                                             {menu?.name}
@@ -172,6 +174,7 @@ const Header = ({
                                                             }
                                                         </ul>
                                                     </li>
+                                                    </>
                                                 ))
                                             }
                                             <li className="position-static">
@@ -223,7 +226,7 @@ const Header = ({
                             </div>
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2">
-                                    <div className="header-action-icon-2" onClick={toggleSearch}>
+                                    <div className="header-action-icon-2 search" onClick={toggleSearch}>
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
                                     </div>
                                     <div className="header-action-icon-2">
