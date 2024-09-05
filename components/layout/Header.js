@@ -76,7 +76,7 @@ const Header = ({
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-6 col-lg-4">
+                            {title &&<div className="col-xl-6 col-lg-4">
                                 <div className="text-center">
                                     <div
                                         id="news-flash"
@@ -92,7 +92,7 @@ const Header = ({
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
