@@ -23,9 +23,18 @@
   --tpc-theme-bg-variant-2: #fff8dc;
   --tpc-theme-bg-red: #ca1515;
   --tpc-theme-bg-red-dark: #b51414;
+  --tpc-theme-font-primary: ivypresto-display, serif;
+  --tpc-theme-font-secondary: Fleur De Leah, serif;
 
 }
 
+@font-face {
+  font-family: 'Fleur De Leah';
+  src: url('/assets/fonts/FleaurDeLeah/FleurDeLeah-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 ::selection {
   color: #fff;
@@ -817,7 +826,7 @@ h4 {
 /*TYPOGRAPHY*/
 body {
   color: #4f5d77;
-  font-family: "Lato", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
   font-size: 14px;
   line-height: 24px;
   font-style: normal;
@@ -830,7 +839,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
   color: #222222;
   font-weight: 600;
   line-height: 1.2;
@@ -1193,7 +1202,7 @@ button[type='submit']:hover {
   border: 0;
   padding: 14px 80px 14px 65px;
   background-repeat: no-repeat;
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
 }
 
 .btn.btn-brush i,
@@ -2536,7 +2545,7 @@ label {
   border-right-color: currentcolor;
   border-bottom-color: currentcolor;
   border-left-color: currentcolor;
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
   font-weight: 600;
   line-height: 1;
 }
@@ -2625,7 +2634,7 @@ label {
 }
 
 .tab-header .view-more {
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
   font-size: 13px;
   font-weight: 700;
   display: -webkit-box;
@@ -6269,7 +6278,7 @@ h6.post-title {
   line-height: 1;
   padding: 10px 20px;
   background-color: var(--tpc-theme-primary);
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
   border: 2px solid var(--tpc-theme-primary);
 }
 
@@ -7857,7 +7866,7 @@ span.fi-rs-apps {
   color: var(--tpc-theme-primary);
   position: relative;
   font-size: 13px;
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
 }
 
 .categori-dropdown-wrap .more_categories::before {
@@ -8122,7 +8131,7 @@ span.fi-rs-apps {
   border: 0;
   font-size: 14px;
   padding: 0 30px;
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
 }
 
 .download-app {
@@ -10747,7 +10756,7 @@ footer a:hover, footer a:hover svg {
 .empty-cart {
   margin: 0 auto;
   text-align: center;
-  font-family: 'Maison Neue';
+  font-family: var(--tpc-theme-font-primary);
   font-weight: 300;
 }
 
@@ -11145,14 +11154,14 @@ footer a:hover, footer a:hover svg {
   text-transform: capitalize;
   margin-bottom: 5px;
   color: #192837;
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
 }
 
 .product-detail .detail-info .title-detail {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  font-family: "Spartan", sans-serif;
+  font-family: var(--tpc-theme-font-primary);
 }
 
 .detail-info .product-price-cover .product-price {
@@ -11561,7 +11570,7 @@ list-style-type: decimal;
     -webkit-user-drag: none;
 }
 .welcome_header{
-  font-family: "Lato";
+  font-family: var(--tpc-theme-font-primary);
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 24px;

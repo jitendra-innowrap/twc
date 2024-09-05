@@ -54,10 +54,11 @@ export default function Home() {
 
                         <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
-                                <div className="section-head d-flex justify-content-ceter w-100">
-                                    <h1 className="sr-only">discover</h1>
-                                    <h2 className="sr-only">top categories</h2>
-                                    <img src="/assets/imgs/home-page/catrgory-head.png" className="heading_image"/>
+                            <div className="section-head d-flex flex-column align-items-center w-100">
+                                    <div className="heading">
+                                        <h2>Discover</h2>
+                                    </div>
+                                    <h3 className="subheading">Top Categories</h3>
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
@@ -72,10 +73,11 @@ export default function Home() {
 
                         <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
-                                <div className="section-head d-flex justify-content-ceter w-100">
-                                    <h1 className="sr-only">explore</h1>
-                                    <h2 className="sr-only">quality rentals</h2>
-                                    <img src="/assets/imgs/home-page/rentals-head.png" className="heading_image"/>
+                            <div className="section-head d-flex flex-column align-items-center w-100">
+                                    <div className="heading">
+                                        <h2>Explore</h2>
+                                    </div>
+                                    <h3 className="subheading">Quality Rentals</h3>
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
@@ -90,10 +92,11 @@ export default function Home() {
 
                         <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
-                                <div className="section-head d-flex justify-content-ceter w-100">
-                                    <h1 className="sr-only">most trending</h1>
-                                    <h2 className="sr-only">packages</h2>
-                                    <img src="/assets/imgs/home-page/packages-head.png" className="heading_image"/>
+                            <div className="section-head d-flex flex-column align-items-center w-100">
+                                    <div className="heading">
+                                        <h2>Most Trendings</h2>
+                                    </div>
+                                    <h3 className="subheading">Packages</h3>
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
@@ -104,17 +107,22 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
-                                    <button className="btn consult-btn">Cunsult an Expert <BsArrowRight/></button>
+                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                        `}>
+                                    <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
+                                        </Link>
                                 </div>
                             </div>
                         </section>
 
                         <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
-                                <div className="section-head d-flex justify-content-ceter w-100">
-                                    <h1 className="sr-only">vendors</h1>
-                                    <h2 className="sr-only">peoples & services</h2>
-                                    <img src="/assets/imgs/home-page/services-head.png" className="heading_image"/>
+                            <div className="section-head d-flex flex-column align-items-center w-100">
+                                    <div className="heading">
+                                        <h2>Vendors</h2>
+                                    </div>
+                                    <h3 className="subheading">Peoples & Services</h3>
+                                    {/* <img src="/assets/imgs/home-page/services-head.png" className="heading_image"/> */}
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
@@ -125,26 +133,26 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
-                                    <button className="btn consult-btn">Cunsult an Expert <BsArrowRight/></button>
+                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                        `}>
+                                    <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
+                                        </Link>
                                 </div>
                             </div>
                         </section>
 
-                        <section className="section-padding usp-section blog-section">
+                        <section className="section-padding popular-categories usp-section blog-section">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
-                                    <div className="left">
-                                        <h3 className="section-title title-rightline">
-                                            Blogs
-                                        </h3>
-                                        <p className="fw-bold mt-20">Find everything you need to make your events a success!</p>
-                                        <p className="lh-1">Whether it’s event equipment rental or corporate event supplies,</p>
-                                        <p className="lh-1">enjoy end-to-end solutions from ideas all the way to execution</p>
+                                <div className="section-head d-flex flex-column align-items-center w-100">
+                                    <div className="heading">
+                                        <h2>Enjoy Ideas</h2>
                                     </div>
-                                    <div className="right">
-                                        <button className="btn title-btn"><a target="_blank" style={{ color: "#fff" }}
-                                            href={`/blogs`}>View All</a></button>
-                                    </div>
+                                    <h3 className="subheading">Blogs & Articles</h3>
+                                    
+                                    <p  className="lh-1 mt-3">Whether it’s event equipment rental or corporate event supplies,</p>
+                                        <p  className="lh-1">enjoy end-to-end solutions from ideas all the way to execution</p>
+                                </div>
                                 </div>
                                 <div class="row loop-grid">
                                     <div class="col-lg-4 mb-4">
@@ -219,25 +227,27 @@ export default function Home() {
                                         </article>
                                     </div>
                                 </div>
+                                
+                                <div className="w-100 d-flex justify-content-center mb-30">
+                                    <Link href="/blogs">
+                                    <button className="btn consult-btn">View All <BsArrowRight/></button>
+                                    </Link>
+                                </div>
                             </div>
                         </section>
                         
-                        <section className="section-padding usp-section">
+                        <section className="section-padding usp-section popular-categories">
 
                             <div className="container pt-md-5 pb-25">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
-                                    <div className="left">
-                                        <h3 className="section-title title-rightline">
-                                            Why Choose The Party Cafe?
-                                        </h3>
-                                        <p className="fw-bold mt-20 usp-desc">India's go-to destination for all things celebration. From weddings to corporate events, birthdays to festive gatherings, we've got you covered. Our vast 'menu' offers everything from stunning decorations to designer outfits, all available for rent.
-                                        </p>
-                                        <p className="lh-1 mt-3">Browse our menu, and let us serve up the perfect ingredients for your event!
-                                        </p>
-                                    </div>
-                                    <div className="right">
-                                        <button className="btn title-btn"><a target="_blank" style={{ color: "#fff" }} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
-                                        `}>Consult Our Expert</a></button>
+                                    <div className="section-head d-flex flex-column align-items-center w-100">
+                                        <div className="heading">
+                                            <h2>Why Us</h2>
+                                        </div>
+                                        <h3 className="subheading">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h3>
+                                        <p className="lh-1 mt-3">India's go-to destination for all things celebration.</p>
+                                        <p className="lh-1">Browse our menu, and let us serve up the perfect ingredients for your event!</p>
+                                        
                                     </div>
                                 </div>
                         
@@ -301,6 +311,12 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
+                                <div className="w-100 d-flex justify-content-center mt-20 mb-30">
+                                    <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                        `}>
+                                        <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
+                                    </Link>
+                                </div>
                         </section>
 
 

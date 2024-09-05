@@ -8,6 +8,59 @@ header.revised.header-height-2{
 main.revised .section-head{
     position: relative;
 }
+/* heading pattern */
+main.revised .section-head .heading h2{
+    font-family: var(--tpc-theme-font-secondary);
+    font-weight: 100;
+    font-size: 72px;
+}
+main.revised .section-head h3{
+    font-family: var(--tpc-theme-font-primary);
+    font-weight: 600;
+    font-size: 44px;
+    letter-spacing: -2px;
+    text-align: center;
+}
+main.revised .section-head .heading {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    justify-content: center;
+    position: relative;
+  }
+  
+  main.revised .section-head .heading::before,
+  main.revised .section-head .heading::after {
+    content: "";
+    display: block;
+    width: 77px; /* Adjust the width based on your arrow image size */
+    height: 20px; /* Adjust the height based on your arrow image size */
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+  }
+  
+  main.revised .section-head .heading::before {
+    background-image: url('/assets/imgs/home-page/leading-line-left.png');
+    left: -90px;
+  }
+  
+  main.revised .section-head .heading::after {
+    background-image: url('/assets/imgs/home-page/heading-line-right.png');
+    right: -90px;
+  }
+  
+  .heading-text {
+    padding: 0 30px; /* Adjust padding to create space for the arrows */
+    font-size: 24px; /* Adjust font size as needed */
+  }
+  
+
+
+
+
+
+/* heading pattern end */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -278,6 +331,7 @@ main.revised .slider-arrow-out .slider-arrow .slider-btn{
     display: flex;
     align-items: center;
 }
+
 main.revised .slider-arrow-out .slider-arrow .slider-btn svg{
     color: var(--tpc-theme-primary);
 }
@@ -327,6 +381,21 @@ main.revised .popular-categories .btn.consult-btn{
         max-height: 100vh;
         min-height: 400px;
     }
+    main.revised .section-head .heading h2{
+        font-size: 52px;
+    }
+    main.revised .section-head h3{
+        font-size: 34px;
+    }
+    main.revised .section-head .heading::before {
+        left: -75px;
+        width: 65px;
+      }
+      
+      main.revised .section-head .heading::after {
+        right: -75px;
+        width: 65px;
+      }
     main.revised .popular-categories.section-padding{
         /* padding-bottom: 0; */
     }
@@ -380,4 +449,23 @@ main.revised .popular-categories .btn.consult-btn{
     main.revised .why-to-choose{
         margin-bottom: 50px;
     }
+}
+
+@media (max-width: 540px){
+    
+    main.revised .section-head .heading h2{
+        font-size: 45px;
+    }
+    main.revised .section-head h3{
+        font-size: 34px;
+    }
+    main.revised .section-head .heading::before {
+        left: -70px;
+        width: 60px;
+      }
+      
+      main.revised .section-head .heading::after {
+        right: -70px;
+        width: 60px;
+      }
 }
