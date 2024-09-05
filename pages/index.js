@@ -150,8 +150,8 @@ export default function Home() {
                                     </div>
                                     <h3 className="subheading">Blogs & Articles</h3>
                                     
-                                    <p  className="lh-1 mt-3">Whether it’s event equipment rental or corporate event supplies,</p>
-                                        <p  className="lh-1">enjoy end-to-end solutions from ideas all the way to execution</p>
+                                    <p  className="lh-1 mt-3 text-center">Whether it’s event equipment rental or corporate event supplies,</p>
+                                        <p  className="lh-1 text-center">enjoy end-to-end solutions from ideas all the way to execution</p>
                                 </div>
                                 </div>
                                 <div class="row loop-grid">
@@ -245,8 +245,8 @@ export default function Home() {
                                             <h2>Why Us</h2>
                                         </div>
                                         <h3 className="subheading">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h3>
-                                        <p className="lh-1 mt-3">India's go-to destination for all things celebration.</p>
-                                        <p className="lh-1">Browse our menu, and let us serve up the perfect ingredients for your event!</p>
+                                        <p className="lh-1 mt-3 text-center">India's go-to destination for all things celebration.</p>
+                                        <p className="lh-1 text-center">Browse our menu, and let us serve up the perfect ingredients for your event!</p>
                                         
                                     </div>
                                 </div>
