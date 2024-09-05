@@ -5937,7 +5937,7 @@ h6.post-title {
 
 .header-action-2 .header-action-icon-2>a span.pro-count {
   position: absolute;
-  right: -11px;
+  right: -6px;
   top: -5px;
   color: #ffffff;
   height: 18px;
@@ -5947,6 +5947,9 @@ h6.post-title {
   font-size: 11px;
   text-align: center;
   line-height: 18px;
+}
+.header-action-2 .header-action-icon-2>a.mini-cart-icon span.pro-count{
+  top:2px
 }
 
 .cart-dropdown-wrap ul li {
