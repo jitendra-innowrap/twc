@@ -104,10 +104,10 @@ const ServicesSlider = ({data}) => {
                 className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
                 id="carausel-6-columns-arrows"
             >
-                <span className="slider-btn slider-prev slick-arrow custom_prev_ct14">
+                <span className="slider-btn slider-prev slick-arrow custom_prev_ct14" style={{height:'70%'}}>
                     <IoArrowBackCircleOutline fontSize={28} />
                 </span>
-                <span className="slider-btn slider-next slick-arrow custom_next_ct14">
+                <span className="slider-btn slider-next slick-arrow custom_next_ct14" style={{height:'70%'}}>
                     <IoArrowForwardCircleOutline fontSize={28} />
                 </span>
             </div>

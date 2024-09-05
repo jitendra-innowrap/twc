@@ -104,10 +104,10 @@ const PackagesSlider = ({data}) => {
                 className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
                 id="carausel-6-columns-arrows"
             >
-                <span className="slider-btn slider-prev slick-arrow custom_prev_ct13">
+                <span className="slider-btn slider-prev slick-arrow custom_prev_ct13" style={{height:'75%'}}>
                     <IoArrowBackCircleOutline fontSize={28} />
                 </span>
-                <span className="slider-btn slider-next slick-arrow custom_next_ct13">
+                <span className="slider-btn slider-next slick-arrow custom_next_ct13" style={{height:'75%'}}>
                     <IoArrowForwardCircleOutline fontSize={28} />
                 </span>
             </div>

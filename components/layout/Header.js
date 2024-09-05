@@ -76,7 +76,7 @@ const Header = ({
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-6 col-lg-4">
+                            {title &&<div className="col-xl-6 col-lg-4">
                                 <div className="text-center">
                                     <div
                                         id="news-flash"
@@ -92,7 +92,7 @@ const Header = ({
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
@@ -195,19 +195,19 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
+                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
+                                                <a className="mr-0">
+                                                    <FiUser color="#333333" strokeWidth={2} />
+                                                </a>
+                                            </Link>
+                                        </div>
+                                        <div className="header-action-icon-2">
                                             <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                                 <a>
                                                     <FaRegHeart fontSize={22} strokeWidth={3} color="#333333" /> 
                                                     {wishlistCount!==0 &&<span className="pro-count">
                                                         {wishlistCount}
                                                     </span>}
-                                                </a>
-                                            </Link>
-                                        </div>
-                                        <div className="header-action-icon-2">
-                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
-                                                <a className="mr-0">
-                                                    <FiUser color="#333333" strokeWidth={2} />
                                                 </a>
                                             </Link>
                                         </div>
@@ -230,19 +230,19 @@ const Header = ({
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
                                     </div>
                                     <div className="header-action-icon-2">
+                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
+                                            <a className="mr-0">
+                                                <FiUser color="#333333" strokeWidth={2} />
+                                            </a>
+                                        </Link>
+                                    </div>
+                                    <div className="header-action-icon-2">
                                         <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                             <a>
                                                 <FaRegHeart fontSize={22} color="#333333" /> 
                                                 {wishlistCount!==0 &&<span className="pro-count">
                                                     {wishlistCount}
                                                 </span>}
-                                            </a>
-                                        </Link>
-                                    </div>
-                                    <div className="header-action-icon-2">
-                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
-                                            <a className="mr-0">
-                                                <FiUser color="#333333" strokeWidth={2.6} />
                                             </a>
                                         </Link>
                                     </div>

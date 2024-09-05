@@ -230,7 +230,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-12 mt-20">
+                            {headerData?.announcement_notes?.[0]?.title &&<div className="col-12 mt-20">
                                 <div className="text-center">
                                     <div
                                         id="news-flash"
@@ -246,7 +246,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>

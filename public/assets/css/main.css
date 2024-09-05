@@ -11057,7 +11057,7 @@ footer a:hover, footer a:hover svg {
   margin-right: 20px;
 }
 
-.header-bottom .container {
+.header-bottom .container, .header-top .container {
   padding-block: 10px;
 }
 
@@ -14364,7 +14364,7 @@ body.mobile-menu-active{
   width: calc( 100% - 200px );
 }
 
-.header-bottom .container{
+.header-bottom .container, .header-top .container {
   max-width: 1920px !important;
 }
 .header-wrap .logo.logo-width-1{
@@ -14378,6 +14378,9 @@ body.mobile-menu-active{
   .header-bottom{
     padding-left: 30px;
     padding-right: 20px;
+  }
+  .header-top.header-top-ptb-1{
+    padding-inline: 20px;
   }
 }
 @media (min-width: 768px) {
