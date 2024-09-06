@@ -165,16 +165,16 @@ const Products = () => {
                                         <div className="price-filter-inner">
                                             <br />
                                             <PriceRangeSlider />
-                                            <br />
+                                            {/* <br /> */}
                                         </div>
                                     </div>
 
                                     <div className="list-group">
                                         <div className="list-group-item mb-10">
-                                            <label className="fw-900 mt-20 mb-15">
+                                            {/* <label className="fw-900 mt-20 mb-15">
                                                 Size
                                             </label>
-                                            <SizeFilter />
+                                            <SizeFilter /> */}
                                             <label className="fw-900 mt-35 mb-15">
                                                 Availablity Date
                                             </label>
