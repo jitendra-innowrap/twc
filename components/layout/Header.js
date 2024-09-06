@@ -139,7 +139,7 @@ const Header = ({
                                                             {menu?.name}
                                                             <FaChevronDown fontWeight={400} fontSize={12} className="ml-5" />
                                                         </a>
-                                                        <ul className="mega-menu">
+                                                        {menu?.categories.length>0 && <ul className="mega-menu">
                                                             {
                                                                 menu?.categories?.map((category, i)=>(
                                                                     <li className="sub-mega-menu sub-mega-menu-width-22" key={category?.id}>
@@ -172,7 +172,7 @@ const Header = ({
                                                                     </li>
                                                                 ))
                                                             }
-                                                        </ul>
+                                                        </ul>}
                                                     </li>
                                                     </>
                                                 ))
