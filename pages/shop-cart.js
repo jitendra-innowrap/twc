@@ -126,17 +126,19 @@ const Cart = () => {
         }
     }
 
-    const handleSaveOrder = async(transactionId)=>{
+    const handleSaveOrder = async(statusRes)=>{
         setIsLoading(true);      
         // Generate a transaction type of 1
-        const transactionType = 1;
+        const transactionType = 2;
       
         let body = {
           address_id: shippingAddress?.id,
           billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
-          payment_type: 1,
-          transaction_id: transactionId,
-          transaction_type: transactionType,
+          payment_type: transactionType,
+          transaction_id: statusRes?.txn_id,
+          order_id: statusRes?.order_id,
+          payment_method_type: statusRes?.payment_method_type,
+          payment_method_name: statusRes?.payment_method_name
         };
         try {
           const res = await placeOrder(body);
@@ -220,7 +222,7 @@ const Cart = () => {
             if (statusRes?.order_status === 'CHARGED') {
                 clearInterval(paymentStatusInterval);
                 paymentWindow.close();
-                handleSaveOrder(transactionId);
+                handleSaveOrder(statusRes);
             } else if (statusRes.payment_status === 'failed') {
                 clearInterval(paymentStatusInterval);
                 paymentWindow.close();

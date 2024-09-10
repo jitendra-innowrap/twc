@@ -1269,7 +1269,7 @@ export const removeCouponApi = async (coupon) => {
     throw error;
   }
 }
-export const placeOrder = async ({address_id, billing_address_id, payment_type, transaction_id}) => {
+export const placeOrder = async ({address_id, billing_address_id, payment_type, transaction_id, payment_method_name, order_id, payment_method_type}) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
   // Create a new FormData object
@@ -1279,6 +1279,9 @@ export const placeOrder = async ({address_id, billing_address_id, payment_type, 
   formData.append('billing_address_id', billing_address_id);
   formData.append('payment_type', payment_type);
   formData.append('transaction_id', transaction_id);
+  formData.append('order_id', order_id);
+  formData.append('payment_method_type', payment_method_type);
+  formData.append('payment_method_name', payment_method_name);
   // formData.append('delivery_date', '12-07-2024');
   try {
     const response = await axios.post(
