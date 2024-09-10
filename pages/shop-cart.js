@@ -218,25 +218,99 @@ const Cart = () => {
     const startPollingPaymentStatus = (transactionId, paymentWindow) => {
         const paymentStatusInterval = setInterval(async () => {
             try {
-            const statusRes = await checkPaymentStatus(transactionId); // Poll payment status using transactionId
-            if (statusRes?.order_status === 'CHARGED') {
-                clearInterval(paymentStatusInterval);
-                paymentWindow.close();
-                handleSaveOrder(statusRes);
-            } else if (statusRes.payment_status === 'failed') {
-                clearInterval(paymentStatusInterval);
-                paymentWindow.close();
-                router.push('/checkout-fail');
-            }
+                const statusRes = await checkPaymentStatus(transactionId); // Poll payment status using transactionId
+
+                // Check for successful payment first
+                if (statusRes?.order_status === 'CHARGED') {
+                    clearInterval(paymentStatusInterval);  // Stop polling
+                    paymentWindow.close();  // Close payment window
+                    handleSaveOrder(statusRes);  // Handle successful order
+                    return
+                } else if (paymentWindow.closed) {
+                    clearInterval(paymentStatusInterval);  // Stop polling
+                    setIsLoading(false);  // Stop loading state
+                    if (statusRes.order_status === 'AUTHORIZATION_FAILED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Payment Refused By The Bank, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    }else if (statusRes.order_status === 'AUTHENTICATION_FAILED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Invalid Credentials, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    }else if (statusRes.order_status === 'STARTED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Something Went Wrong, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    }else if (statusRes.order_status === 'STARTED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Something Went Wrong, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    } else{
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Payment process was interrupted!,", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        router.push('/checkout-fail');
+                    }
+                }
             } catch (error) {
-            clearInterval(paymentStatusInterval);
-            paymentWindow.close();
-            setIsLoading(false);
-            console.error("Error checking payment status:", error);
+                clearInterval(paymentStatusInterval);  // Stop polling on error
+                paymentWindow.close();  // Close payment window
+                setIsLoading(false);  // Stop loading state
+                console.error("Error checking payment status:", error);
             }
         }, 5000); 
         // Poll every 5 seconds
     };
+
       
       
     useEffect(() => {
