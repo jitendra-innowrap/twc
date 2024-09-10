@@ -9,7 +9,7 @@ import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useEffect } from "react";
-import { getAddressList, getCartList, placeOrder, setGst } from "../util/api";
+import { createPaymentLink, getAddressList, getCartList, placeOrder, setGst, checkPaymentStatus } from "../util/api";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart, setBillingAddress, setShippingAddress, updateGst } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
@@ -79,6 +79,7 @@ const Cart = () => {
         setErrorNoGst(false);
         
     }
+    
     const handleAddGst = async (gst_number, companyName)=>{
         try {
             const res = await setGst({cart_id:cartItems?.[0]?.cart_id,gst_number,companyName});
@@ -124,57 +125,24 @@ const Cart = () => {
               });
         }
     }
-    const handlePlaceOrder = async () => {
-        if(!shippingAddress?.id){
-            setErrorSetAddressFirst(true);
-            toast.warn("Please Add Delivery Address!", {
-                position: "bottom-center",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-              });
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            return
-        }
-        if(isGST && !gst_number){
-            setErrorNoGst(true);
-            toast.warn("Please Uncheck Or Add GST Number!", {
-                position: "bottom-center",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-              });
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              return
-        }
-        setIsLoading(true);
-        // Generate a random transaction ID
-        const transactionId = generateRandomTransactionId();
-      
+
+    const handleSaveOrder = async(statusRes)=>{
+        setIsLoading(true);      
         // Generate a transaction type of 1
-        const transactionType = 1;
+        const transactionType = 2;
       
         let body = {
           address_id: shippingAddress?.id,
           billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
-          payment_type: 1,
-          transaction_id: transactionId,
-          transaction_type: transactionType,
+          payment_type: transactionType,
+          transaction_id: statusRes?.txn_id,
+          order_id: statusRes?.order_id,
+          payment_method_type: statusRes?.payment_method_type,
+          payment_method_name: statusRes?.payment_method_name
         };
         try {
           const res = await placeOrder(body);
           if(res.code==1){
-            dispatch(fetchCart())
             router.push('/checkout-success')
           }else{
             router.push('/checkout-fail')
@@ -185,7 +153,165 @@ const Cart = () => {
             console.log(error);
             setIsLoading(false);
         }
+    }
+    
+    const handlePlaceOrder = async () => {
+        if (!shippingAddress?.id) {
+          setErrorSetAddressFirst(true);
+          toast.warn("Please Add Delivery Address!", {
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        if (isGST && !gst_number) {
+          setErrorNoGst(true);
+          toast.warn("Please Uncheck Or Add GST Number!", {
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        setIsLoading(true);
+        const transactionId = generateRandomTransactionId();
+        const transactionType = 1;
+        let body = {
+            address_id: shippingAddress?.id,
+            billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
+            payment_type: 1,
+            transaction_id: transactionId,
+            transaction_type: transactionType,
+        };
+        try {
+        const res = await createPaymentLink(body);
+        if (res.code === 1) {
+        // Open the payment link in a new popup window
+        const paymentWindow = window.open(res.payment_link, '_blank', 'width=800,height=600');
+        // Start polling for payment status
+        startPollingPaymentStatus(res.orderId, paymentWindow);
+        } else {
+        router.push('/checkout-fail');
+        }
+    } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+    }
       };
+      
+    // Separate function to handle polling payment status
+    const startPollingPaymentStatus = (transactionId, paymentWindow) => {
+        const paymentStatusInterval = setInterval(async () => {
+            try {
+                const statusRes = await checkPaymentStatus(transactionId); // Poll payment status using transactionId
+
+                // Check for successful payment first
+                if (statusRes?.order_status === 'CHARGED') {
+                    clearInterval(paymentStatusInterval);  // Stop polling
+                    paymentWindow.close();  // Close payment window
+                    handleSaveOrder(statusRes);  // Handle successful order
+                    return
+                } else if (paymentWindow.closed) {
+                    clearInterval(paymentStatusInterval);  // Stop polling
+                    setIsLoading(false);  // Stop loading state
+                    if (statusRes.order_status === 'AUTHORIZATION_FAILED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Payment Refused By The Bank, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    }else if (statusRes.order_status === 'AUTHENTICATION_FAILED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Invalid Credentials, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    }else if (statusRes.order_status === 'STARTED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Something Went Wrong, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    }else if (statusRes.order_status === 'STARTED') {
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Something Went Wrong, Please Retry!", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        return
+                    } else{
+                        // Show warning toast to inform the user about interrupted payment
+                        toast.warn("Payment process was interrupted!,", {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        router.push('/checkout-fail');
+                    }
+                }
+            } catch (error) {
+                clearInterval(paymentStatusInterval);  // Stop polling on error
+                paymentWindow.close();  // Close payment window
+                setIsLoading(false);  // Stop loading state
+                console.error("Error checking payment status:", error);
+            }
+        }, 5000); 
+        // Poll every 5 seconds
+    };
+
+      
       
     useEffect(() => {
         dispatch(fetchCart());
