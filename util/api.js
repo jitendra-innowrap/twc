@@ -1298,3 +1298,57 @@ export const placeOrder = async ({address_id, billing_address_id, payment_type, 
     throw error;
   }
 }
+export const createPaymentLink = async ({address_id, billing_address_id, payment_type, transaction_id}) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('flag', '1');
+  formData.append('address_id', address_id);
+  formData.append('billing_address_id', billing_address_id);
+  formData.append('payment_type', payment_type);
+  formData.append('transaction_id', transaction_id);
+  // formData.append('delivery_date', '12-07-2024');
+  try {
+    const response = await axios.post(
+      `${baseURL}/Transaction/createPaymentLink`,
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}
+
+export const checkPaymentStatus = async (order_id) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  // Create a new FormData object
+  const formData = new FormData();
+  formData.append('order_id', order_id);
+  try {
+    const response = await axios.post(
+      `${baseURL}/Transaction/checkOrderStatus`,
+      formData,
+      {
+        headers: {
+          'auth_token': auth_token,
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error!', error);
+    throw error;
+  }
+}
