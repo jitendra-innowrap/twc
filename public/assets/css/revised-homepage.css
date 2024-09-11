@@ -11,12 +11,12 @@ main.revised .section-head{
 
 /* heading pattern */
 main.revised .section-head .heading h2{
-    font-family: var(--tpc-theme-font-secondary);
+    font-family: var(--tpc-home-font-secondary);
     font-weight: 100;
     font-size: 72px;
 }
 main.revised .section-head h3{
-    font-family: var(--tpc-theme-font-primary);
+    font-family: var(--tpc-home-font-primary);
     font-weight: 600;
     font-size: 44px;
     letter-spacing: -2px;

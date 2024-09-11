@@ -78,7 +78,7 @@ const HeroSearch = () => {
                     onClick={()=>setOpenSearchList(true)}
                     onChange={(e) => handleInput(e)}
                     type="text"
-                    placeholder="Events, Venue, Vendor..."
+                    placeholder="Products, Events, Venue, Vendor..."
                 />
                 <button className="btn search-btn">Search Now</button>
                 {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'} custom-scrollbar`}>

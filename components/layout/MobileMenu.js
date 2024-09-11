@@ -6,7 +6,8 @@ import { getAllCategory } from "../../util/api";
 import { useRouter } from "next/router";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { CiLinkedin } from "react-icons/ci"
 import storage from "../../util/localStorage";
 import Popup from "reactjs-popup";
 import Logout from "../ecommerce/Dashboard/Logout/Logout";
@@ -188,7 +189,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                             <FaXTwitter size={20} color="#606060" />
                                         </a>
                                         <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
-                                            <FaLinkedin size={20} color="#606060" />
+                                            <CiLinkedin size={25} strokeWidth={0.4} color="#606060" />
                                         </a>
                                         <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
                                             <FaInstagram size={20} color="#606060"/>
