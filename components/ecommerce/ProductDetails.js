@@ -251,14 +251,14 @@ useEffect(() => {
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-right">
                                         <div className="detail-info">
                                             <div className="category">
-                                                <span>{productDetails?.category_name}</span>
+                                                <span>{productDetails?.category_name} | {productDetails?.sub_category_name}</span>
                                             </div>
                                             <div className="sub-category">
-                                                <span>{productDetails?.sub_category_name}</span>
+                                                <span>{productDetails?.name}</span>
                                             </div>
-                                            <h2 className="title-detail">
-                                            {productDetails?.name}
-                                            </h2>
+                                            {/* <h2 className="title-detail">
+                                            
+                                            </h2> */}
                                             <div className="c   learfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     {productDetails?.selling_price &&
