@@ -306,7 +306,7 @@ useEffect(() => {
                                                 </div>
                                             </div>}
 
-                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-size mb-15">
+                                            {/* {productDetails?.product_type=="1" && <div className="attr-detail attr-size mb-15">
                                                 <strong className="mr-10">
                                                     Color
                                                 </strong>
@@ -343,7 +343,7 @@ useEffect(() => {
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>}
+                                            </div>} */}
                                             <div className="attr-detail attr-date">
                                                 <strong className="">
                                                     {productDetails?.product_type=="2"?"Event Date":"Delivery Date"}

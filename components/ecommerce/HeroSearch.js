@@ -6,13 +6,13 @@ import Link from "next/link";
 import useClickOutside from "../../util/outsideClick";
 import { IoSearch } from "react-icons/io5";
 
-const Search = () => {
+const HeroSearch = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const router = useRouter();
     const [highlightedIndex, setHighlightedIndex] = useState(-1); // Track the highlighted index
     const [searchList, setsearchList] = useState([]);
     const [openSearchList, setOpenSearchList] = useState(false)
-    const [showSearch, setShowSearch] = useState(false)
+
     const handleInput = (e) => {
         e.preventDefault();
         setSearchTerm(e.target.value)
@@ -61,20 +61,26 @@ const Search = () => {
     
     let domNode = useClickOutside(() => {
         setOpenSearchList(false);
-        setShowSearch(false)
     });
 
     return (
         <>
-            <form className={`${showSearch && 'show-search'}`} ref={domNode} onSubmit={(e)=> e.preventDefault()}>  
+            <form ref={domNode} onSubmit={(e)=> e.preventDefault()} 
+              style={{
+                ...((searchTerm.length > 0 )
+                  ? { borderEndEndRadius: "0", borderBottomLeftRadius: "0" }
+                  : {})
+              }}
+            >  
+                <IoSearch fontSize={20} color="#000" />
                 <input
                     value={searchTerm}
                     onClick={()=>setOpenSearchList(true)}
                     onChange={(e) => handleInput(e)}
                     type="text"
-                    placeholder="Search for products, events or more"
+                    placeholder="Products, Events, Venue, Vendor..."
                 />
-                <IoSearch fontSize={26} color="#333333" onClick={()=> setShowSearch(true)} cursor="pointer" />
+                <button className="btn search-btn">Search Now</button>
                 {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'} custom-scrollbar`}>
                     {searchList?.map((item, index)=>{
                         return<li onClick={()=>{handleSearch(item?.handle)}}>
@@ -98,4 +104,4 @@ const Search = () => {
     );
 };
 
-export default Search;
+export default HeroSearch;

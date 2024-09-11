@@ -19,10 +19,11 @@ export default function index() {
         try {
             try {
                 const res = await getAddressList();
-                if(res?.code===1){
+                if(res?.code==1){
                     setAddressList(res?.result)
                     console.log(res);
                 }else{
+                    setAddressList([])
                     console.error('Error:', res?.msg)
                 }
                 setisLoading(false);

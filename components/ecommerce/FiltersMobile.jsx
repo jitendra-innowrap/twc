@@ -135,16 +135,16 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
                     <div className="price-filter-inner">
                         <br />
                         <PriceRangeSlider mobile setFilters={setFilters} />
-                        <br />
+                        {/* <br /> */}
                     </div>
                 </div>
 
                 <div className="list-group">
                     <div className="list-group-item mb-10">
-                        <label className="fw-900 mt-20 mb-15">
+                        {/* <label className="fw-900 mt-20 mb-15">
                             Size
                         </label>
-                        <SizeFilter mobile setFilters={setFilters} />
+                        <SizeFilter mobile setFilters={setFilters} /> */}
                         <label className="fw-900 mt-35 mb-15">
                             Availablity Date
                         </label>

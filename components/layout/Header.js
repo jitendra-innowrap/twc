@@ -11,14 +11,18 @@ import { useRouter } from "next/router";
 import Popup from "reactjs-popup";
 import Location from "../ecommerce/Header/Location";
 import { IoCall } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaRegHeart } from "react-icons/fa";
+import { LiaShoppingCartSolid } from "react-icons/lia";
+import { FiUser } from "react-icons/fi";
 
 const Header = ({
     toggleClick,
     headerStyle,
+    classList
 }) => {
     const user = storage.get("auth_token");
     const [isToggled, setToggled] = useState(false);
+    const [openMegaMenu, setOpenMegaMenu] = useState(false);
     const [scroll, setScroll] = useState(0);
     const [headerData, setheaderData] = useState([]);
     const { cartCount } = useSelector((state) => state.cart);
@@ -58,7 +62,7 @@ const Header = ({
 
     return (
         <>
-            <header className={`header-area header-style-1  header-height-2`}>
+            <header className={`header-area header-style-1 header-height-2 ${classList}`}>
                 <div className="header-top header-top-ptb-1 d-none d-lg-block">
                     <div className="container">
                         <div className="row align-items-center">
@@ -73,7 +77,7 @@ const Header = ({
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-6 col-lg-4">
+                            {title &&<div className="col-xl-6 col-lg-4">
                                 <div className="text-center">
                                     <div
                                         id="news-flash"
@@ -89,7 +93,7 @@ const Header = ({
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
@@ -129,13 +133,20 @@ const Header = ({
                                         <ul className="menu-links">
                                             {
                                                 result?.map((menu, i)=>(
-                                                    <li className="position-static" key={menu?.id}>
-                                                        <a className="text-black">
-                                                            {menu?.name}
-                                                            <FaChevronDown fontWeight={400} fontSize={12} className="ml-5" />
+                                                    <>
+                                                    
+                                                    <li className="position-relative" key={menu?.id}>
+                                                        <a className="text-black" style={{cursor:'default'}}>
+                                                            <span className="cursor_pointer"
+                                                                onMouseEnter={() => setOpenMegaMenu(menu?.name)}
+                                                                onMouseLeave={() => setOpenMegaMenu(null)}
+                                                            >{menu?.name}
+                                                            <FaChevronDown fontWeight={400} fontSize={12} className="ml-5"
+                                                            />
+                                                            </span>
                                                         </a>
-                                                        <ul className="mega-menu">
-                                                            {
+                                                        {menu?.categories.length>0 && <ul className={`mega-menu ${openMegaMenu==menu?.name ?'open':''}`}>
+                                                        {
                                                                 menu?.categories?.map((category, i)=>(
                                                                     <li className="sub-mega-menu sub-mega-menu-width-22" key={category?.id}>
                                                                         {/* <Link href={`/${category?.handle}`}> */}
@@ -167,14 +178,15 @@ const Header = ({
                                                                     </li>
                                                                 ))
                                                             }
-                                                        </ul>
+                                                        </ul>}
                                                     </li>
+                                                    </>
                                                 ))
                                             }
                                             <li className="position-static">
                                                 <Link href={`/blogs`}>
                                                     <a>
-                                                        Blog
+                                                        <span>Blog</span>
                                                     </a>
                                                 </Link>
                                             </li>
@@ -183,49 +195,35 @@ const Header = ({
                                 </div>
                             </div>
                             <div className="header-right d-none d-lg-flex">
-                                {/* <div className="search-style-2">
+                                <div className="search-style-2">
                                     <Search />
-                                </div> */}
+                                </div>
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'}>
-                                                <a>
-                                                    <img
-                                                        className="svgInject"
-                                                        alt="The Party Cafe"
-                                                        src="/assets/imgs/theme/icons/icon-profile.svg"
-                                                    />
-                                                    <span className="header-action-name">Profile</span>
+                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
+                                                <a className="mr-0">
+                                                    <FiUser color="#333333" strokeWidth={2} />
                                                 </a>
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
                                             <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                                 <a>
-                                                    <img
-                                                        className="svgInject"
-                                                        alt="The Party Cafe"
-                                                        src="/assets/imgs/theme/icons/icon-heart.svg"
-                                                    />
-                                                    {wishlistCount>0 &&<span className="pro-count blue">
+                                                    <FaRegHeart fontSize={22} strokeWidth={3} color="#333333" /> 
+                                                    {wishlistCount!==0 &&<span className="pro-count">
                                                         {wishlistCount}
                                                     </span>}
-                                                    <span className="header-action-name">Wishlist</span>
                                                 </a>
                                             </Link>
                                         </div>
                                         <div className="header-action-icon-2">
                                             <Link href="/shop-cart">
                                                 <a className="mini-cart-icon">
-                                                    <img
-                                                        alt="The Party Cafe"
-                                                        src="/assets/imgs/theme/icons/icon-cart.svg"
-                                                    />
-                                                    {cartCount>0 &&<span className="pro-count blue">
+                                                    <LiaShoppingCartSolid fontSize={35} color="#333333" />
+                                                    {cartCount!==0 &&<span className="pro-count">
                                                         {cartCount}
                                                     </span>}
-                                                    <span className="header-action-name">Cart</span>
                                                 </a>
                                             </Link>
                                         </div>
@@ -233,43 +231,34 @@ const Header = ({
                                 </div>
                             </div>
                             <div className="header-action-right d-block d-lg-none">
-                                <div className="header-action-2 gap-1">
-                                    {/* <div className="header-action-icon-2" onClick={toggleSearch}>
+                                <div className="header-action-2">
+                                    <div className="header-action-icon-2 search" onClick={toggleSearch}>
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
-                                    </div> */}
+                                    </div>
+                                    <div className="header-action-icon-2">
+                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
+                                            <a className="mr-0">
+                                                <FiUser color="#333333" strokeWidth={2} />
+                                            </a>
+                                        </Link>
+                                    </div>
                                     <div className="header-action-icon-2">
                                         <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
                                             <a>
-                                                <img
-                                                    alt="The Party Cafe"
-                                                    src="/assets/imgs/theme/icons/icon-heart.svg"
-                                                />
-                                                <span className="pro-count white">
+                                                <FaRegHeart fontSize={22} color="#333333" /> 
+                                                {wishlistCount!==0 &&<span className="pro-count">
                                                     {wishlistCount}
-                                                </span>
+                                                </span>}
                                             </a>
                                         </Link>
                                     </div>
                                     <div className="header-action-icon-2">
                                         <Link href="/shop-cart">
                                             <a className="mini-cart-icon">
-                                                <img
-                                                    alt="The Party Cafe"
-                                                    src="/assets/imgs/theme/icons/icon-cart.svg"
-                                                />
-                                                <span className="pro-count white">
+                                                <LiaShoppingCartSolid fontSize={35} color="#333333" />
+                                                {cartCount!==0 &&<span className="pro-count">
                                                     {cartCount}
-                                                </span>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                    <div className="header-action-icon-2">
-                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
-                                            <a className="mr-0">
-                                                <img
-                                                    alt="The Party Cafe"
-                                                    src="/assets/imgs/theme/icons/icon-profile.svg"
-                                                />
+                                                </span>}
                                             </a>
                                         </Link>
                                     </div>

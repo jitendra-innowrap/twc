@@ -2,10 +2,12 @@ import React from "react";
 import Link from "next/link"
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { CiLinkedin } from "react-icons/ci";
 import { SlSocialFacebook } from "react-icons/sl";
 import NewsletterFrom from "../elements/NewletterForm";
 import { CiFacebook } from "react-icons/ci";
 import { useRouter } from "next/router";
+import { AiOutlineYoutube } from "react-icons/ai";
 
 const Footer = () => {
     const router =  useRouter();
@@ -106,17 +108,23 @@ const Footer = () => {
                                         Follow Us
                                     </h5>
                                     <div className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
-                                        <a href={`https://www.facebook.com/`}>
-                                            <CiFacebook strokeWidth={0.7} size={30} color="#fff" />
+                                        <a href={` https://www.facebook.com/profile.php?id=61563337004364`}>
+                                            <CiFacebook strokeWidth={0.7} size={32} color="#fff" />
                                         </a>
-                                        <a href={`https://www.twitter.com/`}>
+                                        <a href={` https://x.com/thepartycafe94/`}>
                                             <FaXTwitter size={30} color="#fff" />
                                         </a>
-                                        <a href={`https://www.instagram.com/`}>
+                                        <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
+                                            <CiLinkedin size={35} strokeWidth={0.4} color="#fff" />
+                                        </a>
+                                        <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
                                             <FaInstagram size={30} color="#fff"/>
                                         </a>
                                         <a href={`https://wa.me/+919892745795/?text=Hi`}>
                                             <FaWhatsapp size={30} color="#fff"/>
+                                        </a>
+                                        <a href={` https://www.youtube.com/@ThePartyCafe`}>
+                                            <AiOutlineYoutube size={35} color="#fff"/>
                                         </a>
                                     </div>
                                     </div>

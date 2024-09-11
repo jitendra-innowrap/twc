@@ -1,33 +1,154 @@
-main.revised .hero-slider-1 .search-style-2{
+header.revised.header-height-2{
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    border-bottom: none;
+}
+main.revised .section-head{
+    position: relative;
+}
+
+/* heading pattern */
+main.revised .section-head .heading h2{
+    font-family: var(--tpc-home-font-secondary);
+    font-weight: 100;
+    font-size: 72px;
+}
+main.revised .section-head h3{
+    font-family: var(--tpc-home-font-primary);
+    font-weight: 600;
+    font-size: 44px;
+    letter-spacing: -2px;
+    text-align: center;
+}
+main.revised .section-head .heading {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    justify-content: center;
+    position: relative;
+  }
+  
+  main.revised .section-head .heading::before,
+  main.revised .section-head .heading::after {
+    content: "";
+    display: block;
+    width: 77px; /* Adjust the width based on your arrow image size */
+    height: 20px; /* Adjust the height based on your arrow image size */
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+  }
+  
+  main.revised .section-head .heading::before {
+    background-image: url('/assets/imgs/home-page/leading-line-left.png');
+    left: -90px;
+  }
+  
+  main.revised .section-head .heading::after {
+    background-image: url('/assets/imgs/home-page/heading-line-right.png');
+    right: -90px;
+  }
+  
+  .heading-text {
+    padding: 0 30px; /* Adjust padding to create space for the arrows */
+    font-size: 24px; /* Adjust font size as needed */
+  }
+  
+
+
+
+
+
+/* heading pattern end */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* Added to prevent the text from wrapping */
+    border: 0;
+  }
+main.revised .hero-slider-1 img{
+    object-position: bottom;
+    max-height: 650px;
+}
+main.revised .hero-slider-1 span{
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}
+main.revised .hero-slider-1 h1{
+    font-size: 64px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: capitalize;
+    max-width: 1000px;
+    margin-block: 20px;
+    text-align: center;
+    width: 100%;
+}
+main.revised .hero-slider-1 .search-style-2.hero-search{
     bottom: 20%;
     left: 50%;
-    width: 50%;
+    width: 100%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 10;
 }
-main.revised .hero-slider-1 .search-style-2 input{
-    max-width: unset;
+main.revised .hero-slider-1 .search-style-2.hero-search form{
+    max-width: 800px;
+    padding: 20px 32px;
+    background: #fff;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 40px 30px -7px;
+    border-radius: 8px;
 }
-main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar{
+main.revised .hero-slider-1 .search-style-2.hero-search input{
+    background: #fff;
+    max-width: unset;
+    font-size: 18px;
+    border: none;
+    padding-left: 10px;
+}
+main.revised .hero-slider-1 .search-style-2.hero-search button.search-btn{
+    background: var(--tpc-theme-primary);
+    color: #fff;
+    height: fit-content;
+    right: 32px;
+    padding: 12px 16px;
+    font-weight: 400;
+}
+main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar{
     height: fit-content;
     max-height: 30vh;
 }
-main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item{
+main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item{
     justify-content: space-between;
 }
-main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item img{
+main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item img{
     width: 80px;
     height: 80px;
     object-fit: cover;
     object-position: top;
 }
-main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right{
+main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item .right{
     width: calc( 100% - 100px );
 }
-main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right h3{
+main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item .right h3{
     font-size: 14px;
 }
-main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right p{
+main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item .right p{
     font-size: 12px;
 }
 main.revised .section-head .title-underline::after{
@@ -37,15 +158,31 @@ transform: none;
 main.revised .section-head .btn{
     height: fit-content;
 }
-main.revised .card-1{
+/* main.revised .card-1{
     border: 1px solid #f0f0f0;
     border-radius: 2px;
-}
+} */
+ main.revised .card-1 figure img{
+    height: auto;
+ }
 main.revised .card-1 h5{
     padding: 10px;
     font-weight: 600;
 }
-
+main.revised .heading_image{
+    margin-inline: auto;
+    width: 100%;
+    max-width: 650px;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+main.revised .hero_title_image{
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 30px;
+    user-select: none;
+    -webkit-user-drag: none;
+}
 /* services */
 main.revised .services .usp-icons-grid {
     display: grid;
@@ -59,9 +196,85 @@ main.revised .services .usp-card{
     border-radius: 4px;
     cursor: pointer;
     padding: 15px;
+    background:
+    radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(1){
+    background:
+radial-gradient(#f1e5f2 15%, transparent 16%) 0 0,
+radial-gradient(#f1e5f2 15%, transparent 16%) 8px 8px,
+radial-gradient(#fef3fe 15%, transparent 20%) 0 1px,
+radial-gradient(#fef3fe 15%, transparent 20%) 8px 9px;
+background-color:#fef3fe;
+background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(2){
+    background:
+radial-gradient(#e6edfa 15%, transparent 16%) 0 0,
+radial-gradient(#e6edfa 15%, transparent 16%) 8px 8px,
+radial-gradient(#eff5ff 15%, transparent 20%) 0 1px,
+radial-gradient(#eff5ff 15%, transparent 20%) 8px 9px;
+background-color:#eff5ff;
+background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(3){
+    background:
+radial-gradient(#fdf6ea 15%, transparent 16%) 0 0,
+radial-gradient(#fdf6ea 15%, transparent 16%) 8px 8px,
+radial-gradient(#fffaf0 15%, transparent 20%) 0 1px,
+radial-gradient(#fffaf0 15%, transparent 20%) 8px 9px;
+background-color:#fffaf0;
+background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(4){
+    background:
+radial-gradient(#f1e5f2 15%, transparent 16%) 0 0,
+radial-gradient(#f1e5f2 15%, transparent 16%) 8px 8px,
+radial-gradient(#fef3fe 15%, transparent 20%) 0 1px,
+radial-gradient(#fef3fe 15%, transparent 20%) 8px 9px;
+background-color:#fef3fe;
+background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(5){
+    background:
+radial-gradient(#e6edfa 15%, transparent 16%) 0 0,
+radial-gradient(#e6edfa 15%, transparent 16%) 8px 8px,
+radial-gradient(#eff5ff 15%, transparent 20%) 0 1px,
+radial-gradient(#eff5ff 15%, transparent 20%) 8px 9px;
+background-color:#eff5ff;
+background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(6){
+    background:
+radial-gradient(#fdf6ea 15%, transparent 16%) 0 0,
+radial-gradient(#fdf6ea 15%, transparent 16%) 8px 8px,
+radial-gradient(#fffaf0 15%, transparent 20%) 0 1px,
+radial-gradient(#fffaf0 15%, transparent 20%) 8px 9px;
+background-color:#fffaf0;
+background-size:16px 16px;
+}
+main.revised .services .usp-card:nth-child(10){
+    background:
+linear-gradient(27deg, #fef3fe 5px, transparent 5px) 0 5px,
+linear-gradient(207deg, #fef3fe 5px, transparent 5px) 10px 0px,
+linear-gradient(27deg, #f8ebf9 5px, transparent 5px) 0px 10px,
+linear-gradient(207deg, #f8ebf9 5px, transparent 5px) 10px 5px,
+linear-gradient(90deg, #fbeffc 10px, transparent 10px),
+linear-gradient(#fff0fc 25%, #fbeffc 25%, #fff0fa 50%, transparent 50%, transparent 75%, #fbeffc 75%, #fbeffc);
+background-color: #fbeffc;
+background-size: 20px 20px;
 }
 main.revised .services .usp-card:hover{
-    background: #f8f8f8;
+    box-shadow: none;
+}
+main.revised .services .usp-card:hover h5{
+    transform: translateX(5px);
+    transition: 0.5s all ease;
 }
 main.revised .usp-card .image {
     width: 30% !important;
@@ -105,16 +318,60 @@ main.revised .why-to-choose .usp-card {
 main.revised .why-to-choose .usp-card:not(:last-child) {
     border-right: 1px solid #80808059;
 }
+main.revised .carausel-6-columns-cover .slider-arrow-out{
+    margin-inline: 40px;
+}
+main.revised .slider-arrow-out .slider-arrow{
+    position: unset;
+}
+main.revised .slider-arrow-out .slider-arrow .slider-btn{
+    height: 100%;
+    top: 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+}
 
+main.revised .slider-arrow-out .slider-arrow .slider-btn svg{
+    color: var(--tpc-theme-primary);
+}
+main.revised .carausel-6-columns-cover .slider-arrow-out .slider-arrow .slider-btn.slider-next{
+    right: -40px !important;
+}
+main.revised .carausel-6-columns-cover .slider-arrow-out .slider-arrow .slider-btn.slider-prev{
+    left: -40px !important;
+}
+main.revised .popular-categories .section-head{
+    margin-bottom: 40px;
+}
+main.revised .popular-categories .btn.consult-btn{
+    background: var(--tpc-theme-primary-light-1);
+    color: var(--tpc-theme-primary);
+    border: none;
+    margin-inline: auto;
+}
+header.revised .header-bottom .header-right .search-style-2,header.revised .header-bottom .header-action-right .header-action-2 .header-action-icon-2.search{
+    display: none !important;
+}
+header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,header.revised .header-bottom.sticky-bar.stick .header-action-right .header-action-2 .header-action-icon-2.search{
+    display: block !important;
+}
 
-
-
+/* responsive */
 @media (max-width: 1400px) {
     main.revised .card-1, main.revised .card-1-slide{
         width: unset !important;
     }
 }
-@media (max-width: 992px) {   
+@media (max-width: 992px) {  
+    main.revised .hero-slider-1 img{
+        object-position: bottom;
+        max-height: 550px;
+    }
+    main.revised .hero-slider-1 .search-style-2.hero-search{
+        width: 80%;
+    } 
     main.revised .services .usp-icons-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -133,26 +390,59 @@ main.revised .why-to-choose .usp-card:not(:last-child) {
     }
 }
 @media (max-width: 768px) {
+    main.revised .hero-slider-1{
+        max-height: 100vh;
+        min-height: 400px;
+    }
+    main.revised .section-head .heading h2{
+        font-size: 52px;
+    }
+    main.revised .section-head h3{
+        font-size: 34px;
+    }
+    main.revised .section-head .heading::before {
+        left: -75px;
+        width: 65px;
+      }
+      
+      main.revised .section-head .heading::after {
+        right: -75px;
+        width: 65px;
+      }
+    main.revised .popular-categories.section-padding{
+        /* padding-bottom: 0; */
+    }
+    main.revised .hero-slider-1 img.slider-1-1{
+        height: 100%;
+        position: absolute;
+    }
     main.revised section.services{
         padding: 30px 0;
     }
-    main.revised .hero-slider-1 .search-style-2{
+    main.revised .hero-slider-1 .search-style-2.hero-search{
         width: 90vw;
         max-width: 490px;
-        bottom: 30px;
     }
-    main.revised .hero-slider-1 .search-style-2 input{
+    main.revised .hero-slider-1 .search-style-2.hero-search form{
+        padding: 5px 8px;
+    }
+    main.revised .hero-slider-1 .search-style-2.hero-search input{
         height: 40px;
         font-size: 14px;
         background-position: 8px 9px;
-        padding-left: 32px;
+        padding-left: 12px;
         background-size: 15px;
     }
-    main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item img{
+    main.revised .hero-slider-1 .search-style-2.hero-search button.search-btn{
+        font-size: 12px;
+        padding: 5px 8px;
+        right: 12px;
+    }
+    main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item img{
         width: 50px;
         height: 50px;
     }
-    main.revised .hero-slider-1 .search-style-2 ul.open.custom-scrollbar .search-item .right {
+    main.revised .hero-slider-1 .search-style-2.hero-search ul.open.custom-scrollbar .search-item .right {
         width: calc(100% - 70px);
     }
     main.revised .section-head .btn{
@@ -172,4 +462,42 @@ main.revised .why-to-choose .usp-card:not(:last-child) {
     main.revised .why-to-choose{
         margin-bottom: 50px;
     }
+}
+
+@media (max-width: 540px){
+    main.revised .hero-slider-1 img{
+        object-position: bottom;
+        max-height: 500px;
+    }
+    main.revised .section-head .heading h2{
+        font-size: 45px;
+    }
+    main.revised .section-head h3{
+        font-size: 34px;
+    }
+    main.revised .section-head .heading::before {
+        left: -70px;
+        width: 60px;
+      }
+      
+      main.revised .section-head .heading::after {
+        right: -70px;
+        width: 60px;
+      }
+}
+
+@media (max-width: 420px){
+    main.revised .hero-slider-1 {
+        min-height: 350px;
+    }
+    main.revised .section-head .heading::before {
+        left: -35px;
+        width: 35px;
+      }
+      
+      main.revised .section-head .heading::after {
+        right: -37px;
+        width: 35px;
+      }
+
 }

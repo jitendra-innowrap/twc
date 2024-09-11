@@ -5,8 +5,15 @@ import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 
 SwiperCore.use([Navigation]);
-
-const RentalSlider = ({data}) => {
+let constants = [
+    "/assets/imgs/home-page/cat1.png",
+    "/assets/imgs/home-page/cat2.png",
+    "/assets/imgs/home-page/cat3.png",
+    "/assets/imgs/home-page/cat4.png",
+    "/assets/imgs/home-page/cat1.png",
+    "/assets/imgs/home-page/cat5.png",
+]
+const CategorySlider = ({data}) => {
     const isDesktop = useMediaQuery({
         query: '(max-width: 1400px)'
     })
@@ -29,7 +36,7 @@ const RentalSlider = ({data}) => {
                 slidesPerView={
                     isSmallPhone? 2 :
                     isPhone? 2.3 :
-                    isTab? 2 :
+                    isTab? 3 :
                     isLaptop? 3 :
                     isDesktop? 4 :
                     5
@@ -44,28 +51,28 @@ const RentalSlider = ({data}) => {
                     prevEl: ".custom_prev_ct1",
                     nextEl: ".custom_next_ct1",
                 }}
-                pagination={{
-                    clickable: true, // Allows clicking on dots to navigate
-                }}
-                onSwiper={(swiper) => {
-                    const updatePagination = () => {
-                        const perView = swiper.slidesPerViewDynamic();
-                        const totalSlides = swiper.slides.length;
-                        const paginationLength = Math.ceil(totalSlides / perView);
+                // pagination={{
+                //     clickable: true, // Allows clicking on dots to navigate
+                // }}
+                // onSwiper={(swiper) => {
+                //     const updatePagination = () => {
+                //         const perView = swiper.slidesPerViewDynamic();
+                //         const totalSlides = swiper.slides.length;
+                //         const paginationLength = Math.ceil(totalSlides / perView);
     
-                        // Update the pagination to match the current slidesPerView
-                        swiper.pagination.bullets.forEach((bullet, index) => {
-                            if (index <= 2) {
-                                bullet.style.display = 'block';
-                            } else {
-                                bullet.style.display = 'none';
-                            }
-                        });
-                    };
+                //         // Update the pagination to match the current slidesPerView
+                //         swiper.pagination.bullets.forEach((bullet, index) => {
+                //             if (index <= 2) {
+                //                 bullet.style.display = 'block';
+                //             } else {
+                //                 bullet.style.display = 'none';
+                //             }
+                //         });
+                //     };
     
-                    swiper.on('resize', updatePagination);
-                    updatePagination(); // Initial pagination update
-                }}
+                //     swiper.on('resize', updatePagination);
+                //     updatePagination(); // Initial pagination update
+                // }}
                 modules={[Pagination, Autoplay]}
                 className="custom-class rental-collection-swiper-slider"
             >
@@ -78,15 +85,15 @@ const RentalSlider = ({data}) => {
                                      <img
                                         className="w-100"
                                         draggable='false'
-                                         src={item.collection_image}
-                                        //  src="/assets/imgs/theme/category-card-img.png"
+                                        //  src={item.collection_image}
+                                         src={constants[i]}
                                          alt={item.title}
                                      />
                                  </a>
                          </figure>
-                         <h5>
+                         {/* <h5>
                          {item.title}
-                         </h5>
+                         </h5> */}
                      </div>
                              </Link>
                  </SwiperSlide>
@@ -108,4 +115,4 @@ const RentalSlider = ({data}) => {
     );
 };
 
-export default RentalSlider;
+export default CategorySlider;
