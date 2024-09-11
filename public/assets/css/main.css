@@ -7534,7 +7534,7 @@ span.fi-rs-apps {
   background-color: #ff3551;
 }
 
-.main-menu>nav>ul>li:hover>a {
+.main-menu>nav>ul>li>a>span:hover {
   color: var(--tpc-theme-primary);
 }
 
@@ -7544,7 +7544,7 @@ span.fi-rs-apps {
   margin-top: 0;
 }
 
-.main-menu>nav>ul>li:hover ul.mega-menu {
+.main-menu>nav>ul>li > ul.mega-menu.open, .main-menu>nav>ul>li > ul.mega-menu:hover {
   opacity: 1;
   visibility: visible;
   display: flex;

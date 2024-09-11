@@ -22,6 +22,7 @@ const Header = ({
 }) => {
     const user = storage.get("auth_token");
     const [isToggled, setToggled] = useState(false);
+    const [openMegaMenu, setOpenMegaMenu] = useState(false);
     const [scroll, setScroll] = useState(0);
     const [headerData, setheaderData] = useState([]);
     const { cartCount } = useSelector((state) => state.cart);
@@ -135,12 +136,17 @@ const Header = ({
                                                     <>
                                                     
                                                     <li className="position-relative" key={menu?.id}>
-                                                        <a className="text-black">
-                                                            <span>{menu?.name}</span>
-                                                            <FaChevronDown fontWeight={400} fontSize={12} className="ml-5" />
+                                                        <a className="text-black" style={{cursor:'default'}}>
+                                                            <span className="cursor_pointer"
+                                                                onMouseEnter={() => setOpenMegaMenu(menu?.name)}
+                                                                onMouseLeave={() => setOpenMegaMenu(null)}
+                                                            >{menu?.name}
+                                                            <FaChevronDown fontWeight={400} fontSize={12} className="ml-5"
+                                                            />
+                                                            </span>
                                                         </a>
-                                                        {menu?.categories.length>0 && <ul className="mega-menu">
-                                                            {
+                                                        {menu?.categories.length>0 && <ul className={`mega-menu ${openMegaMenu==menu?.name ?'open':''}`}>
+                                                        {
                                                                 menu?.categories?.map((category, i)=>(
                                                                     <li className="sub-mega-menu sub-mega-menu-width-22" key={category?.id}>
                                                                         {/* <Link href={`/${category?.handle}`}> */}
@@ -180,7 +186,7 @@ const Header = ({
                                             <li className="position-static">
                                                 <Link href={`/blogs`}>
                                                     <a>
-                                                        Blog
+                                                        <span>Blog</span>
                                                     </a>
                                                 </Link>
                                             </li>
