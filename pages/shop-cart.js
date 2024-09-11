@@ -338,7 +338,7 @@ const Cart = () => {
                 <section className="mt-50 mb-50">
                     <div className="container">
                         {
-                            status == 'succeeded' ?
+                            true ?
                                 <div className="">
                                     {!cartItems.length ?
                                         <>
