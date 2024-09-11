@@ -218,31 +218,31 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <div onClick={() => handleLink('/my-profile')} className="mr-0">
+                                            <a onClick={() => handleLink('/my-profile')} className="mr-0">
                                                 <a className="mr-0">
                                                     <FiUser color="#333333" fontSize={25} strokeWidth={2.2} />
                                                 </a>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <div onClick={() => handleLink('/shop-wishlist')} >
+                                            <a onClick={() => handleLink('/shop-wishlist')} >
                                                 <a>
                                                     <FaRegHeart fontSize={22} strokeWidth={3} color="#333333" /> 
                                                     {wishlistCount!==0 &&<span className="pro-count">
                                                         {wishlistCount}
                                                     </span>}
                                                 </a>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <div onClick={() => handleLink('/shop-cart')}>
+                                            <a onClick={() => handleLink('/shop-cart')}>
                                                 <a className="mini-cart-icon">
                                                     <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                     {cartCount!==0 &&<span className="pro-count">
                                                         {cartCount}
                                                     </span>}
                                                 </a>
-                                            </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -253,31 +253,31 @@ const Header = ({
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <div onClick={() => handleLink('/my-profile')}>
+                                        <a onClick={() => handleLink('/my-profile')}>
                                             <a className="mr-0">
                                                 <FiUser fontSize={25} color="#333333" strokeWidth={2} />
                                             </a>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <div onClick={() => handleLink('/shop-wishlist')}>
+                                        <a onClick={() => handleLink('/shop-wishlist')}>
                                             <a>
                                                 <FaRegHeart fontSize={22} color="#333333" />
                                                 {wishlistCount!==0 &&<span className="pro-count">
                                                     {wishlistCount}
                                                 </span>}
                                             </a>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <div onClick={() => handleLink('/shop-cart')}>
+                                        <a onClick={() => handleLink('/shop-cart')}>
                                             <a className="mini-cart-icon">
                                                 <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                 {cartCount!==0 &&<span className="pro-count">
                                                     {cartCount}
                                                 </span>}
                                             </a>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div className="header-action-icon-2 d-block d-lg-none">
                                         <div
