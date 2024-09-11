@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link"
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
+import { CiLinkedin } from "react-icons/ci";
 import { SlSocialFacebook } from "react-icons/sl";
 import NewsletterFrom from "../elements/NewletterForm";
 import { CiFacebook } from "react-icons/ci";
@@ -114,7 +115,7 @@ const Footer = () => {
                                             <FaXTwitter size={30} color="#fff" />
                                         </a>
                                         <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
-                                            <FaLinkedin size={30} color="#fff" />
+                                            <CiLinkedin size={35} strokeWidth={0.4} color="#fff" />
                                         </a>
                                         <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
                                             <FaInstagram size={30} color="#fff"/>

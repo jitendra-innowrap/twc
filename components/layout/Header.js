@@ -134,9 +134,9 @@ const Header = ({
                                                 result?.map((menu, i)=>(
                                                     <>
                                                     
-                                                    <li className="position-static" key={menu?.id}>
+                                                    <li className="position-relative" key={menu?.id}>
                                                         <a className="text-black">
-                                                            {menu?.name}
+                                                            <span>{menu?.name}</span>
                                                             <FaChevronDown fontWeight={400} fontSize={12} className="ml-5" />
                                                         </a>
                                                         {menu?.categories.length>0 && <ul className="mega-menu">
