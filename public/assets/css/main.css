@@ -13624,7 +13624,7 @@ footer.main h5, footer.main a, footer.main p{
   color: #fff;
 }
 
-.form-subcriber button.submit, button[type='submit'] {
+.form-subcriber button.submit {
   font-size: 15px;
   font-weight: 500;
   padding: 12px 40px;

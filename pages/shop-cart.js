@@ -344,7 +344,7 @@ const Cart = () => {
                                 :
                                 <div className="row">
                                     <div className="itemBlock-base-leftBlock pt-0">
-                                        <div className="coupons-base-header">Delivery Address {status}</div>
+                                        <div className="coupons-base-header">Delivery Address</div>
                                         <div className="addressStripV2-base-desktopContainer" style={{ justifyContent: `space-between` }}>
                                             {
                                                 Object.keys(shippingAddress).length > 0 && <div className="addressStripV2-base-title">
@@ -401,7 +401,7 @@ const Cart = () => {
                                                 </div>
                                             }
                                         </div>
-                                        {errorSetAddressFirst &&<p className="text-danger">Please select a delivery address</p>}
+                                        {errorSetAddressFirst && !shippingAddress?.id &&<p className="text-danger">Please select a delivery address</p>}
                                         {
                                             auth_token && <div className="billing_address">
                                                 <hr />
