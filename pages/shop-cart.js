@@ -315,14 +315,22 @@ const Cart = () => {
     };
 
 
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
 
     useEffect(() => {
         dispatch(fetchCart());
         fetchAddressList();
         // setDeliveredTo(shippingAddress ? shippingAddress : defaultAddress)
         setDeliveredTo(defaultAddress?.[0]?.id)
-        setBillingTo(billingAddress ? billingAddress : defaultAddress)
+        setBillingTo(billingAddress ? billingAddress : defaultAddress);
     }, [])
+    useEffect(() => {
+        // This effect will run after the first render to update the state
+        if (status === 'succeeded') {
+          setIsFirstLoad(false); // After the first load, set this to false
+        }
+      }, [status]); // Run this effect whenever `status` changes
+    
 
     useEffect(() => {
         if (gst_number) {
@@ -338,7 +346,11 @@ const Cart = () => {
                 <section className="mt-50 mb-50">
                     <div className="container">
                         {
-                            status == 'succeeded' ?
+                            isFirstLoad && status !== 'succeeded' ?
+                                <div className="loading-view" style={{ height: 'calc( 100vh - 423px)' }}>
+                                    <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                </div>
+                                :
                                 <div className="">
                                     {!cartItems.length ?
                                         <>
@@ -589,10 +601,6 @@ const Cart = () => {
                                             </div>
                                         </div>
                                     }
-                                </div>
-                                :
-                                <div className="loading-view" style={{ height: 'calc( 100vh - 423px)' }}>
-                                    <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                 </div>
                         }
                     </div>
