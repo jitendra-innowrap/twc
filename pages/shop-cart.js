@@ -313,7 +313,7 @@ const Cart = () => {
                 setIsLoading(false);  // Stop loading state
                 console.error("Error checking payment status:", error);
             }
-        }, 5000);
+        }, 2000);
         // Poll every 5 seconds
     };
 
