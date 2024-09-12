@@ -91,7 +91,7 @@ export default function index() {
                                             <th>Order Id</th>
                                             <th>Date</th>
                                             <th>Items</th>
-                                            <th>Quantity</th>
+                                            {/* <th>Quantity</th> */}
                                             <th>Total</th>
                                             <th>Actions</th>
                                         </tr>
@@ -103,7 +103,7 @@ export default function index() {
                                                             <td>{order.id}</td>
                                                             <td>{getDateFromString(order.order_date)}</td>
                                                             <td>{order.order_items_count}</td>
-                                                            <td>{order.total_quantity}</td>
+                                                            {/* <td>{order.total_quantity}</td> */}
                                                             <td>{order.order_amount}</td>
                                                             <td><Link href={`/my-orders/order-detail?orderId=${order.id}`} className="btn-small d-block">View</Link></td>
                                                         </tr>

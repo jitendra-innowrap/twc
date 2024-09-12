@@ -1,12 +1,9 @@
 import Lottie from "lottie-web";
-import success from "../public/assets/Lottie/success.json"
-import Layout from "../components/layout/Layout";
+import success from "../../../public/assets/Lottie/success.json"
+import Layout from "../../layout/Layout";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-const OrderSucess = () => {
-    const router = useRouter();
-    const [orderDetails, setOrderDetails] = useState(null);
+const OrderSucess = ({orderDetails}) => {
     useEffect(() => {
         Lottie.loadAnimation({
           container: document.getElementById('animation'),
@@ -17,14 +14,6 @@ const OrderSucess = () => {
         });
       }, []);
 
-      useEffect(() => {
-        if (router.query.data) {
-            const decodedData = decodeURIComponent(router.query.data);
-            const statusRes = JSON.parse(decodedData);
-            setOrderDetails(statusRes); // Set the order ID from the statusRes object
-          }
-      }, [router.query.data])
-      
     return (
         <>
             <Layout parent="Home" sub="Order" subChild="Sucess">
