@@ -93,6 +93,7 @@ const cartSlice = createSlice({
     couponCode:"",
     status: 'idle',
     error: null,
+    orderConfirmation: "null"
   },
   reducers: {
     initLocalStorage: (state, action) => {
@@ -109,6 +110,9 @@ const cartSlice = createSlice({
     updateGst:(state, action) =>{
       state.gst_number = action.payload.gst_number;
       state.companyName = action.payload.companyName;
+    },
+    updateOrderStatus:(state, action) => {
+      state.orderConfirmation = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -188,5 +192,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { initLocalStorage, emptyCart, updateGst } = cartSlice.actions;
+export const { initLocalStorage, emptyCart, updateGst, updateOrderStatus } = cartSlice.actions;
 export default cartSlice.reducer;
