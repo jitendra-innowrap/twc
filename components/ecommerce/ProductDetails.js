@@ -65,6 +65,7 @@ const ProductDetails = ({
     const relatedProductsRef = useRef();
 
     const FixedButtons = useRef();
+    const dateRef = useRef();
 
 useEffect(() => {
     const handleScroll = () => {
@@ -102,17 +103,23 @@ useEffect(() => {
     
     
     const handleCart = async (product) => {
-        if(isInCart && productDetails?.product_type=="1"){
-            router.push('/shop-cart')
-        }else{
+        if (isInCart && productDetails?.product_type == "1") {
+            router.push('/shop-cart');
+        } else {
             if (deliveryDate) {
                 dispatch(addItemToCart(product));
-                // setIsInCart(true)
-              }else{
-                  setHeighLightDate(true)
+            } else {
+                setHeighLightDate(true);
+                
+                // Scroll the date element into view and focus on it
+                if (dateRef.current) {
+                    dateRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    dateRef.current.focus();
                 }
             }
-        };
+        }
+    };
+    
         
         useEffect(() => {
         let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
@@ -209,7 +216,7 @@ useEffect(() => {
                     {productDetails?<div className="row flex-row-reverse">
                         <div className="col-lg-12">
                             <div className="product-detail accordion-detail">
-                                <div className="row mb-15 mb-md-5">
+                                <div className="row mb-15">
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-left">
                                         <div className="detail-gallery">
                                             <div className="product-image-slider">
@@ -219,7 +226,7 @@ useEffect(() => {
                                             </div>
                                         </div>
 
-                                        <div className="social-icons single-share">
+                                        {/* <div className="social-icons single-share">
                                             <ul className="text-grey-5 d-inline-block">
                                                 <li>
                                                     <strong className="mr-10">
@@ -246,7 +253,7 @@ useEffect(() => {
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="col-md-6 col-sm-12 col-xs-12 detail-right">
                                         <div className="detail-info">
@@ -281,16 +288,17 @@ useEffect(() => {
                                                     </ins>
                                                     }
                                                 </div>
+                                                {productDetails?.product_type=="1" && productDetails?.deposit_amount>0 && 
                                                 <div className="product-price font-md">
-                                                    {productDetails?.product_type=="1" && <ins className="mrp-price">
-                                                        Refundable Deposit:&nbsp;₹{productDetails?.deposit_amount? productDetails?.deposit_amount:"0"}&nbsp;
-                                                        <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title={`Deduction Per Day - ${productDetails?.deduction_from_deposit_per_day}%`}> 
+                                                    <ins className="mrp-price">
+                                                        Refundable Deposit:&nbsp;₹{productDetails?.deposit_amount}&nbsp;
+                                                        <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title={`A late fee of ${productDetails?.deduction_from_deposit_per_day}% will be deducted from your security deposit for each day the rental product is returned past the due date.`}> 
                                                             <BiInfoCircle size={16} style={{transform:'translateY(-1px)'}}/>
                                                         </span>
 
                                                     </ins>
-                                                    }
                                                 </div>
+                                                }
                                             </div>
                                             {productDetails?.product_type=="2" && <div className="detail-extralink">
                                                 <div className="detail-qty border radius">
@@ -344,7 +352,7 @@ useEffect(() => {
                                                     )}
                                                 </ul>
                                             </div>} */}
-                                            <div className="attr-detail attr-date">
+                                            <div className="attr-detail attr-date" ref={dateRef}>
                                                 <strong className="">
                                                     {productDetails?.product_type=="2"?"Event Date":"Delivery Date"}
                                                 </strong>

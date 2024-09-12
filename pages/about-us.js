@@ -69,7 +69,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-1.jpg"
+                                            src="assets/imgs/about/Zuzer Lucknowala image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -85,7 +85,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-2.jpg"
+                                            src="assets/imgs/about/Mamta Minocha Malkani image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -101,7 +101,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-3.jpg"
+                                            src="assets/imgs/about/Rachana Lucknowala image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -115,7 +115,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-4.jpg"
+                                            src="assets/imgs/about/Firoz Lucknowala image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />

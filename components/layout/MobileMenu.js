@@ -100,7 +100,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                                 <li key={menu?.id} className={isActive.key == i ? "menu-item-has-children active" : "menu-item-has-children"}>
                                                     <div onClick={() => handleToggle(i)}>
                                                         <span className="menu-expand">
-                                                            <i className="fi-rs-angle-small-down"></i>
+                                                            {isActive.key == i?<i className="fi-rs-angle-small-up"></i>:<i className="fi-rs-angle-small-down"></i>}
                                                         </span>
                                                         <a style={{color:`${isActive.key == i ? 'var(--tpc-theme-primary)':'#000'}`}}>
                                                             {menu?.name}
