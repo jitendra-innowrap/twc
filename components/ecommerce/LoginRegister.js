@@ -313,6 +313,7 @@ function LoginRegister({noRefferer, close}) {
                                 onChange={handleInput} 
                                 placeholder="" 
                                 maxLength="10" 
+                                inputmode="numeric" 
                                 value={Mobile} />
                                 <span className="placeholderAlternative mobileNumber">
                                     +91<span style={{ padding: '0px 10px', position: 'relative', bottom: 1 }}>|</span>

@@ -433,6 +433,10 @@ header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,hea
         padding-left: 12px;
         background-size: 15px;
     }
+    main.revised .hero-slider-1 .search-style-2.hero-search input:placeholder-shown {
+        text-overflow: ellipsis;
+    }
+    
     main.revised .hero-slider-1 .search-style-2.hero-search button.search-btn{
         font-size: 12px;
         padding: 5px 8px;
@@ -499,5 +503,7 @@ header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,hea
         right: -37px;
         width: 35px;
       }
-
+      main.revised .hero-slider-1 .search-style-2.hero-search input{
+        max-width: calc( 100vw - 162px);
+    }
 }
