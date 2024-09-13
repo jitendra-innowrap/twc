@@ -538,6 +538,7 @@ header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,hea
 }
 
 
-main.revised .hero-slider-1 img{
+main.revised .hero-slider-1 img.slider-1-1{
+    height: auto !important;
     max-height: 598px !important;
 }
