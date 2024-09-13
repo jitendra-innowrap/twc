@@ -30,6 +30,7 @@ export default function Home() {
             const res = await getHomeDetails();
             if (res?.code === 1) {
                 setData(res.home_data_list);
+                console.log(res.home_data_list)
             } else {
                 console.error('Error !', res?.msg)
             }
@@ -65,7 +66,7 @@ export default function Home() {
                                         className=""
                                         id="carausel-6-columns"
                                     >
-                                        <CategorySlider data={data?.browse_events_category} />
+                                        <CategorySlider data={data?.top_category} />
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +85,7 @@ export default function Home() {
                                         className="position-relative slider-arrow-out"
                                         id="carausel-6-columns"
                                     >
-                                        <RentalsSlider data={data?.browse_events_category} />
+                                        <RentalsSlider data={data?.quality_rentals} />
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +104,7 @@ export default function Home() {
                                         className="position-relative slider-arrow-out"
                                         id="carausel-6-columns"
                                     >
-                                        <PackagesSlider data={data?.browse_events_category} />
+                                        <PackagesSlider data={data?.packages} />
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
@@ -115,7 +116,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        <section className="popular-categories section-padding">
+                        <section className="popular-categories section-padding" style={{paddingBottom:'50px'}}>
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
@@ -129,7 +130,7 @@ export default function Home() {
                                         className="position-relative slider-arrow-out"
                                         id="carausel-6-columns"
                                     >
-                                        <ServicesSlider data={data?.browse_events_category} />
+                                        <ServicesSlider data={data?.people_and_services} />
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
@@ -141,7 +142,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        <section className="section-padding popular-categories usp-section blog-section">
+                        {data?.blogs.length >0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
                                 <div className="section-head d-flex flex-column align-items-center w-100">
@@ -234,9 +235,9 @@ export default function Home() {
                                     </Link>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
                         
-                        <section className="section-padding usp-section popular-categories">
+                        <section className="section-padding usp-section popular-categories section-bg-gradient">
 
                             <div className="container pt-md-5 pb-25">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
@@ -244,7 +245,8 @@ export default function Home() {
                                         <div className="heading">
                                             <h2>Why Us</h2>
                                         </div>
-                                        <h3 className="subheading">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h3>
+                                        <h3 className="subheading">The Party Cafe</h3>
+                                        <h4 className="subheading-blue">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h4>
                                         <p className="lh-1 mt-3 text-center">India's go-to destination for all things celebration.</p>
                                         <p className="lh-1 text-center">Browse our menu, and let us serve up the perfect ingredients for your event!</p>
                                         
@@ -254,7 +256,7 @@ export default function Home() {
                                 <div className="why-to-choose position-relative wow fadeIn animated">
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-5.svg'}
+                                            src={'/assets/imgs/usp-icons/usp-1.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -262,13 +264,13 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Convenience</h5>
-                                            <p>Our one-stop-shop approach means you can find everything you need for your event in one place, saving you time and effort.
+                                            <p>Plan events effortlessly with ease.
                                             </p>
                                         </div>
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-2.svg'}
+                                            src={'/assets/imgs/usp-icons/usp-2.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -276,13 +278,13 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Variety</h5>
-                                            <p>We offer an extensive range of high-quality items and services to suit various themes, styles, and budgets.
+                                            <p>Explore countless options for celebrations.
                                             </p>
                                         </div>
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-3.svg'}
+                                            src={'/assets/imgs/usp-icons/usp-3.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -290,13 +292,13 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Quality Assurance</h5>
-                                            <p>All our items and service providers are carefully vetted to ensure top-notch quality for your event.
+                                            <p>Assurance Only trusted vendors and venues.
                                             </p>
                                         </div>
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-4.svg'}
+                                            src={'/assets/imgs/usp-icons/usp-4.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -305,7 +307,7 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Customer Support</h5>
-                                            <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+                                            <p>Support available whenever you need.
                                             </p>
                                         </div>
                                     </div>

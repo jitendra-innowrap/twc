@@ -938,6 +938,53 @@ export const checkRentalAvailability = async ({qty,end_date,start_date,product_i
   }
 }
 
+export const getBlogs = async () => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  
+  try {
+    const response = await axios.get(
+      `${baseURL}/Home/getAllBlogData`,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch', error);
+    throw error;
+  }
+}
+export const getBlogDetail = async ({blog_id}) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('blog_id', blog_id);
+    try {
+      const response = await axios.post(
+        `${baseURL}/Home/getBlogDetails`,
+        formData,
+        {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch', error);
+    throw error;
+  }
+}
+
 export const getFaqs = async () => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
