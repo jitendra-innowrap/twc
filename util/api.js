@@ -426,7 +426,7 @@ export const downloadInvoice = async (orderId) => {
   const auth_token = getToken();
   try {
     const response = await axios.get(
-      `https://innowrap.co.in/clients/twc/App/V1/Invoice?order_id=${orderId}`,
+      `${baseURL}/Invoice?order_id=${orderId}`,
       {
         headers: {
           'auth_token': auth_token,

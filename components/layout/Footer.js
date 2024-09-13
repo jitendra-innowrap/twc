@@ -8,9 +8,12 @@ import NewsletterFrom from "../elements/NewletterForm";
 import { CiFacebook } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { AiOutlineYoutube } from "react-icons/ai";
+import storage from "../../util/localStorage";
 
 const Footer = () => {
     const router =  useRouter();
+    const user = storage.get("auth_token");
+
     return (
         <>
             <footer className="main">
@@ -74,7 +77,7 @@ const Footer = () => {
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-40">
                                     <li>
-                                        <Link href={`/page-login-register?referrerUrl=${router?.asPath}`}>Sign In</Link>
+                                        <Link href={!user?`/page-login-register`:"/my-profile"}>Sign In</Link>
                                     </li>
                                     <li>
                                         <Link href="/my-profile">My Profile</Link>

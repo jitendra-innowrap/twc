@@ -100,7 +100,7 @@ export default function index() {
                                         {
                                             orderList.map((order, i) => {
                                                 return <tr key={order.id}>
-                                                            <td>{order.id}</td>
+                                                            <td>{order.order_number}</td>
                                                             <td>{getDateFromString(order.order_date)}</td>
                                                             <td>{order.order_items_count}</td>
                                                             {/* <td>{order.total_quantity}</td> */}

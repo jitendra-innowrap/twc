@@ -101,7 +101,7 @@ const RentalsSlider = ({data}) => {
              ))}
             </Swiper>
 
-            <div
+            {/* <div
                 className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
                 id="carausel-6-columns-arrows"
             >
@@ -111,7 +111,7 @@ const RentalsSlider = ({data}) => {
                 <span className="slider-btn slider-next slick-arrow custom_next_ct12">
                     <IoArrowForwardCircleOutline fontSize={28} />
                 </span>
-            </div>
+            </div> */}
         </>
     );
 };

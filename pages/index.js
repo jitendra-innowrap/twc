@@ -108,7 +108,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
-                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                         `}>
                                     <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
                                         </Link>
@@ -134,7 +134,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
-                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                         `}>
                                     <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
                                         </Link>
@@ -271,7 +271,7 @@ export default function Home() {
                                 </div>
                             </div>
                                 <div className="w-100 d-flex justify-content-center mt-20 mb-30">
-                                    <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                    <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                         `}>
                                         <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
                                     </Link>

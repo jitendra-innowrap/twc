@@ -131,7 +131,7 @@ function About() {
                         </div>
                     </div>
                 </section>
-
+{/* 
                 <section id="testimonials" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
@@ -165,9 +165,9 @@ function About() {
                                     <div className="pl-30">
                                         <h5 className="mb-5 fw-500">Stylish Outfits
                                         </h5>
-                                        {/* <p className="font-sm text-grey-5">
+                                        <p className="font-sm text-grey-5">
                                             Gratifi
-                                        </p> */}
+                                        </p>
                                         <p className="text-grey-3 truncate-3">
                                             "We have attire for every occasion, from wedding lehengas to cocktail dresses to tuxedos."
                                         </p>
@@ -187,9 +187,9 @@ function About() {
                                     <div className="pl-30">
                                         <h5 className="mb-5 fw-500">Elegant Furniture
                                         </h5>
-                                        {/* <p className="font-sm text-grey-5">
+                                        <p className="font-sm text-grey-5">
                                             Edenred India
-                                        </p> */}
+                                        </p>
                                         <p className="text-grey-3 truncate-3">
                                             "Tables, chairs, lounge sets, and more to set the perfect ambiance."
                                         </p>
@@ -265,7 +265,7 @@ function About() {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
                 
                 <section id="faqs" className="section-padding">
                     <div className="container pt-25">

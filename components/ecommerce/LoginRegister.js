@@ -13,7 +13,7 @@ function LoginRegister({noRefferer, close}) {
     const [isSumbitting, setIsSumbitting] = useState(false);
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(3);
     const [auth_token, setAuth_token] = useState("")
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
@@ -149,6 +149,8 @@ function LoginRegister({noRefferer, close}) {
                 if(res?.code==1){
                     storage.set("auth_token", auth_token);
                     storage.set("web_token", null);
+                    dispatch(fetchCart())
+                    dispatch(fetchWishlist())
                     toast.success("Account Created Successfully !", {
                         position: "bottom-center",
                         autoClose: 1500,
@@ -220,12 +222,10 @@ function LoginRegister({noRefferer, close}) {
                     if (response.code == 1) {
                         storage.set("auth_token", auth_token);
                         storage.set("web_token", null);
-                        dispatch(fetchCart())
-                        dispatch(fetchWishlist())
                         // Add your redirect logic
                         if (response?.result?.is_profile_completed == 0) {
                             setStep(3);
-                            toast.success("OTP Verified Successfully !", {
+                            toast.success("OTP Verified Successfully!", {
                                 position: "bottom-center",
                                 autoClose: 1500,
                                 hideProgressBar: false,
@@ -255,6 +255,8 @@ function LoginRegister({noRefferer, close}) {
                             if(close){
                                 close();
                             }
+                            dispatch(fetchCart())
+                            dispatch(fetchWishlist())
                         }
                         handleUpdateToken(
                             auth_token // Assuming you have the auth_token available
@@ -287,10 +289,11 @@ function LoginRegister({noRefferer, close}) {
     };
 
     const handleInput = (e) => {
+        if (e.key =='enter') handleMobile()
         const { value } = e.target;
           // Filter out non-numeric characters and limit to maxLength
           const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
-          setMobile(numericValue)
+          setMobile(numericValue);
       };
     return (
         <>
@@ -307,7 +310,7 @@ function LoginRegister({noRefferer, close}) {
                             <div className="form-group ">
                                 <input ref={phoneRef} 
                                 autocomplete="new-password" 
-                                onKeyDown={(event) => { if (event.key === 'Enter') handleMobile }} 
+                                onKeyDown={(event) => { if (event.key === 'Enter') handleMobile() }} 
                                 id="" type="text" pattern="[0-9]*" className="form-control mobileNumberInput"  name="mobile"
                                 onChange={handleInput} 
                                 placeholder="" 
@@ -356,6 +359,7 @@ function LoginRegister({noRefferer, close}) {
                                             type="tel"
                                             maxLength={1}
                                             autoComplete="off"
+                                            inputmode="numeric"
                                             value={digit}
                                             onChange={(e) => handleOtpChange(index, e.target.value)}
                                             onKeyDown={(e) => handleKeyDown(index, e)}
@@ -376,18 +380,18 @@ function LoginRegister({noRefferer, close}) {
                     :
                     <div className="login_wrap w-100">
                         {/* <div className="backButton" onClick={handleBack}><i className='fi-rs-arrow-left'></i></div> */}
-                        <div className="greenBox">
+                        <div className="greenBox" style={{background:'#dde6ff'}}>
                             <svg
                                 width="24"
                                 height="24"
-                                fill="#E5F6F2"
+                                fill="#dde6ff"
                                 className="svgIcon"
                                 style={{ height: '24px', width: '24px' }}
                             >
                                 <g fill="none" fillRule="evenodd">
                                     <path d="M0 0h24v24H0z"></path>
                                     <path
-                                        fill="#E5F6F2"
+                                        fill="#dde6ff"
                                         fillRule="nonzero"
                                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.29 16.29L5.7 12.7a.996.996 0 111.41-1.41L10 14.17l6.88-6.88a.996.996 0 111.41 1.41l-7.59 7.59a.996.996 0 01-1.41 0z"
                                     ></path>
@@ -396,11 +400,17 @@ function LoginRegister({noRefferer, close}) {
                             <div className="welcomeText">Welcome</div>
                             <div className="accountCreated">Your account has been created</div>
                         </div>
-                        <div className="padding_eight_all bg-white  p-30">
+                        <div className="padding_eight_all bg-white  p-30 mt-20">
                             <div className="nameText">What should we call you?</div>
                             <div className="nameInputContainer">
                                 <div className="form-group ">
-                                    <input autocomplete="new-password" onKeyDown={(event) => { if (event.key === 'Backspace') handleSubmit }} id="" type="tel" className="form-control mobileNumberInput" onChange={(e) => { setName(e.target.value) }} placeholder=""  value={name} />
+                                    <input autocomplete="new-password" 
+                                    onKeyDown={(event) => { if (event.key === 'Enter') handleSubmit() }} 
+                                    id="" 
+                                    type="text" 
+                                    className="form-control mobileNumberInput" 
+                                    onChange={(e) => { setName(e.target.value) }} 
+                                    placeholder=""  inputmode="text" value={name} />
                                     <span className={`placeholderAlternative mobileNumber ${name ? 'focus' : ''}`}>
                                         <span className="mobileNumberPlacholder">Type your name</span>
                                     </span><i className="bar"></i>

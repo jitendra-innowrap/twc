@@ -10,7 +10,7 @@ export default function HeroBanner2({data}) {
                 alt={data[0]?.title}
             />
             <div className="search-style-2 hero-search position-absolute">
-            {/* <img src="/assets/imgs/home-page/hero-title.png" className="hero_title_image"/> */}
+            <img src="/assets/imgs/home-page/hero-title.png" className="hero_title_image"/>
                 <HeroSearch />
             </div>
         </div>

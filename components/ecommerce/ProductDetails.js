@@ -240,13 +240,13 @@ useEffect(() => {
                                                     </a>
                                                 </li>
                                                 <li className="social-x">
-                                                    <a href={`https://twitter.com/intent/tweet?text=Check out this product: http://65.2.106.71:8001/products/detail/${productDetails?.handle}`}
+                                                    <a href={`https://twitter.com/intent/tweet?text=Check out this product:http://3.110.67.130:3000/products/detail/${productDetails?.handle}`}
                                                     target="_blank">
                                                         <FaXTwitter size={18} color="#606060" />
                                                     </a>
                                                 </li>
                                                 <li className="social-whatsapp">
-                                                    <a href={`https://wa.me/send?text=Check out this product: http://65.2.106.71:8001/products/detail/${productDetails?.handle}`} 
+                                                    <a href={`https://wa.me/send?text=Check out this product:http://3.110.67.130:3000/products/detail/${productDetails?.handle}`} 
                                                         data-action="share/whatsapp/share"
                                                         target="_blank">
                                                         <FaWhatsapp size={18} color="#606060"/>
@@ -371,7 +371,7 @@ useEffect(() => {
                                             <div className="detail-extralink">
                                                 <div className="product-extra-link2">
                                                     <a href={`https://wa.me/+919892745795/?text=Hi i'm interested in this product: 
-                                                                http://65.2.106.71:8001/products/detail/${productDetails?.handle}        
+                                                               http://3.110.67.130:3000/products/detail/${productDetails?.handle}        
                                                     `}
                                                         className="connect"
                                                         target="_blank"

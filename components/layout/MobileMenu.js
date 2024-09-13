@@ -170,13 +170,13 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     {/* </Link> */}
                                 </div>:
                                 <div className="single-mobile-header-info">
-                                    <Link href={`/page-login-register?referrerUrl=${router?.asPath}`}>
-                                        <a>Log In / Sign Up </a>
+                                    <Link href={!user?`/page-login-register`:"/my-profile"}>
+                                        <a>Sign In / Sign Up </a>
                                     </Link>
                                 </div>}
                                 <div className="single-mobile-header-info">
-                                    <Link href="tel:1800180016241423">
-                                        <a>1800 1800 1624 1423</a>
+                                    <Link href="tel:18002127338">
+                                        <a>1800 2127 338</a>
                                     </Link>
                                 </div>
                             </div>
