@@ -14428,7 +14428,7 @@ body.mobile-menu-active{
 }
 header .header-bottom{
   max-width: 100vw;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 @media (min-width: 992px) {
   .header-bottom{
