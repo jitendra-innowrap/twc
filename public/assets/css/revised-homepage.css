@@ -536,3 +536,8 @@ header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,hea
         max-width: calc( 100vw - 162px);
     }
 }
+
+
+main.revised .hero-slider-1 img{
+    max-height: 598px !important;
+}
