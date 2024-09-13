@@ -38,8 +38,8 @@ const Footer = () => {
                                         Maharashtra 400055.
                                     </p>
                                     <p className="wow fadeIn animated">
-                                        <strong>Phone: </strong><a href="tel:+012222365">+01 2222 365 </a> 
-                                        / <a href="tel:+910123456789">(+91) 01 2345 6789</a>
+                                        <strong>Phone: </strong><a href="tel:18002127338">18002127338 </a> 
+                                        / <a href="tel:+919987888703">(+91) 9987888703</a>
                                     </p>
                                 </div>
                             </div>

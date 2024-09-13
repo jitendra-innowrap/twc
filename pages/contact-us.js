@@ -36,20 +36,20 @@ function Contact() {
 
                     <h4>General Inquiries</h4>
                     <p>For general questions about our services, products, or how The Party Cafe works:</p>
-                    <p>Email: <a href="mailto:inquiries@thepartycafe.com">inquiries@thepartycafe.com</a></p>
+                    <p>Email: <a href="mailto:sales@thepartycafe.com">sales@thepartycafe.com</a></p>
                     <p>Phone: (+91) 01 2345 6789</p>
                     <p>Hours: [11am to 7pm]</p>
 
                     <h4>Customer Support</h4>
                     <p>For assistance with orders, deliveries, or any issues:</p>
-                    <p>Email: <a href="mailto:inquiries@thepartycafe.com">inquiries@thepartycafe.com</a></p>
+                    <p>Email: <a href="mailto:sales@thepartycafe.com">sales@thepartycafe.com</a></p>
                     <p>Phone: (+91) 01 2345 6789</p>
                     <p>Live Chat: Available on our website during business hours</p>
                     <p>Hours: [11am to 7pm]</p>
 
                     <h4>Hiring Opportunities</h4>
                     <p>Interested in joining The Party Cafe team? We're always looking for passionate individuals:</p>
-                    <p>Email: <a href="mailto:inquiries@thepartycafe.com">inquiries@thepartycafe.com</a></p>
+                    <p>Email: <a href="mailto:sales@thepartycafe.com">sales@thepartycafe.com</a></p>
                     <p>Please include your resume and a cover letter explaining why you'd be a great fit for our team.</p>
 
                     <h4>Vendor Partnerships</h4>
@@ -63,7 +63,7 @@ function Contact() {
 
                     <h4>Feedback and Suggestions</h4>
                     <p>We value your input! If you have ideas on how we can improve our service:</p>
-                    <p>Email: <a href="mailto:inquiries@thepartycafe.com">inquiries@thepartycafe.com</a></p>
+                    <p>Email: <a href="mailto:sales@thepartycafe.com">sales@thepartycafe.com</a></p>
 
                     <h4>Visit Us</h4>
                     <p>While we primarily operate online, our corporate office is located at:</p>
@@ -95,9 +95,9 @@ function Contact() {
                                     <h3 className="mb-10 text-center">
                                         Drop Us a Line
                                     </h3>
-                                    <p className="text-muted mb-30 text-center font-sm">
+                                    {/* <p className="text-muted mb-30 text-center font-sm">
                                         Lorem ipsum dolor sit amet consectetur.
-                                    </p>
+                                    </p> */}
                                     <ContactForm />
                                     <p className="form-messege"></p>
                                 </div>

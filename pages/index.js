@@ -156,84 +156,42 @@ export default function Home() {
                                 </div>
                                 </div>
                                 <div class="row loop-grid">
-                                    <div class="col-lg-4 mb-4">
+                                    {
+                                        data?.blogs?.slice(0,3).map((blog)=>(
+                                            <div class="col-lg-4 mb-4" key={blog?.id}>
                                         <article class="wow fadeIn animated hover-up">
                                             <div class="post-thumb img-hover-scale">
-                                                <Link href={"/blogs/the-biggest-wedding-trends-for-2025"}>
-                                                    <a><img src="/assets/imgs/blog/blog1.png" alt="" /></a>
+                                                <Link href={blog?.handle}>
+                                                    <a><img src={blog?.image} alt={blog?.title} 
+                                                    style={{height:'260px', objectFit:'cover', width:'100%'}} 
+                                                    /></a>
                                                 </Link>
                                             </div>
                                             <div class="entry-content-2">
                                                 <h3 class="post-title mb-15">
-                                                    <Link href={"/blogs/the-biggest-wedding-trends-for-2025"}>
-                                                        <a>The Biggest Wedding Trends for 2025</a>
+                                                    <Link href={blog?.handle}>
+                                                        <a>{blog?.title}</a>
                                                     </Link>
                                                 </h3>
-                                                <p class="post-exerpt mb-30">Planning a wedding in 2025? The wedding landscape is constantly evolving, and next year promises some exciting trends that cater to modern couples' desires for personalization, sustainability, and unique experiences.</p>
+                                                <p class="post-exerpt mb-30">{blog?.blog_content}</p>
                                                 <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href="/blogs/the-biggest-wedding-trends-for-2025">
+                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> {blog?.blog_post_date || 'unknown'}</span><span class="hit-count has-dot">126k Views</span></div>
+                                                    <Link href={blog?.handle}>
                                                         <a className="post-link" >Read more <BsArrowRight /></a>
                                                     </Link>
                                                 </div>
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-lg-4 mb-4">
-                                        <article class="wow fadeIn animated hover-up">
-                                            <div class="post-thumb img-hover-scale">
-                                                <Link href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow">
-                                                    <a><img src="/assets/imgs/blog/blog2.png" alt="" /></a>
-                                                </Link>
-                                            </div>
-                                            <div class="entry-content-2">
-                                                <h3 class="post-title mb-15">
-                                                    <Link href={"/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow"}>
-                                                        <a>The Ultimate Guide to Choosing the Perfect Event Planner in Mumbai</a>
-                                                    </Link>
-                                                </h3>
-                                                <p class="post-exerpt mb-30">Indians love weddings, celebrated with joy, laughter, and a lot of fun. They are not just the union of two individuals but also a coming together of two families.</p>
-                                                <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow">
-                                                        <a className="post-link" >Read more <BsArrowRight /></a>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-4 mb-4">
-                                        <article class="wow fadeIn animated hover-up">
-                                            <div class="post-thumb img-hover-scale">
-                                                <Link href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them">
-                                                    <a><img src="/assets/imgs/blog/blog4.png" alt="" /></a>
-                                                </Link>
-
-                                            </div>
-                                            <div class="entry-content-2">
-                                                <h3 class="post-title mb-15">
-                                                    <a href="/media-post"></a>
-                                                    <Link href={"/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them"}>
-                                                        <a>Reasons Why Should Brides RENT Their Lehengas & Not Buy Them</a>
-                                                    </Link>
-                                                </h3>
-                                                <p class="post-exerpt mb-30">All we know is that brides have their dream of having a beautiful lehenga at their wedding. Most brides prefer designer lehengas for their wedding. Many brides spend a lot.</p>
-                                                <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them">
-                                                        <a className="post-link" >Read more <BsArrowRight /></a>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
+                                        ))
+                                    }
                                 </div>
                                 
-                                <div className="w-100 d-flex justify-content-center mb-30">
+                                {data?.blogs?.length>3 && <div className="w-100 d-flex justify-content-center mb-30">
                                     <Link href="/blogs">
                                     <button className="btn consult-btn">View All <BsArrowRight/></button>
                                     </Link>
-                                </div>
+                                </div>}
                             </div>
                         </section>}
                         

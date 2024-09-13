@@ -116,7 +116,7 @@ const Header = ({
                                     <ul>
                                         <li className="position-relative"> 
                                             <span className="mr-5" style={{position:'absolute', top:'calc( 50% + 2px)', left:'-30px', transform:'translateY(-50%)'}}><img src="/assets/imgs/theme/phone-icon.png"  width={'35px'} height={'35px'}/></span>
-                                            <a href="tel:18001800162414231">1800 1800 1624 1423</a>
+                                            <a href="tel:18002127338">1800 2127 338</a>
                                         </li>
                                     </ul>
                                 </div>
