@@ -249,7 +249,6 @@ export default function Home() {
                                         <h4 className="subheading-blue">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h4>
                                         <p className="lh-1 mt-3 text-center">India's go-to destination for all things celebration.</p>
                                         <p className="lh-1 text-center">Browse our menu, and let us serve up the perfect ingredients for your event!</p>
-                                        
                                     </div>
                                 </div>
                         

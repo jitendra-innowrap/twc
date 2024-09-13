@@ -86,8 +86,8 @@ const RentalsSlider = ({data}) => {
                                      <img
                                         className="w-100"
                                         draggable='false'
-                                        //  src={item.collection_image}
-                                         src={constants[i]}
+                                         src={item.collection_image}
+                                        //  src={constants[i]}
                                          alt={item.title}
                                      />
                                  </a>
