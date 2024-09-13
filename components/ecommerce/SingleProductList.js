@@ -75,7 +75,7 @@ const SingleProductList = ({
                                         />
                                         <img
                                             className="hover-img"
-                                            src={product?.images[1].img}
+                                            src={product?.images[1].img?product?.images[1].img:product?.images[0].img}
                                             alt=""
                                         />
                                     </a>
