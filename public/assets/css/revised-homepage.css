@@ -9,7 +9,10 @@ main.revised .section-head{
     position: relative;
 }
 .section-bg-gradient{
-    background: linear-gradient(180deg, #fff7d5 43%, #d9e4fe 100%);
+    background: linear-gradient(180deg, #fff7d5, #d9e4fe 100%);
+}
+.section-b-bottom{
+    border-bottom: 12px solid var(--tpc-theme-primary-light-1);
 }
 /* heading pattern */
 main.revised .section-head .heading h2{
@@ -408,11 +411,11 @@ header.revised .header-bottom.sticky-bar.stick .header-right .search-style-2,hea
         grid-template-columns: 1fr 1fr;
 
     }
-    main.revised .why-to-choose .usp-card:not(:last-child){
-        border-right: none;
+    main.revised .why-to-choose{
+        max-width: 550px;
     }
-    main.revised .why-to-choose .usp-card:nth-child(odd) {
-        border-right: 1px solid #80808059;
+    main.revised .why-to-choose .usp-card p{
+        max-width: 180px;
     }
 }
 @media (max-width: 768px) {
