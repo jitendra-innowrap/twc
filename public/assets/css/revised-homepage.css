@@ -8,7 +8,9 @@ header.revised.header-height-2{
 main.revised .section-head{
     position: relative;
 }
-
+.section-bg-gradient{
+    background: linear-gradient(180deg, #fff7d5 43%, #d9e4fe 100%);
+}
 /* heading pattern */
 main.revised .section-head .heading h2{
     font-family: var(--tpc-home-font-secondary);
@@ -19,6 +21,13 @@ main.revised .section-head h3{
     font-family: var(--tpc-home-font-primary);
     font-weight: 600;
     font-size: 44px;
+    letter-spacing: -2px;
+    text-align: center;
+}
+main.revised .section-head h4{
+    font-family: var(--tpc-home-font-primary);
+    font-weight: 300;
+    font-size: 36px;
     letter-spacing: -2px;
     text-align: center;
 }
@@ -283,8 +292,8 @@ main.revised .usp-card .image {
     margin-inline: 20px;
     border-radius: 50%;
 }
-main.revised .usp-card p {
-    display: none;
+main.revised .usp-card  {
+    flex-direction: column;
 }
 main.revised section.services{
     background: #f2f3f8;
@@ -304,9 +313,9 @@ main.revised section.services{
 main.revised .why-to-choose {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    border: 1px solid #80808059;
     border-radius: 2px;
-    background-color: #fff;
+    max-width: 800px;
+    margin-inline: auto;
 }
 main.revised .why-to-choose .usp-card {
     border: none;
@@ -314,9 +323,26 @@ main.revised .why-to-choose .usp-card {
     padding: 0;
     margin: 10px;
     box-shadow: none;
+    /* max-width: 150px; */
 }
-main.revised .why-to-choose .usp-card:not(:last-child) {
-    border-right: 1px solid #80808059;
+main.revised .why-to-choose .usp-card .usp-value{
+    width: unset;
+}
+main.revised .why-to-choose .usp-card h5{
+    color: var(--tpc-theme-primary);
+    text-align: center;
+    font-size: 18px;
+    margin-block: 10px 2px;
+    font-family: var(--tpc-home-font-primary);
+}
+main.revised .section-head h4.subheading-blue{
+    color: var(--tpc-theme-primary);
+    max-width: 768px;
+    margin-top: 30px;
+}
+main.revised .why-to-choose .usp-card p{
+    text-align: center;
+
 }
 main.revised .carausel-6-columns-cover .slider-arrow-out{
     margin-inline: 40px;

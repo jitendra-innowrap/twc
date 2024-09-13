@@ -1,8 +1,31 @@
 import { BsArrowRight } from "react-icons/bs";
 import Layout from "../components/layout/Layout";
 import Link from "next/link";
+import { getBlogs } from "../util/api";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-function About() {
+function Blogs({}) {
+    let Router = useRouter();
+
+    const [blogs, setBlogs] = useState([]);
+    useEffect(() => {
+      fetchBlogs();
+    }, [Router.query])
+    
+    const fetchBlogs = async () => {
+        try {
+            const res = await getBlogs();
+            if (res?.code === 1) {
+                setBlogs(res.blogs_data);
+            } else {
+                console.error('Error !', res?.msg)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
     return (
         <>
             <Layout parent="Home" sub="Blogs" subChild="">
@@ -40,6 +63,26 @@ function About() {
                     <div className="container">
                         <h2 className="mb-50">Recent Press Releases</h2>
                         <div class="row loop-grid">
+                            {
+                                blogs?.map((blog)=>(
+                                    <div class="col-lg-4" key={blog.id}>
+                                        <article class="wow fadeIn animated hover-up mb-30">
+                                            <div class="post-thumb img-hover-scale">
+                                                <a href="/media-post"><img src="/assets/imgs/blog/blog-6.jpg" alt="" /></a>
+
+                                            </div>
+                                            <div class="entry-content-2">
+                                                <h3 class="post-title mb-15"><a href="/media-post">{blog.title}</a></h3>
+                                                <p class="post-exerpt mb-30">Today, we are excited to announce the launch of our latest enterprise software package designed to help large organizations optimize workflows and boost productivity.</p>
+                                                <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
+                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
+                                                    <a href="/media-post">Read more <BsArrowRight /></a>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                ))
+                            }
                             <div class="col-lg-4">
                                 <article class="wow fadeIn animated hover-up mb-30">
                                     <div class="post-thumb img-hover-scale">
@@ -154,4 +197,4 @@ function About() {
     );
 }
 
-export default About;
+export default Blogs;
