@@ -235,14 +235,14 @@ const Header = ({
                                             </a>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <a onClick={() => handleLink('/shop-cart')}>
+                                            <Link href={'/shop-cart'}>
                                                 <a className="mini-cart-icon">
                                                     <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                     {cartCount!==0 &&<span className="pro-count">
                                                         {cartCount}
                                                     </span>}
                                                 </a>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -270,14 +270,14 @@ const Header = ({
                                         </a>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <a onClick={() => handleLink('/shop-cart')}>
+                                        <Link href={'/shop-cart'}>
                                             <a className="mini-cart-icon">
                                                 <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                 {cartCount!==0 &&<span className="pro-count">
                                                     {cartCount}
                                                 </span>}
                                             </a>
-                                        </a>
+                                        </Link>
                                     </div>
                                     <div className="header-action-icon-2 d-block d-lg-none">
                                         <div

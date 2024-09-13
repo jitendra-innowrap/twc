@@ -164,8 +164,8 @@ function LoginRegister({noRefferer, close}) {
                         router.push(referrer);
                     }
                     if(close){
+                        dispatch(fetchCart())
                         close();
-                        router.reload();
                     }
                 }else{
                     toast.error("Something Went Wrong !", {
@@ -254,7 +254,6 @@ function LoginRegister({noRefferer, close}) {
                             }
                             if(close){
                                 close();
-                                router.reload();
                             }
                         }
                         handleUpdateToken(
