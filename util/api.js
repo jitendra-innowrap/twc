@@ -3,15 +3,11 @@
 import axios from 'axios';
 import storage from './localStorage';
 import { clipDateOnly, getToken, getWebToken } from './util';
-// const username = process.env.NEXT_PUBLIC_API_USERNAME
-// const password = process.env.NEXT_PUBLIC_API_PASSWORD
-// const baseURL = process.env.NEXT_PUBLIC_BASE_URL
-const username = 'PLKT-,9_d63YGYIc87(^5';
-const password = 'PLKRn72^8YKqRip8v^a#|';
+const username = process.env.NEXT_PUBLIC_API_USERNAME
+const password = process.env.NEXT_PUBLIC_API_PASSWORD
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
-const baseURL = 'https://innowrap.co.in/clients/twc/App/V1';
-
 // category page api's endpoints
 
 export const getAllCategory = async () => {
