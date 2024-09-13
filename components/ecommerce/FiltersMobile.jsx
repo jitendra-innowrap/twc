@@ -110,7 +110,11 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
     }
 
 
-    return (
+    return (<>
+    <div style={{zIndex:'99999999'}} className="filter-actions-btns d-flex">
+                <div onClick={clearAllFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear</span></div>
+                <div onClick={handleApplyFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-filter"></i> <span className="ml-15">Apply</span></div>
+                </div>
         <div className={`col-lg-3 primary-sidebar sticky-sidebar ${filterOpen ? 'filter-sidebar active-sidebar' : 'filter-sidebar'}`}>
             <div className="filters-Wrapper">
             {sub_categories && <div className="widget-category mb-30">
@@ -169,10 +173,7 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
                 <div className="title">Filters</div>
                 <span onClick={toggleFilter}><MdOutlineClose color="#000" fontSize={24} /></span>
             </div>
-                <div className="filter-actions-btns d-flex">
-                <div onClick={clearAllFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-cross"></i> <span className="ml-15">Clear</span></div>
-                <div onClick={handleApplyFilters} className="button d-flex align-items-center justify-content-center"><i className="fi-rs-filter"></i> <span className="ml-15">Apply</span></div>
-                </div>
         </div>
+        </>
     )
 }
