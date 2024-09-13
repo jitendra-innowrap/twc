@@ -5,7 +5,7 @@ import storage from './localStorage';
 import { clipDateOnly, getToken, getWebToken } from './util';
 const username = process.env.NEXT_PUBLIC_API_USERNAME
 const password = process.env.NEXT_PUBLIC_API_PASSWORD
-const baseURL = process.env.NEXT_PUBLIC_BASE_DEV_URL
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
 // category page api's endpoints
