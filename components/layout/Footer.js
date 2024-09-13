@@ -111,10 +111,10 @@ const Footer = () => {
                                         <a href={` https://www.facebook.com/profile.php?id=61563337004364`}>
                                             <CiFacebook strokeWidth={0.7} size={32} color="#fff" />
                                         </a>
-                                        <a href={` https://x.com/thepartycafe94/`}>
+                                        <a href={`https://x.com/thepartycafe94`}>
                                             <FaXTwitter size={30} color="#fff" />
                                         </a>
-                                        <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
+                                        <a href={`https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
                                             <CiLinkedin size={35} strokeWidth={0.4} color="#fff" />
                                         </a>
                                         <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
@@ -123,7 +123,7 @@ const Footer = () => {
                                         <a href={`https://wa.me/+919892745795/?text=Hi`}>
                                             <FaWhatsapp size={30} color="#fff"/>
                                         </a>
-                                        <a href={` https://www.youtube.com/@ThePartyCafe`}>
+                                        <a href={`https://www.youtube.com/@ThePartyCafe`}>
                                             <AiOutlineYoutube size={35} color="#fff"/>
                                         </a>
                                     </div>

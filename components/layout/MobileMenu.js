@@ -185,10 +185,10 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                 <a href={` https://www.facebook.com/profile.php?id=61563337004364`}>
                                             <CiFacebook strokeWidth={0.7} size={23} color="#606060" />
                                         </a>
-                                        <a href={` https://x.com/thepartycafe94/`}>
+                                        <a href={`https://x.com/thepartycafe94/`}>
                                             <FaXTwitter size={20} color="#606060" />
                                         </a>
-                                        <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
+                                        <a href={`https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
                                             <CiLinkedin size={25} strokeWidth={0.4} color="#606060" />
                                         </a>
                                         <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
@@ -197,7 +197,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                         <a href={`https://wa.me/+919892745795/?text=Hi`}>
                                             <FaWhatsapp size={20} color="#606060"/>
                                         </a>
-                                        <a href={` https://www.youtube.com/@ThePartyCafe`}>
+                                        <a href={`https://www.youtube.com/@ThePartyCafe`}>
                                             <AiOutlineYoutube size={23} color="#606060"/>
                                         </a>
                             </div>
