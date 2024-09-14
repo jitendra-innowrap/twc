@@ -213,7 +213,7 @@ export default function Home() {
                                 <div className="why-to-choose position-relative wow fadeIn animated">
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp1.png'}
+                                            src={'/assets/imgs/why-us/Convenience.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -227,7 +227,7 @@ export default function Home() {
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp2.png'}
+                                            src={'/assets/imgs/why-us/Variety.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -241,7 +241,7 @@ export default function Home() {
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp3.png'}
+                                            src={'/assets/imgs/why-us/QA.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -255,7 +255,7 @@ export default function Home() {
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp4.png'}
+                                            src={'/assets/imgs/why-us/Support.png'}
                                             width={160}
                                             height={120}
                                             className="image"
