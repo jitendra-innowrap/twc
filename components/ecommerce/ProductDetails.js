@@ -35,7 +35,7 @@ const ProductDetails = ({
     product
 }) => {
     const fullUrl = typeof window !== 'undefined'
-    ? `${window.location.protocol}//${window.location.host}`
+    ? `${window.location.protocol}//${window.location.hostname}`
     : '';
     let daysRent = 5;
     let today = new Date();

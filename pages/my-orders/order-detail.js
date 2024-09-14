@@ -57,7 +57,7 @@ function Account() {
                         :<div className="row">
                         <div className="">
                             <div className="row">
-                                <div className="coupons-base-header col-12 col-md-6 col-lg-4">Order ID : {orderDetail?.order_number}</div>
+                                <div className="coupons-base-header col-12 col-md-6 col-lg-4">Order ID : {orderDetail?.order_data?.[0]?.order_number}</div>
                             </div>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-4 mb-40">
