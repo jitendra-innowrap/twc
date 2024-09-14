@@ -41,7 +41,7 @@ const PackagesSlider = ({data}) => {
                     isLaptop? 3 :
                     3
                 }
-                spaceBetween={isPhone?20:25}
+                spaceBetween={isPhone?15:25}
                 loop
                 autoplay={{
                     delay: 3000, // 4 seconds
@@ -85,8 +85,8 @@ const PackagesSlider = ({data}) => {
                                      <img
                                         className="w-100"
                                         draggable='false'
-                                        //  src={item.collection_image}
-                                         src={constants[i]}
+                                         src={item.collection_image}
+                                        //  src={constants[i]}
                                          alt={item.title}
                                      />
                                  </a>
@@ -100,7 +100,7 @@ const PackagesSlider = ({data}) => {
              ))}
             </Swiper>
 
-            <div
+            {/* <div
                 className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
                 id="carausel-6-columns-arrows"
             >
@@ -110,7 +110,7 @@ const PackagesSlider = ({data}) => {
                 <span className="slider-btn slider-next slick-arrow custom_next_ct13" style={{height:'75%'}}>
                     <IoArrowForwardCircleOutline fontSize={28} />
                 </span>
-            </div>
+            </div> */}
         </>
     );
 };

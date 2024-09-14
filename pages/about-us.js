@@ -58,18 +58,18 @@ function About() {
                                     We have a team of event enthusiasts and tech innovators The Party Cafe was born from the desire to revolutionize how people plan and execute their special occasions. We understand that every event is unique and are passionate about helping you bring your vision to life.
                                 </p>
                             </div>
-                            <div className="col-md-4 text-md-end mt-30">
+                            {/* <div className="col-md-4 text-md-end mt-30">
                                 <a className="btn btn-outline btn-lg btn-brand-outline font-weight-bold text-brand text-hover-white border-radius-5 btn-shadow-brand hover-up">
                                     All Members
                                 </a>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="position-relative">
                             <div className="row wow fadeIn animated">
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-1.jpg"
+                                            src="assets/imgs/about/Zuzer Lucknowala image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -85,7 +85,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-2.jpg"
+                                            src="assets/imgs/about/Mamta Minocha Malkani image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -101,7 +101,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-3.jpg"
+                                            src="assets/imgs/about/Rachana Lucknowala image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -115,7 +115,7 @@ function About() {
                                 <div className="col-lg-3 col-6">
                                     <div className="blog-card border-radius-10 overflow-hidden text-center">
                                         <img
-                                            src="assets/imgs/page/avatar-4.jpg"
+                                            src="assets/imgs/about/Firoz Lucknowala image.png"
                                             alt=""
                                             className="border-radius-10 mb-10 mb-md-30 hover-up"
                                         />
@@ -131,7 +131,7 @@ function About() {
                         </div>
                     </div>
                 </section>
-
+{/* 
                 <section id="testimonials" className="section-padding">
                     <div className="container pt-25">
                         <div className="row mb-50">
@@ -165,9 +165,9 @@ function About() {
                                     <div className="pl-30">
                                         <h5 className="mb-5 fw-500">Stylish Outfits
                                         </h5>
-                                        {/* <p className="font-sm text-grey-5">
+                                        <p className="font-sm text-grey-5">
                                             Gratifi
-                                        </p> */}
+                                        </p>
                                         <p className="text-grey-3 truncate-3">
                                             "We have attire for every occasion, from wedding lehengas to cocktail dresses to tuxedos."
                                         </p>
@@ -187,9 +187,9 @@ function About() {
                                     <div className="pl-30">
                                         <h5 className="mb-5 fw-500">Elegant Furniture
                                         </h5>
-                                        {/* <p className="font-sm text-grey-5">
+                                        <p className="font-sm text-grey-5">
                                             Edenred India
-                                        </p> */}
+                                        </p>
                                         <p className="text-grey-3 truncate-3">
                                             "Tables, chairs, lounge sets, and more to set the perfect ambiance."
                                         </p>
@@ -265,7 +265,7 @@ function About() {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
                 
                 <section id="faqs" className="section-padding">
                     <div className="container pt-25">

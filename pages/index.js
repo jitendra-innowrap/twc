@@ -18,6 +18,7 @@ import CategorySlider from "../components/home-2/CategorySlider";
 import RentalsSlider from "../components/home-2/RentalsSlider";
 import PackagesSlider from "../components/home-2/PackagesSlider";
 import ServicesSlider from "../components/home-2/ServicesSlider";
+import ScrollTopSvg from "../components/home-2/scrollTopSvg";
 
 export default function Home() {
     const [data, setData] = useState(null);
@@ -30,6 +31,7 @@ export default function Home() {
             const res = await getHomeDetails();
             if (res?.code === 1) {
                 setData(res.home_data_list);
+                console.log(res.home_data_list)
             } else {
                 console.error('Error !', res?.msg)
             }
@@ -44,7 +46,7 @@ export default function Home() {
             {data ?
                 <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
                     <>
-                        <ScrollToTop smooth />
+                        <ScrollToTop smooth component={<ScrollTopSvg/>} />
                         <section className="home-slider position-relative">
                             <HeroBanner2 data={data.slider} />
                         </section>
@@ -65,7 +67,7 @@ export default function Home() {
                                         className=""
                                         id="carausel-6-columns"
                                     >
-                                        <CategorySlider data={data?.browse_events_category} />
+                                        <CategorySlider data={data?.top_category} />
                                     </div>
                                 </div>
                             </div>
@@ -81,10 +83,10 @@ export default function Home() {
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
-                                        className="position-relative slider-arrow-out"
+                                        className="position-relative"
                                         id="carausel-6-columns"
                                     >
-                                        <RentalsSlider data={data?.browse_events_category} />
+                                        <RentalsSlider data={data?.quality_rentals} />
                                     </div>
                                 </div>
                             </div>
@@ -100,14 +102,14 @@ export default function Home() {
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
-                                        className="position-relative slider-arrow-out"
+                                        className="position-relative"
                                         id="carausel-6-columns"
                                     >
-                                        <PackagesSlider data={data?.browse_events_category} />
+                                        <PackagesSlider data={data?.packages} />
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
-                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                         `}>
                                     <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
                                         </Link>
@@ -115,7 +117,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        <section className="popular-categories section-padding">
+                        <section className="popular-categories section-padding" style={{paddingBottom:'50px'}}>
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
@@ -129,11 +131,11 @@ export default function Home() {
                                         className="position-relative slider-arrow-out"
                                         id="carausel-6-columns"
                                     >
-                                        <ServicesSlider data={data?.browse_events_category} />
+                                        <ServicesSlider data={data?.people_and_services} />
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
-                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                         `}>
                                     <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
                                         </Link>
@@ -141,7 +143,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        <section className="section-padding popular-categories usp-section blog-section">
+                        {data?.blogs.length >0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
                                 <div className="section-head d-flex flex-column align-items-center w-100">
@@ -155,88 +157,46 @@ export default function Home() {
                                 </div>
                                 </div>
                                 <div class="row loop-grid">
-                                    <div class="col-lg-4 mb-4">
+                                    {
+                                        data?.blogs?.slice(0,3).map((blog)=>(
+                                            <div class="col-lg-4 mb-4" key={blog?.id}>
                                         <article class="wow fadeIn animated hover-up">
                                             <div class="post-thumb img-hover-scale">
-                                                <Link href={"/blogs/the-biggest-wedding-trends-for-2025"}>
-                                                    <a><img src="/assets/imgs/blog/blog1.png" alt="" /></a>
+                                                <Link href={blog?.handle}>
+                                                    <a><img src={blog?.image} alt={blog?.title} 
+                                                    style={{height:'260px', objectFit:'cover', width:'100%'}} 
+                                                    /></a>
                                                 </Link>
                                             </div>
                                             <div class="entry-content-2">
                                                 <h3 class="post-title mb-15">
-                                                    <Link href={"/blogs/the-biggest-wedding-trends-for-2025"}>
-                                                        <a>The Biggest Wedding Trends for 2025</a>
+                                                    <Link href={blog?.handle}>
+                                                        <a>{blog?.title}</a>
                                                     </Link>
                                                 </h3>
-                                                <p class="post-exerpt mb-30">Planning a wedding in 2025? The wedding landscape is constantly evolving, and next year promises some exciting trends that cater to modern couples' desires for personalization, sustainability, and unique experiences.</p>
+                                                <p class="post-exerpt mb-30">{blog?.blog_content}</p>
                                                 <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href="/blogs/the-biggest-wedding-trends-for-2025">
+                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> {blog?.blog_post_date || 'unknown'}</span><span class="hit-count has-dot">126k Views</span></div>
+                                                    <Link href={blog?.handle}>
                                                         <a className="post-link" >Read more <BsArrowRight /></a>
                                                     </Link>
                                                 </div>
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-lg-4 mb-4">
-                                        <article class="wow fadeIn animated hover-up">
-                                            <div class="post-thumb img-hover-scale">
-                                                <Link href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow">
-                                                    <a><img src="/assets/imgs/blog/blog2.png" alt="" /></a>
-                                                </Link>
-                                            </div>
-                                            <div class="entry-content-2">
-                                                <h3 class="post-title mb-15">
-                                                    <Link href={"/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow"}>
-                                                        <a>The Ultimate Guide to Choosing the Perfect Event Planner in Mumbai</a>
-                                                    </Link>
-                                                </h3>
-                                                <p class="post-exerpt mb-30">Indians love weddings, celebrated with joy, laughter, and a lot of fun. They are not just the union of two individuals but also a coming together of two families.</p>
-                                                <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href="/blogs/the-ultimate-guide-to-choosing-the-perfect-wedding-planner-in-lucknow">
-                                                        <a className="post-link" >Read more <BsArrowRight /></a>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-4 mb-4">
-                                        <article class="wow fadeIn animated hover-up">
-                                            <div class="post-thumb img-hover-scale">
-                                                <Link href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them">
-                                                    <a><img src="/assets/imgs/blog/blog4.png" alt="" /></a>
-                                                </Link>
-
-                                            </div>
-                                            <div class="entry-content-2">
-                                                <h3 class="post-title mb-15">
-                                                    <a href="/media-post"></a>
-                                                    <Link href={"/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them"}>
-                                                        <a>Reasons Why Should Brides RENT Their Lehengas & Not Buy Them</a>
-                                                    </Link>
-                                                </h3>
-                                                <p class="post-exerpt mb-30">All we know is that brides have their dream of having a beautiful lehenga at their wedding. Most brides prefer designer lehengas for their wedding. Many brides spend a lot.</p>
-                                                <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> 25 April 2021</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href="/blogs/reasons-why-should-brides-rent-their-lehengas-and-not-buy-them">
-                                                        <a className="post-link" >Read more <BsArrowRight /></a>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
+                                        ))
+                                    }
                                 </div>
                                 
-                                <div className="w-100 d-flex justify-content-center mb-30">
+                                {data?.blogs?.length>3 && <div className="w-100 d-flex justify-content-center mb-30">
                                     <Link href="/blogs">
                                     <button className="btn consult-btn">View All <BsArrowRight/></button>
                                     </Link>
-                                </div>
+                                </div>}
                             </div>
-                        </section>
+                        </section>}
                         
-                        <section className="section-padding usp-section popular-categories">
+                        <section className="section-padding usp-section popular-categories section-bg-gradient section-b-bottom">
 
                             <div className="container pt-md-5 pb-25">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
@@ -244,17 +204,17 @@ export default function Home() {
                                         <div className="heading">
                                             <h2>Why Us</h2>
                                         </div>
-                                        <h3 className="subheading">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h3>
+                                        <h3 className="subheading">The Party Cafe</h3>
+                                        <h4 className="subheading-blue">From weddings to corporate events, birthdays to festive gatherings, we've got you covered</h4>
                                         <p className="lh-1 mt-3 text-center">India's go-to destination for all things celebration.</p>
                                         <p className="lh-1 text-center">Browse our menu, and let us serve up the perfect ingredients for your event!</p>
-                                        
                                     </div>
                                 </div>
                         
                                 <div className="why-to-choose position-relative wow fadeIn animated">
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-5.svg'}
+                                            src={'/assets/imgs/why-us/Convenience.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -262,13 +222,13 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Convenience</h5>
-                                            <p>Our one-stop-shop approach means you can find everything you need for your event in one place, saving you time and effort.
+                                            <p>Plan events effortlessly with ease.
                                             </p>
                                         </div>
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-2.svg'}
+                                            src={'/assets/imgs/why-us/Variety.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -276,13 +236,13 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Variety</h5>
-                                            <p>We offer an extensive range of high-quality items and services to suit various themes, styles, and budgets.
+                                            <p>Explore countless options for celebrations.
                                             </p>
                                         </div>
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-3.svg'}
+                                            src={'/assets/imgs/why-us/QA.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -290,13 +250,13 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Quality Assurance</h5>
-                                            <p>All our items and service providers are carefully vetted to ensure top-notch quality for your event.
+                                            <p>Assurance Only trusted vendors and venues.
                                             </p>
                                         </div>
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-4.svg'}
+                                            src={'/assets/imgs/why-us/Support.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -305,14 +265,14 @@ export default function Home() {
                                         />
                                         <div className="usp-value">
                                             <h5>Customer Support</h5>
-                                            <p> Our dedicated team is ready to assist you at every step, ensuring a smooth and enjoyable planning process.
+                                            <p>Support available whenever you need.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                                 <div className="w-100 d-flex justify-content-center mt-20 mb-30">
-                                    <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                    <Link target="_blank" href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                         `}>
                                         <button className="btn consult-btn">Consult an Expert <BsArrowRight/></button>
                                     </Link>

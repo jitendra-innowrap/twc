@@ -55,7 +55,7 @@ const SearchMobile = ({toggleSearch}) => {
     }
 
     useEffect(() => {
-      fetchSearchlist(searchTerm);
+        if(searchTerm) fetchSearchlist(searchTerm);
         
       router.replace({
         query: { ...router.query, keyword:searchTerm },

@@ -29,6 +29,7 @@ const Header = ({
     const { wishlistCount } = useSelector((state) => state.wishlist);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const router  = useRouter();
+
     useEffect(() => {
         fetchHeaderData()
         document.addEventListener("scroll", () => {
@@ -59,7 +60,23 @@ const Header = ({
     const {announcement_notes, cart_count, result, user_wishlist_count} = headerData;
     const title = announcement_notes?.[0]?.title;
     const url = announcement_notes?.[0]?.redirect_url || "";
-
+    const handleLink = (link) => {
+        if (!user) {
+          // Check if the current page is /page-login-register
+          const isLoginRegisterPage = router.pathname === '/page-login-register';
+          
+          // Redirect to login without referrerUrl if already on the login page
+          if (isLoginRegisterPage) {
+            router.push('/page-login-register');
+          } else {
+            // Redirect to login page with referrerUrl
+            router.push(`/page-login-register?referrerUrl=${router.asPath}`);
+          }
+        } else {
+          // Redirect to the provided link if the user is logged in
+          router.push(link);
+        }
+      };
     return (
         <>
             <header className={`header-area header-style-1 header-height-2 ${classList}`}>
@@ -99,7 +116,7 @@ const Header = ({
                                     <ul>
                                         <li className="position-relative"> 
                                             <span className="mr-5" style={{position:'absolute', top:'calc( 50% + 2px)', left:'-30px', transform:'translateY(-50%)'}}><img src="/assets/imgs/theme/phone-icon.png"  width={'35px'} height={'35px'}/></span>
-                                            <a href="tel:18001800162414231">1800 1800 1624 1423</a>
+                                            <a href="tel:18002127338">1800 2127 338</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -201,24 +218,24 @@ const Header = ({
                                 <div className="header-action-right d-none d-lg-block">
                                     <div className="header-action-2">
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
+                                            <a onClick={() => handleLink('/my-profile')} className="mr-0">
                                                 <a className="mr-0">
-                                                    <FiUser color="#333333" strokeWidth={2} />
+                                                    <FiUser color="#333333" fontSize={25} strokeWidth={2.2} />
                                                 </a>
-                                            </Link>
+                                            </a>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
+                                            <a onClick={() => handleLink('/shop-wishlist')} >
                                                 <a>
                                                     <FaRegHeart fontSize={22} strokeWidth={3} color="#333333" /> 
                                                     {wishlistCount!==0 &&<span className="pro-count">
                                                         {wishlistCount}
                                                     </span>}
                                                 </a>
-                                            </Link>
+                                            </a>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href="/shop-cart">
+                                            <Link href={'/shop-cart'}>
                                                 <a className="mini-cart-icon">
                                                     <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                     {cartCount!==0 &&<span className="pro-count">
@@ -236,24 +253,24 @@ const Header = ({
                                         <BiSearch fontSize={20} style={{width:'25px', height:'25px', color:'#333333'}} />
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/my-profile'} className="mr-0">
+                                        <a onClick={() => handleLink('/my-profile')}>
                                             <a className="mr-0">
-                                                <FiUser color="#333333" strokeWidth={2} />
+                                                <FiUser fontSize={25} color="#333333" strokeWidth={2} />
                                             </a>
-                                        </Link>
+                                        </a>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href={!user?`/page-login-register?referrerUrl=${router?.asPath}`:'/shop-wishlist'}>
+                                        <a onClick={() => handleLink('/shop-wishlist')}>
                                             <a>
-                                                <FaRegHeart fontSize={22} color="#333333" /> 
+                                                <FaRegHeart fontSize={22} color="#333333" />
                                                 {wishlistCount!==0 &&<span className="pro-count">
                                                     {wishlistCount}
                                                 </span>}
                                             </a>
-                                        </Link>
+                                        </a>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href="/shop-cart">
+                                        <Link href={'/shop-cart'}>
                                             <a className="mini-cart-icon">
                                                 <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                 {cartCount!==0 &&<span className="pro-count">

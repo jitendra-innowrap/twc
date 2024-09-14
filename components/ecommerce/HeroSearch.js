@@ -56,7 +56,7 @@ const HeroSearch = () => {
     }
 
     useEffect(() => {
-      fetchSearchlist(searchTerm);
+      if(searchTerm) fetchSearchlist(searchTerm);
     }, [searchTerm])
     
     let domNode = useClickOutside(() => {

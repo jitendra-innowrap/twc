@@ -8,9 +8,12 @@ import NewsletterFrom from "../elements/NewletterForm";
 import { CiFacebook } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { AiOutlineYoutube } from "react-icons/ai";
+import storage from "../../util/localStorage";
 
 const Footer = () => {
     const router =  useRouter();
+    const user = storage.get("auth_token");
+
     return (
         <>
             <footer className="main">
@@ -38,8 +41,8 @@ const Footer = () => {
                                         Maharashtra 400055.
                                     </p>
                                     <p className="wow fadeIn animated">
-                                        <strong>Phone: </strong><a href="tel:+012222365">+01 2222 365 </a> 
-                                        / <a href="tel:+910123456789">(+91) 01 2345 6789</a>
+                                        <strong>Phone: </strong><a href="tel:18002127338">18002127338 </a> 
+                                        / <a href="tel:+919987888703">(+91) 9987888703</a>
                                     </p>
                                 </div>
                             </div>
@@ -74,7 +77,7 @@ const Footer = () => {
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-40">
                                     <li>
-                                        <Link href={`/page-login-register?referrerUrl=${router?.asPath}`}>Sign In</Link>
+                                        <Link href={!user?`/page-login-register`:"/my-profile"}>Sign In</Link>
                                     </li>
                                     <li>
                                         <Link href="/my-profile">My Profile</Link>
@@ -111,10 +114,10 @@ const Footer = () => {
                                         <a href={` https://www.facebook.com/profile.php?id=61563337004364`}>
                                             <CiFacebook strokeWidth={0.7} size={32} color="#fff" />
                                         </a>
-                                        <a href={` https://x.com/thepartycafe94/`}>
+                                        <a href={`https://x.com/thepartycafe94`}>
                                             <FaXTwitter size={30} color="#fff" />
                                         </a>
-                                        <a href={` https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
+                                        <a href={`https://www.linkedin.com/company/the-party-cafe?trk=profile-position`}>
                                             <CiLinkedin size={35} strokeWidth={0.4} color="#fff" />
                                         </a>
                                         <a href={`https://www.instagram.com/thepartycafeofficial?igsh=M2R2bG5hbGJ3bjF3&utm_source=qr`}>
@@ -123,7 +126,7 @@ const Footer = () => {
                                         <a href={`https://wa.me/+919892745795/?text=Hi`}>
                                             <FaWhatsapp size={30} color="#fff"/>
                                         </a>
-                                        <a href={` https://www.youtube.com/@ThePartyCafe`}>
+                                        <a href={`https://www.youtube.com/@ThePartyCafe`}>
                                             <AiOutlineYoutube size={35} color="#fff"/>
                                         </a>
                                     </div>

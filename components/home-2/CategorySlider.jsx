@@ -41,7 +41,7 @@ const CategorySlider = ({data}) => {
                     isDesktop? 4 :
                     5
                 }
-                spaceBetween={25}
+                spaceBetween={isPhone?15:25}
                 loop
                 autoplay={{
                     delay: 3000, // 4 seconds
@@ -85,8 +85,7 @@ const CategorySlider = ({data}) => {
                                      <img
                                         className="w-100"
                                         draggable='false'
-                                        //  src={item.collection_image}
-                                         src={constants[i]}
+                                         src={item.collection_image}
                                          alt={item.title}
                                      />
                                  </a>

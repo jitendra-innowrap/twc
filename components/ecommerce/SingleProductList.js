@@ -71,12 +71,12 @@ const SingleProductList = ({
                                         <img
                                             className="default-img"
                                             src={product?.images[0].img}
-                                            alt=""
+                                            alt={product.title}
                                         />
                                         <img
                                             className="hover-img"
-                                            src={product?.images[1].img}
-                                            alt=""
+                                            src={product?.images[1].img?product?.images[1].img:product?.images[0].img}
+                                            alt={product.title}
                                         />
                                     </a>
                                 </Link>

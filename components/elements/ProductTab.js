@@ -10,6 +10,7 @@ const ProductTab = ({productDetails}) => {
     return (
         <>
             <div className="tab-style3">
+                <hr className="wp-block-separator is-style-wide" />
                 <ul className="nav nav-tabs text-uppercase">
                     <li className="nav-item">
                         <a
@@ -25,7 +26,7 @@ const ProductTab = ({productDetails}) => {
                             Description
                         </a>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a
                             className={
                                 activeIndex === 2
@@ -38,7 +39,7 @@ const ProductTab = ({productDetails}) => {
                         >
                             Features
                         </a>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <a
                             className={
@@ -85,15 +86,15 @@ const ProductTab = ({productDetails}) => {
                                 }
                             </li>
                         </ul>
-                            <br />
+                            {/* <br />
                             <p>
                                 {productDetails?.product_subtext}
                             </p>
-                            <br />
+                            <br /> */}
                             <div onClick={()=>{console.log(productDetails?.description)}} dangerouslySetInnerHTML={{ __html: productDetails?.description }} />
                         </div>
                     </div>
-                    <div
+                    {/* <div
                         className={
                             activeIndex === 2
                                 ? "tab-pane fade show active"
@@ -102,7 +103,7 @@ const ProductTab = ({productDetails}) => {
                         id="Features"
                     >
                         <div dangerouslySetInnerHTML={{ __html: productDetails?.highlights }} className="featurese-content" />
-                    </div>
+                    </div> */}
                     <div
                         className={
                             activeIndex === 3
@@ -112,7 +113,6 @@ const ProductTab = ({productDetails}) => {
                         id="Terms-n-conditions"
                     >
                         <div className="">
-                            <hr className="wp-block-separator is-style-dots" />
                             <p>
                                 Laconic overheard dear woodchuck wow this
                                 outrageously taut beaver hey hello far

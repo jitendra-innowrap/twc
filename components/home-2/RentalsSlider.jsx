@@ -42,7 +42,7 @@ const RentalsSlider = ({data}) => {
                     isDesktop? 4 :
                     4
                 }
-                spaceBetween={25}
+                spaceBetween={isPhone?15:25}
                 loop
                 autoplay={{
                     delay: 3000, // 4 seconds
@@ -86,8 +86,8 @@ const RentalsSlider = ({data}) => {
                                      <img
                                         className="w-100"
                                         draggable='false'
-                                        //  src={item.collection_image}
-                                         src={constants[i]}
+                                         src={item.collection_image}
+                                        //  src={constants[i]}
                                          alt={item.title}
                                      />
                                  </a>
@@ -101,7 +101,7 @@ const RentalsSlider = ({data}) => {
              ))}
             </Swiper>
 
-            <div
+            {/* <div
                 className="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
                 id="carausel-6-columns-arrows"
             >
@@ -111,7 +111,7 @@ const RentalsSlider = ({data}) => {
                 <span className="slider-btn slider-next slick-arrow custom_next_ct12">
                     <IoArrowForwardCircleOutline fontSize={28} />
                 </span>
-            </div>
+            </div> */}
         </>
     );
 };

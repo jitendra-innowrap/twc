@@ -11,7 +11,7 @@ import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddres
 import { useEffect } from "react";
 import { createPaymentLink, getAddressList, getCartList, placeOrder, setGst, checkPaymentStatus } from "../util/api";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, setBillingAddress, setShippingAddress, updateGst } from "../redux/Slices/cartSlice";
+import { fetchCart, setBillingAddress, setShippingAddress, updateGst, updateOrderStatus } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
 import LoginRegister from "../components/ecommerce/LoginRegister";
 import { MdClose } from "react-icons/md";
@@ -146,9 +146,9 @@ const Cart = () => {
             const encodedStatusRes = encodeURIComponent(JSON.stringify(statusRes));
 
             if (res.code == 1) {
-                router.push(`/checkout-success?data=${encodedStatusRes}`);
+                router.push(`/order/checkout/confirmation`);
             } else {
-                router.push(`/checkout-fail?data=${encodedStatusRes}`);
+                router.push(`/order/checkout/confirmation`);
             }
             setIsLoading(false);
             console.log(res);
@@ -223,14 +223,17 @@ const Cart = () => {
             try {
                 const statusRes = await checkPaymentStatus(transactionId); // Poll payment status using transactionId
                 const encodedStatusRes = encodeURIComponent(JSON.stringify(statusRes));
+                console.log(statusRes)
                 // Check for successful payment first
                 if (statusRes?.order_status === 'CHARGED') {
                     clearInterval(paymentStatusInterval);  // Stop polling
                     paymentWindow.close();  // Close payment window
                     handleSaveOrder(statusRes);  // Handle successful order
+                    dispatch(updateOrderStatus({...statusRes, tpc_order_status:"success"}));
                     return
                 } else if (paymentWindow.closed) {
                     clearInterval(paymentStatusInterval);  // Stop polling
+                    dispatch(updateOrderStatus({...statusRes, tpc_order_status:"fail"}));
                     setIsLoading(false);  // Stop loading state
                     if (statusRes.order_status === 'AUTHORIZATION_FAILED') {
                         // Show warning toast to inform the user about interrupted payment
@@ -301,7 +304,7 @@ const Cart = () => {
                             theme: "light",
                             transition: Bounce,
                         });
-                        router.push(`/checkout-fail?data=${encodedStatusRes}`);
+                        router.push(`/order/checkout/confirmation`);
                     }
                 }
             } catch (error) {
@@ -310,19 +313,27 @@ const Cart = () => {
                 setIsLoading(false);  // Stop loading state
                 console.error("Error checking payment status:", error);
             }
-        }, 5000);
+        }, 2000);
         // Poll every 5 seconds
     };
 
 
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
 
     useEffect(() => {
         dispatch(fetchCart());
         fetchAddressList();
         // setDeliveredTo(shippingAddress ? shippingAddress : defaultAddress)
         setDeliveredTo(defaultAddress?.[0]?.id)
-        setBillingTo(billingAddress ? billingAddress : defaultAddress)
+        setBillingTo(billingAddress ? billingAddress : defaultAddress);
     }, [])
+    useEffect(() => {
+        // This effect will run after the first render to update the state
+        if (status === 'succeeded') {
+          setIsFirstLoad(false); // After the first load, set this to false
+        }
+      }, [status]); // Run this effect whenever `status` changes
+    
 
     useEffect(() => {
         if (gst_number) {
@@ -338,7 +349,11 @@ const Cart = () => {
                 <section className="mt-50 mb-50">
                     <div className="container">
                         {
-                            status == 'succeeded' ?
+                            isFirstLoad && status !== 'succeeded' ?
+                                <div className="loading-view" style={{ height: 'calc( 100vh - 423px)' }}>
+                                    <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                </div>
+                                :
                                 <div className="">
                                     {!cartItems.length ?
                                         <>
@@ -589,10 +604,6 @@ const Cart = () => {
                                             </div>
                                         </div>
                                     }
-                                </div>
-                                :
-                                <div className="loading-view" style={{ height: 'calc( 100vh - 423px)' }}>
-                                    <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                 </div>
                         }
                     </div>

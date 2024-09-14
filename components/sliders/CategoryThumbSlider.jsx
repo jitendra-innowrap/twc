@@ -37,7 +37,7 @@ const CategoryThumbSlider = ({data}) => {
                                         </h3>
                                     </div>
                                     <div className="right">
-                                        <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi i'm interested in Event Booking.
+                                        <button className="btn title-btn"><a target="_blank" style={{color:"#fff"}} href={`https://wa.me/+919892745795/?text=Hi, I'm interested in The Party Cafe Services.
                                                             `}>Consult Event Expert</a></button>
                                     </div>
                                 </div>

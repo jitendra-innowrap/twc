@@ -3,15 +3,11 @@
 import axios from 'axios';
 import storage from './localStorage';
 import { clipDateOnly, getToken, getWebToken } from './util';
-// const username = process.env.NEXT_PUBLIC_API_USERNAME
-// const password = process.env.NEXT_PUBLIC_API_PASSWORD
-// const baseURL = process.env.NEXT_PUBLIC_BASE_URL
-const username = 'PLKT-,9_d63YGYIc87(^5';
-const password = 'PLKRn72^8YKqRip8v^a#|';
+const username = process.env.NEXT_PUBLIC_API_USERNAME
+const password = process.env.NEXT_PUBLIC_API_PASSWORD
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 
 const auth = Buffer.from(`${username}:${password}`, 'utf-8').toString('base64');
-const baseURL = 'https://innowrap.co.in/clients/twc/App/V1';
-
 // category page api's endpoints
 
 export const getAllCategory = async () => {
@@ -430,7 +426,7 @@ export const downloadInvoice = async (orderId) => {
   const auth_token = getToken();
   try {
     const response = await axios.get(
-      `https://innowrap.co.in/clients/twc/App/V1/Invoice?order_id=${orderId}`,
+      `${baseURL}/Invoice?order_id=${orderId}`,
       {
         headers: {
           'auth_token': auth_token,
@@ -938,6 +934,53 @@ export const checkRentalAvailability = async ({qty,end_date,start_date,product_i
     return response.data;
   } catch (error) {
     console.error('Failed to get order details', error);
+    throw error;
+  }
+}
+
+export const getBlogs = async () => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  
+  try {
+    const response = await axios.get(
+      `${baseURL}/Home/getAllBlogData`,
+      {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch', error);
+    throw error;
+  }
+}
+export const getBlogDetail = async ({blog_id}) => {
+  const auth_token = getToken();
+  const web_token = storage.get("web_token")
+  
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('blog_id', blog_id);
+    try {
+      const response = await axios.post(
+        `${baseURL}/Home/getBlogDetails`,
+        formData,
+        {
+        headers: {
+          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch', error);
     throw error;
   }
 }
