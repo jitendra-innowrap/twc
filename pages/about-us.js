@@ -51,9 +51,9 @@ function About() {
                                 <h6 className="mt-0 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
                                     Our Team
                                 </h6>
-                                <h2 className="mb-15 wow fadeIn animated">
+                                {/* <h2 className="mb-15 wow fadeIn animated">
                                     Top team of experts
-                                </h2>
+                                </h2> */}
                                 <p className="text-grey-3 wow fadeIn animated ">
                                     We have a team of event enthusiasts and tech innovators The Party Cafe was born from the desire to revolutionize how people plan and execute their special occasions. We understand that every event is unique and are passionate about helping you bring your vision to life.
                                 </p>
@@ -93,7 +93,7 @@ function About() {
                                             Mamta Minocha Malkani
                                         </h4>
                                         <p className="fw-400 text-brand mb-10">
-                                            CEO & Co-Founder
+                                            Founder
                                         </p>
                                     </div>
                                 </div>

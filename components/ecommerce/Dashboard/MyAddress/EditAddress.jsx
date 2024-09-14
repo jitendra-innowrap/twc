@@ -131,12 +131,13 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
         }
         const res = await editAddress(body);
         fetchAddressList();
+        setIsSumbitting(false)
       } catch (error) {
+        setIsSumbitting(false)
         console.log(error)
       }
       close();
     }
-    setIsSumbitting(false)
   };
   const inputRef = useRef(null);
 
