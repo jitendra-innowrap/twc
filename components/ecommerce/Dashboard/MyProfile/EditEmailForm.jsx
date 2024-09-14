@@ -109,6 +109,7 @@ export default function EditEmailForm({ close, setTempUser }) {
             setIsSumbitting(true)
             try {
                 const res = await editEmail(Email)
+                setIsSumbitting(false)
                 if (res.code === 1) {
                     setStep(2);
                     setTempUser(prevTempUser => ({
@@ -156,9 +157,9 @@ export default function EditEmailForm({ close, setTempUser }) {
                     }
                 }
             } catch (error) {
+                setIsSumbitting(false)
                 console.error('Error resending OTP:', error);
             }
-            setIsSumbitting(false)
         } else {
             setError((prev) => ({ ...prev, email: 'Please enter a valid email.' }));
         }
