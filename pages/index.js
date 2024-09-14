@@ -18,6 +18,7 @@ import CategorySlider from "../components/home-2/CategorySlider";
 import RentalsSlider from "../components/home-2/RentalsSlider";
 import PackagesSlider from "../components/home-2/PackagesSlider";
 import ServicesSlider from "../components/home-2/ServicesSlider";
+import ScrollTopSvg from "../components/home-2/scrollTopSvg";
 
 export default function Home() {
     const [data, setData] = useState(null);
@@ -45,7 +46,7 @@ export default function Home() {
             {data ?
                 <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
                     <>
-                        <ScrollToTop smooth />
+                        <ScrollToTop smooth component={<ScrollTopSvg/>} />
                         <section className="home-slider position-relative">
                             <HeroBanner2 data={data.slider} />
                         </section>

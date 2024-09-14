@@ -582,23 +582,24 @@ input[type=number]:focus,
 
 
 .scroll-to-top {
-  background-color: var(--tpc-theme-primary) !important;
+  background-color: transparent !important;
+  width: 70px !important;
+  height: 70px !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.scroll-to-top img{
   border-radius: 50% !important;
-  width: 50px !important;
-  height: 50px !important;
-  box-shadow: 0 0 0px 1px var(--tpc-theme-primary-light-1) !important;
-  /* box-shadow: 0.5px 1px 5px 5px rgba(0, 0, 0, 0.5) !important; */
+  width: 70px !important;
+  height: 70px !important;
+  opacity: 1;
 }
-.scroll-to-top svg{
-  color: var(--tpc-theme-primary-light-1) !important;
-  fill: var(--tpc-theme-primary-light-1) !important;
-  size: 12px !important;
-  font-size: 6px !important;
-  width: 18px !important;
-}
-.scroll-to-top:hover {
+.scroll-to-top img:hover {
   transition: 0.3s;
-  box-shadow: 0 0 10px 2px var(--tpc-theme-primary-light-1) !important;
+  opacity: 1;
+  /* box-shadow: 0 0 4px 1px var(--tpc-theme-primary-light-1) !important; */
 }
 
 /*****************************
@@ -13300,13 +13301,13 @@ input[type="checkbox"]:hover{
 }
 .scroll-to-top {
   background-color: white;
-  right: 25px !important;
-  bottom: 25px !important;
+  right: 20px !important;
+  bottom: 35px !important;
   position: fixed;
   z-index: 2;
   cursor: pointer;
   border-radius: 7px;
-  width: 35px !important;
+  width: 45px !important;
   display: grid !important;
   place-items: center !important;
   height: 35px !important;
