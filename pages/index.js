@@ -18,6 +18,7 @@ import CategorySlider from "../components/home-2/CategorySlider";
 import RentalsSlider from "../components/home-2/RentalsSlider";
 import PackagesSlider from "../components/home-2/PackagesSlider";
 import ServicesSlider from "../components/home-2/ServicesSlider";
+import ScrollTopSvg from "../components/home-2/ScrollTopSvg";
 
 export default function Home() {
     const [data, setData] = useState(null);
