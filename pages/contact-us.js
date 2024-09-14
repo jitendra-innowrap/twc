@@ -19,13 +19,13 @@ function Contact() {
                                     Your{" "}
                                     <span className="text-style-1">Idea</span>
                                 </h1>
-                                <p className="w-50 m-auto wow fadeIn animated">
+                                {/* <p className="w-50 m-auto wow fadeIn animated">
                                     Lorem ipsum dolor sit amet consectetur
                                     adipisicing elit. Harum quam eius placeat, a
                                     quidem mollitia at accusantium reprehenderit
                                     pariatur provident nam ratione incidunt
                                     magnam sequi.
-                                </p>
+                                </p> */}
                             </div>
                         </div>
                     </div>

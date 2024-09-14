@@ -41,7 +41,7 @@ const CategorySlider = ({data}) => {
                     isDesktop? 4 :
                     5
                 }
-                spaceBetween={25}
+                spaceBetween={isPhone?15:25}
                 loop
                 autoplay={{
                     delay: 3000, // 4 seconds

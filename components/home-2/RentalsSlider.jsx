@@ -42,7 +42,7 @@ const RentalsSlider = ({data}) => {
                     isDesktop? 4 :
                     4
                 }
-                spaceBetween={25}
+                spaceBetween={isPhone?15:25}
                 loop
                 autoplay={{
                     delay: 3000, // 4 seconds

@@ -41,7 +41,7 @@ const PackagesSlider = ({data}) => {
                     isLaptop? 3 :
                     3
                 }
-                spaceBetween={isPhone?20:25}
+                spaceBetween={isPhone?15:25}
                 loop
                 autoplay={{
                     delay: 3000, // 4 seconds

@@ -58,11 +58,11 @@ function About() {
                                     We have a team of event enthusiasts and tech innovators The Party Cafe was born from the desire to revolutionize how people plan and execute their special occasions. We understand that every event is unique and are passionate about helping you bring your vision to life.
                                 </p>
                             </div>
-                            <div className="col-md-4 text-md-end mt-30">
+                            {/* <div className="col-md-4 text-md-end mt-30">
                                 <a className="btn btn-outline btn-lg btn-brand-outline font-weight-bold text-brand text-hover-white border-radius-5 btn-shadow-brand hover-up">
                                     All Members
                                 </a>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="position-relative">
                             <div className="row wow fadeIn animated">

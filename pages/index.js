@@ -82,7 +82,7 @@ export default function Home() {
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
-                                        className="position-relative slider-arrow-out"
+                                        className="position-relative"
                                         id="carausel-6-columns"
                                     >
                                         <RentalsSlider data={data?.quality_rentals} />
@@ -101,7 +101,7 @@ export default function Home() {
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
-                                        className="position-relative slider-arrow-out"
+                                        className="position-relative"
                                         id="carausel-6-columns"
                                     >
                                         <PackagesSlider data={data?.packages} />
@@ -213,7 +213,7 @@ export default function Home() {
                                 <div className="why-to-choose position-relative wow fadeIn animated">
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-1.png'}
+                                            src={'/assets/imgs/usp-icons/usp1.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -227,7 +227,7 @@ export default function Home() {
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-2.png'}
+                                            src={'/assets/imgs/usp-icons/usp2.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -241,7 +241,7 @@ export default function Home() {
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-3.png'}
+                                            src={'/assets/imgs/usp-icons/usp3.png'}
                                             width={160}
                                             height={120}
                                             className="image"
@@ -255,7 +255,7 @@ export default function Home() {
                                     </div>
                                     <div className="usp-card">
                                         <img
-                                            src={'/assets/imgs/usp-icons/usp-4.png'}
+                                            src={'/assets/imgs/usp-icons/usp4.png'}
                                             width={160}
                                             height={120}
                                             className="image"
