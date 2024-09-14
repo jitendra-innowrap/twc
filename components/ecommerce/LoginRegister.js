@@ -13,7 +13,7 @@ function LoginRegister({noRefferer, close}) {
     const [isSumbitting, setIsSumbitting] = useState(false);
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(1);
     const [auth_token, setAuth_token] = useState("")
     let tempOtp = "1234"
     const [otp, setOtp] = useState(['', '', '', '']);
