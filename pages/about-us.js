@@ -36,7 +36,8 @@ function About() {
                             </div>
                             <div className="col-lg-6">
                                 <img
-                                    src="assets/imgs/page/about-1.png"
+                                    style={{width:'100%', height:'auto'}}
+                                    src="assets/imgs/page/about-us.jpg"
                                     alt=""
                                 />
                             </div>
