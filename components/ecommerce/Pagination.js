@@ -47,7 +47,7 @@ function Pagination({
                 )}
             </ul>}
 
-            {pages <= 1 ? null : (
+            {pages > 1 && (
                 <p>
                     Showing {currentPage} of {pages}
                 </p>

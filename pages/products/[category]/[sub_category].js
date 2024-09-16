@@ -78,8 +78,9 @@ const Products = () => {
         let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price, availabilityDate  };
         try {
             const response = await getAllCategoryProducts(body);
-            console.log('fetch products success: ', response)
-            if (response.code == 0) {
+            console.log('fetch products success: ', response);
+            console.log('check this:',sub_category,response.code)
+            if (response.code == 0 && sub_category) {
                 Router.push('/404')
             }
             setProductList(response?.result);
@@ -245,7 +246,7 @@ const Products = () => {
                                         }
                                     })}
                                 </div>
-                                {!productList?.length === 0 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                {pages > 1 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
                                         <Pagination1
                                             getPaginationGroup={

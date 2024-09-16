@@ -1,15 +1,13 @@
 import { useRouter } from "next/router";
 import { forwardRef, useEffect, useState } from "react";
-import CategoryProduct from "../../components/ecommerce/CategoryProduct";
-import Pagination from "../../components/ecommerce/Pagination";
 import PriceRangeSlider from "../../components/ecommerce/PriceRangeSlider";
 import SingleProduct from "../../components/ecommerce/SingleProduct";
 import SingleProductList from "../../components/ecommerce/SingleProductList";
-import SizeFilter from "../../components/ecommerce/SizeFilter";
 import SortSelect from "../../components/ecommerce/SortSelect";
 import Layout from "../../components/layout/Layout";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Pagination1 from "../../components/ecommerce/Pagination";
 
 import Preloader from "../../components/elements/Preloader";
 import { getAllCollectionProducts } from "../../util/api";
@@ -79,7 +77,7 @@ const Products = () => {
         try {
             const response = await getAllCollectionProducts(body);
             console.log('fetch products success: ', response)
-            if (response.code == 0) {
+            if (response.code == 0 && slug) {
                 Router.push('/404')
             }
             setProductList(response?.result);
@@ -256,9 +254,9 @@ const Products = () => {
                                         }
                                     })}
                                 </div>
-                                {!productList?.length === 0 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                {pages > 1 && <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                     <nav aria-label="Page navigation example">
-                                        <Pagination1
+                                        <Pagination1    
                                             getPaginationGroup={
                                                 getPaginationGroup
                                             }
