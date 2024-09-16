@@ -76,13 +76,11 @@ const Products = () => {
         let body = { handle: slug || "", sort, page, from_price, to_price, availabilityDate  };
         try {
             const response = await getAllCollectionProducts(body);
-            console.log('fetch products success: ', response)
             if (response.code == 0 && slug) {
                 Router.push('/404')
             }
             setProductList(response?.result);
             setTitle(response?.collections_info?.[0]?.title);
-            console.log('title',response?.collections_info?.title)
             setTotalProducts(response?.total_products);
             setIsLoading(false);
         } catch (error) {

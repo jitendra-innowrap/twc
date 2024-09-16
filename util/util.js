@@ -2,8 +2,6 @@ import { TbArrowUp } from "react-icons/tb";
 import storage from "./localStorage";
 
 export function getYouTubeThumbnail(videoUrl) {
-  console.log("VIDEO URL", videoUrl);
-
   // Create a URL object from the input videoUrl
   const url = new URL(videoUrl);
 
@@ -75,11 +73,9 @@ export const reverseDateOrder =(date)=>{
 
 // Delete Product from List By Id
 export const deleteProduct = (list, product) => {
-  console.log(product)
   const filter = list.filter(item => {
     return !(item.id == product.id && item.color == product.color && item.size == product.size)
 });
-console.log('updated list', filter)
     return filter;
   };
   

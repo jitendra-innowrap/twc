@@ -29,7 +29,6 @@ function Account() {
             if(res?.code==1){
                 setOrderDetail(res)
             }
-            console.log(res)
             setLoading(false)
         } catch (error) {
             setLoading(false)
@@ -41,7 +40,6 @@ function Account() {
     const handleDownloadInvoice = async()=>{
         try {
             let res = downloadInvoice(orderId);
-            console.log(res);
         } catch (error) {
             console.error(error);
         }

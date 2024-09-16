@@ -23,7 +23,6 @@ export default function EditProfileForm({ user, handleSubmit }) {
         const initialGender = user?.gender
             ? genderOptions.find((option) => option.value == user.gender)
             : null;
-        console.log('open edit', initialGender)
         setSelectedGender(initialGender);
     }, []);
 

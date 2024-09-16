@@ -8,7 +8,6 @@ import { useState } from "react";
 const SingleProductList = ({
     product
 }) => {
-    // console.log(product);
     let today = new Date();
     const [deliveryDate, setDeliveryDate] = useState(today);
     const [returnByDate, setReturnByDate] = useState(new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)));

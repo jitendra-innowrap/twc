@@ -78,8 +78,6 @@ const Products = () => {
         let body = { handle_category: category || "", handle_sub_category: sub_category || "", sort, page, from_price, to_price, availabilityDate  };
         try {
             const response = await getAllCategoryProducts(body);
-            console.log('fetch products success: ', response);
-            console.log('check this:',sub_category,response.code)
             if (response.code == 0 && sub_category) {
                 Router.push('/404')
             }

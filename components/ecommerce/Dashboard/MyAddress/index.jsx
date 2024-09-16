@@ -21,7 +21,6 @@ export default function index() {
                 const res = await getAddressList();
                 if(res?.code==1){
                     setAddressList(res?.result)
-                    console.log(res);
                 }else{
                     setAddressList([])
                     console.error('Error:', res?.msg)
@@ -43,7 +42,7 @@ export default function index() {
             const res = await editAddress(updatedAddresses);
             fetchAddressList();
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     };
     const handleDelete = async (id) => {
@@ -51,7 +50,7 @@ export default function index() {
             const res = await deleteAddress(id);
             fetchAddressList();
         } catch (error) {
-            console.log(error)
+            console.error(error)
             
         }
       };
@@ -100,7 +99,7 @@ export default function index() {
                     ):
                     <div className="address_list">
                         {addressList?.map((address, id)=>(
-                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> {setExpanded(id); console.log(address)}} key={address?.id}>
+                            <div className={`card-body address ${expanded===id && 'expanded'}`} onClick={()=> {setExpanded(id)}} key={address?.id}>
                                 <div className="card-head"><div className="name">{address.name} {address.is_default == 1&&<span className='default_address_tag'>Default</span>}</div><span>{address?.address_type==1?'Home':'Office'}</span></div>
                                 <address>
                                     {address.address_line_1}<br />

@@ -59,7 +59,7 @@ const Cart = () => {
             const res = await getAddressList();
             setAddressList(res?.result);
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
@@ -111,7 +111,7 @@ const Cart = () => {
                 });
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
             toast.error("Something Went Wrong!", {
                 position: "bottom-center",
                 autoClose: 1500,
@@ -151,9 +151,8 @@ const Cart = () => {
                 router.push(`/order/checkout/confirmation`);
             }
             setIsLoading(false);
-            console.log(res);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setIsLoading(false);
         }
     }
@@ -212,7 +211,7 @@ const Cart = () => {
                 router.push('/checkout-fail');
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setIsLoading(false);
         }
     };
@@ -223,7 +222,6 @@ const Cart = () => {
             try {
                 const statusRes = await checkPaymentStatus(transactionId); // Poll payment status using transactionId
                 const encodedStatusRes = encodeURIComponent(JSON.stringify(statusRes));
-                console.log(statusRes)
                 // Check for successful payment first
                 if (statusRes?.order_status === 'CHARGED') {
                     clearInterval(paymentStatusInterval);  // Stop polling

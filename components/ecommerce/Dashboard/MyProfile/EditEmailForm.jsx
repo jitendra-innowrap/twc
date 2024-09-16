@@ -51,7 +51,7 @@ export default function EditEmailForm({ close, setTempUser }) {
                     startOTPTimer();
                     setOtp(['', '', '', ''])
                 } else {
-                    console.log('response', response)
+                    console.error('erro', response?.msg)
                 }
             })
             .catch((error) => {
@@ -61,14 +61,12 @@ export default function EditEmailForm({ close, setTempUser }) {
 
     const startOTPTimer = () => {
         const newInterval = setInterval(() => {
-            console.log('updating', timerValue)
             setTimerValue((prevValue) => {
                 if (prevValue === 0) {
                     clearInterval(interval);
                     setOtpTimer(false);
                     return 60;
                 }
-                console.log('updated', prevValue - 1)
                 return prevValue - 1;
             });
         }, 1000);

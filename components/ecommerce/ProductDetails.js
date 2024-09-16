@@ -158,8 +158,6 @@ useEffect(() => {
                 // Call the product availability API
                 const response = await checkRentalAvailability(params)
                 // const isAvailable = response.data.isAvailable;
-                console.log(response)
-
                 if (response?.code==1) {
                     setRentalAvailable((prevState) => ({
                         ...prevState,
@@ -180,7 +178,7 @@ useEffect(() => {
                       }));
                 }
             } catch (error) {
-                console.log(error)
+                console.error(error)
                 setRentalAvailable((prevState) => ({
                     ...prevState,
                     isLoading: false,

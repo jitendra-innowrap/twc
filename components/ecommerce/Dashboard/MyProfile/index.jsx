@@ -27,7 +27,6 @@ export default function MyProfile() {
 
     const handleSubmit = async (tempUser) => {
         const res = await editProfileDetails(tempUser);
-        console.log('submit', res);
         setEdit(false)
     }
 

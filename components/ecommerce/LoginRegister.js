@@ -47,14 +47,12 @@ function LoginRegister({noRefferer, close}) {
 
     const startOTPTimer = () => {
         const newInterval = setInterval(() => {
-            console.log('updating', timerValue)
             setTimerValue((prevValue) => {
                 if (prevValue === 0) {
                     clearInterval(interval);
                     setOtpTimer(false);
                     return 60;
                 }
-                console.log('updated',prevValue -1)
                 return prevValue - 1;
             });
         }, 1000);
@@ -281,7 +279,6 @@ function LoginRegister({noRefferer, close}) {
     const handleUpdateToken = async (auth_token)=>{
         try {
             const res = await updateTokenApi(auth_token);
-            console.log(res);
         } catch (error) {
             console.error(error)
         }

@@ -46,7 +46,6 @@ const Header = ({
     const fetchHeaderData =async ()=>{
         try {
             const response = await getAllCategory();
-            console.log('fetch success: ', response)
             setheaderData(response.data)
           } catch (error) {
             console.error('there is an error: ',error);

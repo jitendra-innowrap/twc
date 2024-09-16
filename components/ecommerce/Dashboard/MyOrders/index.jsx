@@ -44,14 +44,13 @@ export default function index() {
             if(res?.code==1){
                 setOrderList(res?.order_data);
                 setTotalOrders(res.total_orders);
-                console.log(res)
             }else{
                 console.error('Error:', res?.msg);
             }
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            console.log(error);
+            console.error(error);
         }
     }
 

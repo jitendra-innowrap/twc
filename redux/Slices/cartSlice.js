@@ -7,13 +7,11 @@ const INIT_LOCALSTORAGE = 'cart/INIT_LOCALSTORAGE';
 // Async thunks for API calls
 export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
   const response = await getCartList();
-  console.log('response from thunk', response)
   return response;
 });
 
 export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (product) => {
   const response = await addToCart(product);
-  console.log('response from thunk add', response.data)
   toast.success("Added to Cart!", {
     position: "bottom-center",
     autoClose: 1500,
@@ -30,7 +28,6 @@ export const addItemToCart = createAsyncThunk('cart/addItemToCart', async (produ
 
 export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (product) => {
   const response = await deleteFromCart(product);
-  console.log('response from thunk remove', response.data)
   toast.success("Removed from Cart!", {
     position: "bottom-center",
     autoClose: 15000,
@@ -47,7 +44,6 @@ export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', as
 
 export const setShippingAddress = createAsyncThunk('cart/setShippingAddress', async (address) => {
   const response = await selectShippingAddress(address);
-  console.log('response from thunk setShippingAddress', response.data)
   toast.success("Shipping Address Updated!", {
     position: "bottom-center",
     autoClose: 1500,
@@ -64,7 +60,6 @@ export const setShippingAddress = createAsyncThunk('cart/setShippingAddress', as
 
 export const setBillingAddress = createAsyncThunk('cart/setBillingAddress', async (address) => {
   const response = await selectBillingAddress(address);
-  console.log('response from thunk setBillingAddress', response.data)
   toast.success("Billing Address Updated!", {
     position: "bottom-center",
     autoClose: 1500,

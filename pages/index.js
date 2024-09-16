@@ -31,7 +31,6 @@ export default function Home() {
             const res = await getHomeDetails();
             if (res?.code === 1) {
                 setData(res.home_data_list);
-                console.log(res.home_data_list)
             } else {
                 console.error('Error !', res?.msg)
             }
@@ -143,7 +142,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        {data?.blogs.length >0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
+                        {true && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
                                 <div className="section-head d-flex flex-column align-items-center w-100">

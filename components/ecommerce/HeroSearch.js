@@ -49,9 +49,8 @@ const HeroSearch = () => {
         try {
             const res = await getSearchProducts(keyword);
             setsearchList(res.result)
-            console.log(res.result)
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

@@ -8,13 +8,11 @@ const INIT_LOCALSTORAGE = 'wishlist/INIT_LOCALSTORAGE';
 // Async thunks for API calls
 export const fetchWishlist = createAsyncThunk('wishlist/fetchWishlist', async () => {
   const response = await getWishlistList();
-  console.log('response from thunk', response)
   return response;
 });
 
 export const addItemToWishlist = createAsyncThunk('wishlist/addItemToWishlist', async (product) => {
   const response = await addToWishlist(product);
-  console.log('response from thunk add wishlist', response)
   if(response?.data?.msg=="Add to wishlist successfully"){
     toast.success("Added to Wishlist!", {
       position: "bottom-center",
