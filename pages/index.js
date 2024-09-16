@@ -96,7 +96,7 @@ export default function Home() {
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
-                                        <h2>Most Trendings</h2>
+                                        <h2>Most Trending</h2>
                                     </div>
                                     <h3 className="subheading">Packages</h3>
                                 </div>
@@ -121,7 +121,7 @@ export default function Home() {
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
-                                        <h2>Vendors</h2>
+                                        <h2>Entertainment</h2>
                                     </div>
                                     <h3 className="subheading">Peoples & Services</h3>
                                     {/* <img src="/assets/imgs/home-page/services-head.png" className="heading_image"/> */}
