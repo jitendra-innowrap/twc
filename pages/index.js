@@ -195,7 +195,7 @@ export default function Home() {
                             </div>
                         </section>}
                         
-                        <section className="section-padding usp-section popular-categories section-bg-gradient section-b-bottom">
+                        <section className="section-padding usp-section popular-categories section-bg-gradient">
 
                             <div className="container pt-md-5 pb-25">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">

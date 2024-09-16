@@ -13697,7 +13697,9 @@ form.form-subcriber input{
   width: 100%;
   max-width: 300px;
 }
-
+.section-b-top{
+  border-top: 12px solid var(--tpc-theme-primary-light-1);
+}
 @media only screen and (min-width: 668px) and (max-width: 768px) {
   .login_container {
       height: calc(100vh - 66.46px);
