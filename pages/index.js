@@ -175,7 +175,7 @@ export default function Home() {
                                                 </h3>
                                                 <div class="post-exerpt mb-30" dangerouslySetInnerHTML={{ __html: blog?.blog_content }}></div>
                                                 <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock" style={{transform:'translateY(2px)'}}></i> {blog?.blog_post_date || 'unknown'}</span><span class="hit-count has-dot">126k Views</span></div>
+                                                    <div><span class="post-on"><i class="fi-rs-clock" style={{transform:'translateY(2px)'}}></i> {blog?.blog_post_date || 'unknown'}</span></div>
                                                     <Link href={`/blogs/${blog?.handle}`}>
                                                         <a className="post-link" >Read more <BsArrowRight /></a>
                                                     </Link>
