@@ -31,7 +31,6 @@ export default function Home() {
             const res = await getHomeDetails();
             if (res?.code === 1) {
                 setData(res.home_data_list);
-                console.log(res.home_data_list)
             } else {
                 console.error('Error !', res?.msg)
             }
@@ -96,7 +95,7 @@ export default function Home() {
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
-                                        <h2>Most Trendings</h2>
+                                        <h2>Most Trending</h2>
                                     </div>
                                     <h3 className="subheading">Packages</h3>
                                 </div>
@@ -121,7 +120,7 @@ export default function Home() {
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
-                                        <h2>Vendors</h2>
+                                        <h2>Entertainment</h2>
                                     </div>
                                     <h3 className="subheading">Peoples & Services</h3>
                                     {/* <img src="/assets/imgs/home-page/services-head.png" className="heading_image"/> */}
@@ -143,7 +142,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        {data?.blogs.length >0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
+                        {true && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
                                 <div className="section-head d-flex flex-column align-items-center w-100">
@@ -196,7 +195,7 @@ export default function Home() {
                             </div>
                         </section>}
                         
-                        <section className="section-padding usp-section popular-categories section-bg-gradient section-b-bottom">
+                        <section className="section-padding usp-section popular-categories section-bg-gradient">
 
                             <div className="container pt-md-5 pb-25">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">

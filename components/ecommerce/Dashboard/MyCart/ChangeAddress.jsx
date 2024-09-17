@@ -133,7 +133,6 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
         let params = {region_id, pincode:address.pincode}
         try {
           const isDeliverable = await checkDeliverablePincode(params);
-          console.log(isDeliverable);
           if(isDeliverable?.code!==1){
             setError((prev) => ({ ...prev, pincode: isDeliverable.msg ||  "Error: Unable to Verify this Pincode"}));
             hasError = true;
@@ -161,9 +160,8 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
         }
         const res = await addAddress(body);
         fetchAddressList();
-        console.log(res)
       } catch (error) {
-        console.log('Error !', error)
+        console.error('Error !', error)
       }
       setAddNew(false)
     }

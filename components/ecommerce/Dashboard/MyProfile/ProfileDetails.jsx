@@ -21,7 +21,6 @@ export default function ProfileDetails({ user, setEdit, setUser }) {
             const response = await getProfileDetails(auth_token || "");
             if(response.code === 1){
                 let tempUser = response.result?.[0];
-                console.log('tempuser',response)
                 setUser({
                     fullname: tempUser?.f_name,
                 mobile: tempUser?.mobile,

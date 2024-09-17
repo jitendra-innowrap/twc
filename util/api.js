@@ -1093,7 +1093,6 @@ rental_end_date
         }
       }
     );
-    console.log(auth_token ,web_token)
     return response;
   } catch (error) {
     console.error('Failed to login', error);

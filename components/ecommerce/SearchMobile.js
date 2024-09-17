@@ -47,10 +47,9 @@ const SearchMobile = ({toggleSearch}) => {
     const fetchSearchlist = async (keyword)=>{
         try {
             const res = await getSearchProducts(keyword);
-            console.log(res);
             setsearchList(res.result)
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -64,7 +63,6 @@ const SearchMobile = ({toggleSearch}) => {
 
     let domNode = useClickOutside(() => {
         toggleSearch();
-        console.log('search out')
     });
     
     return (

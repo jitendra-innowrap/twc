@@ -46,7 +46,6 @@ const Header = ({
     const fetchHeaderData =async ()=>{
         try {
             const response = await getAllCategory();
-            console.log('fetch success: ', response)
             setheaderData(response.data)
           } catch (error) {
             console.error('there is an error: ',error);
@@ -61,6 +60,10 @@ const Header = ({
     const title = announcement_notes?.[0]?.title;
     const url = announcement_notes?.[0]?.redirect_url || "";
     const handleLink = (link) => {
+        if(link=="/shop-cart"){
+            router.push(link);
+            return
+        }
         if (!user) {
           // Check if the current page is /page-login-register
           const isLoginRegisterPage = router.pathname === '/page-login-register';
@@ -235,14 +238,14 @@ const Header = ({
                                             </a>
                                         </div>
                                         <div className="header-action-icon-2">
-                                            <Link href={'/shop-cart'}>
+                                            <a onClick={() => handleLink('/shop-cart')}>
                                                 <a className="mini-cart-icon">
                                                     <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                     {cartCount!==0 &&<span className="pro-count">
                                                         {cartCount}
                                                     </span>}
                                                 </a>
-                                            </Link>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -270,14 +273,14 @@ const Header = ({
                                         </a>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link href={'/shop-cart'}>
+                                        <a onClick={() => handleLink('/shop-cart')}>
                                             <a className="mini-cart-icon">
                                                 <LiaShoppingCartSolid fontSize={35} color="#333333" />
                                                 {cartCount!==0 &&<span className="pro-count">
                                                     {cartCount}
                                                 </span>}
                                             </a>
-                                        </Link>
+                                        </a>
                                     </div>
                                     <div className="header-action-icon-2 d-block d-lg-none">
                                         <div

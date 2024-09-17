@@ -42,7 +42,6 @@ export default function Logout({close, closeMenu}) {
             transition: Bounce,
           });
     }else{
-        console.log(res.msg)
         toast.error("Something went wrong!", {
             position: "bottom-center",
             autoClose: 1500,

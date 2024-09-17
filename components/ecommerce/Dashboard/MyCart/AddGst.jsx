@@ -38,7 +38,6 @@ export default function AddGst({ close , handleAddGst, gstNumber, companyName}) 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let isError = false;
-        console.log('intiallize:',isError)
         // GST validation regex
         const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9A-Z]{1}$/;
     
@@ -66,7 +65,6 @@ export default function AddGst({ close , handleAddGst, gstNumber, companyName}) 
             isError=true;
         } 
         
-        console.log(isError)
         if(!isError){
             setError({
                 companyName: "",

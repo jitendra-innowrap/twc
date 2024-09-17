@@ -102,7 +102,6 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
       let params = {region_id, pincode:address.pincode}
       try {
         const isDeliverable = await checkDeliverablePincode(params);
-        console.log(isDeliverable);
         if(isDeliverable?.code!==1){
           setError((prev) => ({ ...prev, pincode: isDeliverable.msg ||  "Error: Unable to Verify this Pincode"}));
           hasError = true;
@@ -131,12 +130,13 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
         }
         const res = await editAddress(body);
         fetchAddressList();
+        setIsSumbitting(false)
       } catch (error) {
-        console.log(error)
+        setIsSumbitting(false)
+        console.error(error)
       }
       close();
     }
-    setIsSumbitting(false)
   };
   const inputRef = useRef(null);
 

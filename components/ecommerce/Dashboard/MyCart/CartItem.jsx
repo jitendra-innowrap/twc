@@ -9,8 +9,6 @@ import Link from 'next/link';
 export default function CartItem({item}) {
     const dispatch = useDispatch();
     const removeItem = async (item)=>{
-        console.log(item)
-        // const res = await deleteFromCart(item)
         dispatch(removeItemFromCart(item));
     }
     return (

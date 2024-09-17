@@ -11,9 +11,7 @@ main.revised .section-head{
 .section-bg-gradient{
     background: linear-gradient(180deg, #fff7d5, #d9e4fe 100%);
 }
-.section-b-bottom{
-    border-bottom: 12px solid var(--tpc-theme-primary-light-1);
-}
+
 /* heading pattern */
 main.revised .section-head .heading h2{
     font-family: var(--tpc-home-font-secondary);

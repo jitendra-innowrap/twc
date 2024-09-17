@@ -36,7 +36,6 @@ export default function FAQ() {
     const fetchFaq= async()=>{
         try {
             const res = await getFaqs()
-            console.log(res)
             if(res.code==1){
                 setFaqs(res.result ||[]);
             }

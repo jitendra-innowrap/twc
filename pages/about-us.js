@@ -36,7 +36,8 @@ function About() {
                             </div>
                             <div className="col-lg-6">
                                 <img
-                                    src="assets/imgs/page/about-1.png"
+                                    style={{width:'100%', height:'auto'}}
+                                    src="assets/imgs/page/about-us.jpg"
                                     alt=""
                                 />
                             </div>
@@ -51,9 +52,9 @@ function About() {
                                 <h6 className="mt-0 mb-15 text-uppercase font-sm text-brand wow fadeIn animated">
                                     Our Team
                                 </h6>
-                                <h2 className="mb-15 wow fadeIn animated">
+                                {/* <h2 className="mb-15 wow fadeIn animated">
                                     Top team of experts
-                                </h2>
+                                </h2> */}
                                 <p className="text-grey-3 wow fadeIn animated ">
                                     We have a team of event enthusiasts and tech innovators The Party Cafe was born from the desire to revolutionize how people plan and execute their special occasions. We understand that every event is unique and are passionate about helping you bring your vision to life.
                                 </p>
@@ -65,66 +66,86 @@ function About() {
                             </div> */}
                         </div>
                         <div className="position-relative">
-                            <div className="row wow fadeIn animated">
-                                <div className="col-lg-3 col-6">
-                                    <div className="blog-card border-radius-10 overflow-hidden text-center">
-                                        <img
-                                            src="assets/imgs/about/Zuzer Lucknowala image.png"
-                                            alt=""
-                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
-                                        />
-                                        <h4 className="fw-500 mb-0">
-                                            Zuzer Lucknowala
-                                        </h4>
-                                        <p className="fw-400 text-brand mb-10">
-                                            Founder
-                                        </p>
+                            <div className="row wow fadeIn our-team animated">
+                                <div className="d-flex justify-content-center">
+                                    <div className="">
+                                        <div className="team-card border-radius-10 overflow-hidden text-center">
+                                            <img
+                                                src="assets/imgs/about/Zuzer Lucknowala.png"
+                                                alt=""
+                                                className="border-radius-10 mb-10 mb-md-30 hover-up"
+                                            />
+                                            <h4 className="fw-500 mb-0">
+                                                Zuzer Lucknowala
+                                            </h4>
+                                            <p className="fw-400 text-brand mb-10">
+                                                Founder
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="">
+                                        <div className="team-card border-radius-10 overflow-hidden text-center">
+                                            <img
+                                                src="assets/imgs/about/Mamta Minocha Malkani image.png"
+                                                alt=""
+                                                className="border-radius-10 mb-10 mb-md-30 hover-up"
+                                            />
+                                            <h4 className="fw-500 mb-0">
+                                                Mamta Minocha Malkani
+                                            </h4>
+                                            <p className="fw-400 text-brand mb-10">
+                                                Founder
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="">
+                                        <div className="team-card border-radius-10 overflow-hidden text-center">
+                                            <img
+                                                src="assets/imgs/about/Party Cruisers Limited.png"
+                                                alt=""
+                                                className="border-radius-10 mb-10 mb-md-30 hover-up"
+                                            />
+                                            <h4 className="fw-500 mb-0">
+                                                Party Cruisers Limited
+                                            </h4>
+                                            <p className="fw-400 text-brand mb-10">
+                                                Founder
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="col-lg-3 col-6">
-                                    <div className="blog-card border-radius-10 overflow-hidden text-center">
-                                        <img
-                                            src="assets/imgs/about/Mamta Minocha Malkani image.png"
-                                            alt=""
-                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
-                                        />
-                                        <h4 className="fw-500 mb-0">
-                                            Mamta Minocha Malkani
-                                        </h4>
-                                        <p className="fw-400 text-brand mb-10">
-                                            CEO & Co-Founder
-                                        </p>
+                                <div className="d-flex justify-content-center mt-30">
+                                    <div className="">
+                                        <div className="team-card border-radius-10 overflow-hidden text-center">
+                                            <img
+                                                src="assets/imgs/about/Rachana Lucknowala image.png"
+                                                alt=""
+                                                className="border-radius-10 mb-10 mb-md-30 hover-up"
+                                            />
+                                            <h4 className="fw-500 mb-0">Rachana Lucknowala</h4>
+                                            <p className="fw-400 text-brand mb-10">
+                                                Advisory
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="col-lg-3 col-6">
-                                    <div className="blog-card border-radius-10 overflow-hidden text-center">
-                                        <img
-                                            src="assets/imgs/about/Rachana Lucknowala image.png"
-                                            alt=""
-                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
-                                        />
-                                        <h4 className="fw-500 mb-0">Rachana Lucknowala</h4>
-                                        <p className="fw-400 text-brand mb-10">
-                                            Advisory Board
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-3 col-6">
-                                    <div className="blog-card border-radius-10 overflow-hidden text-center">
-                                        <img
-                                            src="assets/imgs/about/Firoz Lucknowala image.png"
-                                            alt=""
-                                            className="border-radius-10 mb-10 mb-md-30 hover-up"
-                                        />
-                                        <h4 className="fw-500 mb-0">
-                                            Firoz Lucknowala
-                                        </h4>
-                                        <p className="fw-400 text-brand mb-10">
-                                            Advisory Board
-                                        </p>
+                                    <div className="">
+                                        <div className="team-card border-radius-10 overflow-hidden text-center">
+                                            <img
+                                                src="assets/imgs/about/Firoz Lucknowala.png"
+                                                alt=""
+                                                className="border-radius-10 mb-10 mb-md-30 hover-up"
+                                            />
+                                            <h4 className="fw-500 mb-0">
+                                                Firoz Lucknowala
+                                            </h4>
+                                            <p className="fw-400 text-brand mb-10">
+                                                Advisory
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -87,14 +87,12 @@ export default function EditPhoneForm({ close, setTempUser }) {
 
     const startOTPTimer = () => {
         const newInterval = setInterval(() => {
-            console.log('updating', timerValue)
             setTimerValue((prevValue) => {
                 if (prevValue === 0) {
                     clearInterval(interval);
                     setOtpTimer(false);
                     return 60;
                 }
-                console.log('updated', prevValue - 1)
                 return prevValue - 1;
             });
         }, 1000);

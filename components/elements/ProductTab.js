@@ -91,7 +91,7 @@ const ProductTab = ({productDetails}) => {
                                 {productDetails?.product_subtext}
                             </p>
                             <br /> */}
-                            <div onClick={()=>{console.log(productDetails?.description)}} dangerouslySetInnerHTML={{ __html: productDetails?.description }} />
+                            <div dangerouslySetInnerHTML={{ __html: productDetails?.description }} />
                         </div>
                     </div>
                     {/* <div
@@ -113,41 +113,15 @@ const ProductTab = ({productDetails}) => {
                         id="Terms-n-conditions"
                     >
                         <div className="">
-                            <p>
-                                Laconic overheard dear woodchuck wow this
-                                outrageously taut beaver hey hello far
-                                meadowlark imitatively egregiously hugged that
-                                yikes minimally unanimous pouted flirtatiously
-                                as beaver beheld above forward energetic across
-                                this jeepers beneficently cockily less a the
-                                raucously that magic upheld far so the this
-                                where crud then below after jeez enchanting
-                                drunkenly more much wow callously irrespective
-                                limpet.
-                            </p>
-                            <h4 className="mt-30">Terms & Conditions</h4>
-                            <hr className="wp-block-separator is-style-wide" />
-                            <p>
-                                Less lion goodness that euphemistically robin
-                                expeditiously bluebird smugly scratched far
-                                while thus cackled sheepishly rigid after due
-                                one assenting regarding censorious while
-                                occasional or this more crane went more as this
-                                less much amid overhung anathematic because much
-                                held one exuberantly sheep goodness so where rat
-                                wry well concomitantly.
-                            </p>
-                            <p>
-                                Scallop or far crud plain remarkably far by thus
-                                far iguana lewd precociously and and less
-                                rattlesnake contrary caustic wow this near alas
-                                and next and pled the yikes articulate about as
-                                less cackled dalmatian in much less well jeering
-                                for the thanks blindly sentimental whimpered
-                                less across objectively fanciful grimaced wildly
-                                some wow and rose jeepers outgrew lugubrious
-                                luridly irrationally attractively dachshund.
-                            </p>
+                            {/* <h4 className="mt-30">Terms & Conditions</h4> */}
+                            {/* <hr className="wp-block-separator is-style-wide" /> */}
+                            <ol style={{listStyle:'number'}} className="ml-20">
+                                <li>All offerings are subject to availability at the time of confirmation.</li>
+                                <li>All courier charges to be borne by the customers. </li>
+                                <li>⁠Rates may vary seasonally by 5-10% from the listed rates depending on the availability on the date of the confirmation. </li>
+                                <li>⁠Rental periods begin at delivery and end at return, with late fees for overdue days. </li>
+                                <li>⁠Customers must return items in the same condition received, normal wear and tear excepted.</li>
+                            </ol>
                         </div>
                         {/* Comment section backup */}
                         {/* <div className="comments-area">

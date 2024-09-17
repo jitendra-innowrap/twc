@@ -59,7 +59,6 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
         if(!availabilityDate){
             realDate = new Date(date.getTime() + (1 * 24 * 60 * 60 * 1000));
         }
-        console.log('setting date filter', realDate)
 
         setFilters(
             (prev)=>({
@@ -69,7 +68,6 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
         )
     }
     const handleApplyFilters =()=>{
-        console.log(Filters);
         const updatedQuery = {
             page: 1, // Always include the page parameter
         };
@@ -88,7 +86,6 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
         }
         
         if (Filters.availabilityDate) {
-            console.log('setting date query', Filters.availabilityDate)
             updatedQuery.availabilityDate = JSON.stringify(Filters.availabilityDate);
         }
         

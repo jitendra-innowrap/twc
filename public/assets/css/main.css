@@ -13690,8 +13690,16 @@ form.form-subcriber input{
   margin-inline: auto;
 }
 
-
-
+.our-team .d-flex{
+  gap: 20px;
+}
+.team-card img{
+  width: 100%;
+  max-width: 300px;
+}
+.section-b-top{
+  border-top: 12px solid var(--tpc-theme-primary-light-1);
+}
 @media only screen and (min-width: 668px) and (max-width: 768px) {
   .login_container {
       height: calc(100vh - 66.46px);
@@ -13832,6 +13840,10 @@ form.form-subcriber input{
 
 
 @media only screen and (max-width: 992px) {
+  .team-card img{
+    width: 100%;
+    max-width: 218px;
+  }
   .collection-thumb p {
     font-size: 18px;
     display: -webkit-box;
@@ -14043,6 +14055,13 @@ form.form-subcriber input{
 
 
 @media only screen and (max-width: 768px) {
+  .team-card{
+    width: 100%;
+    max-width: 158px;
+  }
+  .team-card h4{
+    font-size: 12px;
+  }
   .magnify-image {
     max-height: 665px;
   }
@@ -14113,6 +14132,10 @@ form.form-subcriber input{
 }
 
 @media only screen and (max-width: 575px) {
+  .team-card{
+    width: 100%;
+    max-width: 125px;
+  }
   .magnify-image {
     max-height: 660px;
   }
@@ -14304,6 +14327,10 @@ p{
 display: none;
 }
 @media only screen and (max-width: 400px) {
+  .team-card{
+    width: 100%;
+    max-width: 100px;
+  }
   .magnify-image {
     max-height: 520px;
   }

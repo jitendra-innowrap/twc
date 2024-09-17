@@ -102,7 +102,6 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
       let params = {region_id, pincode:address.pincode}
       try {
         const isDeliverable = await checkDeliverablePincode(params);
-        console.log(isDeliverable);
         if(isDeliverable?.code!==1){
           setError((prev) => ({ ...prev, pincode: isDeliverable.msg ||  "Error: Unable to Verify this Pincode"}));
           hasError = true;
@@ -132,7 +131,7 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
         // make all other address isDefault false edited address index will not change
         fetchAddressList();
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
       close();
     }

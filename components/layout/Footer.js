@@ -17,7 +17,7 @@ const Footer = () => {
     return (
         <>
             <footer className="main">
-                <section className="section-padding footer-mid">
+                <section className="section-padding footer-mid section-b-top">
                     <div className="container pt-15 pb-20">
                         <div className="row">
                             <div className="col-md-6 col-lg-4">

@@ -10,7 +10,6 @@ import { fetchCart } from '../../redux/Slices/cartSlice';
 import { fetchWishlist } from '../../redux/Slices/wishlistSlice';
 
 function LoginRegister({noRefferer, close}) {
-    const [isSumbitting, setIsSumbitting] = useState(false);
     const [Mobile, setMobile] = useState("");
     const [name, setName] = useState("");
     const [step, setStep] = useState(1);
@@ -20,6 +19,8 @@ function LoginRegister({noRefferer, close}) {
     const [error, setError] = useState({ mobile: false, otp: false, name: false })
     const inputRefs = useRef([]);
     const phoneRef = useRef(null);
+    const [isSumbitting, setIsSumbitting] = useState(false);
+    const [isSubmittingName, setIsSubmittingName] = useState(false)
 
     const router = useRouter()
     let referrer = "/"
@@ -46,14 +47,12 @@ function LoginRegister({noRefferer, close}) {
 
     const startOTPTimer = () => {
         const newInterval = setInterval(() => {
-            console.log('updating', timerValue)
             setTimerValue((prevValue) => {
                 if (prevValue === 0) {
                     clearInterval(interval);
                     setOtpTimer(false);
                     return 60;
                 }
-                console.log('updated',prevValue -1)
                 return prevValue - 1;
             });
         }, 1000);
@@ -119,8 +118,10 @@ function LoginRegister({noRefferer, close}) {
                         });
                         console.error(res)
                     }
+                    setIsSumbitting(false)
                 })
                 .catch((error) => {
+                    setIsSumbitting(false)
                     console.error('Error during login:', error);
                     toast.error("Something Went Wrong !", {
                         position: "bottom-center",
@@ -134,7 +135,6 @@ function LoginRegister({noRefferer, close}) {
                         transition: Bounce,
                     });
                 });
-                setIsSumbitting(false)
         } else {
             setError((prev) => ({ ...prev, mobile: true }));
         }
@@ -144,6 +144,7 @@ function LoginRegister({noRefferer, close}) {
         if (!name) {
             setError(prev => ({ ...prev, name: true }));
         } else {
+            setIsSubmittingName(true)
             registerApi({auth_token,name})
             .then((res) => {
                 if(res?.code==1){
@@ -183,8 +184,10 @@ function LoginRegister({noRefferer, close}) {
                     });
                     console.error(res)
                 }
+                setIsSubmittingName(false)
             })
             .catch((error) => {
+                setIsSubmittingName(false)
                 console.error('Register:', error);
                 toast.error("Something Went Wrong !", {
                     position: "bottom-center",
@@ -276,7 +279,6 @@ function LoginRegister({noRefferer, close}) {
     const handleUpdateToken = async (auth_token)=>{
         try {
             const res = await updateTokenApi(auth_token);
-            console.log(res);
         } catch (error) {
             console.error(error)
         }
@@ -303,7 +305,7 @@ function LoginRegister({noRefferer, close}) {
                     <div className="padding_eight_all bg-white p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
-                                Login <span className="welcome_header_small">or</span> Signup
+                                Login <span className="welcome_header_small">or</span> Signup{JSON.stringify(isSumbitting)}
                             </h3>
                         </div>
                         <div className="mobileInputContainer mt-0">
@@ -416,7 +418,7 @@ function LoginRegister({noRefferer, close}) {
                                     </span><i className="bar"></i>
                                     {error.name && <div className="errorContainer ">Name is required</div>}
                                 </div>
-                                <div className="submitBottomOption" onClick={handleSubmit}>CONTINUE</div>
+                                <div className="submitBottomOption" onClick={handleSubmit}>{isSubmittingName?'Please Wait...':'CONTINUE'}</div>
                             </div>
                         </div>
                     </div>
