@@ -106,18 +106,18 @@ function Contact() {
                                     Pinterest: <a href="https://www.pinterest.com/thepartycafeofficial" target="_blank" rel="noopener noreferrer">The Party Cafe</a>
                                 </p>
 
-                                <p>We aim to respond to all inquiries within 24 business hours. For urgent matters related to an upcoming event, please call our customer support line.</p>
-                                <p>Thank you for choosing The Party Cafe. We look forward to helping you create unforgettable celebrations!</p>
                                 </div>
                             </div>
                     </div>
+                                <p className="pt-30">We aim to respond to all inquiries within 24 business hours. For urgent matters related to an upcoming event, please call our customer support line.</p>
+                                <p>Thank you for choosing The Party Cafe. We look forward to helping you create unforgettable celebrations!</p>
 
                     
 
                     </div>
 
                 </section>
-                <section className="pt-50 pb-50">
+                <section className="pb-50">
                     <div className="container">
                         <div className="row">
                             <div className="col-xl-8 col-lg-10 m-auto">
