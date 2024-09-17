@@ -161,7 +161,7 @@ export default function Home() {
                                             <div class="col-lg-4 mb-4" key={blog?.id}>
                                         <article class="wow fadeIn animated hover-up">
                                             <div class="post-thumb img-hover-scale">
-                                                <Link href={blog?.handle}>
+                                                <Link href={`/blogs/${blog?.handle}`}>
                                                     <a><img src={blog?.image} alt={blog?.title} 
                                                     style={{height:'260px', objectFit:'cover', width:'100%'}} 
                                                     /></a>
@@ -169,14 +169,14 @@ export default function Home() {
                                             </div>
                                             <div class="entry-content-2">
                                                 <h3 class="post-title mb-15">
-                                                    <Link href={blog?.handle}>
+                                                    <Link href={`/blogs/${blog?.handle}`}>
                                                         <a>{blog?.title}</a>
                                                     </Link>
                                                 </h3>
-                                                <p class="post-exerpt mb-30">{blog?.blog_content}</p>
+                                                <div class="post-exerpt mb-30" dangerouslySetInnerHTML={{ __html: blog?.blog_content }}></div>
                                                 <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                                    <div><span class="post-on"><i class="fi-rs-clock"></i> {blog?.blog_post_date || 'unknown'}</span><span class="hit-count has-dot">126k Views</span></div>
-                                                    <Link href={blog?.handle}>
+                                                    <div><span class="post-on"><i class="fi-rs-clock" style={{transform:'translateY(2px)'}}></i> {blog?.blog_post_date || 'unknown'}</span><span class="hit-count has-dot">126k Views</span></div>
+                                                    <Link href={`/blogs/${blog?.handle}`}>
                                                         <a className="post-link" >Read more <BsArrowRight /></a>
                                                     </Link>
                                                 </div>

@@ -301,11 +301,11 @@ function LoginRegister({noRefferer, close}) {
         <>
             {step === 1 ?
                 <div className="login_wrap w-100">
-                    <img src="/assets/imgs/banner/login_banner.png" className='login-banner-image' alt="Login Banner" />
+                    <img src="/assets/imgs/banner/thepartycafe-login-image.png" className='login-banner-image' alt="Login Banner" />
                     <div className="padding_eight_all bg-white p-30">
                         <div className="heading_s1">
                             <h3 className="mb-30 welcome_header">
-                                Login <span className="welcome_header_small">or</span> Signup{JSON.stringify(isSumbitting)}
+                                Login <span className="welcome_header_small">or</span> Signup
                             </h3>
                         </div>
                         <div className="mobileInputContainer mt-0">

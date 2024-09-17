@@ -62,13 +62,13 @@ const SingleProduct = ({product, deleteWishList}) => {
                     </div>
                 }
                 <div className="product-content-wrap">
-                    <div className="product-category">
+                    {/* <div className="product-category">
                     <Link href={`/products/${product?.category_handle}/${product?.sub_category_handle}`}>
                         <a>
                             {product?.sub_category_name}
                         </a>
                     </Link>
-                    </div>
+                    </div> */}
                     <h2>
                     <Link
                             href="/products/detail/[slug]"

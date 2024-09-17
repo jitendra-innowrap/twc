@@ -206,7 +206,7 @@ const Header = ({
                                             <li className="position-static">
                                                 <Link href={`/blogs`}>
                                                     <a>
-                                                        <span>Blog</span>
+                                                        <span>Blogs</span>
                                                     </a>
                                                 </Link>
                                             </li>

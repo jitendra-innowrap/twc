@@ -73,7 +73,7 @@ const Footer = () => {
                             </div>
                             <div className="col-6 col-md-3 col-lg-2">
                                 <h5 className="widget-title wow fadeIn animated">
-                                    My Accounts
+                                    My Account
                                 </h5>
                                 <ul className="footer-list wow fadeIn animated mb-40">
                                     <li>
