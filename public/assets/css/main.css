@@ -13893,14 +13893,14 @@ main .section-head .heading::after {
 
 }
 
-main .section-head .heading {
+main .section-head.flex-start .heading {
   margin-left: 90px;
 }
 @media only screen and (max-width: 992px) {
-  main .section-head {
+  main .section-head.flex-start {
     align-items: center;
   }
-  main .section-head .heading {
+  main .section-head.flex-start .heading {
     margin-left: 0;
   }
   .team-card img{
