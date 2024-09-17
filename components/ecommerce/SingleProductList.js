@@ -102,11 +102,11 @@ const SingleProductList = ({
                         </div>
                     </div>
                     <div className="product-content-wrap">
-                        <div className="product-category">
+                        {/* <div className="product-category">
                             <Link href="/products">
                                 <a>{product.category}</a>
                             </Link>
-                        </div>
+                        </div> */}
                         <h2>
                             <Link
                                 href="/products/[slug]"

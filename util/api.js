@@ -959,13 +959,13 @@ export const getBlogs = async () => {
     throw error;
   }
 }
-export const getBlogDetail = async ({blog_id}) => {
+export const getBlogDetail = async (handle) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
   
     // Create a new FormData object
     const formData = new FormData();
-    formData.append('blog_id', blog_id);
+    formData.append('handle', handle);
     try {
       const response = await axios.post(
         `${baseURL}/Home/getBlogDetails`,
