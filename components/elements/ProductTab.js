@@ -92,7 +92,7 @@ const ProductTab = ({productDetails}) => {
                             </p>
                             <br /> */}
                             <div dangerouslySetInnerHTML={{ __html: productDetails?.description }} />
-                        </div>
+                            </div>
                     </div>
                     {/* <div
                         className={

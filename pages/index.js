@@ -42,8 +42,8 @@ export default function Home() {
 
     return (
         <>
+            <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
             {data ?
-                <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
                     <>
                         <ScrollToTop smooth component={<ScrollTopSvg/>} />
                         <section className="home-slider position-relative">
@@ -282,10 +282,10 @@ export default function Home() {
 
 
                     </>
-                </Layout>
                 :
                 <Preloader />
             }
+            </Layout>
         </>
     );
 }
