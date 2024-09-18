@@ -69,17 +69,21 @@ const Layout = ({ children, classList, parent, subLink, sub, subChild, noBreadcr
     );
 };
 // getServerSideProps to dynamically retrieve hostname
-export const getServerSideProps = async ({ context }) => {
-    const req = context.req;
-    const hostname = req.headers.hostname || req.headers.host;
-    // Get the host name dynamically
-    const protocol = req.headers['x-forwarded-proto'] || 'http'; // Detect protocol (http/https)
-    const host = `${protocol}://${hostname}`; // Full URL including hostname
+export const getServerSideProps = async ({ req }) => {
+    // Check for the host header
+    const hostname = req.headers.host || 'localhost'; // Default to 'localhost' if no host is available
+
+    // Get the protocol from headers or default to 'http'
+    const protocol = req.headers['x-forwarded-proto'] || 'http'; // Use 'x-forwarded-proto' for proxies (e.g., Vercel)
+    
+    // Construct the full URL with protocol and hostname
+    const host = `${protocol}://${hostname}`;
 
     return {
         props: {
-            host, // Pass the dynamic hostname as a prop to the Layout component
+            host, // Pass the dynamic host (URL) as a prop to the Layout component
         },
     };
 };
+
 export default Layout;

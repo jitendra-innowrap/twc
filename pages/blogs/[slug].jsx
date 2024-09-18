@@ -55,13 +55,21 @@ function PageBlogSingle({ blogDetail, slug, host }) {
 export async function getServerSideProps(context) {
     const { slug } = context.params;
     const req = context.req;
-    const hostname = req.headers.hostname || req.headers.host;
-    // Get the host name dynamically
+
+    // Corrected: Use req.headers.host, as there's no 'hostname' header
+    const hostname = req.headers.host || 'localhost'; // Fallback to 'localhost' if host is unavailable
+
+    // Get the protocol (consider x-forwarded-proto for proxies)
     const protocol = req.headers['x-forwarded-proto'] || 'http'; // Detect protocol (http/https)
-    const host = `${protocol}://${hostname}`; // Full URL including hostname
+
+    // Full URL including protocol and hostname
+    const host = `${protocol}://${hostname}`;
 
     try {
+        // Fetch blog detail based on slug
         const res = await getBlogDetail(slug);
+        
+        // Check for valid response and blog data
         if (res?.code === 1) {
             return {
                 props: {
@@ -71,13 +79,13 @@ export async function getServerSideProps(context) {
                 },
             };
         } else {
-            console.error('Error!', res?.msg);
+            console.error('Error fetching blog data:', res?.msg);
             return {
                 notFound: true, // Return 404 page if there is an error
             };
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching blog data:', error);
         return {
             notFound: true, // Return 404 page if fetching fails
         };
