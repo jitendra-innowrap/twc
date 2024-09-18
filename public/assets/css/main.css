@@ -13571,35 +13571,43 @@ main.login_page{
 }
 
 /******************************** Location Pop UP Screen ***********************************/
-
+.popup-content.location-content{
+  margin-top: 140px !important;
+}
 .location-container{
-  width: 100vw;
-  height: 100vh;
-  background: #000000d9;
+  width: 80vw;
+  /* height: 300px; */
+  background: #f7f8f9;
   overflow: auto;
+  padding: 20px;
+  max-width: 900px;
+  position: relative;
 }
 .location-container .section-close{
   text-align: right;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 .location-container .location-wrapper{
-  max-width: 720px;
   margin-inline: auto;
   color: #fff;
 }
 .location-wrapper .title{
-  color: #fff;
-  padding: 30px;
+  color: #000;
+  padding-bottom: 20px;
+  font-size: 14px;
 }
 .location-container .location-wrapper .city-layout{
   flex-wrap: wrap;
 }
 .location-container .location-wrapper .city-layout .city-card{
-  padding: 20px 40px;
+  padding: 20px 20px;
 }
 .location-container .location-wrapper .city-layout .city-card .city-image{
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   /* overflow: hidden; */
   cursor: pointer;
 }
@@ -13610,6 +13618,7 @@ main.login_page{
 .location-container .location-wrapper .city-layout .city-card .city-image .check svg{
   background-color: #fff;
   border-radius: 50%;
+  color: var(--tpc-theme-primary) !important;
   width: 20px;
   height: 20px;
 }
@@ -13618,10 +13627,11 @@ main.login_page{
   cursor: pointer;
   text-align: center;
   margin-top: 10px;
+  color: #000;
 }
 .location-container .location-wrapper .city-layout .city-card.selected .city-name{
   cursor: pointer;
-  color: #03a685;
+  color: var(--tpc-theme-primary);
   text-align: center;
   margin-top: 10px;
 }
