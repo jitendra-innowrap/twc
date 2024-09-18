@@ -36,7 +36,7 @@ function PageBlogSingle({ blogDetail, slug, host }) {
                 {/* Optional - Set the page language */}
                 <meta httpEquiv="content-language" content="en" />
             </Head>
-            <Layout parent="Home" subLink="/blogs" sub="Blog" subChild={slug}>
+            <Layout parent="Home" subLink="/blogs" sub="Blogs" subChild={slug}>
                 <section className="mt-50 mb-50">
                     <div className="container custom">
                         <div className="row">
