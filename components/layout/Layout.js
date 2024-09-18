@@ -69,7 +69,7 @@ const Layout = ({ children, classList, parent, subLink, sub, subChild, noBreadcr
     );
 };
 // getServerSideProps to dynamically retrieve hostname
-export const getServerSideProps = async ({ req }) => {
+export const getServerSideProps = async ({ context }) => {
     const req = context.req;
     const hostname = req.headers.hostname || req.headers.host;
     // Get the host name dynamically
