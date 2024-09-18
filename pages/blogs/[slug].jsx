@@ -4,6 +4,7 @@ import Layout from "../../components/layout/Layout";
 import { getBlogDetail } from "../../util/api";
 function PageBlogSingle({ blogDetail, slug, host }) {
     const blogTitle = blogDetail?.[0]?.title || 'Blog Post';
+    const author = blogDetail?.[0]?.author || 'The Party Cafe';
     const blogDescription = blogDetail?.[0]?.blog_content
     ? blogDetail[0].blog_content.substring(0, 100) + (blogDetail[0].blog_content.length > 100 ? "..." : "")
     : 'Blog description';
@@ -17,7 +18,7 @@ function PageBlogSingle({ blogDetail, slug, host }) {
                 <title>{blogTitle}</title>
                 <meta name="description" content={blogDescription} />
                 <meta name="keywords" content="blog, article, news, latest updates" />
-                <meta name="author" content="Your Website Name" />
+                <meta name="author" content={author} />
 
                 {/* Open Graph / Facebook */}
                 <meta property="og:type" content="article" />
@@ -27,7 +28,7 @@ function PageBlogSingle({ blogDetail, slug, host }) {
                 <meta property="og:url" content={blogUrl} /> {/* Dynamic URL here */}
 
                 {/* Twitter Meta Tags */}
-                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:card" content={blogImage} />
                 <meta name="twitter:title" content={blogTitle} />
                 <meta name="twitter:description" content={blogDescription} />
                 <meta name="twitter:image" content={blogImage} />
