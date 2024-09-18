@@ -1,6 +1,8 @@
 // utils/api.js
 
 import axios from 'axios';
+import qs from 'qs'; // To serialize the data for a 'application/x-www-form-urlencoded' request
+
 import storage from './localStorage';
 import { clipDateOnly, getToken, getWebToken } from './util';
 const username = process.env.NEXT_PUBLIC_API_USERNAME
@@ -960,21 +962,21 @@ export const getBlogs = async () => {
   }
 }
 export const getBlogDetail = async (handle) => {
-  const auth_token = getToken();
-  const web_token = storage.get("web_token")
-  
-    // Create a new FormData object
-    const formData = new FormData();
-    formData.append('handle', handle);
-    try {
-      const response = await axios.post(
-        `${baseURL}/Home/getBlogDetails`,
-        formData,
-        {
+  const auth_token =  null;
+  const web_token = null;
+
+  // Prepare the URL-encoded data instead of FormData
+  const data = qs.stringify({ handle }); // Use qs to serialize the data
+
+  try {
+    const response = await axios.post(
+      `${baseURL}/Home/getBlogDetails`,
+      data, // Send the serialized data
+      {
         headers: {
-          ...(auth_token ? { 'auth_token': auth_token }:{ 'jwt': web_token }),
+          ...(auth_token ? { 'auth_token': auth_token } : { 'jwt': web_token }),
           'Authorization': `Basic ${auth}`,
-          'Content-Type': 'multipart/form-data' // This line is important for axios to handle FormData correctly
+          'Content-Type': 'application/x-www-form-urlencoded' // Important for handling URL-encoded data
         }
       }
     );
@@ -983,7 +985,7 @@ export const getBlogDetail = async (handle) => {
     console.error('Failed to fetch', error);
     throw error;
   }
-}
+};
 
 export const getFaqs = async () => {
   const auth_token = getToken();
