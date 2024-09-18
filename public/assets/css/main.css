@@ -13166,12 +13166,27 @@ input[type="checkbox"]:hover{
 .detail-extralink.mobile-buttons-style{
   display: none;
 }
+.detail-extralink .action-btn.add-to-wishlist.mobile{
+  display: none;
+}
 @media (max-width:575px){
   .client-icons-grid {
     display: grid;
     grid-template-columns: 1fr 1fr ;
 }
-
+.detail-info .detail-extralink .product-extra-link2 a.connect{
+  display: none !important;
+}
+.detail-extralink .action-btn.add-to-wishlist.mobile{
+    flex: 1 1;
+    width: unset;
+    border: 1px solid rgba(0, 19, 37, 0.16);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 0;
+}
 .rental-category{
   height: 300px;
 }
@@ -13219,13 +13234,17 @@ input[type="checkbox"]:hover{
   padding: 9px;
   margin: 0;
 }
-.detail-extralink.mobile-buttons-style a.add-to-wishlist{
+.detail-extralink.mobile-buttons-style a.connect{
   margin: 0;
   display: flex;
   width: 48%;
   justify-content: center;
   align-items: center;
   gap: 8px;
+}
+.detail-extralink.mobile-buttons-style a.connect img{
+  width: 20px;
+  margin-left: 10px;
 }
 
 .detail-info .product-price ins{
