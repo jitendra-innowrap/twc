@@ -76,7 +76,7 @@ const Search = () => {
                 <IoSearch fontSize={26} color="#333333" onClick={()=> setShowSearch(true)} cursor="pointer" />
                 {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'} custom-scrollbar`}>
                     {searchList?.map((item, index)=>{
-                        return<li onClick={()=>{handleSearch(item?.handle)}}>
+                        return<li onClick={()=>{handleSearch(item?.handle)}} key={item?.id}>
                         <div className={`search-item $ ${highlightedIndex===index?'highlighted':''}`}>
                             <img 
                                 width={32}
