@@ -491,7 +491,7 @@ useEffect(() => {
                                                     >
                                                         Connect With Us
                                                         <img
-                                                            className="icon"
+                                                            className="icon ml-0"
                                                             alt="The Party Cafe"
                                                             src="/assets/imgs/theme/icons/whatsapp-icon.svg"
                                                         />

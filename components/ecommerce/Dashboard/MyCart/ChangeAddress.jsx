@@ -303,6 +303,7 @@ export default function ChangeAddress({ close , handleSelectAddress, fetchAddres
                             className={`form-control square`}
                             name="pincode"
                             type="tel"
+                            inputMode='numeric'
                             maxLength={6}
                             value={address?.pincode}
                             onChange={handleInputChange}

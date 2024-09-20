@@ -13830,6 +13830,10 @@ main .section-head .heading::after {
   }
 
 @media only screen and (max-width: 991px) {
+  .product-detail .tab-content {
+    max-width: 100vw;
+    overflow: hidden;
+  }
   .magnify-image {
     max-height: 440px;
   }

@@ -182,7 +182,7 @@ export default function EditProfileForm({ user, handleSubmit }) {
                     <input
                         className="form-control square"
                         name="alternateMobile"
-                        type="text"
+                        type="tel"
                         maxLength={10}
                         value={tempUser.alternateMobile}
                         onChange={handleInputChange}

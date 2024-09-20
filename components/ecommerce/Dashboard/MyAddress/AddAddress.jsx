@@ -188,6 +188,7 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
                 name="mobile"
                 maxLength={10}
                 type="tel"
+                inputMode='numeric'
                 value={address.mobile}
                 onChange={handleInputChange}
                 />
@@ -240,6 +241,7 @@ export default function AddAddress({ close , setAddressList, fetchAddressList, a
                 type="text"
                 pattern="[0-9]*"
                 maxLength={6}
+                inputMode='numeric'
                 value={address.pincode}
                 onChange={handleInputChange}
                 />
