@@ -4048,7 +4048,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-content-wrap {
-  padding: 0 20px 15px 20px;
+  padding: 8px 2px;
 }
 
 .product-cart-wrap .product-content-wrap .product-category {
@@ -13816,6 +13816,12 @@ main .section-head .heading::after {
     .magnify-image {
       max-height: 575px;
     }
+    /* .main-menu>nav>ul>li ul.mega-menu{
+      padding: 15px;
+    }
+    .main-menu>nav>ul>li ul.mega-menu li a.menu-title{
+      font-size: 18px;
+    } */
   }
 
   @media only screen and (max-width:1200px) {
