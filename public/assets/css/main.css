@@ -3849,7 +3849,7 @@ table .product-thumbnail img {
 .product-cart-wrap .product-img-action-wrap .product-img a img {
   width: 100%;
   border-radius: 0;
-  height: auto;
+  height: 410px;
   object-fit: cover;
 }
 
@@ -14395,7 +14395,7 @@ p{
   font-size: 12px;
 }
 .product-cart-wrap .product-img-action-wrap .product-img a img{
-  height: auto;
+  height: 300px;
   max-height: 330px;
 }
 
