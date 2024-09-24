@@ -3830,7 +3830,7 @@ table .product-thumbnail img {
   background-color: #fff;
   padding: 0;
   overflow: hidden;
-  max-height: 320px;
+  max-height: 410px;
 }
 
 .product-cart-wrap .product-img-action-wrap .product-img {
@@ -3849,7 +3849,7 @@ table .product-thumbnail img {
 .product-cart-wrap .product-img-action-wrap .product-img a img {
   width: 100%;
   border-radius: 0;
-  height: 300px;
+  height: auto;
   object-fit: cover;
 }
 
@@ -4012,16 +4012,16 @@ table .product-thumbnail img {
 
 .product-cart-wrap .product-badges.product-badges-position {
   position: absolute;
-  left: 20px;
-  top: 19px;
-  z-index: 9;
+  left: 5px;
+  bottom: 2px;
+  z-index: 5;
 }
 
 .product-cart-wrap .product-badges span {
   display: inline-block;
-  font-size: 12px;
+  font-size: 9px;
   line-height: 1;
-  border-radius: 40px;
+  border-radius: 2px;
   color: #fff;
   padding: 5px 10px;
   height: fit-content;
@@ -4031,9 +4031,7 @@ table .product-thumbnail img {
   margin-right: 0px;
 }
 
-.product-cart-wrap .product-badges span.hot {
-  background-color: var(--tpc-theme-primary-light-2);
-}
+
 
 .product-cart-wrap .product-badges span.new {
   background-color: #99bbad;
@@ -4046,11 +4044,13 @@ table .product-thumbnail img {
 .product-cart-wrap .product-badges span.best {
   background-color: #ffab73;
 }
-
-.product-cart-wrap .product-content-wrap {
-  padding: 8px 2px;
+.product-cart-wrap .product-badges span.hot {
+  background-color: var(--tpc-theme-primary-light-2);
 }
 
+.product-cart-wrap .product-content-wrap {
+  padding: 8px 5px;
+}
 .product-cart-wrap .product-content-wrap .product-category {
   /* margin-bottom: 5px; */
 }
@@ -14382,8 +14382,8 @@ p{
 }
 .product-cart-wrap .product-badges.product-badges-position {
   position: absolute;
-  left: 16px;
-  top: 14px;
+  left: 10px;
+  bottom: 5px;
   z-index: 9;
 }
 .product-cart-wrap .product-content-wrap .product-price span {
@@ -14395,7 +14395,8 @@ p{
   font-size: 12px;
 }
 .product-cart-wrap .product-img-action-wrap .product-img a img{
-  height: 200px;
+  height: auto;
+  max-height: 330px;
 }
 
 .product-cart-wrap .delete-icon{

@@ -21,7 +21,7 @@ const Products = () => {
     let today = new Date();
     let Router = useRouter(),
     searchTerm = Router.query.search,
-    showLimit =20,
+    showLimit =24,
     showPagination = 4;
     const { slug, page, from_price, to_price, sort, availabilityDate } = Router.query;
     const [totalProducts, setTotalProducts] = useState(0);
