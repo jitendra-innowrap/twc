@@ -223,11 +223,13 @@ export const getHomeDetails = async () => {
 
 
 // Product details page api's endpoints
-export const getProductDetails = async ({ handle }) => {
+export const getProductDetails = async ({ handle, option_value_1, option_value_2 }) => {
   try {
     // Create a new FormData object
     const formData = new FormData();
     formData.append('handle', handle);
+    formData.append('option_value_1', option_value_1);
+    formData.append('option_value_2', option_value_2);
     
     const auth_token = getToken();
     const web_token = storage.get("web_token")

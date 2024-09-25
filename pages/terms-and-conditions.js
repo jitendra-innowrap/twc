@@ -12,10 +12,10 @@ function Terms() {
                             <div className="col-lg-12">
                                 <div className="single-page pr-30 mb-lg-0 mb-sm-5">
                                     <div className="single-header style-2">
-                                        <h2>Terms of Service</h2>
+                                        <h2>Terms and Conditions for The Party Cafe</h2>
                                     </div>
                                     <div className="single-content">
-                                        <h4>Introduction</h4>
+                                        <h4>I. Introduction and Acceptance of Terms</h4>
                                         <p>Welcome to THE PARTY CAFE. These Terms and Conditions ("Terms") govern your access to and use of our website www.thepartycafe.com and any related services, including but not limited to the purchase of products and services. By accessing or using our website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our website.</p>
                                         <h4>Definitions</h4>
                                         <ul>

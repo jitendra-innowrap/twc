@@ -27,7 +27,7 @@ function Account() {
         try {
             const res = await getOrderDetails(orderId);
             if(res?.code==1){
-                setOrderDetail(res)
+                setOrderDetail(res);
             }
             setLoading(false)
         } catch (error) {

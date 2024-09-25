@@ -15,6 +15,7 @@ const ProductId = ({ product }) => {
     
     const fetchDetails = async ()=>{
         const response = await getProductDetails({handle:slug, option_value_1:_size, option_value_2:_color});
+        console.clear()
         if(response.code==0){
           router.push('/404')
       }
