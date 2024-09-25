@@ -7,14 +7,14 @@ import ProductDetails from "../../../components/ecommerce/ProductDetails";
 
 const ProductId = ({ product }) => {
     const router = useRouter();
-    const {slug} = router.query;
+    const { _color, _size, slug } = router.query;
     const [details, setDetails] = useState({});
     useEffect(() => {
         fetchDetails();
-    }, [slug])
+    }, [slug, _color, _size])
     
     const fetchDetails = async ()=>{
-        const response = await getProductDetails({handle:slug})
+        const response = await getProductDetails({handle:slug, option_value_1:_size, option_value_2:_color});
         if(response.code==0){
           router.push('/404')
       }
@@ -33,11 +33,6 @@ const ProductId = ({ product }) => {
 
 
 ProductId.getInitialProps = async (params) => {
-    
-    // const request = await fetch(`${server}/static/product.json`);
-    // const data = await request.json();
-
-    // const index = findProductIndex(data, params.query.slug);
 
     return { product: {} };
 };
