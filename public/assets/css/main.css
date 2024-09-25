@@ -13226,6 +13226,7 @@ input[type="checkbox"]:hover{
 .detail-extralink.mobile-buttons-style .product-extra-link2{
   width: 100%;
   justify-content: space-between;
+  flex-direction: row-reverse;
   display: flex;
 }
 .detail-extralink.mobile-buttons-style .button.button-add-to-cart{
