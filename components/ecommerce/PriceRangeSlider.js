@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { getPriceRange } from "../../util/api";
+import { formatPriceInIndianStyle } from "../../util/util";
 
 const PriceRangeSlider = ({mobile, setFilters}) => {
     
@@ -50,10 +51,10 @@ const PriceRangeSlider = ({mobile, setFilters}) => {
 
             <div className="d-flex justify-content-between">
                 <span>
-                    {price.value.min}
+                    {formatPriceInIndianStyle(price.value.min)}
                 </span>
                 <span>
-                    {price.value.max}
+                    {formatPriceInIndianStyle(price.value.max)}
                 </span>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdClose } from 'react-icons/md';
-import { priceOffPercentage, reverseDateOrder } from '../../../../util/util';
+import { formatPriceInIndianStyle, priceOffPercentage, reverseDateOrder } from '../../../../util/util';
 import { fetchCart, removeItemFromCart } from '../../../../redux/Slices/cartSlice';
 import { useDispatch } from 'react-redux';
 import { deleteFromCart } from '../../../../util/api';
@@ -74,13 +74,13 @@ export default function CartItem({item}) {
                             <div className="itemContainer-base-price">
                                 <div className="itemComponents-base-price itemComponents-base-bold">
                                     <div>
-                                        ₹{item.selling_price}
+                                        ₹{formatPriceInIndianStyle(item.selling_price)}
                                     </div>
                                 </div>
                                 {item.mrp&&<div className="itemContainer-base-discountBlock">
                                     <span className="itemComponents-base-strikedAmount">
                                         <span className="itemComponents-base-price itemComponents-base-strike itemContainer-base-strikedAmount">
-                                            ₹{item.mrp}
+                                            ₹{formatPriceInIndianStyle(item.mrp)}
                                         </span>
                                         <span className="itemComponents-base-itemDiscount">{priceOffPercentage(item?.mrp, item?.selling_price)}% OFF</span>
                                     </span>

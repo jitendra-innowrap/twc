@@ -19,7 +19,7 @@ import { MdClose } from "react-icons/md";
 import LoginRegister from "./LoginRegister";
 import storage from "../../util/localStorage";
 import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
-import { priceOffPercentage } from "../../util/util";
+import { formatPriceInIndianStyle, priceOffPercentage } from "../../util/util";
 
 
 const colorsVariants =[
@@ -272,7 +272,7 @@ useEffect(() => {
                                                     {productDetails?.selling_price &&
                                                         <ins>
                                                             <span className="">
-                                                                ₹{productDetails?.selling_price}
+                                                                ₹{formatPriceInIndianStyle(productDetails?.selling_price)}
                                                             </span>
                                                             <span className="text-brand ml-10">
                                                                 {productDetails?.product_type=="2"?` ${priceOffPercentage(productDetails?.mrp, productDetails?.selling_price)}% off`:`For ${product?.rental_for_days} Days Rental`}
@@ -282,9 +282,7 @@ useEffect(() => {
                                                 </div>
                                                 <div className="product-price font-md">
                                                     {productDetails?.mrp && <ins className="mrp-price">
-                                                        MRP &nbsp;₹<span>
-                                                            {`${productDetails.mrp} `}
-                                                        </span>&nbsp;Inclusive of all taxes
+                                                        MRP &nbsp;₹<span>{`${formatPriceInIndianStyle(productDetails.mrp)}`}</span>&nbsp;Inclusive of all taxes
 
                                                     </ins>
                                                     }
