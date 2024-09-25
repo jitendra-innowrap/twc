@@ -133,8 +133,8 @@ function Account() {
                                                                             <Link className="itemContainer-base-itemLink" href={`/products/detail/${item.handle}`}>
                                                                                 <a>
                                                                                 {`${item.product_name}`}
-                                                                                {(item.option_value_1 && item.product_type =='1')? ` - ${item.option_value_1}`: ''}
-                                                                                {(item.option_value_2 && item.product_type =='1')? ` , ${item.option_value_2}`: ''}
+                                                                                {(item.product_variant_a && item.product_type =='1')? ` - ${item.product_variant_a}`: ''}
+                                                                                {(item.product_variant_b && item.product_type =='1')? ` , ${item.product_variant_b}`: ''}
                                                                                 </a>
                                                                             </Link>
                                                                         </div>
