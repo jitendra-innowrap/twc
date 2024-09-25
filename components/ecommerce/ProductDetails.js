@@ -1,4 +1,4 @@
-    import Link from "next/link";
+import Link from "next/link";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
@@ -22,7 +22,7 @@ import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSli
 import { formatPriceInIndianStyle, priceOffPercentage } from "../../util/util";
 
 
-const colorsVariants =[
+const colorsVariants = [
     "red",
     "yellow",
     "white",
@@ -35,17 +35,17 @@ const ProductDetails = ({
     product
 }) => {
     const fullUrl = typeof window !== 'undefined'
-    ? `${window.location.protocol}//${window.location.hostname}`
-    : '';
+        ? `${window.location.protocol}//${window.location.hostname}`
+        : '';
     let daysRent = 5;
     let today = new Date();
     const router = useRouter();
     const dispatch = useDispatch();
     const auth_token = storage.get("auth_token");
-    const {slug} = router.query;
+    const { slug } = router.query;
     // extracting details from the api
     const productDetails = product?.result?.[0];
-    const relatedProducts  = product?.similar_product_subcategory;
+    const relatedProducts = product?.similar_product_subcategory;
     const productGallary = product?.result?.[0]?.product_images;
     const collectionBanner = product?.product_bottom_collections?.[0];
     const [heighLightDate, setHeighLightDate] = useState(false)
@@ -54,7 +54,7 @@ const ProductDetails = ({
     const cartItems = useSelector((state) => state.cart.cartItems);
     const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
     const [rentalAvailable, setRentalAvailable] = useState({
-        isLoading:false, isAvailable:true, isError:""
+        isLoading: false, isAvailable: true, isError: ""
     });
     const [calendarStartDate, setCalendarStartDate] = useState(new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)))
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
@@ -70,41 +70,67 @@ const ProductDetails = ({
     const FixedButtons = useRef();
     const dateRef = useRef();
 
-useEffect(() => {
-    const handleScroll = () => {
-        if (relatedProductsRef.current && FixedButtons.current) {
-            const rect = relatedProductsRef.current.getBoundingClientRect();
-            const fixedButtonsHeight = FixedButtons.current.offsetHeight; // Get the height of the FixedButtons element
+    useEffect(() => {
+        const handleRouteChange = (url) => {
+            window.scrollTo(0, 0);
+            // Save scroll position before navigating away
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        };
 
-            // Check if the FixedButtons has the 'fixed-buttons' class
-            const isFixed = FixedButtons.current.classList.contains("fixed-buttons");
-            // Adjust the top position check based on whether the fixed class is applied
-            if (rect.top > window.innerHeight + (isFixed ? 0 : fixedButtonsHeight+20)) {
-                FixedButtons.current.classList.add("fixed-buttons"); // Add class when related products enter the viewport
-            } else {
-                FixedButtons.current.classList.remove("fixed-buttons"); // Remove class when related products leave the viewport
+        const handleRouteComplete = () => {
+            window.scrollTo(0, 0);
+            // Restore scroll position after navigation
+            const scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                sessionStorage.removeItem('scrollPosition');
             }
-        }
-    };
+        };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
-}, []);
+        router.events.on('routeChangeStart', handleRouteChange);
+        router.events.on('routeChangeComplete', handleRouteComplete);
+        
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+            router.events.off('routeChangeComplete', handleRouteComplete);
+        };
+    }, [router.events]);
+    
+    useEffect(() => {
+        const handleScroll = () => {
+            if (relatedProductsRef.current && FixedButtons.current) {
+                const rect = relatedProductsRef.current.getBoundingClientRect();
+                const fixedButtonsHeight = FixedButtons.current.offsetHeight; // Get the height of the FixedButtons element
+
+                // Check if the FixedButtons has the 'fixed-buttons' class
+                const isFixed = FixedButtons.current.classList.contains("fixed-buttons");
+                // Adjust the top position check based on whether the fixed class is applied
+                if (rect.top > window.innerHeight + (isFixed ? 0 : fixedButtonsHeight + 20)) {
+                    FixedButtons.current.classList.add("fixed-buttons"); // Add class when related products enter the viewport
+                } else {
+                    FixedButtons.current.classList.remove("fixed-buttons"); // Remove class when related products leave the viewport
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
 
 
     useEffect(() => {
-      setDeliveryDate()
-      setHeighLightDate(false)
-      setIsInWishlist(product?.result?.[0]?.is_user_wishlist=='1'?true:false);
-      setRentalAvailable({
-          isLoading:false, isAvailable:true, isError:""
-      })
-    }, [slug])  
-    
-    
+        window.scrollTo(0, 0);
+        setDeliveryDate()
+        setHeighLightDate(false)
+        setIsInWishlist(product?.result?.[0]?.is_user_wishlist == '1' ? true : false);
+        setRentalAvailable({
+            isLoading: false, isAvailable: true, isError: ""
+        })
+    }, [slug, router.events, router.query])
+
+
     const handleCart = async (product) => {
         if (isInCart && productDetails?.product_type == "1") {
             router.push('/shop-cart');
@@ -113,7 +139,7 @@ useEffect(() => {
                 dispatch(addItemToCart(product));
             } else {
                 setHeighLightDate(true);
-                
+
                 // Scroll the date element into view and focus on it
                 if (dateRef.current) {
                     dateRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -122,32 +148,32 @@ useEffect(() => {
             }
         }
     };
-    
-        
-        useEffect(() => {
+
+
+    useEffect(() => {
         let inCart = cartItems.filter(item => item.product_id == product?.result?.[0]?.id);
         let inWishlist = wishlistItems.filter(item => item.id == product?.result?.[0]?.id);
-        setIsInCart(inCart.length?true:false);
-        setIsInWishlist(inWishlist.length?true:false);
-        }, [router.query, handleCart])
-        
+        setIsInCart(inCart.length ? true : false);
+        setIsInWishlist(inWishlist.length ? true : false);
+    }, [router.query, handleCart])
+
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
-        if(value)
-            return(<button className="custom-date-input" onClick={onClick} ref={ref}>
+        if (value)
+            return (<button className="custom-date-input" onClick={onClick} ref={ref}>
                 {value}
             </button>)
-            else{
-            return<div onClick={onClick} className={`custom-date-input ${heighLightDate?'shake-and-highlight':''}`}>
-                <span>{rentalAvailable.isLoading?<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>:'Select Date'}</span> <i></i>
+        else {
+            return <div onClick={onClick} className={`custom-date-input ${heighLightDate ? 'shake-and-highlight' : ''}`}>
+                <span>{rentalAvailable.isLoading ? <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div> : 'Select Date'}</span> <i></i>
             </div>
-            }
+        }
     });
 
     const handleDeliveryDateChange = async (date) => {
         setHeighLightDate(false);
         let returnDate = new Date(date.getTime() + (product?.rental_for_days * 24 * 60 * 60 * 1000));
         if (productDetails?.product_type == '1') {
-            let params = { qty:1, end_date:returnDate, start_date:date, product_id:productDetails?.id }
+            let params = { qty: 1, end_date: returnDate, start_date: date, product_id: productDetails?.id }
             setRentalAvailable((prevState) => ({
                 ...prevState,
                 isLoading: true,
@@ -158,15 +184,15 @@ useEffect(() => {
                 // Call the product availability API
                 const response = await checkRentalAvailability(params)
                 // const isAvailable = response.data.isAvailable;
-                if (response?.code==1) {
+                if (response?.code == 1) {
                     setRentalAvailable((prevState) => ({
                         ...prevState,
                         isLoading: false,
                         isAvailable: true,
-                      }));
+                    }));
                     setDeliveryDate(date);
                     setReturnByDate(returnDate);
-                    
+
                 } else {
                     setDeliveryDate();
                     setReturnByDate();
@@ -175,7 +201,7 @@ useEffect(() => {
                         isLoading: false,
                         isAvailable: false,
                         isError: "The product is not available for the selected date. Please choose a different date.",
-                      }));
+                    }));
                 }
             } catch (error) {
                 console.error(error)
@@ -184,7 +210,7 @@ useEffect(() => {
                     isLoading: false,
                     isAvailable: false,
                     isError: "An error occurred while checking product availability. Please try again later.",
-                  }));
+                }));
             }
 
         } else {
@@ -194,9 +220,9 @@ useEffect(() => {
     };
 
     const handleWishlist = async (product) => {
-        if(!auth_token){
+        if (!auth_token) {
             router.push(`/page-login-register?referrerUrl=${router?.asPath}`)
-        }else{
+        } else {
             dispatch(addItemToWishlist(product));
         }
 
@@ -209,12 +235,12 @@ useEffect(() => {
             setQuantity(quantity - 1);
         }
     }
-    
+
     return (
         <>
             <section className="mt-15 mt-md-5 mb-15 mb-md-5">
                 <div className="container">
-                    {productDetails?<div className="row flex-row-reverse">
+                    {productDetails ? <div className="row flex-row-reverse">
                         <div className="col-lg-12">
                             <div className="product-detail accordion-detail">
                                 <div className="row mb-15">
@@ -275,7 +301,7 @@ useEffect(() => {
                                                                 ₹{formatPriceInIndianStyle(productDetails?.selling_price)}
                                                             </span>
                                                             <span className="text-brand ml-10">
-                                                                {productDetails?.product_type=="2"?` ${priceOffPercentage(productDetails?.mrp, productDetails?.selling_price)}% off`:`For ${product?.rental_for_days} Days Rental`}
+                                                                {productDetails?.product_type == "2" ? ` ${priceOffPercentage(productDetails?.mrp, productDetails?.selling_price)}% off` : `For ${product?.rental_for_days} Days Rental`}
                                                             </span>
                                                         </ins>
                                                     }
@@ -287,19 +313,19 @@ useEffect(() => {
                                                     </ins>
                                                     }
                                                 </div>
-                                                {productDetails?.product_type=="1" && productDetails?.deposit_amount>0 && 
-                                                <div className="product-price font-md">
-                                                    <ins className="mrp-price">
-                                                        Refundable Deposit:&nbsp;₹{productDetails?.deposit_amount}&nbsp;
-                                                        <span className="deposite-info tooltip-info expand" style={{textDecoration:'none', verticalAlign:'bottom', marginLeft:'5px'}} data-title={`A late fee of ${productDetails?.deduction_from_deposit_per_day}% will be deducted from your security deposit for each day the rental product is returned past the due date.`}> 
-                                                            <BiInfoCircle size={16} style={{transform:'translateY(-1px)'}}/>
-                                                        </span>
+                                                {productDetails?.product_type == "1" && productDetails?.deposit_amount > 0 &&
+                                                    <div className="product-price font-md">
+                                                        <ins className="mrp-price">
+                                                            Refundable Deposit:&nbsp;₹{productDetails?.deposit_amount}&nbsp;
+                                                            <span className="deposite-info tooltip-info expand" style={{ textDecoration: 'none', verticalAlign: 'bottom', marginLeft: '5px' }} data-title={`A late fee of ${productDetails?.deduction_from_deposit_per_day}% will be deducted from your security deposit for each day the rental product is returned past the due date.`}>
+                                                                <BiInfoCircle size={16} style={{ transform: 'translateY(-1px)' }} />
+                                                            </span>
 
-                                                    </ins>
-                                                </div>
+                                                        </ins>
+                                                    </div>
                                                 }
                                             </div>
-                                            {productDetails?.product_type=="2" && <div className="detail-extralink">
+                                            {productDetails?.product_type == "2" && <div className="detail-extralink">
                                                 <div className="detail-qty border radius">
                                                     <a onClick={() => { handleQuantity("remove") }} className={`qty-down ${quantity === 1 ? 'disable' : ''}`} >
                                                         <i className="fi-rs-minus-small"></i>
@@ -353,7 +379,7 @@ useEffect(() => {
                                             </div>} */}
                                             <div className="attr-detail attr-date" ref={dateRef}>
                                                 <strong className="">
-                                                    {productDetails?.product_type=="2"?"Event Date":"Delivery Date"}
+                                                    {productDetails?.product_type == "2" ? "Event Date" : "Delivery Date"}
                                                 </strong>
                                                 <ReactDatePicker
                                                     selected={deliveryDate}
@@ -364,7 +390,7 @@ useEffect(() => {
                                                     maxDate={calendarEndDate}
                                                 />
                                             </div>
-                                                {!rentalAvailable.isAvailable &&<p className="text-danger">{rentalAvailable.isError}</p>}
+                                            {!rentalAvailable.isAvailable && <p className="text-danger">{rentalAvailable.isError}</p>}
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
 
                                             <div className="detail-extralink">
@@ -393,30 +419,30 @@ useEffect(() => {
                                                                 size,
                                                                 color,
                                                                 deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
-                                                                deposit_amount:productDetails?.deposit_amount,
+                                                                deposit_amount: productDetails?.deposit_amount,
                                                                 rental_start_date: deliveryDate,
                                                                 rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
                                                             })
                                                         }
                                                         className="button button-add-to-cart"
                                                     >
-                                                        {(isInCart && productDetails?.product_type=="1") ?'Go to cart':'Add to cart'}
+                                                        {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
                                                     </button>
                                                     <a
                                                         aria-label="Add To Wishlist"
-                                                        className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist=='1'?'isInWishlist':''}`}
+                                                        className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
                                                         onClick={(e) =>
                                                             handleWishlist(
                                                                 productDetails?.id
                                                             )
                                                         }
                                                     >
-                                                        {isInWishlist?<FaHeart fill="var(--tpc-theme-primary)" />
-                                                        :<FaRegHeart fill="var(--tpc-theme-primary)" />}
+                                                        {isInWishlist ? <FaHeart fill="var(--tpc-theme-primary)" />
+                                                            : <FaRegHeart fill="var(--tpc-theme-primary)" />}
                                                     </a>
                                                     <a
                                                         aria-label="Add To Wishlist"
-                                                        className={`action-btn add-to-wishlist mobile ${productDetails?.is_user_wishlist=='1'?'isInWishlist':''}`}
+                                                        className={`action-btn add-to-wishlist mobile ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
                                                         onClick={(e) =>
                                                             handleWishlist(
                                                                 productDetails?.id
@@ -424,16 +450,16 @@ useEffect(() => {
                                                         }
                                                     >
                                                         Add To Wishlist
-                                                        {isInWishlist?<FaHeart fill="var(--tpc-theme-primary)" />
-                                                        :<FaRegHeart fill="var(--tpc-theme-primary)" />}
+                                                        {isInWishlist ? <FaHeart fill="var(--tpc-theme-primary)" />
+                                                            : <FaRegHeart fill="var(--tpc-theme-primary)" />}
                                                     </a>
-                                                    
+
                                                 </div>
                                             </div>
-                                            {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">
+                                            {productDetails?.brand_assurity.length !== 0 && <div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">
                                                 <ul>
                                                     {
-                                                        productDetails?.brand_assurity?.map((item,i)=>(
+                                                        productDetails?.brand_assurity?.map((item, i) => (
                                                             <li className="mb-10" key={i}>
                                                                 <img alt="the party cafe" src={item?.file} />
                                                                 <span>{item?.name}</span>
@@ -445,31 +471,31 @@ useEffect(() => {
                                         </div>
                                     </div>
                                 </div>
-                                    <>
-                                        <ProductTab productDetails={productDetails} />
-                                        <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
-                                            <div className="product-extra-link2">
-                                                <button
-                                                    onClick={(e) =>
-                                                        handleCart({
-                                                            product_id: productDetails?.id,
-                                                            mrp: productDetails?.mrp,
-                                                            selling_price: productDetails?.selling_price,
-                                                            qty: quantity,
-                                                            flag: 1,
-                                                            size,
-                                                            color,
-                                                            deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
-                                                            deposit_amount: productDetails?.deposit_amount,
-                                                            rental_start_date: deliveryDate,
-                                                            rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
-                                                        })
-                                                    }
-                                                    className="button button-add-to-cart"
-                                                >
-                                                    {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
-                                                </button>
-                                                {/* <a
+                                <>
+                                    <ProductTab productDetails={productDetails} />
+                                    <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
+                                        <div className="product-extra-link2">
+                                            <button
+                                                onClick={(e) =>
+                                                    handleCart({
+                                                        product_id: productDetails?.id,
+                                                        mrp: productDetails?.mrp,
+                                                        selling_price: productDetails?.selling_price,
+                                                        qty: quantity,
+                                                        flag: 1,
+                                                        size,
+                                                        color,
+                                                        deduction_from_deposit_per_day: productDetails?.deduction_from_deposit_per_day,
+                                                        deposit_amount: productDetails?.deposit_amount,
+                                                        rental_start_date: deliveryDate,
+                                                        rental_end_date: new Date(deliveryDate?.getTime() + (5 * 24 * 60 * 60 * 1000)),
+                                                    })
+                                                }
+                                                className="button button-add-to-cart"
+                                            >
+                                                {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
+                                            </button>
+                                            {/* <a
                                                     aria-label="Add To Wishlist"
                                                     className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
                                                     onClick={(e) =>
@@ -481,36 +507,36 @@ useEffect(() => {
                                                     {isInWishlist ? <FaHeart fill="var(--tpc-theme-primary)" />
                                                         : <FaRegHeart fill="var(--tpc-theme-primary)" />} Add To Wishlist
                                                 </a> */}
-                                                <a href={`https://wa.me/+919892745795/?text=Hi i'm interested in this product: 
+                                            <a href={`https://wa.me/+919892745795/?text=Hi i'm interested in this product: 
                                                                ${fullUrl}/products/detail/${productDetails?.handle}        
                                                     `}
-                                                        className="connect"
-                                                        target="_blank"
-                                                    >
-                                                        Connect With Us
-                                                        <img
-                                                            className="icon ml-0"
-                                                            alt="The Party Cafe"
-                                                            src="/assets/imgs/theme/icons/whatsapp-icon.svg"
-                                                        />
-                                                    </a>
+                                                className="connect"
+                                                target="_blank"
+                                            >
+                                                Connect With Us
+                                                <img
+                                                    className="icon ml-0"
+                                                    alt="The Party Cafe"
+                                                    src="/assets/imgs/theme/icons/whatsapp-icon.svg"
+                                                />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {relatedProducts?.length > 0 && <div className="row mt-30 mt-md-5" ref={relatedProductsRef}>
+                                        <div className="col-12">
+                                            <h3 className="section-title style-1 mb-30">
+                                                Related Products
+                                            </h3>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="row related-products position-relative">
+                                                <RelatedSlider related={relatedProducts} />
                                             </div>
                                         </div>
-                                        {relatedProducts?.length > 0 &&<div className="row mt-30 mt-md-5" ref={relatedProductsRef}>
-                                            <div className="col-12">
-                                                <h3 className="section-title style-1 mb-30">
-                                                    Related Products
-                                                </h3>
-                                            </div>
-                                            <div className="col-12">
-                                                <div className="row related-products position-relative">
-                                                    <RelatedSlider related={relatedProducts} />
-                                                </div>
-                                            </div>
-                                        </div>}
-                                        {product?.product_bottom_collections?.length>0 &&<Link href={`/collection/${collectionBanner?.collection_handle}`}>
-                                            <div className="banner-img banner-big wow fadeIn f-none animated mt-50">
-                                                <img
+                                    </div>}
+                                    {product?.product_bottom_collections?.length > 0 && <Link href={`/collection/${collectionBanner?.collection_handle}`}>
+                                        <div className="banner-img banner-big wow fadeIn f-none animated mt-50">
+                                            <img
                                                 className="border-radius-10"
                                                 src={collectionBanner?.collection_image}
                                                 alt=""
@@ -520,18 +546,18 @@ useEffect(() => {
                                                     {productDetails?.category_name}
                                                 </h4>
                                                 <h2 className="fw-600 mb-20">
-                                                   {collectionBanner?.title}
+                                                    {collectionBanner?.title}
                                                 </h2>
                                             </div>
-                                            </div>
-                                        </Link>}
-                                    </>
+                                        </div>
+                                    </Link>}
+                                </>
                             </div>
                         </div>
-                    </div>:
-                    <div className="loading-view">
-                        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                    </div>
+                    </div> :
+                        <div className="loading-view">
+                            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                        </div>
                     }
                 </div>
             </section>
