@@ -11,25 +11,41 @@ const RelatedSlider = ({related}) => {
         <>
             <Swiper
                 slidesPerView={4}
-                spaceBetween={30}
-                //loop={false}
                 breakpoints={{
                     0: {
-                      slidesPerView: 1,
+                        spaceBetween:10,
+                        slidesPerView: 1.3,
                     },
-                    380: {
-                      slidesPerView: 1.5,
+                    300: {
+                        spaceBetween:10,
+                        slidesPerView: 1.6,
+                    },
+                    375: {
+                        spaceBetween:10,
+                        slidesPerView: 1.5,
+                    },
+                    430: {
+                        spaceBetween:10,
+                      slidesPerView: 1.7,
                     },
                     480: {
-                      slidesPerView: 2,
+                      spaceBetween:10,
+                      slidesPerView: 1.9,
+                    },
+                    500: {
+                        spaceBetween:20,
+                      slidesPerView: 1.8,
                     },
                     768: {
+                        spaceBetween:30,
                       slidesPerView: 3,
                     },
                     1024: {
                       slidesPerView: 4,
                     },
                   }}
+                spaceBetween={30}
+                //loop={false}
                 navigation={{
                     prevEl: ".custom_prev_n",
                     nextEl: ".custom_next_n",
