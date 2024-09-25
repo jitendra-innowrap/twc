@@ -71,6 +71,31 @@ const ProductDetails = ({
     const dateRef = useRef();
 
     useEffect(() => {
+        const handleRouteChange = (url) => {
+            window.scrollTo(0, 0);
+            // Save scroll position before navigating away
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        };
+
+        const handleRouteComplete = () => {
+            window.scrollTo(0, 0);
+            // Restore scroll position after navigation
+            const scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                sessionStorage.removeItem('scrollPosition');
+            }
+        };
+
+        router.events.on('routeChangeStart', handleRouteChange);
+        router.events.on('routeChangeComplete', handleRouteComplete);
+        
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+            router.events.off('routeChangeComplete', handleRouteComplete);
+        };
+    }, [router.events]);
+    
+    useEffect(() => {
         const handleScroll = () => {
             if (relatedProductsRef.current && FixedButtons.current) {
                 const rect = relatedProductsRef.current.getBoundingClientRect();
@@ -96,13 +121,14 @@ const ProductDetails = ({
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setDeliveryDate()
         setHeighLightDate(false)
         setIsInWishlist(product?.result?.[0]?.is_user_wishlist == '1' ? true : false);
         setRentalAvailable({
             isLoading: false, isAvailable: true, isError: ""
         })
-    }, [slug])
+    }, [slug, router.events, router.query])
 
 
     const handleCart = async (product) => {

@@ -61,6 +61,7 @@ const Products = () => {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if(slug){
         fetchProductList();
         setCurrentPage(page||1);
