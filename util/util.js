@@ -1,6 +1,20 @@
 import { TbArrowUp } from "react-icons/tb";
 import storage from "./localStorage";
 
+export function formatPriceInIndianStyle(price) {
+  /** Format the price to Indian style with commas as thousand separators. */
+  const [integerPart, decimalPart] = price.toString().split(".");
+  
+  // Format the integer part according to Indian numbering system
+  const lastThreeDigits = integerPart.slice(-3);
+  const otherDigits = integerPart.slice(0, -3);
+  
+  const formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
+  
+  // Combine the formatted integer part with decimal part if it exists
+  return decimalPart ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
+}
+
 export function getYouTubeThumbnail(videoUrl) {
   // Create a URL object from the input videoUrl
   const url = new URL(videoUrl);

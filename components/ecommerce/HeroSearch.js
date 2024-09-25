@@ -82,7 +82,7 @@ const HeroSearch = () => {
                 <button className="btn search-btn">Search Now</button>
                 {searchTerm.length > 0 &&<ul className={`${openSearchList && 'open'} custom-scrollbar`}>
                     {searchList?.map((item, index)=>{
-                        return<li onClick={()=>{handleSearch(item?.handle)}}>
+                        return<li onClick={()=>{handleSearch(item?.handle)}} key={item?.id}>
                         <div className={`search-item $ ${highlightedIndex===index?'highlighted':''}`}>
                             <img 
                                 width={32}

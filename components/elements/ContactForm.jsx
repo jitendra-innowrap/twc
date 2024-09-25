@@ -161,7 +161,8 @@ const ContactForm = () => {
                             placeholder="Your Phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            type="text"
+                            inputMode='numeric'
+                            type="tel"
                             className='form-control'
                         />
                         <p className="errorContainer text-start">{formError.phone}</p>

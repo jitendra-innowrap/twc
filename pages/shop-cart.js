@@ -191,6 +191,7 @@ const Cart = () => {
             return;
         }
         setIsLoading(true);
+        const paymentWindow = window.open('', '_blank', 'width=800,height=600');
         const transactionId = generateRandomTransactionId();
         const transactionType = 1;
         let body = {
@@ -204,7 +205,7 @@ const Cart = () => {
             const res = await createPaymentLink(body);
             if (res.code === 1) {
                 // Open the payment link in a new popup window
-                const paymentWindow = window.open(res.payment_link, '_blank', 'width=800,height=600');
+                paymentWindow.location.href = res.payment_link;
                 // Start polling for payment status
                 startPollingPaymentStatus(res.orderId, paymentWindow);
             } else {

@@ -30,6 +30,7 @@ export default function Location({ cities }) {
                 <i className="fi-rs-angle-small-down"></i>
             </a>}
             modal
+            className='location'
             lockScroll
             position="right center"
         >

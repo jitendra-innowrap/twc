@@ -19,7 +19,7 @@ import { MdClose } from "react-icons/md";
 import LoginRegister from "./LoginRegister";
 import storage from "../../util/localStorage";
 import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
-import { priceOffPercentage } from "../../util/util";
+import { formatPriceInIndianStyle, priceOffPercentage } from "../../util/util";
 
 
 const colorsVariants =[
@@ -272,7 +272,7 @@ useEffect(() => {
                                                     {productDetails?.selling_price &&
                                                         <ins>
                                                             <span className="">
-                                                                ₹{productDetails?.selling_price}
+                                                                ₹{formatPriceInIndianStyle(productDetails?.selling_price)}
                                                             </span>
                                                             <span className="text-brand ml-10">
                                                                 {productDetails?.product_type=="2"?` ${priceOffPercentage(productDetails?.mrp, productDetails?.selling_price)}% off`:`For ${product?.rental_for_days} Days Rental`}
@@ -282,9 +282,7 @@ useEffect(() => {
                                                 </div>
                                                 <div className="product-price font-md">
                                                     {productDetails?.mrp && <ins className="mrp-price">
-                                                        MRP &nbsp;₹<span>
-                                                            {`${productDetails.mrp} `}
-                                                        </span>&nbsp;Inclusive of all taxes
+                                                        MRP &nbsp;₹<span>{`${formatPriceInIndianStyle(productDetails.mrp)}`}</span>&nbsp;Inclusive of all taxes
 
                                                     </ins>
                                                     }
@@ -416,6 +414,20 @@ useEffect(() => {
                                                         {isInWishlist?<FaHeart fill="var(--tpc-theme-primary)" />
                                                         :<FaRegHeart fill="var(--tpc-theme-primary)" />}
                                                     </a>
+                                                    <a
+                                                        aria-label="Add To Wishlist"
+                                                        className={`action-btn add-to-wishlist mobile ${productDetails?.is_user_wishlist=='1'?'isInWishlist':''}`}
+                                                        onClick={(e) =>
+                                                            handleWishlist(
+                                                                productDetails?.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Add To Wishlist
+                                                        {isInWishlist?<FaHeart fill="var(--tpc-theme-primary)" />
+                                                        :<FaRegHeart fill="var(--tpc-theme-primary)" />}
+                                                    </a>
+                                                    
                                                 </div>
                                             </div>
                                             {productDetails?.brand_assurity.length !==0  &&<div className="product-meta brand-assurity-icons mt-50 font-xs mb-10">
@@ -457,7 +469,7 @@ useEffect(() => {
                                                 >
                                                     {(isInCart && productDetails?.product_type == "1") ? 'Go to cart' : 'Add to cart'}
                                                 </button>
-                                                <a
+                                                {/* <a
                                                     aria-label="Add To Wishlist"
                                                     className={`action-btn add-to-wishlist ${productDetails?.is_user_wishlist == '1' ? 'isInWishlist' : ''}`}
                                                     onClick={(e) =>
@@ -468,7 +480,20 @@ useEffect(() => {
                                                 >
                                                     {isInWishlist ? <FaHeart fill="var(--tpc-theme-primary)" />
                                                         : <FaRegHeart fill="var(--tpc-theme-primary)" />} Add To Wishlist
-                                                </a>
+                                                </a> */}
+                                                <a href={`https://wa.me/+919892745795/?text=Hi i'm interested in this product: 
+                                                               ${fullUrl}/products/detail/${productDetails?.handle}        
+                                                    `}
+                                                        className="connect"
+                                                        target="_blank"
+                                                    >
+                                                        Connect With Us
+                                                        <img
+                                                            className="icon ml-0"
+                                                            alt="The Party Cafe"
+                                                            src="/assets/imgs/theme/icons/whatsapp-icon.svg"
+                                                        />
+                                                    </a>
                                             </div>
                                         </div>
                                         {relatedProducts?.length > 0 &&<div className="row mt-30 mt-md-5" ref={relatedProductsRef}>

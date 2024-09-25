@@ -156,6 +156,7 @@ export default function FiltersMobile({ sub_categories, filterOpen, toggleFilter
                                 onChange={(date) => 
                                     handleDate(date)
                                 }
+                                popperPlacement="top"
                                 customInput={<ExampleCustomInput />}
                                 minDate={calendarStartDate}
                                 maxDate={calendarEndDate}

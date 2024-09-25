@@ -42,8 +42,8 @@ export default function Home() {
 
     return (
         <>
+            <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
             {data ?
-                <Layout classList="revised" noBreadcrumb="d-none" headerStyle="header-style-1">
                     <>
                         <ScrollToTop smooth component={<ScrollTopSvg/>} />
                         <section className="home-slider position-relative">
@@ -142,7 +142,7 @@ export default function Home() {
                             </div>
                         </section>
 
-                        {true && <section className="section-padding popular-categories usp-section blog-section pt-0">
+                        {data?.blogs.length > 0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
                                 <div className="section-head d-flex flex-column align-items-center w-100">
@@ -282,10 +282,10 @@ export default function Home() {
 
 
                     </>
-                </Layout>
                 :
                 <Preloader />
             }
+            </Layout>
         </>
     );
 }

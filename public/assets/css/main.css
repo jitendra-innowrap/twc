@@ -3830,7 +3830,7 @@ table .product-thumbnail img {
   background-color: #fff;
   padding: 0;
   overflow: hidden;
-  max-height: 320px;
+  max-height: 410px;
 }
 
 .product-cart-wrap .product-img-action-wrap .product-img {
@@ -3849,7 +3849,7 @@ table .product-thumbnail img {
 .product-cart-wrap .product-img-action-wrap .product-img a img {
   width: 100%;
   border-radius: 0;
-  height: 300px;
+  height: 410px;
   object-fit: cover;
 }
 
@@ -4012,16 +4012,16 @@ table .product-thumbnail img {
 
 .product-cart-wrap .product-badges.product-badges-position {
   position: absolute;
-  left: 20px;
-  top: 19px;
-  z-index: 9;
+  left: 5px;
+  bottom: 2px;
+  z-index: 5;
 }
 
 .product-cart-wrap .product-badges span {
   display: inline-block;
-  font-size: 12px;
+  font-size: 9px;
   line-height: 1;
-  border-radius: 40px;
+  border-radius: 2px;
   color: #fff;
   padding: 5px 10px;
   height: fit-content;
@@ -4031,9 +4031,7 @@ table .product-thumbnail img {
   margin-right: 0px;
 }
 
-.product-cart-wrap .product-badges span.hot {
-  background-color: var(--tpc-theme-primary-light-2);
-}
+
 
 .product-cart-wrap .product-badges span.new {
   background-color: #99bbad;
@@ -4046,11 +4044,13 @@ table .product-thumbnail img {
 .product-cart-wrap .product-badges span.best {
   background-color: #ffab73;
 }
-
-.product-cart-wrap .product-content-wrap {
-  padding: 0 20px 15px 20px;
+.product-cart-wrap .product-badges span.hot {
+  background-color: var(--tpc-theme-primary-light-2);
 }
 
+.product-cart-wrap .product-content-wrap {
+  padding: 8px 5px;
+}
 .product-cart-wrap .product-content-wrap .product-category {
   /* margin-bottom: 5px; */
 }
@@ -6718,7 +6718,7 @@ h6.post-title {
   -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   -webkit-transform: translate(200px, 0);
-  transform: translate(200px, 0);
+  transform: translate(100%, 0);
   background-color: #ffffff;
   -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
@@ -13166,12 +13166,27 @@ input[type="checkbox"]:hover{
 .detail-extralink.mobile-buttons-style{
   display: none;
 }
+.detail-extralink .action-btn.add-to-wishlist.mobile{
+  display: none;
+}
 @media (max-width:575px){
   .client-icons-grid {
     display: grid;
     grid-template-columns: 1fr 1fr ;
 }
-
+.detail-info .detail-extralink .product-extra-link2 a.connect{
+  display: none !important;
+}
+.detail-extralink .action-btn.add-to-wishlist.mobile{
+    flex: 1 1;
+    width: unset;
+    border: 1px solid rgba(0, 19, 37, 0.16);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 0;
+}
 .rental-category{
   height: 300px;
 }
@@ -13211,6 +13226,7 @@ input[type="checkbox"]:hover{
 .detail-extralink.mobile-buttons-style .product-extra-link2{
   width: 100%;
   justify-content: space-between;
+  flex-direction: row-reverse;
   display: flex;
 }
 .detail-extralink.mobile-buttons-style .button.button-add-to-cart{
@@ -13219,13 +13235,17 @@ input[type="checkbox"]:hover{
   padding: 9px;
   margin: 0;
 }
-.detail-extralink.mobile-buttons-style a.add-to-wishlist{
+.detail-extralink.mobile-buttons-style a.connect{
   margin: 0;
   display: flex;
   width: 48%;
   justify-content: center;
   align-items: center;
   gap: 8px;
+}
+.detail-extralink.mobile-buttons-style a.connect img{
+  width: 20px;
+  margin-left: 10px;
 }
 
 .detail-info .product-price ins{
@@ -13571,35 +13591,43 @@ main.login_page{
 }
 
 /******************************** Location Pop UP Screen ***********************************/
-
+.popup-content.location-content{
+  margin-top: 140px !important;
+}
 .location-container{
-  width: 100vw;
-  height: 100vh;
-  background: #000000d9;
+  width: 80vw;
+  /* height: 300px; */
+  background: #f7f8f9;
   overflow: auto;
+  padding: 20px;
+  max-width: 900px;
+  position: relative;
 }
 .location-container .section-close{
   text-align: right;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 .location-container .location-wrapper{
-  max-width: 720px;
   margin-inline: auto;
   color: #fff;
 }
 .location-wrapper .title{
-  color: #fff;
-  padding: 30px;
+  color: #000;
+  padding-bottom: 20px;
+  font-size: 14px;
 }
 .location-container .location-wrapper .city-layout{
   flex-wrap: wrap;
 }
 .location-container .location-wrapper .city-layout .city-card{
-  padding: 20px 40px;
+  padding: 20px 20px;
 }
 .location-container .location-wrapper .city-layout .city-card .city-image{
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   /* overflow: hidden; */
   cursor: pointer;
 }
@@ -13610,6 +13638,7 @@ main.login_page{
 .location-container .location-wrapper .city-layout .city-card .city-image .check svg{
   background-color: #fff;
   border-radius: 50%;
+  color: var(--tpc-theme-primary) !important;
   width: 20px;
   height: 20px;
 }
@@ -13618,10 +13647,11 @@ main.login_page{
   cursor: pointer;
   text-align: center;
   margin-top: 10px;
+  color: #000;
 }
 .location-container .location-wrapper .city-layout .city-card.selected .city-name{
   cursor: pointer;
-  color: #03a685;
+  color: var(--tpc-theme-primary);
   text-align: center;
   margin-top: 10px;
 }
@@ -13787,6 +13817,12 @@ main .section-head .heading::after {
     .magnify-image {
       max-height: 575px;
     }
+    /* .main-menu>nav>ul>li ul.mega-menu{
+      padding: 15px;
+    }
+    .main-menu>nav>ul>li ul.mega-menu li a.menu-title{
+      font-size: 18px;
+    } */
   }
 
   @media only screen and (max-width:1200px) {
@@ -13801,6 +13837,10 @@ main .section-head .heading::after {
   }
 
 @media only screen and (max-width: 991px) {
+  .product-detail .tab-content {
+    max-width: 100vw;
+    overflow: hidden;
+  }
   .magnify-image {
     max-height: 440px;
   }
@@ -14343,8 +14383,8 @@ p{
 }
 .product-cart-wrap .product-badges.product-badges-position {
   position: absolute;
-  left: 16px;
-  top: 14px;
+  left: 10px;
+  bottom: 5px;
   z-index: 9;
 }
 .product-cart-wrap .product-content-wrap .product-price span {
@@ -14356,7 +14396,8 @@ p{
   font-size: 12px;
 }
 .product-cart-wrap .product-img-action-wrap .product-img a img{
-  height: 200px;
+  height: 300px;
+  max-height: 330px;
 }
 
 .product-cart-wrap .delete-icon{

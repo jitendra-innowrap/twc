@@ -190,6 +190,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
                 name="mobile"
                 maxLength={10}
                 type="text"
+                inputMode='numeric'
                 value={address.mobile}
                 onChange={handleInputChange}
                 />
@@ -241,6 +242,7 @@ export default function EditAddress({ close , currentAddress, fetchAddressList})
                 name="pincode"
                 type="text"
                 maxLength={6}
+                inputMode='numeric'
                 value={address.pincode}
                 onChange={handleInputChange}
                 />

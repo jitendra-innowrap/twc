@@ -4,6 +4,7 @@ import { connect, useDispatch } from "react-redux";
 import { Bounce, toast } from "react-toastify";
 import Loader from './../elements/Loader';
 import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
+import { formatPriceInIndianStyle } from "../../util/util";
 
 
 const SingleProduct = ({product, deleteWishList}) => {
@@ -78,8 +79,8 @@ const SingleProduct = ({product, deleteWishList}) => {
                             </Link>
                     </h2>
                     <div className="product-price">
-                        <span>₹{product.selling_price} </span>
-                        <span className="old-price">{product?.mrp ? `₹ ${product?.mrp}`:null}</span>
+                        <span>₹{formatPriceInIndianStyle(product.selling_price)} </span>
+                        <span className="old-price">{product?.mrp ? `₹${formatPriceInIndianStyle(product?.mrp)}`:null}</span>
                     </div>
                 </div>
             </div>
