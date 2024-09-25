@@ -134,7 +134,7 @@ function Account() {
                                                                                 <a>
                                                                                 {`${item.product_name}`}
                                                                                 {(item.option_value_1 && item.product_type =='1')? ` - ${item.option_value_1}`: ''}
-                                                                                {(item.color && item.product_type =='1')? ` , ${item.color}`: ''}
+                                                                                {(item.option_value_2 && item.product_type =='1')? ` , ${item.option_value_2}`: ''}
                                                                                 </a>
                                                                             </Link>
                                                                         </div>
