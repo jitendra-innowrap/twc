@@ -2218,7 +2218,7 @@ label {
   height: 45px;
   position: absolute;
   display: block;
-  z-index: 100;
+  z-index: 1;
   border-radius: 50%;
   border: 1px solid var(--tpc-theme-primary-light-2);
   -webkit-transition: all .2s ease-out;
@@ -4509,7 +4509,7 @@ table .product-thumbnail img {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 99;
+  z-index: 9;
   right: 0;
   padding: 16px 0 21px;
   background: #fff;
@@ -6327,7 +6327,7 @@ h6.post-title {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 99;
   left: 0;
   -webkit-transition: all .3s ease 0s;
   transition: all .3s ease 0s;
@@ -6501,7 +6501,7 @@ h6.post-title {
   background-color: white;
   -webkit-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
-  z-index: 99999;
+  z-index: 100;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6693,7 +6693,7 @@ h6.post-title {
   visibility: hidden;
   width: 100%;
   cursor: crosshair;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .mobile-menu-active .body-overlay-1 {
@@ -6722,7 +6722,7 @@ h6.post-title {
   background-color: #ffffff;
   -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.09);
-  z-index: 99999;
+  z-index: 999;
 }
 
 .mobile-header-wrapper-style .mobile-header-wrapper-inner {
@@ -13655,10 +13655,7 @@ main.login_page{
   color: #000;
 }
 .location-container .location-wrapper .city-layout .city-card.selected .city-name{
-  cursor: pointer;
   color: var(--tpc-theme-primary);
-  text-align: center;
-  margin-top: 10px;
 }
 .location-container .location-wrapper .city-layout .city-card .check{
   position: absolute;
@@ -14163,7 +14160,21 @@ main .section-head.flex-start .heading {
 
 
 @media only screen and (max-width: 768px) {
-  
+  .location-container .location-wrapper .city-layout{
+    max-height: 60vh;
+    overflow: auto;
+    justify-content: center;
+  }
+  .location-container .location-wrapper .city-layout .city-card{
+    padding: 10px 10px;
+  }
+  .location-container .location-wrapper .city-layout .city-card .city-image{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    /* overflow: hidden; */
+    cursor: pointer;
+  }
   main .section-head .heading h2{
     font-size: 52px;
 }
@@ -14259,6 +14270,35 @@ main .section-head .heading::before {
 }
 
 @media only screen and (max-width: 575px) {
+  .popup-content.location-content{
+    margin-block: auto !important;
+  }
+  .location-container{
+    width: 90vw;
+    padding: 10px;
+  }
+  .location-container .section-close {
+    top: 2px;
+    right: 2px;
+  }
+  .location-wrapper .title {
+    padding-bottom: 10px;
+  }
+  .location-container .location-wrapper .city-layout{
+    max-height: 60vh;
+    overflow: auto;
+    justify-content: center;
+  }
+  .location-container .location-wrapper .city-layout .city-card{
+    padding: 10px 10px;
+  }
+  .location-container .location-wrapper .city-layout .city-card .city-image{
+    width: 60px;
+    height: 60px;
+  }
+  .location-container .location-wrapper .city-layout .city-card .city-name{
+    margin-top: 2px;
+  }
   .team-card{
     width: 100%;
     max-width: 125px;

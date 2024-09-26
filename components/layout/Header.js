@@ -90,9 +90,7 @@ const Header = ({
                                 <div className="header-info header-info-left">
                                     <ul>
                                         <li>
-                                            <Link href="/#">
-                                                <Location cities={headerData?.region_data} />
-                                            </Link>
+                                            <Location cities={headerData?.region_data} />
                                         </li>
                                     </ul>
                                 </div>
@@ -153,8 +151,6 @@ const Header = ({
                                         <ul className="menu-links">
                                             {
                                                 result?.map((menu, i)=>(
-                                                    <>
-                                                    
                                                     <li className="position-relative" key={menu?.id}>
                                                         <a className="text-black" style={{cursor:'default'}}>
                                                             <span className="cursor_pointer"
@@ -200,7 +196,6 @@ const Header = ({
                                                             }
                                                         </ul>}
                                                     </li>
-                                                    </>
                                                 ))
                                             }
                                             <li className="position-static">
