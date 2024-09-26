@@ -32,7 +32,7 @@ const colorsVariants = [
     "purple"
 ];
 const ProductDetails = ({
-    product
+    product, 
 }) => {
     const fullUrl = typeof window !== 'undefined'
         ? `${window.location.protocol}//${window.location.hostname}`
@@ -60,10 +60,10 @@ const ProductDetails = ({
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [deliveryDate, setDeliveryDate] = useState();
     const [returnByDate, setReturnByDate] = useState();
-    let productSizes = ['S', 'M', 'L', 'XL', 'XXL'];
     const [quantity, setQuantity] = useState(1);
-    const [color, setColor] = useState("red");
-    const [size, setSize] = useState("S");
+    const { _color, _size } = router.query;
+    const [color, setColor] = useState(_color);
+    const [size, setSize] = useState(_size);
     // const [FixedButtons, setFixedButtons] = useState(true);
     const relatedProductsRef = useRef();
 
@@ -130,7 +130,18 @@ const ProductDetails = ({
         })
     }, [slug, router.events, router.query])
 
-
+    useEffect(() => {
+      setDefaultVariants();
+    }, [productDetails])
+    
+    const setDefaultVariants = () =>{
+        if (product?.result?.[0]?.product_type=="1" && product?.result?.[0]?.option_name_1 == "Size"){
+            setSize(_size || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
+        }
+        if (product?.result?.[0]?.product_type=="1" && product?.result?.[0]?.option_name_2 == "Color"){
+            setColor(_color || product?.result?.[0]?.product_variants_2?.[0]?.option_value_2)
+        }
+    }
     const handleCart = async (product) => {
         if (isInCart && productDetails?.product_type == "1") {
             router.push('/shop-cart');
@@ -339,44 +350,50 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            {/* {productDetails?.product_type=="1" && <div className="attr-detail attr-size mb-15">
+                                            {productDetails?.product_type=="1" && productDetails?.option_name_2=="Color" && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
                                                     Color
                                                 </strong>
                                                 <ul className="list-filter">
-                                                    {colorsVariants.map(
+                                                    {productDetails?.product_variants_2?.map(
                                                         (clr, i) => (
-                                                            <li key={i} className={clr === color ? 'active' : ''}>
+                                                            <li key={i} className={clr?.option_value_2 === color ? 'active' : ''}>
                                                                 <a href="#" onClick={(e) => {
                                                                     e.preventDefault();
-                                                                    setColor(clr);
+                                                                    setColor(clr?.option_value_2);
+                                                                    router.replace({
+                                                                        query: { ...router.query, _color:clr?.option_value_2 },
+                                                                        });
                                                                 }}>
-                                                                    {clr}
+                                                                    {clr?.option_value_2}
                                                                 </a>
                                                             </li>
                                                         )
                                                     )}
                                                 </ul>
                                             </div>}
-                                            {productDetails?.product_type=="1" && <div className="attr-detail attr-size mt-15 mb-15">
+                                            {productDetails?.product_type=="1" && productDetails?.option_name_1 == "Size" && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
                                                     Size
                                                 </strong>
                                                 <ul className="list-filter">
-                                                    {productSizes.map(
+                                                    {productDetails?.product_variants_1?.map(
                                                         (s, i) => (
-                                                            <li key={i} className={s === size ? 'active' : ''}>
+                                                            <li key={i} className={s?.option_value_1 === size ? 'active' : ''}>
                                                                 <a href="#" onClick={(e) => {
                                                                     e.preventDefault();
-                                                                    setSize(s);
+                                                                    setSize(s?.option_value_1);
+                                                                    router.replace({
+                                                                        query: { ...router.query, _size:s?.option_value_1 },
+                                                                        });
                                                                 }}>
-                                                                    {s}
+                                                                    {s?.option_value_1}
                                                                 </a>
                                                             </li>
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>} */}
+                                            </div>}
                                             <div className="attr-detail attr-date" ref={dateRef}>
                                                 <strong className="">
                                                     {productDetails?.product_type == "2" ? "Event Date" : "Delivery Date"}

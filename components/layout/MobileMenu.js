@@ -14,6 +14,7 @@ import Logout from "../ecommerce/Dashboard/Logout/Logout";
 import { CiFacebook } from "react-icons/ci";
 import { useMediaQuery } from "react-responsive";
 import { AiOutlineYoutube } from "react-icons/ai";
+import Location from "../ecommerce/Header/Location";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
     const isTab = useMediaQuery({
@@ -177,6 +178,9 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     <Link href="tel:18002127338">
                                         <a>1800 2127 338</a>
                                     </Link>
+                                </div>
+                                <div className="single-mobile-header-info">
+                                   <Location cities={headerData?.region_data} closeSidebar={toggleClick} />
                                 </div>
                             </div>
                             <div className="mobile-social-icon">
