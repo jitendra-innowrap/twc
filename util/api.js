@@ -228,8 +228,8 @@ export const getProductDetails = async ({ handle, option_value_1, option_value_2
     // Create a new FormData object
     const formData = new FormData();
     formData.append('handle', handle);
-    formData.append('option_value_1', option_value_1);
-    formData.append('option_value_2', option_value_2);
+    option_value_1 && formData.append('option_value_1', option_value_1)
+    option_value_2 && formData.append('option_value_2', option_value_2);
     
     const auth_token = getToken();
     const web_token = storage.get("web_token")
@@ -1073,8 +1073,8 @@ rental_end_date
   formData.append('product_id', product_id);
   formData.append('qty', qty);
   formData.append('mrp', mrp);
-  formData.append('size', size);
-  formData.append('color', color);
+  size && formData.append('size', size);
+  color && formData.append('color', color);
   formData.append('selling_price', selling_price);
   formData.append('action', '1');
   formData.append('flag', '1');
