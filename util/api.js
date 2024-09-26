@@ -1073,8 +1073,8 @@ rental_end_date
   formData.append('product_id', product_id);
   formData.append('qty', qty);
   formData.append('mrp', mrp);
-  formData.append('size', size);
-  formData.append('color', color);
+  size && formData.append('size', size);
+  color && formData.append('color', color);
   formData.append('selling_price', selling_price);
   formData.append('action', '1');
   formData.append('flag', '1');
