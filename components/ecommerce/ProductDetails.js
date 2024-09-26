@@ -109,10 +109,10 @@ const ProductDetails = ({
     }, [productDetails])
     
     const setDefaultVariants = () =>{
-        if (product?.result?.[0]?.product_type=="1" && product?.result?.[0]?.option_name_1 == "Size"){
+        if (product?.result?.[0]?.option_name_1){
             setSize(_size || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
         }
-        if (product?.result?.[0]?.product_type=="1" && product?.result?.[0]?.option_name_2 == "Color"){
+        if (product?.result?.[0]?.option_name_2){
             setColor(_color || product?.result?.[0]?.product_variants_2?.[0]?.option_value_2)
         }
     }
@@ -324,9 +324,9 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            {productDetails?.product_type=="1" && productDetails?.option_name_2=="Color" && <div className="attr-detail attr-size mt-15 mb-15">
+                                            {productDetails?.option_name_2 && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
-                                                    Color
+                                                    {productDetails?.option_name_2}
                                                 </strong>
                                                 <ul className="list-filter">
                                                     {productDetails?.product_variants_2?.map(
@@ -346,9 +346,9 @@ const ProductDetails = ({
                                                     )}
                                                 </ul>
                                             </div>}
-                                            {productDetails?.product_type=="1" && productDetails?.option_name_1 == "Size" && <div className="attr-detail attr-size mt-15 mb-15">
+                                            {productDetails?.option_name_1 && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
-                                                    Size
+                                                    {productDetails?.option_name_1}
                                                 </strong>
                                                 <ul className="list-filter">
                                                     {productDetails?.product_variants_1?.map(
