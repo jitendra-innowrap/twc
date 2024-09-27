@@ -61,9 +61,9 @@ const ProductDetails = ({
     const [deliveryDate, setDeliveryDate] = useState();
     const [returnByDate, setReturnByDate] = useState();
     const [quantity, setQuantity] = useState(1);
-    const { _color, _size } = router.query;
-    const [color, setColor] = useState(_color);
-    const [size, setSize] = useState(_size);
+    const { _v2, _v1 } = router.query;
+    const [size, setSize] = useState(_v1);
+    const [color, setColor] = useState(_v2);
     // const [FixedButtons, setFixedButtons] = useState(true);
     const relatedProductsRef = useRef();
 
@@ -110,10 +110,10 @@ const ProductDetails = ({
     
     const setDefaultVariants = () =>{
         if (product?.result?.[0]?.option_name_1){
-            setSize(_size || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
+            setSize(_v1 || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
         }
         if (product?.result?.[0]?.option_name_2){
-            setColor(_color || product?.result?.[0]?.product_variants_2?.[0]?.option_value_2)
+            setColor(_v2 || product?.result?.[0]?.product_variants_2?.[0]?.option_value_2)
         }
     }
     const handleCart = async (product) => {
@@ -275,9 +275,7 @@ const ProductDetails = ({
                                             <div className="sub-category">
                                                 <span>{productDetails?.name}</span>
                                             </div>
-                                            {/* <h2 className="title-detail">
-                                            
-                                            </h2> */}
+                                            {/* <h2 className="title-detail"></h2> */}
                                             <div className="c   learfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     {productDetails?.selling_price &&
@@ -324,28 +322,6 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            {productDetails?.option_name_2 && <div className="attr-detail attr-size mt-15 mb-15">
-                                                <strong className="mr-10">
-                                                    {productDetails?.option_name_2}
-                                                </strong>
-                                                <ul className="list-filter">
-                                                    {productDetails?.product_variants_2?.map(
-                                                        (clr, i) => (
-                                                            <li key={i} className={clr?.option_value_2 === color ? 'active' : ''}>
-                                                                <a href="#" onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    setColor(clr?.option_value_2);
-                                                                    router.replace({
-                                                                        query: { ...router.query, _color:clr?.option_value_2 },
-                                                                        });
-                                                                }}>
-                                                                    {clr?.option_value_2}
-                                                                </a>
-                                                            </li>
-                                                        )
-                                                    )}
-                                                </ul>
-                                            </div>}
                                             {productDetails?.option_name_1 && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
                                                     {productDetails?.option_name_1}
@@ -358,7 +334,7 @@ const ProductDetails = ({
                                                                     e.preventDefault();
                                                                     setSize(s?.option_value_1);
                                                                     router.replace({
-                                                                        query: { ...router.query, _size:s?.option_value_1 },
+                                                                        query: { ...router.query, _v1:s?.option_value_1 },
                                                                         });
                                                                 }}>
                                                                     {s?.option_value_1}
@@ -368,6 +344,30 @@ const ProductDetails = ({
                                                     )}
                                                 </ul>
                                             </div>}
+
+                                            {productDetails?.option_name_2 && <div className="attr-detail attr-size mt-15 mb-15">
+                                                <strong className="mr-10">
+                                                    {productDetails?.option_name_2}
+                                                </strong>
+                                                <ul className="list-filter">
+                                                    {productDetails?.product_variants_2?.map(
+                                                        (clr, i) => (
+                                                            <li key={i} className={clr?.option_value_2 === color ? 'active' : ''}>
+                                                                <a href="#" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setColor(clr?.option_value_2);
+                                                                    router.replace({
+                                                                        query: { ...router.query, _v2:clr?.option_value_2 },
+                                                                        });
+                                                                }}>
+                                                                    {clr?.option_value_2}
+                                                                </a>
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            </div>}
+
                                             <div className="attr-detail attr-date" ref={dateRef}>
                                                 <strong className="">
                                                     {productDetails?.product_type == "2" ? "Event Date" : "Delivery Date"}
