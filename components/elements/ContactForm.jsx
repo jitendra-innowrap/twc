@@ -21,10 +21,20 @@ const ContactForm = () => {
     })
 
     const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        if(e.target.name == "phone"){
+            const { value } = e.target;
+          // Filter out non-numeric characters and limit to maxLength
+            const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+            setFormData({
+                ...formData,
+                [e.target.name]: numericValue,
+            });   
+        }else{
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value,
+            });
+        }
         setFormError({
             ...formError,
             [e.target.name]: "",
