@@ -911,16 +911,20 @@ export const addContactUs = async ({email, name, mobile, subject, message}) => {
   }
 }
 
-export const checkRentalAvailability = async ({qty,end_date,start_date,product_id}) => {
-
+export const checkRentalAvailability = async ({qty,end_date,start_date,product_id, flag}) => {
   const auth_token = getToken();
   const web_token = storage.get("web_token")
     // Create a new FormData object
   const formData = new FormData();
-  formData.append('product_id', product_id);
-  formData.append('start_date', clipDateOnly(start_date));
-  formData.append('end_date', clipDateOnly(end_date));
-  formData.append('qty', qty);
+  product_id && formData.append('product_id', product_id);
+  start_date && formData.append('start_date', clipDateOnly(start_date));
+  end_date && formData.append('end_date', clipDateOnly(end_date));
+  qty && formData.append('qty', qty);
+  formData.append('flag', flag?"2":"1");
+  auth_token ? formData.append('auth_token', auth_token) : formData.append('jwt', web_token);
+
+
+
   try {
     const response = await axios.post(
       `${baseURL}/Transaction/checkRentalAvailability`,
