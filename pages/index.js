@@ -30,7 +30,7 @@ export default function Home() {
         try {
             const res = await getHomeDetails();
             if (res?.code === 1) {
-                setData(res.home_data_list);
+                setData(res?.home_data_list);
             } else {
                 console.error('Error !', res?.msg)
             }
@@ -53,7 +53,7 @@ export default function Home() {
                             <img src="/assets/imgs/banner/home-banner.png" alt="" style={{ width: '100%', height: 'auto', cursor: 'pointer' }} />
                         </section> */}
 
-                        <section className="popular-categories section-padding">
+                        {data?.top_category?.length > 0 && <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
@@ -70,9 +70,9 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        <section className="popular-categories section-padding">
+                        {data?.quality_rentals?.length > 0 && <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
@@ -89,9 +89,9 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        <section className="popular-categories section-padding">
+                        {data?.packages?.length > 0 && <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
@@ -114,9 +114,9 @@ export default function Home() {
                                         </Link>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        <section className="popular-categories section-padding" style={{paddingBottom:'50px'}}>
+                        {data?.people_and_services?.length > 0 && <section className="popular-categories section-padding" style={{paddingBottom:'50px'}}>
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
@@ -140,7 +140,7 @@ export default function Home() {
                                         </Link>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
                         {data?.blogs.length > 0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
