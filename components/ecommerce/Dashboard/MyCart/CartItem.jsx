@@ -6,13 +6,14 @@ import { useDispatch } from 'react-redux';
 import { deleteFromCart } from '../../../../util/api';
 import Link from 'next/link';
 
-export default function CartItem({item}) {
+export default function CartItem({item, unAvailableToDeliver}) {
     const dispatch = useDispatch();
     const removeItem = async (item)=>{
         dispatch(removeItemFromCart(item));
     }
+    console.log(item)
     return (
-        <div className="itemContainer-base-itemMargin">
+        <div className={`itemContainer-base-itemMargin ${unAvailableToDeliver.includes(item?.product_id)? 'unavailable':'' }`}>
             <button onClick={()=> removeItem(item)} className="remove_from_cart">
                 <MdClose fontSize={16} />
               </button>
