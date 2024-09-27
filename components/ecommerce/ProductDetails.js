@@ -60,6 +60,7 @@ const ProductDetails = ({
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [deliveryDate, setDeliveryDate] = useState();
     const [returnByDate, setReturnByDate] = useState();
+    const [dateRejected, setDateRejected] = useState();
     const [quantity, setQuantity] = useState(1);
     const { _v2, _v1 } = router.query;
     const [size, setSize] = useState(_v1);
@@ -127,8 +128,17 @@ const ProductDetails = ({
 
                 // Scroll the date element into view and focus on it
                 if (dateRef.current) {
-                    dateRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    dateRef.current.focus();
+                    const rect = dateRef.current.getBoundingClientRect();
+                    const isInView = (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    );
+                    if(!isInView){
+                        dateRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        dateRef.current.focus();
+                    }
                 }
             }
         }
@@ -177,10 +187,10 @@ const ProductDetails = ({
                     }));
                     setDeliveryDate(date);
                     setReturnByDate(returnDate);
-
                 } else {
                     setDeliveryDate();
                     setReturnByDate();
+                    setDateRejected(date)
                     setRentalAvailable((prevState) => ({
                         ...prevState,
                         isLoading: false,
@@ -373,7 +383,7 @@ const ProductDetails = ({
                                                     {productDetails?.product_type == "2" ? "Event Date" : "Delivery Date"}
                                                 </strong>
                                                 <ReactDatePicker
-                                                    selected={deliveryDate}
+                                                    selected={deliveryDate || dateRejected}
                                                     dateFormat="dd/MM/yyyy"
                                                     onChange={(date) => handleDeliveryDateChange(date)}
                                                     customInput={<ExampleCustomInput />}
