@@ -12150,14 +12150,20 @@ input[type="checkbox"]:hover{
 /* Cart item */
 .itemContainer-base-itemMargin {
   margin-bottom: 8px;
-}.itemContainer-base-item {
+}
+
+.itemContainer-base-item {
   background: #fff;
   font-size: 14px;
   border: 1px solid #eaeaec;
   border-radius: 4px;
   position: relative;
   padding: 12px 12px 0;
-}.itemContainer-base-itemLeft {
+}
+.unavailable .itemContainer-base-item{
+  border-color: #dc3545;
+}
+.itemContainer-base-itemLeft {
   position: absolute;
   cursor: pointer;
 }.itemContainer-base-itemRight {

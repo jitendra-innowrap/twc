@@ -41,6 +41,7 @@ const Cart = () => {
     const companyName = useSelector((state) => state.cart.companyName);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
+    const [unAvailableToDeliver, setUnAvailableToDeliver] = useState(null);
 
 
     const handleSelectAddress = (id) => {
@@ -222,7 +223,8 @@ const Cart = () => {
             }else{
                 console.error(response?.msg)
                 setIsLoading(false);
-                toast.error("Products not available for selected date.", {
+                setUnAvailableToDeliver(response?.unavailable_products)
+                toast.error(response?.msg, {
                     position: "bottom-center",
                     autoClose: 1500,
                     hideProgressBar: false,
@@ -539,7 +541,7 @@ const Cart = () => {
                                                 <div id="cartItemsList">
                                                     {
                                                         cartItems.map((item) => {
-                                                            return <CartItem item={item} key={item?.product_id} />
+                                                            return <CartItem unAvailableToDeliver={unAvailableToDeliver} item={item} key={item?.product_id} />
                                                         })
                                                     }
                                                 </div>
