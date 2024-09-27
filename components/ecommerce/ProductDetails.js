@@ -109,6 +109,10 @@ const ProductDetails = ({
       setDefaultVariants();
     }, [productDetails])
     
+    useEffect(() => {
+        setDeliveryDate();
+    }, [_v1, _v2])
+    
     const setDefaultVariants = () =>{
         if (product?.result?.[0]?.option_name_1){
             setSize(_v1 || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
