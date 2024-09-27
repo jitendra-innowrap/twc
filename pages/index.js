@@ -31,7 +31,6 @@ export default function Home() {
             const res = await getHomeDetails();
             if (res?.code === 1) {
                 setData(res?.home_data_list);
-                console.log(res?.home_data_list);
             } else {
                 console.error('Error !', res?.msg)
             }

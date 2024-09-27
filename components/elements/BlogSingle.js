@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link"
 
 const BlogSingle = ({blogDetail}) => {
-    console.log(blogDetail)
     return (
         <>
             <div className="single-page pl-30">
