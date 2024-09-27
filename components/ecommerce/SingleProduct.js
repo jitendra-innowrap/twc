@@ -7,7 +7,7 @@ import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSli
 import { formatPriceInIndianStyle } from "../../util/util";
 
 
-const SingleProduct = ({product, deleteWishList}) => {
+const SingleProduct = ({product, deleteWishList, variants}) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
@@ -31,8 +31,13 @@ const SingleProduct = ({product, deleteWishList}) => {
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link
-                            href="/products/detail/[slug]"
-                            as={`/products/detail/${product?.handle}`}
+                            href={{
+                                pathname: `/products/detail/${product?.handle}`,
+                                query: {
+                                ...(product?.option_value_1 ? { _v1: product?.option_value_1 } : {}),
+                                ...(product?.option_value_2 ? { _v2: product?.option_value_2 } : {})
+                                }
+                            }}
                         >
                             <a>
                                 <img
