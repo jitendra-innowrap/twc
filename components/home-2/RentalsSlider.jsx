@@ -78,17 +78,17 @@ const RentalsSlider = ({data}) => {
                 className="custom-class rental-collection-swiper-slider"
             >
             {data?.map((item, i) => (
-                 <SwiperSlide key={item.collection_mapping_id} className="mb-35">
-                            <Link draggable='false' href={`/collection/${item.collection_handle}`}>
+                 <SwiperSlide key={item?.collection_mapping_id} className="mb-35">
+                            <Link draggable='false' href={`/collection/${item?.collection_handle}`}>
                      <div className="card-1 cursor_pointer">
                          <figure className=" img-hover-scale overflow-hidden">
                                  <a draggable='false' className="w-100">
                                      <img
                                         className="w-100"
                                         draggable='false'
-                                         src={item.collection_image}
+                                         src={item?.collection_image}
                                         //  src={constants[i]}
-                                         alt={item.title}
+                                         alt={item?.title}
                                      />
                                  </a>
                          </figure>
