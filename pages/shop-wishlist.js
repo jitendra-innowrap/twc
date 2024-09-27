@@ -18,6 +18,7 @@ const Wishlist = () => {
         if(!isLoggedIn){
             router.push('/page-login-register')
         }
+        console.log(wishlistItems)
     }, [])
     
     return (
@@ -47,7 +48,7 @@ const Wishlist = () => {
                                             return <div className="col-lg-3 col-md-4 col-6 col-sm-6 product_card"
                                             key={item.id}
                                             >
-                                            <SingleProduct product={item} deleteWishList={true} />
+                                            <SingleProduct variants  product={item} deleteWishList={true} />
                                         </div>
                                     })}
                                 </div>
