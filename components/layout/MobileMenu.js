@@ -241,12 +241,12 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                         className="d-inline-block"
                                     >
                                         <ul>
-                                            <li className="">
+                                            {headerData?.announcement_notes?.[0]?.title && <li className="">
                                                 {headerData?.announcement_notes?.[0]?.title} &nbsp;
-                                                <Link href={headerData?.announcement_notes?.[0]?.redirect_url || ""}>
+                                                {headerData?.announcement_notes?.[0]?.redirect_url && <Link href={headerData?.announcement_notes?.[0]?.redirect_url}>
                                                     <a className="d-block"> View details</a>
-                                                </Link>
-                                            </li>
+                                                </Link>}
+                                            </li>}
                                         </ul>
                                     </div>
                                 </div>

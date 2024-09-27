@@ -95,23 +95,23 @@ const Header = ({
                                     </ul>
                                 </div>
                             </div>
-                            {title &&<div className="col-xl-6 col-lg-4">
+                            <div className="col-xl-6 col-lg-4">
                                 <div className="text-center">
                                     <div
                                         id="news-flash"
                                         className="d-inline-block"
                                     >
                                         <ul>
-                                            <li>
+                                            {title &&<li>
                                                 {title} &nbsp;
-                                                <Link href={url}>
+                                                {url && <Link href={url}>
                                                     <a className="text-primary-light-1"> View details</a>
-                                                </Link>
-                                            </li>
+                                                </Link>}
+                                            </li>}
                                         </ul>
                                     </div>
                                 </div>
-                            </div>}
+                            </div>
                             <div className="col-xl-3 col-lg-4">
                                 <div className="header-info header-info-right">
                                     <ul>
