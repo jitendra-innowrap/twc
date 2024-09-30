@@ -60,10 +60,11 @@ const ProductDetails = ({
     const [calendarEndDate, setCalendarEndDate] = useState(new Date(today.getTime() + (120 * 24 * 60 * 60 * 1000)))
     const [deliveryDate, setDeliveryDate] = useState();
     const [returnByDate, setReturnByDate] = useState();
+    const [dateRejected, setDateRejected] = useState();
     const [quantity, setQuantity] = useState(1);
-    const { _color, _size } = router.query;
-    const [color, setColor] = useState(_color);
-    const [size, setSize] = useState(_size);
+    const { _v2, _v1 } = router.query;
+    const [size, setSize] = useState(_v1);
+    const [color, setColor] = useState(_v2);
     // const [FixedButtons, setFixedButtons] = useState(true);
     const relatedProductsRef = useRef();
 
@@ -121,7 +122,7 @@ const ProductDetails = ({
 
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 0); // Scroll to top on every route change
         setDeliveryDate()
         setHeighLightDate(false)
         setIsInWishlist(product?.result?.[0]?.is_user_wishlist == '1' ? true : false);
@@ -134,12 +135,16 @@ const ProductDetails = ({
       setDefaultVariants();
     }, [productDetails])
     
+    useEffect(() => {
+        setDeliveryDate();
+    }, [_v1, _v2])
+    
     const setDefaultVariants = () =>{
-        if (product?.result?.[0]?.product_type=="1" && product?.result?.[0]?.option_name_1 == "Size"){
-            setSize(_size || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
+        if (product?.result?.[0]?.option_name_1){
+            setSize(_v1 || product?.result?.[0]?.product_variants_1?.[0]?.option_value_1)
         }
-        if (product?.result?.[0]?.product_type=="1" && product?.result?.[0]?.option_name_2 == "Color"){
-            setColor(_color || product?.result?.[0]?.product_variants_2?.[0]?.option_value_2)
+        if (product?.result?.[0]?.option_name_2){
+            setColor(_v2 || product?.result?.[0]?.product_variants_2?.[0]?.option_value_2)
         }
     }
     const handleCart = async (product) => {
@@ -153,8 +158,17 @@ const ProductDetails = ({
 
                 // Scroll the date element into view and focus on it
                 if (dateRef.current) {
-                    dateRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    dateRef.current.focus();
+                    const rect = dateRef.current.getBoundingClientRect();
+                    const isInView = (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    );
+                    if(!isInView){
+                        dateRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        dateRef.current.focus();
+                    }
                 }
             }
         }
@@ -203,10 +217,10 @@ const ProductDetails = ({
                     }));
                     setDeliveryDate(date);
                     setReturnByDate(returnDate);
-
                 } else {
                     setDeliveryDate();
                     setReturnByDate();
+                    setDateRejected(date)
                     setRentalAvailable((prevState) => ({
                         ...prevState,
                         isLoading: false,
@@ -301,9 +315,7 @@ const ProductDetails = ({
                                             <div className="sub-category">
                                                 <span>{productDetails?.name}</span>
                                             </div>
-                                            {/* <h2 className="title-detail">
-                                            
-                                            </h2> */}
+                                            {/* <h2 className="title-detail"></h2> */}
                                             <div className="c   learfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     {productDetails?.selling_price &&
@@ -350,31 +362,9 @@ const ProductDetails = ({
                                                 </div>
                                             </div>}
 
-                                            {productDetails?.product_type=="1" && productDetails?.option_name_2=="Color" && <div className="attr-detail attr-size mt-15 mb-15">
+                                            {productDetails?.option_name_1 && <div className="attr-detail attr-size mt-15 mb-15">
                                                 <strong className="mr-10">
-                                                    Color
-                                                </strong>
-                                                <ul className="list-filter">
-                                                    {productDetails?.product_variants_2?.map(
-                                                        (clr, i) => (
-                                                            <li key={i} className={clr?.option_value_2 === color ? 'active' : ''}>
-                                                                <a href="#" onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    setColor(clr?.option_value_2);
-                                                                    router.replace({
-                                                                        query: { ...router.query, _color:clr?.option_value_2 },
-                                                                        });
-                                                                }}>
-                                                                    {clr?.option_value_2}
-                                                                </a>
-                                                            </li>
-                                                        )
-                                                    )}
-                                                </ul>
-                                            </div>}
-                                            {productDetails?.product_type=="1" && productDetails?.option_name_1 == "Size" && <div className="attr-detail attr-size mt-15 mb-15">
-                                                <strong className="mr-10">
-                                                    Size
+                                                    {productDetails?.option_name_1}
                                                 </strong>
                                                 <ul className="list-filter">
                                                     {productDetails?.product_variants_1?.map(
@@ -384,7 +374,7 @@ const ProductDetails = ({
                                                                     e.preventDefault();
                                                                     setSize(s?.option_value_1);
                                                                     router.replace({
-                                                                        query: { ...router.query, _size:s?.option_value_1 },
+                                                                        query: { ...router.query, _v1:s?.option_value_1 },
                                                                         });
                                                                 }}>
                                                                     {s?.option_value_1}
@@ -394,12 +384,36 @@ const ProductDetails = ({
                                                     )}
                                                 </ul>
                                             </div>}
+
+                                            {productDetails?.option_name_2 && <div className="attr-detail attr-size mt-15 mb-15">
+                                                <strong className="mr-10">
+                                                    {productDetails?.option_name_2}
+                                                </strong>
+                                                <ul className="list-filter">
+                                                    {productDetails?.product_variants_2?.map(
+                                                        (clr, i) => (
+                                                            <li key={i} className={clr?.option_value_2 === color ? 'active' : ''}>
+                                                                <a href="#" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setColor(clr?.option_value_2);
+                                                                    router.replace({
+                                                                        query: { ...router.query, _v2:clr?.option_value_2 },
+                                                                        });
+                                                                }}>
+                                                                    {clr?.option_value_2}
+                                                                </a>
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            </div>}
+
                                             <div className="attr-detail attr-date" ref={dateRef}>
                                                 <strong className="">
                                                     {productDetails?.product_type == "2" ? "Event Date" : "Delivery Date"}
                                                 </strong>
                                                 <ReactDatePicker
-                                                    selected={deliveryDate}
+                                                    selected={deliveryDate || dateRejected}
                                                     dateFormat="dd/MM/yyyy"
                                                     onChange={(date) => handleDeliveryDateChange(date)}
                                                     customInput={<ExampleCustomInput />}

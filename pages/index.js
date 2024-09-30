@@ -30,7 +30,7 @@ export default function Home() {
         try {
             const res = await getHomeDetails();
             if (res?.code === 1) {
-                setData(res.home_data_list);
+                setData(res?.home_data_list);
             } else {
                 console.error('Error !', res?.msg)
             }
@@ -53,58 +53,58 @@ export default function Home() {
                             <img src="/assets/imgs/banner/home-banner.png" alt="" style={{ width: '100%', height: 'auto', cursor: 'pointer' }} />
                         </section> */}
 
-                        <section className="popular-categories section-padding">
+                        {data?.top_category?.data?.length > 0 && <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
                                         <h2>Discover</h2>
                                     </div>
-                                    <h3 className="subheading">Top Categories</h3>
+                                    <h3 className="subheading">{data?.top_category?.group_name}</h3>
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
                                         className=""
                                         id="carausel-6-columns"
                                     >
-                                        <CategorySlider data={data?.top_category} />
+                                        <CategorySlider data={data?.top_category?.data} />
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        <section className="popular-categories section-padding">
+                        {data?.quality_rentals?.data?.length > 0 && <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
                                         <h2>Explore</h2>
                                     </div>
-                                    <h3 className="subheading">Quality Rentals</h3>
+                                    <h3 className="subheading">{data?.quality_rentals?.group_name}</h3>
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
                                         className="position-relative"
                                         id="carausel-6-columns"
                                     >
-                                        <RentalsSlider data={data?.quality_rentals} />
+                                        <RentalsSlider data={data?.quality_rentals?.data} />
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        <section className="popular-categories section-padding">
+                        {data?.packages?.data?.length > 0 && <section className="popular-categories section-padding">
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
                                         <h2>Most Trending</h2>
                                     </div>
-                                    <h3 className="subheading">Packages</h3>
+                                    <h3 className="subheading">{data?.packages?.group_name}</h3>
                                 </div>
                                 <div className="carausel-6-columns-cover">
                                     <div
                                         className="position-relative"
                                         id="carausel-6-columns"
                                     >
-                                        <PackagesSlider data={data?.packages} />
+                                        <PackagesSlider data={data?.packages?.data} />
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
@@ -114,15 +114,15 @@ export default function Home() {
                                         </Link>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        <section className="popular-categories section-padding" style={{paddingBottom:'50px'}}>
+                        {data?.people_and_services?.data?.length > 0 && <section className="popular-categories section-padding" style={{paddingBottom:'50px'}}>
                             <div className="container wow fadeIn animated position-relative">
                             <div className="section-head d-flex flex-column align-items-center w-100">
                                     <div className="heading">
                                         <h2>Entertainment</h2>
                                     </div>
-                                    <h3 className="subheading">Peoples & Services</h3>
+                                    <h3 className="subheading">{data?.people_and_services?.group_name}</h3>
                                     {/* <img src="/assets/imgs/home-page/services-head.png" className="heading_image"/> */}
                                 </div>
                                 <div className="carausel-6-columns-cover">
@@ -130,7 +130,7 @@ export default function Home() {
                                         className="position-relative slider-arrow-out"
                                         id="carausel-6-columns"
                                     >
-                                        <ServicesSlider data={data?.people_and_services} />
+                                        <ServicesSlider data={data?.people_and_services?.data} />
                                     </div>
                                 </div>
                                 <div className="w-100 d-flex justify-content-center mb-30">
@@ -140,9 +140,9 @@ export default function Home() {
                                         </Link>
                                 </div>
                             </div>
-                        </section>
+                        </section>}
 
-                        {data?.blogs.length > 0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
+                        {data?.blogs?.length > 0 && <section className="section-padding popular-categories usp-section blog-section pt-0">
                             <div className="container">
                                 <div className="head d-flex justify-content-between align-items-start mb-50">
                                 <div className="section-head d-flex flex-column align-items-center w-100">
@@ -187,7 +187,7 @@ export default function Home() {
                                     }
                                 </div>
                                 
-                                {data?.blogs?.length>3 && <div className="w-100 d-flex justify-content-center mb-30">
+                                {data?.blogs?.data?.length>3 && <div className="w-100 d-flex justify-content-center mb-30">
                                     <Link href="/blogs">
                                     <button className="btn consult-btn">View All <BsArrowRight/></button>
                                     </Link>

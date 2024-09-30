@@ -7,14 +7,14 @@ import ProductDetails from "../../../components/ecommerce/ProductDetails";
 
 const ProductId = ({ product }) => {
     const router = useRouter();
-    const { _color, _size, slug } = router.query;
+    const { _v2, _v1, slug } = router.query;
     const [details, setDetails] = useState({});
     useEffect(() => {
         fetchDetails();
-    }, [slug, _color, _size])
+    }, [slug, _v2, _v1])
     
     const fetchDetails = async ()=>{
-        const response = await getProductDetails({handle:slug, option_value_1:_size, option_value_2:_color});
+        const response = await getProductDetails({handle:slug, option_value_1:_v1, option_value_2:_v2});
         console.clear()
         if(response.code==0){
           router.push('/404')

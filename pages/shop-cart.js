@@ -9,7 +9,7 @@ import ApplyCoupons from "../components/ecommerce/Dashboard/MyCart/ApplyCoupon";
 import Popup from "reactjs-popup";
 import ChangeAddress from "../components/ecommerce/Dashboard/MyCart/ChangeAddress";
 import { useEffect } from "react";
-import { createPaymentLink, getAddressList, getCartList, placeOrder, setGst, checkPaymentStatus } from "../util/api";
+import { createPaymentLink, getAddressList, getCartList, placeOrder, setGst, checkPaymentStatus, checkRentalAvailability } from "../util/api";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart, setBillingAddress, setShippingAddress, updateGst, updateOrderStatus } from "../redux/Slices/cartSlice";
 import storage from "../util/localStorage";
@@ -41,6 +41,7 @@ const Cart = () => {
     const companyName = useSelector((state) => state.cart.companyName);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
+    const [unAvailableToDeliver, setUnAvailableToDeliver] = useState(null);
 
 
     const handleSelectAddress = (id) => {
@@ -191,30 +192,67 @@ const Cart = () => {
             return;
         }
         setIsLoading(true);
-        const paymentWindow = window.open('', '_blank', 'width=800,height=600');
-        const transactionId = generateRandomTransactionId();
-        const transactionType = 1;
-        let body = {
-            address_id: shippingAddress?.id,
-            billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
-            payment_type: 1,
-            transaction_id: transactionId,
-            transaction_type: transactionType,
-        };
         try {
-            const res = await createPaymentLink(body);
-            if (res.code === 1) {
-                // Open the payment link in a new popup window
-                paymentWindow.location.href = res.payment_link;
-                // Start polling for payment status
-                startPollingPaymentStatus(res.orderId, paymentWindow);
-            } else {
-                router.push('/checkout-fail');
+            const response = await checkRentalAvailability({flag:true})
+            // const isAvailable = response.data.isAvailable;
+            if (response?.code == 1){
+                const paymentWindow = window.open('', '_blank', 'width=800,height=600');
+                const transactionId = generateRandomTransactionId();
+                const transactionType = 1;
+                let body = {
+                    address_id: shippingAddress?.id,
+                    billing_address_id: billingAsDelivery ? shippingAddress?.id : billingAddress?.id,
+                    payment_type: 1,
+                    transaction_id: transactionId,
+                    transaction_type: transactionType,
+                };
+                try {
+                    const res = await createPaymentLink(body);
+                    if (res.code === 1) {
+                        // Open the payment link in a new popup window
+                        paymentWindow.location.href = res.payment_link;
+                        // Start polling for payment status
+                        startPollingPaymentStatus(res.orderId, paymentWindow);
+                    } else {
+                        router.push('/checkout-fail');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    setIsLoading(false);
+                }
+            }else{
+                console.error(response?.msg)
+                setIsLoading(false);
+                setUnAvailableToDeliver(response?.unavailable_products)
+                toast.error(response?.msg, {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error checking rental availability:', error);
             setIsLoading(false);
+            toast.error("An error occurred while checking rental availability.", {
+                position: "bottom-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
+
+
     };
 
     // Separate function to handle polling payment status
@@ -503,7 +541,7 @@ const Cart = () => {
                                                 <div id="cartItemsList">
                                                     {
                                                         cartItems.map((item) => {
-                                                            return <CartItem item={item} key={item?.product_id} />
+                                                            return <CartItem unAvailableToDeliver={unAvailableToDeliver} item={item} key={item?.product_id} />
                                                         })
                                                     }
                                                 </div>
