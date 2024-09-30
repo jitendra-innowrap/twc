@@ -1,10 +1,10 @@
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Bounce, toast } from "react-toastify";
 import Loader from './../elements/Loader';
 import { addItemToWishlist, fetchWishlist } from "../../redux/Slices/wishlistSlice";
 import { formatPriceInIndianStyle } from "../../util/util";
+import CustomLink from "../LinkForIOS/Link";
 
 
 const SingleProduct = ({product, deleteWishList, variants}) => {
@@ -30,14 +30,8 @@ const SingleProduct = ({product, deleteWishList, variants}) => {
             <div className="product-cart-wrap mb-30">
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
-                        <Link
-                            href={{
-                                pathname: `/products/detail/${product?.handle}`,
-                                query: {
-                                ...(product?.option_value_1 ? { _v1: product?.option_value_1 } : {}),
-                                ...(product?.option_value_2 ? { _v2: product?.option_value_2 } : {})
-                                }
-                            }}
+                        <CustomLink
+                            href={`/products/detail/${product?.handle}`}
                         >
                             <a>
                                 <img
@@ -51,7 +45,7 @@ const SingleProduct = ({product, deleteWishList, variants}) => {
                                     alt={product?.name}
                                 />
                             </a>
-                        </Link>
+                        </CustomLink>
                     </div>
 
                     <div className="product-badges product-badges-position product-badges-mrg">
@@ -68,20 +62,12 @@ const SingleProduct = ({product, deleteWishList, variants}) => {
                     </div>
                 }
                 <div className="product-content-wrap">
-                    {/* <div className="product-category">
-                    <Link href={`/products/${product?.category_handle}/${product?.sub_category_handle}`}>
-                        <a>
-                            {product?.sub_category_name}
-                        </a>
-                    </Link>
-                    </div> */}
                     <h2>
-                    <Link
-                            href="/products/detail/[slug]"
-                            as={`/products/detail/${product?.handle}`}
+                    <CustomLink
+                            href={`/products/detail/${product?.handle}`}
                         >
                             <a>{product.name}</a>
-                            </Link>
+                            </CustomLink>
                     </h2>
                     <div className="product-price">
                         <span>₹{formatPriceInIndianStyle(product.selling_price)} </span>
