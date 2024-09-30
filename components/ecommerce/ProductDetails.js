@@ -67,7 +67,7 @@ const ProductDetails = ({
     const [color, setColor] = useState(_v2);
     // const [FixedButtons, setFixedButtons] = useState(true);
     const relatedProductsRef = useRef();
-
+    const [ShowFixedButtons, setShowFixedButtons] = useState(false)
     const FixedButtons = useRef();
     const dateRef = useRef();
 
@@ -123,13 +123,19 @@ const ProductDetails = ({
 
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to top on every route change
+       
         setDeliveryDate()
         setHeighLightDate(false)
         setIsInWishlist(product?.result?.[0]?.is_user_wishlist == '1' ? true : false);
         setRentalAvailable({
             isLoading: false, isAvailable: true, isError: ""
         })
-    }, [slug, router.events, router.query])
+        const timer = setTimeout(() => {
+            setShowFixedButtons(true);
+          }, 5000); // Adjust the delay time as needed for iOS
+    
+          return () => clearTimeout(timer);
+    }, [slug])
 
     useEffect(() => {
       setDefaultVariants();
@@ -504,7 +510,7 @@ const ProductDetails = ({
                                 </div>
                                 <>
                                     <ProductTab productDetails={productDetails} />
-                                    <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
+                                    {ShowFixedButtons && <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
                                         <div className="product-extra-link2">
                                             <button
                                                 onClick={(e) =>
@@ -552,7 +558,7 @@ const ProductDetails = ({
                                                 />
                                             </a>
                                         </div>
-                                    </div>
+                                    </div>}
                                     {relatedProducts?.length > 0 && <div className="row mt-30 mt-md-5" ref={relatedProductsRef}>
                                         <div className="col-12">
                                             <h3 className="section-title style-1 mb-30">
