@@ -60,6 +60,7 @@ const Products = () => {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchProductList();
         setCurrentPage(page||1);
         if(availabilityDate){

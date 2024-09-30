@@ -151,7 +151,9 @@ nav,
 section {
   display: block;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   line-height: 1;
 }
@@ -11715,7 +11717,7 @@ list-style-type: decimal;
 .otpContainer {
   margin-top: 40px;
   display: flex;
-  align-items: flex-end;
+align-items: flex-end;
   justify-content: space-between;
 }
 .otpContainer input {
@@ -14707,3 +14709,12 @@ header .header-bottom{
   }
 }
 
+
+
+
+
+
+
+.detail-extralink.mobile-buttons-style.fixed-buttons{
+  position: initial;
+}
