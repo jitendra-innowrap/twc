@@ -98,12 +98,18 @@ const ProductDetails = ({
 
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to top on every route change
+       
         setDeliveryDate()
         setHeighLightDate(false)
         setIsInWishlist(product?.result?.[0]?.is_user_wishlist == '1' ? true : false);
         setRentalAvailable({
             isLoading: false, isAvailable: true, isError: ""
         })
+        // const timer = setTimeout(() => {
+        //     setShowFixedButtons(true);
+        //   }, 5000); // Adjust the delay time as needed for iOS
+    
+        //   return () => clearTimeout(timer);
     }, [slug])
 
     useEffect(() => {
