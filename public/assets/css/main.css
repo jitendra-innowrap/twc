@@ -14708,10 +14708,3 @@ header .header-bottom{
     transform: translate(16px, 0);
   }
 }
-
-
-.detail-extralink.mobile-buttons-style.fixed-buttons{
-  position: initial;
-  width: 100%;
-  padding-inline: 0;
-}

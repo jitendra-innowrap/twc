@@ -71,30 +71,30 @@ const ProductDetails = ({
     const FixedButtons = useRef();
     const dateRef = useRef();
 
-    useEffect(() => {
-        const handleRouteChange = (url) => {
-            window.scrollTo(0, 0);
-            // Save scroll position before navigating away
-            sessionStorage.setItem('scrollPosition', window.scrollY);
-        };
+    // useEffect(() => {
+    //     const handleRouteChange = (url) => {
+    //         window.scrollTo(0, 0);
+    //         // Save scroll position before navigating away
+    //         sessionStorage.setItem('scrollPosition', window.scrollY);
+    //     };
 
-        const handleRouteComplete = () => {
-            window.scrollTo(0, 0);
-            // Restore scroll position after navigation
-            const scrollPosition = sessionStorage.getItem('scrollPosition');
-            if (scrollPosition) {
-                sessionStorage.removeItem('scrollPosition');
-            }
-        };
+    //     const handleRouteComplete = () => {
+    //         window.scrollTo(0, 0);
+    //         // Restore scroll position after navigation
+    //         const scrollPosition = sessionStorage.getItem('scrollPosition');
+    //         if (scrollPosition) {
+    //             sessionStorage.removeItem('scrollPosition');
+    //         }
+    //     };
 
-        router.events.on('routeChangeStart', handleRouteChange);
-        router.events.on('routeChangeComplete', handleRouteComplete);
+    //     router.events.on('routeChangeStart', handleRouteChange);
+    //     router.events.on('routeChangeComplete', handleRouteComplete);
         
-        return () => {
-            router.events.off('routeChangeStart', handleRouteChange);
-            router.events.off('routeChangeComplete', handleRouteComplete);
-        };
-    }, [router.events]);
+    //     return () => {
+    //         router.events.off('routeChangeStart', handleRouteChange);
+    //         router.events.off('routeChangeComplete', handleRouteComplete);
+    //     };
+    // }, [router.events]);
     
     useEffect(() => {
         const handleScroll = () => {
@@ -130,11 +130,6 @@ const ProductDetails = ({
         setRentalAvailable({
             isLoading: false, isAvailable: true, isError: ""
         })
-        const timer = setTimeout(() => {
-            setShowFixedButtons(true);
-          }, 5000); // Adjust the delay time as needed for iOS
-    
-          return () => clearTimeout(timer);
     }, [slug])
 
     useEffect(() => {
@@ -510,7 +505,7 @@ const ProductDetails = ({
                                 </div>
                                 <>
                                     <ProductTab productDetails={productDetails} />
-                                    {ShowFixedButtons && <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
+                                    <div className={`detail-extralink mobile-buttons-style fixed-buttons`} ref={FixedButtons}>
                                         <div className="product-extra-link2">
                                             <button
                                                 onClick={(e) =>
@@ -558,7 +553,7 @@ const ProductDetails = ({
                                                 />
                                             </a>
                                         </div>
-                                    </div>}
+                                    </div>
                                     {relatedProducts?.length > 0 && <div className="row mt-30 mt-md-5" ref={relatedProductsRef}>
                                         <div className="col-12">
                                             <h3 className="section-title style-1 mb-30">

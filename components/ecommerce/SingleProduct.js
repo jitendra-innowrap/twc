@@ -43,7 +43,7 @@ const SingleProduct = ({product, deleteWishList, variants}) => {
                                     className="default-img"
                                     src={product?.product_images?.[0]?.file}
                                     alt={product?.name}
-                                />
+                                />  
                                 <img
                                     className="hover-img"
                                     src={product?.product_images?.[1]?.file?product?.product_images?.[1]?.file:product?.product_images?.[0]?.file}
