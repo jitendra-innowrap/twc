@@ -6,13 +6,13 @@ import { useDispatch } from 'react-redux';
 import { deleteFromCart } from '../../../../util/api';
 import Link from 'next/link';
 
-export default function CartItem({item}) {
+export default function CartItem({item, unAvailableToDeliver}) {
     const dispatch = useDispatch();
     const removeItem = async (item)=>{
         dispatch(removeItemFromCart(item));
     }
     return (
-        <div className="itemContainer-base-itemMargin">
+        <div className={`itemContainer-base-itemMargin ${unAvailableToDeliver?.includes(item?.product_id)? 'unavailable':'' }`}>
             <button onClick={()=> removeItem(item)} className="remove_from_cart">
                 <MdClose fontSize={16} />
               </button>
@@ -31,11 +31,20 @@ export default function CartItem({item}) {
                         <div className="itemContainer-base-details">
                             <div className='' style={{maxWidth:'calc( 100% - 18px)'}}>
                                 <div className="itemContainer-base-brand">{item?.category_name}</div>
-                                <Link className="itemContainer-base-itemLink" href={`/products/detail/${item?.handle}`}>
+                                <Link 
+                                    className="itemContainer-base-itemLink" 
+                                    href={{
+                                        pathname: `/products/detail/${item?.handle}`,
+                                        query: {
+                                        ...(item?.option_value_1 ? { _v1: item?.option_value_1 } : {}),
+                                        ...(item?.option_value_2 ? { _v2: item?.option_value_2 } : {})
+                                        }
+                                    }}
+                                >
                                     <a>
                                     {`${item?.name}`}
-                                    {(item?.option_value_1 && item?.product_type =='1')? ` - ${item?.option_value_1}`: ''}
-                                    {(item?.option_value_2 && item?.product_type =='1')? ` , ${item?.option_value_2}`: ''}
+                                    {item?.option_value_1? ` - ${item?.option_value_1}`: ''}
+                                    {item?.option_value_2? ` , ${item?.option_value_2}`: ''}
                                     </a>
                                 </Link>
                             </div>

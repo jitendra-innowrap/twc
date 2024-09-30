@@ -11568,8 +11568,8 @@ list-style-type: decimal;
 .product-cart-wrap .delete-icon{
   box-shadow: 2px 3px 5px -1px rgba(0, 0, 0, .5);
   position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 10px;
+    right: 10px;
     background: #fff;
     border-radius: 4px;
     padding: 4px 2px;
@@ -12150,14 +12150,20 @@ input[type="checkbox"]:hover{
 /* Cart item */
 .itemContainer-base-itemMargin {
   margin-bottom: 8px;
-}.itemContainer-base-item {
+}
+
+.itemContainer-base-item {
   background: #fff;
   font-size: 14px;
   border: 1px solid #eaeaec;
   border-radius: 4px;
   position: relative;
   padding: 12px 12px 0;
-}.itemContainer-base-itemLeft {
+}
+.unavailable .itemContainer-base-item{
+  border-color: #dc3545;
+}
+.itemContainer-base-itemLeft {
   position: absolute;
   cursor: pointer;
 }.itemContainer-base-itemRight {
@@ -13174,6 +13180,11 @@ input[type="checkbox"]:hover{
 .detail-extralink .action-btn.add-to-wishlist.mobile{
   display: none;
 }
+@media screen and (max-width: 767px) and (-webkit-touch-callout: none) {
+  .fixed-buttons {
+    -webkit-overflow-scrolling: auto;
+  }
+}
 @media (max-width:575px){
   .client-icons-grid {
     display: grid;
@@ -13221,7 +13232,7 @@ input[type="checkbox"]:hover{
   bottom: 0;
   display: block;
   background: #fff;
-  z-index: 10;
+  z-index: 99;
   left: 0;
   padding-block: 15px;
   margin-top: 20px;

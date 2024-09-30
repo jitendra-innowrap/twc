@@ -17,7 +17,6 @@ function PageBlogSingle() {
     const fetchBlogDetail = async () => {
         try {
             const res = await getBlogDetail(slug);
-            console.log(res)
             if (res?.code === 1) {
                 setBlogDetail(res?.blogs_data);
             } else {
